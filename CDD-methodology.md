@@ -1,193 +1,197 @@
-# CDD：宪章驱动开发
+# CDD: Charter-Driven Development
 
-> Charter-Driven Development · 面向长期 AI 自主开发的工程方法
+**English** | [中文](CDD-methodology.zh-CN.md)
+
+[README](README.md) · [README（中文）](README.zh-CN.md)
+
+> Charter-Driven Development · an engineering method for long-running autonomous AI development
 >
-> 整理日期：2026-10-10。来源：Candela 项目实践与本次方法论讨论。
-> 本文描述方法与设计理由，不替代 `AGENTS.md` 的执行规则，不新增帽子、审批要求或运行时契约。
+> Written 2026-10-10. Source: practice on the Candela project and the discussion that produced this method.
+> This document describes the method and the design reasons. It does not replace the operating rules in `AGENTS.md`, and it does not add hats, approval requirements, or runtime contracts.
 
-**用宪章组织 AI，用证据验收代码。**
+**Organize the AI with a charter. Accept the code with evidence.**
 
-## 1. 定义与定位
+## 1. Definition
 
-CDD（Charter-Driven Development，宪章驱动开发）以版本化的项目宪章为治理入口，将职责边界、架构红线、设计前置条件和验收要求固化为持续有效的规则。AI 在授权范围内完成设计、实现与交付，代码、测试、部署和运行证据用于判断结果；项目经验继续回写规则与检查工具。
+CDD (Charter-Driven Development) uses a versioned project charter as the governance entry. It turns role boundaries, architecture red lines, design preconditions, and acceptance requirements into standing rules. Within the authority it has been given, the AI does design, implementation, and delivery. Code, tests, deploy, and runtime evidence decide whether the result holds. What the project learns is written back into the rules and the checks.
 
-在 Candela 中，`AGENTS.md` 是宪章的载体。方法的成立还依赖产品与架构文档、可执行模型和配置、检查脚本、验收记录及人的裁决。单独放置一个很长的指令文件，不足以构成完整 CDD。
+In Candela, `AGENTS.md` is the charter. The method also depends on product and architecture documents, executable models and config, check scripts, acceptance records, and a person's decision. A long instruction file by itself is not CDD.
 
-**Skill 主要解决指定领域的经验问题，CDD 解决项目治理问题。** Skill 帮助 AI 运用专业知识完成任务；CDD 明确任务的职责、授权、边界、前置条件和完成判据。两者配合，让领域能力在项目制度内发挥作用。
+**A Skill answers "how do we do this kind of work well." CDD answers "how is the project governed."** A Skill helps the AI apply domain knowledge. CDD states the duty, the authority, the boundary, the preconditions, and the definition of done. Used together, domain skill operates inside the project's rules.
 
-Candela 的项目背景是全 AI 编程：人提出目标、作出关键决策并修订治理规则，AI 承担开发工作。这是实践背景，不代表人退出责任链，也不意味着本文已经独立审计全部历史提交。
+Candela's background is fully AI-written development: a person sets the goal, makes the consequential decisions, and revises the governance rules; the AI does the development work. That is the setting. It does not take the person off the hook, and it does not mean this document has independently audited every historical commit.
 
-CDD 与规格驱动开发（SDD）有共同基础，可以结合使用。这里采用 CDD 作为本项目的方法名称，不宣称首创宪章思想、角色分工、棘轮或证据验收，也不宣称名称与缩写具有排他性。
+CDD shares a foundation with spec-driven development (SDD) and can be used with it. CDD is the name this project uses. It does not claim to have invented charters, role splits, ratchets, or evidence-based acceptance, and it does not claim the name or the abbreviation is exclusive.
 
-## 2. 为什么需要项目宪章
+## 2. Why a project charter
 
-AI 能够快速实现局部需求，但长期项目还需要保证每次变化遵守共同边界。跨会话时，需求、已做决定、风险和部署经验容易丢失；为了完成当前任务，AI 也可能扩大范围、复制业务规则或选择整体代价较高的捷径。
+An AI can implement a local request quickly. A long-lived project also has to keep every change inside a shared boundary. Across sessions, requirements, decisions already made, risks, and deploy experience are easy to lose. To finish the task in front of it, an AI may also widen the scope, copy a business rule, or take a shortcut that costs the whole system more.
 
-项目宪章将这些持续约束保存在仓库中，随项目演化并接受审查。它主要贡献于：
+The charter keeps those standing constraints in the repository. They evolve with the project and can be reviewed. What they contribute:
 
-| 贡献 | Candela 中的体现 | 预期作用 |
+| Contribution | How Candela does it | What it is for |
 |---|---|---|
-| 保护长期架构 | 社区版不可侵入，分析域旁路扩展 | 保护升级能力与既有数据链路 |
-| 约束实现范围 | 文档前置、phase、验收与非目标 | 降低猜测需求和范围蔓延 |
-| 明确职责 | 帽子、唯一问题、产出目录绑定 | 减少设计、排期与实现互相越界 |
-| 统一权威 | 文档、代码、配置各有职责 | 减少同一事实存在多个答案 |
-| 控制债务 | 结构棘轮与基线只减不增 | 防止迭代持续恶化架构 |
-| 沉淀交付经验 | 产物内容核验、运行环境同步 | 降低同类发布事故复发概率 |
-| 延续项目知识 | 设计、交接、复盘与导航 | 支持跨会话持续工作 |
+| Protect the long-term architecture | Do not invade the community edition; extend analytics as a sidecar | Keep upgrades and the existing data path intact |
+| Bound the implementation | Docs first, a phase, acceptance, and non-goals | Less invented scope |
+| Make duties explicit | Hats, one question each, output tied to a directory | Design, scheduling, and implementation stop crossing each other |
+| One authority per fact | Docs, code, and config each have a job | Fewer facts with two answers |
+| Control debt | Structure ratchet and baselines only shrink | Iteration does not keep making the architecture worse |
+| Keep delivery lessons | Check release contents, sync the runtime | The same release failure is less likely to repeat |
+| Carry project knowledge | Design, handoff, retrospectives, and the index | Work continues across sessions |
 
-以上是规则机制的定性价值。尚无对照实验或完整统计，不能据此量化节省工时、减少事故数量或证明优于其他方法。
+These are qualitative effects of the rules. There is no controlled comparison and no full statistic, so this document does not claim hours saved, fewer incidents, or superiority over other methods.
 
-## 3. 核心机制
+## 3. Core mechanisms
 
-### 3.1 职责、问题与目录绑定
+### 3.1 Duty, question, and directory
 
-每顶帽子有明确职责、唯一主要问题和产出位置。同一时刻只戴一顶帽子，避免做实现时擅自扩写产品，或做排期时重新设计。职责变更按现有宪章由人批准。
+Each hat has a clear duty, one primary question, and one place for the output. Wear one hat at a time, so implementation does not quietly expand the product, and scheduling does not redesign. Changing a duty follows the charter and needs a person's approval.
 
-这不是要求为每顶帽子创建一个 Agent。单个 Agent 可以顺序切换职责；多 Agent 协作仍需独立授权、写入边界与结果核验。
+This does not mean one Agent per hat. A single Agent can switch duties in order. Several Agents still need separate authority, write boundaries, and a check of the result.
 
-### 3.2 权威分层
+### 3.2 Layers of authority
 
-| 层 | 回答的问题 | 权威边界 |
+| Layer | Question it answers | Boundary of authority |
 |---|---|---|
-| AGENTS.md | Agent 如何工作 | 行为规则与持续约束 |
-| 产品文档 | 做什么、为什么、怎样验收 | 用户目标、体验与范围 |
-| 架构文档 | 如何组织系统与契约 | 架构意图、边界、接口设计理由 |
-| 代码、模型、配置模板 | 实际执行什么 | 可执行行为、类型、持久化模型与运行时字段 |
-| 项目文档与 README | 目前进展如何 | 项目状态、里程碑与风险 |
-| INDEX.md | 去哪里找 | 导航和结构元数据 |
-| 验收与运行记录 | 实际发生了什么 | 可追溯的验证证据 |
+| AGENTS.md | How an Agent works | Behavior rules and standing constraints |
+| Product docs | What, why, and how to accept it | User goals, experience, and scope |
+| Architecture docs | How the system and its contracts are organized | Architecture intent, boundaries, reasons for the interface |
+| Code, models, config templates | What actually runs | Executable behavior, types, the persistence model, runtime fields |
+| Project docs and README | Where things stand | Status, milestones, and risk |
+| INDEX.md | Where to look | Navigation and structure metadata |
+| Acceptance and runtime records | What actually happened | Traceable verification evidence |
 
-规格不另起运行时字段权威，调用方不复制实体 ID 规则。设计契约与实现发生差异时，应明确暴露并裁决；不能静默修改文档使其迎合代码，也不能无视线上状态直接改实现。
+A spec does not become a second authority for runtime fields, and callers do not invent their own entity-id rules. When a design contract and the implementation disagree, expose the difference and decide it. Do not silently edit the doc to match the code, and do not change the implementation while ignoring what is running.
 
-当前制度已有同步要求，但完整的漂移发现、裁决、修复与关闭流程仍是待完善项。
+The current rules already require those layers to stay in sync. A full loop for finding drift, deciding it, fixing it, and closing it is still unfinished.
 
-### 3.3 设计前置与范围控制
+### 3.3 Design first, and scope control
 
-实现前已有落地的产品和架构文档，包含稳定 phase、目标与范围、验收标准及非目标。已有文档是否足够，应按任务判断，不能以临时补写材料冒充前置门禁已通过。
+Before implementation, product and architecture documents already exist in the repo, with a stable phase, a goal and scope, acceptance criteria, and non-goals. Whether the existing documents are enough is a judgment about the task. Writing them on the spot does not count as having passed the gate.
 
-文件存在不等于方案正确。门禁还应检查需求是否清楚、方案是否符合红线、验收是否覆盖真实风险。小修复如何引用既有 phase、何时必须补充设计，需要进一步形成明确的变更分级。
+A file existing does not mean the plan is right. The gate also has to check that the requirement is clear, that the plan respects the red lines, and that acceptance covers the real risk. How a small fix cites an existing phase, and when it must add design, still needs an explicit change-size scale.
 
-### 3.4 红线与例外
+### 3.4 Red lines and exceptions
 
-红线保护数据、兼容性、密钥和配置真相。例外只能走现有紧急覆盖出口，并记录原因、补档期限与复盘位置。AI 不得为了继续执行而自行放宽制度。
+Red lines protect data, compatibility, secrets, and the source of config truth. An exception can only use the existing emergency override, and it records the reason, the deadline for the missing docs, and where the retrospective will live. The AI does not loosen the rules so it can keep going.
 
-项目宪章在项目治理层有效，不能覆盖工具权限、执行环境的更高层约束或人已明确作出的授权裁决。
+The charter governs the project. It does not override tool permissions, higher constraints of the execution environment, or an authority decision a person has already made.
 
-### 3.5 棘轮控制变化趋势
+### 3.5 Ratchets control the direction of change
 
-既有债务可以暂时存在，但增长必须受到限制。检查比较当前值与基线；拆分应迁移真实责任及测试，不能靠改名、移动路径或放宽基线通过检查。
+Existing debt may stay for a while. Growth is limited. The check compares the current value with the baseline. A split moves the real responsibility and its tests. Renaming, moving the path, or widening the baseline does not pass the check.
 
-规模指标是风险信号，不能代替依赖方向、领域边界、生命周期和状态所有权检查。机械拆文件不等于改善架构。
+Size metrics are a risk signal. They do not replace checks of dependency direction, domain boundaries, lifecycle, and who owns state. Mechanically splitting files is not an architecture improvement.
 
-### 3.6 完成以证据为依据
+### 3.6 Done means evidence
 
-验证区分不同层级：本地测试通过、CI 产物就绪、代码部署到目标目录、进程加载新代码、数据链路可用、浏览器体验正确。任何一层不能替代另一层。
+Verification has layers: local tests pass, the CI artifact is the one you intend, the code is deployed into the target directory, the process loaded the new code, the data path works, and the browser experience is right. No layer stands in for another.
 
-例如，版本号变新与服务重启都不能独立证明本次代码生效；需要核对实际产物内容与运行状态。没有账号时，登录页和产物检查只是代理证据，登录后的页面仍应标为待自查。
+A newer version number and a service restart do not, by themselves, prove this code is in effect. Check the artifact contents and the running state. Without an account, the login page and the artifact check are proxy evidence. Pages after login stay marked as still to be checked by a person.
 
-### 3.7 经验回写
+### 3.7 Write the lesson back
 
-运行问题形成闭环：问题 → 根因 → 规则或检查工具变更 → 后续执行约束 → 验证与复查。复盘记录保留背景，宪章保留必须遵守的原则与判据，具体操作由流程文档或脚本承载。
+An operational problem closes a loop: problem → cause → a change to a rule or a check → the next run is constrained → verify and recheck. The retrospective keeps the background. The charter keeps the principle and the criterion that must be followed. The concrete steps live in a procedure doc or a script.
 
-## 4. 工作闭环
+## 4. The working loop
 
-1. 人提出目标，并明确已有授权与限制。
-2. Agent 确认职责，读取相关规则和项目事实。
-3. 明确范围、非目标、风险和验收；检查产品与架构前置条件。
-4. AI 在授权范围内实现，复用权威模型和契约。
-5. 运行适当检查，核对输出，记录失败与未验证项。
-6. 涉及发布时核对产物、部署内容和真实运行效果。
-7. 人审查需要裁决的决定；完成结论给出证据与剩余项。
-8. 将重要决策、事故和可复用经验回写到正确位置。
+1. A person states the goal, and the authority and limits already granted.
+2. The Agent confirms its duty and reads the relevant rules and project facts.
+3. State scope, non-goals, risk, and acceptance. Check the product and architecture preconditions.
+4. The AI implements inside that authority, reusing the authoritative models and contracts.
+5. Run the checks that fit, compare the output, and record failures and what was not verified.
+6. When shipping, check the artifact, what was deployed, and the real running effect.
+7. A person reviews decisions that need a call. The completion note gives evidence and what remains.
+8. Write important decisions, incidents, and reusable lessons back to the right place.
 
-CDD 本身不要求每一步都暂停等待批准。暂停点与自主执行范围由项目规则和用户授权决定。长任务仍应保存当前状态、已做决定、下一步与偏差，减少新会话重新推断。
+CDD itself does not require a pause for approval at every step. Where to pause, and how far autonomous execution goes, is set by the project rules and the user's grant. A long task should still save the current state, decisions already made, the next step, and any drift, so a new session does not have to infer them again.
 
-## 5. CDD 与 Skill：治理与领域经验
+## 5. CDD and Skills: governance and domain experience
 
-### 5.1 两者回答不同的问题
+### 5.1 They answer different questions
 
-Skill 将某个领域的知识、操作流程、工具用法与质量经验封装为可复用能力，主要回答“这类事情怎样做好”。例如，界面设计 Skill 提供布局与交互经验，文档 Skill 提供排版和渲染验证流程，部署 Skill 提供发布操作经验。
+A Skill packages the knowledge, procedure, tool use, and quality experience of one domain into a reusable capability. It mainly answers "how do we do this kind of thing well." A UI Skill carries layout and interaction experience. A docs Skill carries typesetting and a render-check procedure. A deploy Skill carries release steps.
 
-CDD 组织项目中的决策与责任，主要回答“谁负责、在什么条件下可以做、必须守住什么边界、由什么证据判定完成、经验如何进入制度”。它关注多个领域能力共同参与时，项目能否保持一致并持续演化。
+CDD organizes decisions and responsibility in the project. It mainly answers "who is responsible, under what conditions they may act, which boundary they must hold, which evidence counts as done, and how experience enters the rules." It cares whether the project stays consistent and can keep evolving when several domain capabilities work together.
 
-这里是本方法的功能划分，不是对所有 Skill 内容的绝对限制。Skill 也可以包含安全规则、审批要求和质量门禁，CDD 也可以引用操作经验；区分依据是所承担的职责，而非文件名或包装形式。
+This is a split of function for this method, not a hard limit on what a Skill may contain. A Skill may include safety rules, approval requirements, and quality gates. CDD may cite operating experience. The distinction is the duty being carried, not the file name or the packaging.
 
-| 维度 | Skill：指定领域的经验 | CDD：项目治理 |
+| Dimension | Skill: experience in a named domain | CDD: project governance |
 |---|---|---|
-| 主要目标 | 提高某类任务的完成质量 | 保持整个项目的边界、责任与一致性 |
-| 核心问题 | 这类事情如何做好 | 谁能做、何时能做、边界是什么、怎样验收 |
-| 典型内容 | 专业知识、工作步骤、工具、模板与领域检查 | 职责分工、权威归属、设计门禁、红线与例外机制 |
-| 作用范围 | 特定领域或任务，按需使用 | 跨领域、跨任务、跨会话的持续约束 |
-| 复用方式 | 将领域经验应用于不同项目 | 提取通用治理原则，再适配项目制度 |
-| 验证关注点 | 当前领域产物是否达到专业要求 | 产物是否符合项目目标、契约与交付证据要求 |
-| 经验演化 | 改善领域做法与工具 | 将事故、决策与债务转化为持续约束 |
-| 典型失效 | 专业经验不适用、步骤遗漏或产物质量不足 | 越权、职责混淆、权威冲突、范围蔓延或虚假完成 |
+| Main goal | Raise the quality of one kind of task | Hold the project's boundaries, responsibility, and consistency |
+| Core question | How to do this kind of thing well | Who may do it, when, what the boundary is, how to accept it |
+| Typical contents | Domain knowledge, steps, tools, templates, domain checks | Role split, who is authoritative, design gates, red lines, exception mechanism |
+| Scope | One domain or task, used when needed | Standing constraints across domains, tasks, and sessions |
+| How it is reused | Apply domain experience to other projects | Extract general governance principles, then fit them to a project's rules |
+| What verification watches | Whether this domain's output meets a professional bar | Whether the output matches the project goal, the contract, and the delivery evidence |
+| How experience evolves | Improve the domain practice and its tools | Turn incidents, decisions, and debt into standing constraints |
+| Typical failure | The experience does not apply, a step is skipped, or the output is not good enough | Overreach, mixed duties, conflicting authorities, scope creep, or a false "done" |
 
-### 5.2 如何配合
+### 5.2 How they work together
 
-CDD 明确任务职责和项目约束，Agent 按任务选择适用 Skill，利用领域经验完成工作，再依据领域标准与项目验收要求核对结果。需要裁决的冲突按现有指令权威、用户授权和项目规则处理。
+CDD states the duty and the project constraints. The Agent picks the Skills that fit the task, uses that domain experience to do the work, then checks the result against both the domain standard and the project's acceptance. A conflict that needs a decision follows the existing instruction authority, the user's grant, and the project rules.
 
-加载 Skill 不会自动扩大授权，也不会自动豁免项目红线或设计前置条件。已有授权同样不应因调用 Skill 而被无依据地重复索取。CDD 不因此获得覆盖更高层执行约束的权限。
+Loading a Skill does not automatically widen authority, and it does not waive a project red line or a design precondition. An authority already granted should not be asked for again, with no new reason, just because a Skill was invoked. CDD does not gain the power to override a higher execution constraint.
 
-以新增分析页面为例：
+Adding an analysis page, as an example:
 
-- CDD 明确本次 phase、产品和架构前置文档、允许变更的范围及验收要求。
-- 界面 Skill 提供信息层级、布局、交互和可访问性的领域经验。
-- 项目规则约束 API 契约、多语言资源、缓存语言和结构债增长。
-- 验收同时检查页面体验、契约一致性、检查输出与实际浏览器证据。
+- CDD names the phase, the product and architecture documents that must already exist, the change that is allowed, and the acceptance bar.
+- A UI Skill supplies domain experience for information hierarchy, layout, interaction, and accessibility.
+- Project rules constrain the API contract, multilingual resources, language in caches, and growth of structural debt.
+- Acceptance checks the page experience, contract consistency, check output, and real browser evidence together.
 
-专业页面设计经验不能独立决定是否改写数据模型或扩展产品范围；治理规则也不能替代布局、交互和可访问性方面的专业判断。
+Professional page-design experience does not, by itself, decide to rewrite the data model or expand the product. Governance rules do not replace professional judgment about layout, interaction, and accessibility.
 
-### 5.3 经验何时成为治理规则
+### 5.3 When experience becomes a governance rule
 
-领域操作经验首先可以沉淀为 Skill 或专用流程。某类失误反复影响整个项目，或触及数据、权限、兼容性和责任边界时，应评估是否将其升级为项目规则，并尽可能配套可执行检查。
+Domain operating experience can first settle into a Skill or a dedicated procedure. When the same kind of mistake keeps affecting the whole project, or it touches data, permissions, compatibility, or a responsibility boundary, consider promoting it to a project rule, and pair it with an executable check when you can.
 
-例如，“如何检查前端发布内容”属于操作经验；“发布完成必须有本次产物生效的证据”属于治理判据。具体检查步骤可复用，完成责任与判据由项目制度明确。
+For example, "how to check what the web release actually contains" is operating experience. "A release is not done until there is evidence that this artifact is the one running" is a governance criterion. The check steps can be reused. The duty and the criterion are set by the project's rules.
 
-**Skill 提供专业做法，CDD 组织这些做法的使用条件、责任边界和验收闭环。** 开源 CDD 时，应同时展示治理规则如何调用领域能力，而不将全部领域操作细节堆入宪章。
+**A Skill supplies the professional practice. CDD organizes the conditions for using it, the responsibility boundary, and the acceptance loop.** When CDD is published, show how the governance rules call domain capability. Do not dump every domain procedure into the charter.
 
-## 6. 当前状态与局限
+## 6. Current state and limits
 
-本次仓库抽查表明，多个 PRD 已使用 phase、验收和非目标；结构棘轮有脚本与基线；构建脚本调用国际化一致性和硬编码检查；运维记录包含发布判据的故障背景。这证明部分机制已落地，不等于全库审计或全部规则执行有效。
+A spot check of this repository shows that several PRDs already use a phase, acceptance, and non-goals; the structure ratchet has a script and a baseline; the build script calls the internationalization consistency check and the hardcoded-text check; operations notes include the failure background behind a release criterion. That shows some mechanisms are in place. It is not a full-repo audit, and it does not prove every rule is enforced.
 
-需明确保留的差距：
+Gaps that stay explicit:
 
-- 在本次查看的构建脚本与 GitLab 配置中没有找到结构棘轮调用，交付自检与 CI 强制阻断仍需区分。
-- 构建脚本在没有 Python 时会告警并跳过国际化检查，资源单测仅提供部分兜底；与“CI 必定拦截”的规则表述存在执行差距。
-- `scripts/` 已承担重要部署实现，帽子和实现范围仍主要列 `apps/`、`puppet/`，职责需要经批准对齐。
-- 多种部署路径已存在，发布规则需要更清楚地按目标环境选择。
-- 根规则包含较多环境命令和踩坑细节，存在阅读成本与漂移风险。
-- 前置设计没有充分明确变更分级，小修复可能承受过量文档成本。
-- 当前任务状态、偏差与契约漂移缺少统一记录和关闭契约。
-- 尚未证明跨项目可复用性，也没有效率或事故率的比较数据。
+- The build script and GitLab config inspected for this document did not call the structure ratchet. A delivery self-check and a CI gate that actually fails the build are still different things.
+- When Python is missing, the build script warns and skips the internationalization check. Resource unit tests only cover part of that. That is an execution gap against a rule that says "CI always blocks it."
+- `scripts/` already carries important deploy implementation, while the hat table and the implementation scope still mainly list `apps/` and `puppet/`. Aligning those duties needs approval.
+- Several deploy paths already exist. Release rules need to say more clearly which path applies to which target.
+- The root rules contain a lot of environment commands and hard-won details, which costs reading time and can drift.
+- Design-before-code does not yet grade changes by size, so a small fix can pay too much documentation cost.
+- Current task state, drift, and contract drift do not yet have one record and one close-out contract.
+- Reuse across projects is not demonstrated, and there is no comparison data for speed or incident rate.
 
-这些改进属于候选方向，不在本文中自动授权实施。
+These improvements are candidates. This document does not authorize implementing them.
 
-## 7. 开源表达与贡献边界
+## 7. How to describe it in public, and the contribution boundary
 
-建议对外介绍：
+A fair public description:
 
-> Candela 是一个全 AI 编程的工程实践项目，采用宪章驱动开发（CDD）。项目以 AGENTS.md 为治理入口，通过职责分离、权威分层、设计门禁、架构棘轮和生产验收组织持续开发，并将运行经验回写为规则与检查工具。
+> Candela is an engineering practice in fully AI-written development, using Charter-Driven Development (CDD). `AGENTS.md` is the governance entry. Ongoing development is organized by separated duties, layers of authority, a design gate, an architecture ratchet, and production acceptance. Operating experience is written back into rules and check tools.
 
-> Skill 解决指定领域的经验问题，CDD 解决项目治理问题：前者帮助 AI 专业地完成任务，后者明确职责、授权、边界与验收，让不同领域能力共同服务于项目的长期演化。
+> A Skill solves the experience problem of a named domain. CDD solves project governance: the first helps the AI do a task professionally, the second states duty, authority, boundary, and acceptance, so different domain capabilities serve the project's long-term evolution together.
 
-可以强调实践组合、具体执行工具与可追溯案例；不宜宣称首创宪章、完全消除漂移、所有规则自动强制或已经优于其他方法。
+It is fair to emphasize the combination in practice, the concrete tools, and traceable cases. It is not fair to claim the charter was invented here, that drift is fully eliminated, that every rule is automatically enforced, or that the method has already been shown to beat other methods.
 
-开源最有说服力的材料是完整案例：原问题及影响、根因、规则与工具的改动、后续执行如何受到约束、验证结果和仍未覆盖的风险。每个案例关联提交或验收记录，并去除密钥与环境敏感信息。
+The most convincing open-source material is a complete case: the original problem and its impact, the cause, the change to a rule and a tool, how later work was constrained, the verification result, and the risk still uncovered. Each case points at a commit or an acceptance record, with secrets and environment-sensitive details removed.
 
-CDD 当前适合定位为方法与实践案例。要发展为可复用框架，需要从 Candela 中提取通用原则、提供初始化与状态工具，并在其他项目验证。
+CDD currently fits as a method and a practice case. Becoming a reusable framework means extracting general principles from Candela, providing init and status tools, and trying them on other projects.
 
-## 8. 后续演化方向
+## 8. Where it can evolve
 
-| 优先方向 | 目的 |
+| Direction | Purpose |
 |---|---|
-| 对齐职责与部署适用条件 | 让任务能够选择正确规则 |
-| 将稳定硬门禁接入必跑检查 | 缩小规则与执行之间的差距 |
-| 分离根原则、分域规则与环境流程 | 降低阅读成本和维护漂移 |
-| 建立变更分级 | 让前置设计成本与风险相称 |
-| 标准化任务交接与偏差记录 | 支持长任务和跨会话连续执行 |
-| 建立契约漂移闭环 | 明确差异如何发现、裁决与关闭 |
-| 公开规则演化案例 | 让方法贡献能够被审查 |
-| 跨项目试用与统计 | 验证可复用性及实际效果 |
+| Align duties with which deploy path applies | A task can select the right rule |
+| Put stable hard gates on the checks that must run | Narrow the gap between the rule and what actually executes |
+| Separate root principles, domain rules, and environment procedures | Lower the reading cost and the drift of maintenance |
+| Grade changes by size | Design-before-code cost matches the risk |
+| Standardize task handoff and drift records | Long tasks and new sessions can continue |
+| Close the loop on contract drift | Say how a difference is found, decided, and closed |
+| Publish cases of how rules evolved | Method contributions can be reviewed |
+| Try it on other projects, and measure | Test reuse and the actual effect |
 
-方法的持续价值取决于规则是否能被正确选择、可靠执行并以证据验证。AGENTS.md 是入口，整套工程闭环才是 CDD。
+The method stays valuable only if the right rule can be selected, executed reliably, and checked with evidence. `AGENTS.md` is the entry. The whole engineering loop is CDD.

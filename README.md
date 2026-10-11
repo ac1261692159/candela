@@ -1,377 +1,386 @@
 # Candela
 
-> **全 AI 编写（Vibe Coding）**：本项目 **100% 由 AI 编写**——没有人类手写业务代码，人只负责定目标、验收与拍板；同一份代码库由多个厂商的模型接力产出，靠 [`AGENTS.md`](AGENTS.md) 的规则与架构约束保持可控与质量。详见下方 [全 AI 编写](#全-ai-编写vibe-coding)。
+**English** | [中文](README.zh-CN.md)
 
-**开源、可私有化的用户行为分析平台** —— 跑在 ClkLog 社区版之上，把原始埋点变成可度量、可追问、可告警的洞察。
-把该项目直接通过AI agent 打开（如cursor,codex,zcode等），无需多言，ai什么都懂！
+[CDD methodology](CDD-methodology.md) · [宪章驱动开发](CDD-methodology.zh-CN.md)
 
-> Candela 是**发光强度**的国际单位：我们把用户行为「点亮」成可度量的数。项目原先叫 `clklog_manager`，2026-10-10 更名为 Candela；命名边界见下文「[命名与边界](#命名与边界)」。
+> **Fully AI-written (vibe coding):** this project is **100% written by AI**. No human hand-wrote the application code. People set goals, accept the result, and make the calls. Several vendors' models took turns on the same repository, kept in line by the rules and architecture constraints in [`AGENTS.md`](AGENTS.md). See [Fully AI-written](#fully-ai-written-vibe-coding) below.
 
-在 ClkLog 社区版（数据采集与基础报表）之上旁路扩展出一个完整的分析平台：事件分析、漏斗、留存、用户分群与标签、看板、自定义 SQL 与图表、指标与告警、项目级权限（RBAC）、多语言界面、AI 数据分析助手。分析域使用独立数据库（MySQL `clklog_sa_meta` + ClickHouse `clklog_sa`），**不修改社区版镜像、不 ALTER 社区版表**，因此官方升级不受影响。
+**An open-source, self-hosted user-behavior analytics platform.** It runs alongside ClkLog Community Edition and turns raw events into measurements you can query, follow up, and alert on.
 
-- 许可：AGPL-3.0（见 [`LICENSE`](LICENSE)），上游归属见 [`NOTICE`](NOTICE)
-- **接手/交接入口**：[`docs/project/handoff-candela-new-repo.md`](docs/project/handoff-candela-new-repo.md)（仓库来源、目标机现状、待办与已知坑）
-- 阶段进展与设计速览：[`docs/project/project-status.md`](docs/project/project-status.md)
-- 文件导航：[`INDEX.md`](INDEX.md)
+Open this repository in an AI agent (Cursor, Codex, ZCode, and the like). The rules in the repo are enough for the agent to know how the project is built.
 
----
+> Candela is the SI unit of luminous intensity: we turn user behavior into numbers you can measure. The project was renamed from `clklog_manager` to Candela on 2026-10-10. See [Names and boundaries](#names-and-boundaries).
 
-## 目录
+On top of ClkLog Community Edition (collection and basic reports), Candela adds a full analytics platform as a sidecar: event analysis, funnels, retention, cohorts and tags, dashboards, custom SQL and charts, metrics and alerts, project-level RBAC, a multilingual UI, and an AI analysis assistant. The analytics domain uses its own databases (MySQL `clklog_sa_meta` and ClickHouse `clklog_sa`). **It does not modify the community images and does not ALTER community tables**, so an official ClkLog upgrade still applies.
 
-- [全 AI 编写](#全-ai-编写vibe-coding)
-  - [AGENTS.md：让多模型协作可控的那一层](#agentsmd让多模型协作可控的那一层)
-- [能力概览](#能力概览)
-- [架构](#架构)
-- [部署](#部署)
-  - [前置条件](#前置条件)
-  - [第 1 步：部署中间件](#第-1-步部署中间件)
-  - [第 2 步：部署-clklog-社区版](#第-2-步部署-clklog-社区版)
-  - [第 3 步：部署分析平台（两种方式）](#第-3-步部署分析平台两种方式)
-  - [访问与验收](#访问与验收)
-  - [日常运维](#日常运维)
-- [配置与密钥](#配置与密钥)
-- [本地开发](#本地开发)
-- [目录结构](#目录结构)
-- [文档导航](#文档导航)
-- [命名与边界](#命名与边界)
-- [许可与上游归属](#许可与上游归属)
+- License: AGPL-3.0 ([`LICENSE`](LICENSE)). Upstream attribution: [`NOTICE`](NOTICE)
+- **Handoff:** [`docs/project/handoff-candela-new-repo.md`](docs/project/handoff-candela-new-repo.md) (where the repo came from, the target machine, open work, and known pitfalls)
+- Status and design snapshot: [`docs/project/project-status.md`](docs/project/project-status.md)
+- File index: [`INDEX.md`](INDEX.md)
 
 ---
 
-## 全 AI 编写（Vibe Coding）
+## Contents
 
-> **本项目 100% 由 AI 编写**：没有人类手写业务代码，人只负责定目标、验收与拍板。
+- [Fully AI-written](#fully-ai-written-vibe-coding)
+  - [AGENTS.md](#agentsmd-the-layer-that-keeps-multi-model-work-controllable)
+- [Capabilities](#capabilities)
+- [Architecture](#architecture)
+- [Deploy](#deploy)
+  - [Prerequisites](#prerequisites)
+  - [Step 1: Deploy middleware](#step-1-deploy-middleware)
+  - [Step 2: Deploy ClkLog Community](#step-2-deploy-clklog-community)
+  - [Step 3: Deploy the analytics platform](#step-3-deploy-the-analytics-platform-two-ways)
+  - [Access and verification](#access-and-verification)
+  - [Day-to-day operations](#day-to-day-operations)
+- [Configuration and secrets](#configuration-and-secrets)
+- [Local development](#local-development)
+- [Repository layout](#repository-layout)
+- [Documentation](#documentation)
+- [Names and boundaries](#names-and-boundaries)
+- [License and upstream attribution](#license-and-upstream-attribution)
 
-同一份代码库由不同厂商、不同能力的模型接力产出，按参与度大致为：
+---
 
-| 模型 | 客户端 | 参与度 |
+## Fully AI-written (vibe coding)
+
+> **This project is 100% written by AI.** No human hand-wrote the application code. People set goals, accept the result, and make the calls.
+
+Models from different vendors, with different strengths, took turns on the same repository. Rough share of the work:
+
+| Model | Client | Share |
 |---|---|---|
 | DeepSeek V4.0 / V4.1-Flash | ZCode | ~80% |
 | Grok 4.5 | Cursor | ~12% |
 | GLM 5.3-Flash | ZCode | ~5% |
 | GPT-5.6 Sol | Codex | ~3% |
 
-模型会换、会话会断、单次输出质量参差——项目仍能保持一致与质量，靠的不是"某个模型足够强"，而是仓库里那层**与模型无关的规则与架构**：无论哪家模型、哪个版本上场，只要遵守同一套约束，产出的行为就收敛到同一个可验收标准。这层约束的入口就是 [`AGENTS.md`](AGENTS.md)。
-PS：好模型只是加速器，不是必要条件——哪怕只有 DeepSeek，一样能「手搓原子弹」。
+Models change, sessions break, and a single reply varies in quality. The repository stays consistent because of a **model-independent layer of rules and architecture**, not because one model is strong enough. Whichever vendor or version shows up, the same constraints pull the result toward the same acceptance bar. That layer starts at [`AGENTS.md`](AGENTS.md).
 
-> 我的宗旨是：把「技术问题」变成「工程问题」——难度照旧，但保障方式从「靠某个模型够强」换成「靠规则与验证」；这也是本项目采用 CDD 的由来。
+A strong model is an accelerator, not a requirement. DeepSeek alone was enough to build the system.
 
-### AGENTS.md：让多模型协作可控的那一层
+> The aim is to turn a technical problem into an engineering problem. The difficulty stays. The guarantee moves from "this model is strong enough" to "the rules and the checks." That is why this project uses CDD.
 
-[`AGENTS.md`](AGENTS.md) 是本仓库的 **Agent 工作规则（唯一事实来源，SSOT）**，也是"不依赖模型记忆、不依赖会话上下文"的关键——模型每次开工都从文件重新装载规则，而不是靠上一轮对话的残留。
+### AGENTS.md: the layer that keeps multi-model work controllable
 
-**但它不是一份零散的约定，而是一套成体系的方法论——CDD（Charter-Driven Development，宪章驱动开发），完整论述见 [`CDD-methodology.md`](CDD-methodology.md)。** 在 Candela 里，`AGENTS.md` 就是这套宪章的载体：它把职责边界、架构红线、设计前置与验收要求固化为持续有效的规则，让全 AI 编程的**可控性来自规则，而不是来自某个模型**。这意味着无论换哪家、哪个版本的模型接力，产出都收敛到同一个可验收标准，且每次事故与决策都能回写为新约束、越用越稳——这正是本项目能持续交付的**不可或缺**的前提。
+[`AGENTS.md`](AGENTS.md) is the **agent working rules for this repository (the single source of truth)**. It does not depend on model memory or on the previous chat. Each session reloads the rules from the file.
 
-它主要做了五件事：
+**Those rules are not a loose list of tips. They are a method: CDD (Charter-Driven Development). The full argument is in [`CDD-methodology.md`](CDD-methodology.md).** In Candela, `AGENTS.md` is the charter. It fixes role boundaries, architecture red lines, design-before-code, and acceptance as standing rules, so control comes from the rules rather than from whichever model is in the seat. A handoff between vendors still converges on the same acceptance bar, and each incident or decision can be written back as a new constraint. That is a necessary condition for this project to keep shipping.
 
-| 机制 | 做什么 | 为什么对"多模型"重要 |
+It does five things:
+
+| Mechanism | What it does | Why it matters when models take turns |
 |---|---|---|
-| **帽子（角色）** | 每顶帽子只有唯一工作目录（`docs/architecture/`、`docs/product/`、`docs/project/`、`apps/` + `scripts/`、`deploy-assets/`）与唯一问题，一次只戴一顶 | 把"在哪写、回答什么问题"变成客观选择，模型不会越界改错地方 |
-| **程序/实现门禁** | 动代码前，`docs/product/` 与 `docs/architecture/` 必须已有**仓库内真实文档**，且含 `phase` id、阶段范围、验收标准、非目标，缺一即门禁未过 | 先设计后实现，杜绝"边写边编方案"，把创意与实现分离 |
-| **绝对红线** | 7 条不可逾越的边界：不侵入 ClkLog 社区版、不破坏数据链路、密钥不入库、ClickHouse 查询必须有界、目录属主要正确、不静默删数据、部署真相在脚本 | 边界与模型能力无关，任何模型都不能自主突破 |
-| **可机检的硬门禁** | 结构棘轮（`arch_ratchet.py`）、i18n 双校验（`i18n_check.py` / `i18n_scan.py`）、验收脚本（端到端上报 12 / 19 项） | 把"质量"判定成命令退出码，模型无法自我宣称"已完成" |
-| **文档与证据纪律** | 文档分层各司其职（README / AGENTS / INDEX / `docs/` / 代码）、改公共契约同步契约文档、交付附变更证据、按需导航而非通读 | 换模型时靠索引与 SSOT 重新定位，而不是依赖超长上下文 |
+| **Hats (roles)** | Each hat has one working directory (`docs/architecture/`, `docs/product/`, `docs/project/`, `apps/` + `scripts/`, `deploy-assets/`) and one question. Wear one hat at a time | "Where to write" and "which question to answer" become objective. The model does not edit the wrong place |
+| **Implementation gate** | Before code changes, `docs/product/` and `docs/architecture/` must already contain **real files in the repo**, each with a `phase` id, scope, acceptance criteria, and non-goals. Missing any of these means the gate is not passed | Design first. No inventing the plan while coding. Ideas and implementation stay separate |
+| **Hard red lines** | Seven boundaries that are not optional: do not invade ClkLog Community, do not break the data path, do not commit secrets, bound every ClickHouse query, keep directory owners correct, do not silently delete data, deploy truth lives in the scripts | The boundary does not depend on model skill. No model may cross it on its own |
+| **Machine-checked gates** | Structure ratchet (`arch_ratchet.py`), two i18n checks (`i18n_check.py` / `i18n_scan.py`), and the acceptance scripts (end-to-end ingest, 12 and 19 checks) | Quality is a process exit code. The model cannot declare itself done |
+| **Document and evidence discipline** | Each layer has one job (README / AGENTS / INDEX / `docs/` / code). Contract changes update the contract docs. Delivery includes evidence. Read the index, not the whole tree | A new model relocates from the index and the sources of truth, not from a huge chat context |
 
-一句话概括：**CDD 把"人评审模型输出"变成"模型对照规则自证"**——规则可检索、门禁可运行、验收可复核，于是换谁的模型都不影响仓库的一致性下限。**没有这层宪章，多模型接力会退化为"每次重新对齐 + 依赖超长上下文 + 质量随模型与运气波动"；正因为它把治理固定进仓库，全 AI 编程才可复现、可交接、可长期演化。** 方法与设计理由见 [`CDD-methodology.md`](CDD-methodology.md)；配套文件：文件导航 [`INDEX.md`](INDEX.md)、代码架构硬门禁细则 [`docs/architecture/code-hard-gates.md`](docs/architecture/code-hard-gates.md)、架构棘轮基线 [`docs/architecture/arch-ratchet-baseline.md`](docs/architecture/arch-ratchet-baseline.md)。
+In one line: **CDD turns "a person reviews the model's output" into "the model proves itself against the rules."** The rules are searchable, the gates run, and acceptance can be rechecked, so swapping models does not lower the floor. **Without the charter, multi-model handoffs fall back to realigning every time, leaning on a huge context, and letting quality follow the model and luck. Because governance lives in the repo, fully AI-written work can be repeated, handed off, and kept alive.** Method and rationale: [`CDD-methodology.md`](CDD-methodology.md). Companions: the file index [`INDEX.md`](INDEX.md), the code hard gates [`docs/architecture/code-hard-gates.md`](docs/architecture/code-hard-gates.md), and the architecture ratchet baseline [`docs/architecture/arch-ratchet-baseline.md`](docs/architecture/arch-ratchet-baseline.md).
 
 ---
 
-## 能力概览
+## Capabilities
 
-| 领域 | 能力 |
+| Area | What you get |
 |---|---|
-| 埋点管理 | 元事件/属性、虚拟事件、虚拟属性、事件备注、埋点发现日志 |
-| 分析 | 事件分析（多指标/筛选/分组/公式/近似计算）、漏斗（2–32 步、窗口期、转化/流失）、留存（队列、第 N 日、趋势）、用户行为序列 |
-| 用户 | 用户分群（条件/CSV/SQL/结果快照）、用户标签、分析主体 |
-| 看板与报表 | 看板工作室（网格拖拽/缩放）、卡片缓存与后台温热、自定义 SQL 报告（数据字典 + Builder）、图表可视化（折线/柱/饼环/指标卡/漏斗）、指标 v1–v3 |
-| 数据管理 | 维度表（CSV 上传/版本化快照/跨表关联）、分区清理与 TTL、日志目录治理、一致性对拍 |
-| 运维与告警 | 运维面板（慢 SQL、服务器状态、磁盘预估）、告警规则（飞书/邮件/短信、通知模板、健康度、投递重试、屏蔽） |
-| 权限 | 全局三角色 + 项目五角色、成员组、数据权限注入、看板文件夹、资产锁定 |
-| AI | AI 数据分析助手（Harness 运行时、多模型供应商、Workspace 模板同步）— **默认关闭**，见 [配置与密钥](#配置与密钥) |
-| 国际化 | 13 门语言（zh-CN/zh-TW/en-US/ja/ko/ru/fr/de/es/pt/vi/th/id），CI 带键集一致性与硬编码清零门禁 |
+| Tracking catalog | Meta events and properties, virtual events, virtual properties, event notes, discovery log |
+| Analysis | Event analysis (multiple metrics, filters, breakdowns, formulas, approximate calculation), funnels (2–32 steps, window, conversion and drop-off), retention (cohort, day N, trend), user timelines |
+| Users | Cohorts (conditions / CSV / SQL / result snapshot), user tags, analysis subjects |
+| Dashboards and reports | Dashboard studio (grid drag and resize), card cache and background warm-up, custom SQL reports (data dictionary + builder), charts (line / bar / pie / donut / metric / funnel), metrics v1–v3 |
+| Data management | Dimension tables (CSV upload, versioned snapshots, cross-table joins), partition cleanup and TTL, log-directory governance, consistency reconciliation |
+| Operations and alerts | Ops console (slow SQL, host status, disk forecast), alert rules (Feishu / email / SMS, templates, health, delivery retry, mute) |
+| Access control | Three global roles plus five project roles, member groups, data-permission injection, dashboard folders, asset locks |
+| AI | AI analysis assistant (Harness runtime, multiple model providers, Workspace template sync) — **off by default**, see [Configuration and secrets](#configuration-and-secrets) |
+| Internationalization | 13 languages (zh-CN / zh-TW / en-US / ja / ko / ru / fr / de / es / pt / vi / th / id). CI checks key-set consistency and a hardcoded-text ratchet |
 
 ---
 
-## 架构
+## Architecture
 
 ```
-        浏览器                        SDK（Web / App / 小程序）
+        Browser                       SDK (Web / App / mini program)
           │                                    │
-          └──────────────► 宿主 nginx :80 ◄─────┘
+          └──────────────►  Host nginx :80 ◄─────┘
                               │
         ┌─────────────────────┼──────────────────────────┐
         │                     │                          │
-  分析平台 /sa/            社区版 /                  数据上报 /receiver/
+  Analytics /sa/         Community /               Ingest /receiver/
         │                     │                          │
    ┌────┴─────┐        ┌──────┴───────┐          ┌───────┴────────┐
-   │ 前端静态 │        │ UI / API /   │          │   receiver     │
-   └──────────┘        │ Manage       │          └───────┬────────┘
-        │              └──────┬───────┘                  │
-   ┌────┴──────────┐   ┌──────┴───────┐        Kafka topic clklog
-   │ analytics-    │   │ MySQL clklog │                  │
-   │ server :3100  │   │ Redis        │          ┌───────┴────────┐
-   ├───────────────┤   └──────────────┘          │  Flink 解析作业 │
-   │ ingestor      │                             └───────┬────────┘
-   │ (Kafka 消费)  │                                     │
-   └───────┬────────┘                            ClickHouse clklog
-           │                                             │
-   ClickHouse clklog_sa ◄── 旁路写入 ◄───────────────────┘（只读）
-   MySQL clklog_sa_meta（平台元数据）
+   │ Web      │        │ UI / API /   │          │   receiver     │
+   │ static   │        │ Manage       │          └───────┬────────┘
+   └──────────┘        └──────┬───────┘                  │
+        │              ┌──────┴───────┐        Kafka topic clklog
+   ┌────┴──────────┐   │ MySQL clklog │                  │
+   │ analytics-    │   │ Redis        │          ┌───────┴────────┐
+   │ server :3100  │   └──────────────┘          │  Flink job     │
+   ├───────────────┤                             └───────┬────────┘
+   │ ingestor      │                                     │
+   │ (Kafka)       │                            ClickHouse clklog
+   └───────┬────────┘                                     │
+           │                                              │
+   ClickHouse clklog_sa ◄── sidecar write ◄──────────────┘ (read-only)
+   MySQL clklog_sa_meta (platform metadata)
 ```
 
-| 组件 | 说明 | 端口（默认） |
+| Component | Role | Port (default) |
 |---|---|---|
-| 宿主 nginx | 统一入口，按路径分流（无域名，按 IP 访问） | `80` |
-| MySQL 8 | 社区版库 `clklog` + 平台元数据 `clklog_sa_meta` | `127.0.0.1:3306` |
-| Redis 7 | 社区版缓存 + 平台查询缓存/会话（键前缀隔离） | `127.0.0.1:6379` |
-| Kafka 3.7 (KRaft) | 上报消息，topic `clklog`（6 分区） | `127.0.0.1:19092` |
-| ClickHouse 23.2 | 社区版库 `clklog` + 平台库 `clklog_sa`（写账号 `default` / 只读账号 `sa_readonly`） | `8123` / `9000` |
-| 社区版应用 | `clklog-ui` / `receiver` / `api` / `manage` / `init` + Flink `jobmanager`/`taskmanager` | 127.0.0.1:8081–8085 |
-| 分析平台 | `analytics-server`(HTTP) / `analytics-ingestor`(Kafka 消费) / 前端静态 | `127.0.0.1:3100`（常规方案）/ `:3100` + `:8086`（容器方案） |
+| Host nginx | Single entry, path-based routing (no domain; reach it by IP) | `80` |
+| MySQL 8 | Community database `clklog` plus platform metadata `clklog_sa_meta` | `127.0.0.1:3306` |
+| Redis 7 | Community cache plus platform query cache and sessions (key-prefix isolation) | `127.0.0.1:6379` |
+| Kafka 3.7 (KRaft) | Ingest messages, topic `clklog` (6 partitions) | `127.0.0.1:19092` |
+| ClickHouse 23.2 | Community database `clklog` plus platform database `clklog_sa` (writer `default`, reader `sa_readonly`) | `8123` / `9000` |
+| Community apps | `clklog-ui` / `receiver` / `api` / `manage` / `init` plus Flink `jobmanager` / `taskmanager` | 127.0.0.1:8081–8085 |
+| Analytics platform | `analytics-server` (HTTP) / `analytics-ingestor` (Kafka consumer) / web static files | `127.0.0.1:3100` (native) / `:3100` + `:8086` (containers) |
 
 ---
 
-## 部署
+## Deploy
 
-三个组件按顺序部署：**中间件 → ClkLog 社区版 → 分析平台**。全部脚本**幂等、可反复执行**，不依赖任何 CI/CD：源码由工作站 rsync 到目标机、在目标机上构建。
+Deploy the three layers in order: **middleware → ClkLog Community → analytics platform**. Every script is **idempotent and safe to re-run**. There is no CI/CD requirement: the workstation rsyncs the source to the target, and the target builds it.
 
-> 已在 **AlmaLinux 9.6 / 4 核 15 GiB / 92 GB 盘**上完整实测：中间件与社区版 12/12、分析平台常规方案 18/18、容器方案 19/19，两套方案的幂等复跑均为零差异。
-> 脚本位于 `scripts/standalone-test-env/`；设计取舍见 [`docs/architecture/standalone-test-env-design.md`](docs/architecture/standalone-test-env-design.md) 与 [`docs/architecture/candela-deploy-two-paths.md`](docs/architecture/candela-deploy-two-paths.md)，实测证据见 `docs/project/deployment-record-*.md`。
+> Verified end to end on **AlmaLinux 9.6 / 4 cores / 15 GiB RAM / 92 GB disk**: middleware and community 12/12, native analytics 18/18, container analytics 19/19. Re-running either analytics path produced zero drift.
+> Scripts live in `scripts/standalone-test-env/`. Design: [`docs/architecture/standalone-test-env-design.md`](docs/architecture/standalone-test-env-design.md) and [`docs/architecture/candela-deploy-two-paths.md`](docs/architecture/candela-deploy-two-paths.md). Evidence: `docs/project/deployment-record-*.md`.
 
-### 前置条件
+### Prerequisites
 
-| 项 | 要求 |
+| Item | Requirement |
 |---|---|
-| 目标机 | AlmaLinux 9 系列（RHEL 9 系同理），root 可登录；放行入站 `80`（可选 `8123` 供客户端直连 ClickHouse） |
-| 工作站 | 能 SSH 到目标机并已配置免密（脚本用 `ssh`/`rsync` 推送源码并远程执行） |
-| 软件 | Docker 与 nginx 由脚本自动安装；常规方案额外需要 EPEL（脚本自动配置，只需能访问 EPEL 源） |
-| 网络 | 需要能拉取镜像：官方镜像走 `public.ecr.aws/docker/library/*`，ClkLog 镜像走 `registry.cn-shanghai.aliyuncs.com/clklog/*` |
-| 资源 | 建议 ≥4 核 / ≥16 GiB（实测 15 GiB 可用）；各组件内存上限已按小机器折算并显式设置 |
-| 磁盘 | 建议 ≥40 GB（镜像约 2 GB，其余为 ClickHouse 数据与日志） |
+| Target | AlmaLinux 9 (RHEL 9 family is the same), root login, inbound `80` open (optional `8123` if clients should reach ClickHouse directly) |
+| Workstation | SSH to the target with key auth already set up (the scripts `ssh` and `rsync` the source, then run remotely) |
+| Software | The scripts install Docker and nginx. The native path also needs EPEL (the script configures it; the machine must be able to reach an EPEL mirror) |
+| Network | Must be able to pull images. Base images come from `public.ecr.aws/docker/library/*`. ClkLog images come from `registry.cn-shanghai.aliyuncs.com/clklog/*` |
+| Capacity | At least 4 cores and 16 GiB is the recommendation (15 GiB has been shown to work). Memory caps are set explicitly for a small machine |
+| Disk | At least 40 GB (images are about 2 GB; the rest is ClickHouse data and logs) |
 
-两个部署根目录（可用环境变量覆盖）：
+Two deploy roots (override with environment variables):
 
-- `<MW_BASE_DIR>` = `/data/clklog-oss-test` —— 中间件与社区版（数据、配置、密钥、脚本）
-- `<BASE_DIR>` = `/data/app/candela` —— 分析平台（发布、配置、密钥、镜像配方）
+- `<MW_BASE_DIR>` = `/data/clklog-oss-test` — middleware and community (data, config, secrets, scripts)
+- `<BASE_DIR>` = `/data/app/candela` — analytics platform (releases, config, secrets, image recipes)
 
-> 海外或有代理的机器可覆盖：`APT_MIRROR=`（置空则用镜像自带 Debian 源）、`NPM_REGISTRY=https://registry.npmjs.org`、`NODE_IMAGE=`、`NGINX_IMAGE=`。
+> On a machine outside China, or behind a proxy, override `APT_MIRROR=` (empty uses the image's own Debian mirrors), `NPM_REGISTRY=https://registry.npmjs.org`, `NODE_IMAGE=`, and `NGINX_IMAGE=`.
 >
-> ClkLog 社区版镜像默认从 `registry.cn-shanghai.aliyuncs.com/clklog/*` 拉取。拉不到时需要代理，或把镜像同步到你能访问的仓库后改部署脚本里的 `CK_REG`。官方基础镜像走 `public.ecr.aws/docker/library/*`。
+> ClkLog Community images are pulled from `registry.cn-shanghai.aliyuncs.com/clklog/*` by default. If that registry is unreachable, use a proxy, or mirror the images and change `CK_REG` in the deploy scripts. Official base images come from `public.ecr.aws/docker/library/*`.
 
 ---
 
-### 第 1 步：部署中间件
+### Step 1: Deploy middleware
 
-自建 MySQL / Redis / Kafka(KRaft) / ClickHouse，全部容器化，数据落在 `<MW_BASE_DIR>/data/`。脚本生成随机口令（32 位 hex）并只写入目标机 `<MW_BASE_DIR>/config/deploy.env`（0600），同时创建共享网络 `clklog-net` 与 topic `clklog`。
+MySQL, Redis, Kafka (KRaft), and ClickHouse, all in containers. Data lands in `<MW_BASE_DIR>/data/`. The script generates random passwords (32 hex characters) and writes them only on the target, in `<MW_BASE_DIR>/config/deploy.env` (mode 0600). It also creates the shared network `clklog-net` and the topic `clklog`.
 
-部署脚本**不会**默认连某一台机器。每次都要给出 SSH 目标：
+The script does not pick a machine for you. Pass the SSH target every time:
 
 ```bash
-# 在工作站、仓库根目录执行
+# From the workstation, at the repository root
 export HOST=user@your-server
 bash scripts/standalone-test-env/deploy-remote.sh mw
 ```
 
-换目录：
+To use another directory:
 
 ```bash
 HOST=user@your-server MW_BASE_DIR=/data/mw bash scripts/standalone-test-env/deploy-remote.sh mw
 ```
 
-完成后：4 个容器 healthy、社区版 MySQL 库表建好、Kafka topic 就绪。容器名与端口见上方 [架构](#架构) 表。
+When it finishes: 4 containers healthy, community MySQL schema in place, Kafka topic ready. Container names and ports are in the [Architecture](#architecture) table.
 
 ---
 
-### 第 2 步：部署 ClkLog 社区版
+### Step 2: Deploy ClkLog Community
 
-部署社区版 1.3.0 **标准模式**（`receiver → Kafka → Flink → ClickHouse`），并在宿主 nginx 上加单机入口（按路径分流，无需域名）。
+Deploys Community 1.3.0 in **standard mode** (`receiver → Kafka → Flink → ClickHouse`) and adds a single-host nginx entry (path routing, no domain).
 
 ```bash
 HOST=user@your-server bash scripts/standalone-test-env/deploy-remote.sh clklog
 ```
 
-> **必须是标准模式**：分析平台的数据来源就是同一个 Kafka topic 与 ClickHouse 库，快速模式（receiver 直写 ClickHouse、不经 Kafka）下平台拿不到数据。
+> **Standard mode is required.** The analytics platform reads the same Kafka topic and the same ClickHouse database. Quick mode (receiver writes ClickHouse directly and skips Kafka) gives the platform nothing to consume.
 
 ---
 
-### 第 3 步：部署分析平台（两种方式）
+### Step 3: Deploy the analytics platform (two ways)
 
-两套方案**共用同一套数据库初始化脚本、配置渲染与密钥契约**，区别只在"怎么加载"：常规方案跑成宿主进程，容器方案跑成容器。两者**互斥**（都占用 `:3100` 与 `/sa/` 路由），切换时脚本会自动停掉对方。
+Both paths **share the database init scripts, config rendering, and secret contract**. They differ only in how the process is started: native runs on the host, containers run in Docker. They are **mutually exclusive** (both bind `:3100` and the `/sa/` route). Switching stops the other path automatically.
 
-#### 方式 A：常规方案（宿主 Node + supervisord）
+#### Path A: native (host Node + supervisord)
 
-版本化发布（`releases/<时间戳>` + `current`/`previous` 软链，切换与回滚原子），supervisord 管理 `analytics-server` 与 `analytics-ingestor` 两个进程，前端静态由宿主 nginx 直出。
+Versioned releases (`releases/<timestamp>` plus `current` / `previous` symlinks, so switch and rollback are atomic). Supervisord runs `analytics-server` and `analytics-ingestor`. Host nginx serves the web build.
 
 ```bash
 HOST=user@your-server bash scripts/standalone-test-env/candela/deploy-remote.sh native
 ```
 
-流程：安装 Node 24.20.0（校验 SHA256）→ 安装 supervisord（EPEL）→ 构建前后端（Prisma Client 在**构建期**生成，启动不依赖 npm 网络）→ 组装产物（含静态预压缩 gzip）→ 原子切换发布 → 初始化数据库 → 写 supervisor 程序 → 配 nginx → 就绪判定。
+Flow: install Node 24.20.0 (SHA256 checked) → install supervisord (EPEL) → build server and web (Prisma Client is generated **at build time**, so startup does not need the npm registry) → assemble the release (including precompressed gzip) → atomic switch → initialize databases → write supervisor programs → configure nginx → readiness check.
 
-#### 方式 B：Docker Compose
+#### Path B: Docker Compose
 
-三个镜像（`analytics-server` / `analytics-web` / 一次性 `manager-migrate`），栈名 `candela`，接入中间件共享网络 `clklog-net`（容器内按服务名寻址 `mysql`/`redis`/`kafka`/`clickhouse`）。
+Three images (`analytics-server`, `analytics-web`, and a one-shot `manager-migrate`). Stack name `candela`, joined to the middleware network `clklog-net` (containers address `mysql`, `redis`, `kafka`, and `clickhouse` by service name).
 
 ```bash
 HOST=user@your-server bash scripts/standalone-test-env/candela/deploy-remote.sh docker
 ```
 
-镜像按内容哈希打 tag：源码与 Dockerfile 未变则复用镜像（重跑零动作）。回滚＝把 `<BASE_DIR>/configs/candela.env` 里的 `DOCKER_*_TAG` 改回上一个 tag，再执行 `docker --skip-build`。
+Images are tagged by content hash. Unchanged source and Dockerfiles reuse the existing image (a re-run does nothing). Rollback means setting `DOCKER_*_TAG` in `<BASE_DIR>/configs/candela.env` back to the previous tag, then running `docker --skip-build`.
 
-#### 数据库初始化（两套方案共用，自动执行）
+#### Database initialization (shared, runs automatically)
 
-不需要手工执行 SQL：
+No manual SQL:
 
-- **MySQL**：建 `clklog`（社区版）与 `clklog_sa_meta`（平台元数据）；建最小特权账号 `clklog_sa_app`（仅授权元数据库，应用不用 root）；元数据表按 `prisma/schema.prisma` **基线建表**并登记迁移历史，随后**重放迁移里的幂等种子**（内置告警规则、日志治理白名单、保留策略、项目行）；最后创建超管 `admin`。
-- **ClickHouse**：建 `clklog_sa` 与 4 张核心表（`sa_events` / `sa_user_profiles` / `sa_cohort_members` / `sa_tag_members`）、跳数索引、清洗基础设施（`clklog_sa_bak` / `clklog_sa_staging` / `sa_cleanup`）；写只读账号 `sa_readonly`（`readonly=2` profile + 内嵌 grants，只授 `clklog_sa.*` 与 `clklog.*` 的 SELECT，与写账号隔离）。
-- 可单独执行：`init-db-mysql.sh --runner host|docker`、`init-db-clickhouse.sh --runner host|docker`（在 `scripts/standalone-test-env/candela/` 下）。
+- **MySQL:** creates `clklog` (community) and `clklog_sa_meta` (platform metadata); creates the least-privilege account `clklog_sa_app` (granted only on the metadata database; the app does not use root); builds metadata tables from `prisma/schema.prisma` as a **baseline**, records migration history, then **replays the idempotent seeds** inside the migrations (built-in alert rules, log-governance allowlist, retention policy, project row); finally creates the superuser `admin`.
+- **ClickHouse:** creates `clklog_sa` and 4 core tables (`sa_events`, `sa_user_profiles`, `sa_cohort_members`, `sa_tag_members`), skip indexes, and the cleanup infrastructure (`clklog_sa_bak`, `clklog_sa_staging`, `sa_cleanup`); writes the read-only account `sa_readonly` (`readonly=2` profile plus embedded grants, `SELECT` only on `clklog_sa.*` and `clklog.*`, separate from the writer).
+- Either script can be run alone: `init-db-mysql.sh --runner host|docker` and `init-db-clickhouse.sh --runner host|docker` (under `scripts/standalone-test-env/candela/`).
 
-> 元数据库若已有**可用**的迁移历史，走 `prisma migrate deploy` 增量路径；只有"没有历史"或"历史里有失败记录"时才走基线重建（会清空元数据库并显式告警）。原因见 [`docs/architecture/candela-deploy-two-paths.md`](docs/architecture/candela-deploy-two-paths.md) §3、§5。
+> If the metadata database already has a **usable** migration history, the path is incremental `prisma migrate deploy`. A baseline rebuild (which empties the metadata database and says so) runs only when there is no history, or the history contains a failed record. See [`docs/architecture/candela-deploy-two-paths.md`](docs/architecture/candela-deploy-two-paths.md) §3 and §5.
 
 ---
 
-### 访问与验收
+### Access and verification
 
-| 入口 | 地址 | 账号 |
+| Entry | URL | Account |
 |---|---|---|
-| 分析平台 | `http://<目标机IP>/sa/` | `admin` / 见目标机 `<BASE_DIR>/configs/candela.env` 的 `ADMIN_INIT_PASSWORD`（部署时随机生成） |
-| ClkLog 社区版 | `http://<目标机IP>/` | `admin` / `clklog`（社区版内置种子账号，建议登录后修改） |
+| Analytics platform | `http://<target-ip>/sa/` | `admin` / `ADMIN_INIT_PASSWORD` in `<BASE_DIR>/configs/candela.env` on the target (generated at deploy time) |
+| ClkLog Community | `http://<target-ip>/` | `admin` / `clklog` (community seed account; change it after login) |
 
-一键验收（自动识别当前是常规还是容器形态）：
+One-shot verification. The script detects whether the current install is native or containers:
 
 ```bash
-HOST=user@your-server bash scripts/standalone-test-env/candela/deploy-remote.sh verify   # 分析平台（18 项；启用 AI Harness 的机器 +3 项）
-HOST=user@your-server bash scripts/standalone-test-env/deploy-remote.sh verify           # 中间件 + 社区版（12 项）
+HOST=user@your-server bash scripts/standalone-test-env/candela/deploy-remote.sh verify   # analytics (18 checks; +3 when AI Harness is installed)
+HOST=user@your-server bash scripts/standalone-test-env/deploy-remote.sh verify           # middleware + community (12 checks)
 ```
 
-验收覆盖：进程/容器状态、HTTP 入口、MySQL 表与超管、ClickHouse 表与 `sa_readonly` 只读性验证、Kafka 消费组 LAG、**端到端上报链路**（经 receiver 上报 → 社区版 `log_analysis` 与分析平台 `sa_events` 行数同时增长）、平台登录接口；装了 harness 运行时的机器额外校验 broker 进程/socket 探活/开关一致性。
+Coverage: process or container state, HTTP entry, MySQL tables and the superuser, ClickHouse tables and a proof that `sa_readonly` cannot write, Kafka consumer-group lag, the **end-to-end ingest path** (report through the receiver, then both community `log_analysis` and platform `sa_events` row counts increase), and the platform login API. A machine with the Harness runtime also checks the broker process, the socket health probe, and that the switch matches.
 
-### 日常运维
+### Day-to-day operations
 
 ```bash
 export HOST=user@your-server
 M=scripts/standalone-test-env/candela/deploy-remote.sh
 
-bash $M push            # 只推送最新源码/脚本，不部署
-bash $M native          # 重新部署（幂等：内容未变则复用发布，跳过重启）
-bash $M docker          # 同上，容器方案
+bash $M push            # push the latest source and scripts, do not deploy
+bash $M native          # redeploy (idempotent: unchanged content reuses the release and skips the restart)
+bash $M docker          # same, container path
 
-# 回滚
-#   常规方案：把 current 切回 previous 软链后重启 supervisor（脚本输出里有完整命令）
-#   容器方案：改回上一个 DOCKER_*_TAG 后 bash $M docker --skip-build
+# Rollback
+#   Native: point current back at the previous symlink, then restart supervisor (the script prints the exact command)
+#   Containers: restore the previous DOCKER_*_TAG, then bash $M docker --skip-build
 
-bash $M wipe            # 只铲数据库（默认 dry-run，只打印将要删除的对象）
-bash $M wipe --yes      # 真删数据库，并自动重建环境级资源（Kafka topic、社区版 ClickHouse 库表）
+bash $M wipe            # drop databases only (dry-run by default; prints what would be deleted)
+bash $M wipe --yes      # actually drop them, then recreate environment resources (Kafka topic, community ClickHouse tables)
 
-# 清空整机部署（容器/镜像/卷/数据目录/配置/Node），恢复到「只剩基础设施」：
-HOST=user@your-server bash scripts/standalone-test-env/deploy-remote.sh teardown        # dry-run，先看要删什么
-HOST=user@your-server bash scripts/standalone-test-env/deploy-remote.sh teardown --yes  # 真删；密钥文件随之删除，下次部署会重新生成口令
+# Wipe the whole install (containers, images, volumes, data dirs, config, Node) back to "infrastructure only":
+HOST=user@your-server bash scripts/standalone-test-env/deploy-remote.sh teardown        # dry-run
+HOST=user@your-server bash scripts/standalone-test-env/deploy-remote.sh teardown --yes  # real delete; secret files go with it, and the next deploy generates new passwords
 
-# 排障
-supervisorctl status candela_server candela_ingestor   # 常规方案
-docker compose -f /data/app/candela/docker/docker-compose.yml ps  # 容器方案
+# Troubleshooting
+supervisorctl status candela_server candela_ingestor   # native
+docker compose -f /data/app/candela/docker/docker-compose.yml ps  # containers
 docker logs -f candela-server
 tail -f /data/logs/production/candela/analytics-server.log
 ```
 
 ---
 
-## 配置与密钥
+## Configuration and secrets
 
-- **密钥不落仓库、不进日志**：全部随机口令由部署脚本生成，只写目标机 `<BASE_DIR>/configs/candela.env`（0600）；中间件口令同理在 `<MW_BASE_DIR>/config/deploy.env`。两个文件都**不要提交、不要外发**。
-- **配置来源**：平台运行配置是 `<BASE_DIR>/configs/config.yaml`，由部署脚本从仓库的 `apps/analytics-server/config_server.yaml` **派生**——只改「部署期变量」（数据库/Redis/Kafka 地址、Harness 开关），且**每处替换都断言命中次数**，仓库配置一旦改形会立刻报错而非静默错配。因此**不要手工编辑目标机上的 `config.yaml`**（重跑会被覆盖；要改就改仓库里的源文件）。
-- 应用通过 `APP_CONFIG_PATH` 读取该 YAML，其中的 `${VAR}` 占位符由环境文件注入。
-- **AI 分析助手默认关闭**（`deepseek_harness.enabled: false`）：启用需要额外的 harness 运行时（rootless podman + broker）与模型供应商密钥（在平台「设置 → AI Workspace 管理 → 模型供应商」添加，密钥以 AES-256-GCM 密文入库）。启用前请读 [`docs/architecture/clklog-ai-workspace-design.md`](docs/architecture/clklog-ai-workspace-design.md)；测试环境启用步骤：目标机上 `bash <BASE_DIR>/ops/candela/install-harness.sh`（幂等安装运行时并写 `configs/harness.enabled` 标记），随后重跑一次部署（`HARNESS_ENABLED=1 bash deploy-native.sh --skip-build`）让开关收敛为 `true` —— 设计与验收见 [`docs/architecture/standalone-test-env-harness-design.md`](docs/architecture/standalone-test-env-harness-design.md)。
-- **只读隔离**：平台执行自定义 SQL / AI 查询走 `sa_readonly`（配置键 `READONLY_CH_PASSWORD`）；写入账号 `default` 只用于平台自身旁路写入。
+- **Secrets stay off the repo and out of logs.** Deploy scripts generate every random password and write it only on the target, in `<BASE_DIR>/configs/candela.env` (mode 0600). Middleware passwords live in `<MW_BASE_DIR>/config/deploy.env`. Do not commit either file, and do not send them out.
+- **Where config comes from.** The running platform config is `<BASE_DIR>/configs/config.yaml`, **rendered** by the deploy script from `apps/analytics-server/config_server.yaml`. The render changes only deploy-time values (database, Redis, and Kafka addresses, and the Harness switch), and **each substitution asserts how many times it must match**. If the repo config changes shape, the script fails instead of silently mismatching. Do not hand-edit `config.yaml` on the target (the next deploy overwrites it; change the source file in the repo).
+- The app reads that YAML through `APP_CONFIG_PATH`. `${VAR}` placeholders are filled from the env file.
+- **The AI assistant is off by default** (`deepseek_harness.enabled: false`). Turning it on needs the Harness runtime (rootless podman plus a broker) and a model-provider key (added in the product under Settings → AI Workspace → model providers; the key is stored as AES-256-GCM ciphertext). Read [`docs/architecture/clklog-ai-workspace-design.md`](docs/architecture/clklog-ai-workspace-design.md) first. On a test machine: `bash <BASE_DIR>/ops/candela/install-harness.sh` (idempotent; writes the `configs/harness.enabled` marker), then redeploy once (`HARNESS_ENABLED=1 bash deploy-native.sh --skip-build`) so the switch settles on `true`. Design and acceptance: [`docs/architecture/standalone-test-env-harness-design.md`](docs/architecture/standalone-test-env-harness-design.md).
+- **Read-only isolation.** Custom SQL and AI queries use `sa_readonly` (config key `READONLY_CH_PASSWORD`). The writer account `default` is only for the platform's own sidecar writes.
 
 ---
 
-## 本地开发
+## Local development
 
-前端（Vite，`base=/sa/`）与后端（NestJS + Prisma）分别启动。
+Start the web app (Vite, `base=/sa/`) and the server (NestJS + Prisma) separately.
 
 ```bash
-# 后端（需要 Node 24 与可用的 MySQL、ClickHouse、Redis、Kafka）
+# Server (Node 24, plus a reachable MySQL, ClickHouse, Redis, and Kafka)
 cd apps/analytics-server
 npm ci
 npx prisma generate
 npm run start:dev            # HTTP :3100
-npm run start:ingestor:dev   # Kafka 消费者（单独进程）
+npm run start:ingestor:dev   # Kafka consumer (its own process)
 
-# 前端
+# Web
 cd apps/analytics-web
 npm ci
-npm run dev                  # Vite :8180，代理 /sa/api → :3100
+npm run dev                  # Vite :8180, proxies /sa/api to :3100
 
-# 测试与门禁（CI 同样执行）
+# Tests and gates (CI runs the same checks)
 cd apps/analytics-server && npm test
 cd apps/analytics-web && npx vitest run
 python3 scripts/i18n_check.py && python3 scripts/i18n_scan.py --check
-python3 scripts/arch_ratchet.py          # 结构规模棘轮（只减不增）
+python3 scripts/arch_ratchet.py          # structure ratchet (may only shrink)
 ```
 
-本地依赖数据的获取方式：用 `scripts/standalone-test-env/` 在你自己的机器上自建一套中间件（见上「部署」，必须设置 `HOST`）。公开检查见 [`.github/workflows/ci.yml`](.github/workflows/ci.yml)。若要在 GitLab 上构建并 rsync 产物，复制 [`scripts/gitlab-ci.yml.template`](scripts/gitlab-ci.yml.template) 为根目录 `.gitlab-ci.yml`，再填入你自己的 runner 标签和主机。
+For local data, stand up middleware on your own machine with `scripts/standalone-test-env/` (see [Deploy](#deploy); `HOST` is required). Public checks: [`.github/workflows/ci.yml`](.github/workflows/ci.yml). To build on GitLab and rsync the artifacts, copy [`scripts/gitlab-ci.yml.template`](scripts/gitlab-ci.yml.template) to `.gitlab-ci.yml` at the repo root, then fill in your own runner tags and hosts.
 
 ---
 
-## 目录结构
+## Repository layout
 
 ```
 apps/
-  analytics-server/         NestJS 后端：HTTP 服务 + Kafka ingestor + Prisma + ClickHouse 访问层
-  analytics-web/            React + Vite 前端（i18n 13 语言）
-  analytics-harness-broker/ AI Harness 运行时管理（可选）
-  analytics-harness-host/   容器内 AI 运行时宿主（可选）
+  analytics-server/         NestJS server: HTTP API + Kafka ingestor + Prisma + ClickHouse access
+  analytics-web/            React + Vite web app (13 languages)
+  analytics-harness-broker/ AI Harness runtime manager (optional)
+  analytics-harness-host/   In-container AI runtime host (optional)
 scripts/
-  standalone-test-env/      部署脚本：中间件 + 社区版
-    candela/                部署脚本：分析平台（常规/容器两套流程 + 数据库初始化 + 铲库 + 验证）
-  build.sh 等               CI 构建与运维脚本
+  standalone-test-env/      Deploy scripts: middleware + community
+    candela/                Deploy scripts: analytics (native and container paths, database init, wipe, verify)
+  build.sh and others       CI build and operations scripts
 deploy-assets/
-  clklog-community/         自上游 ClkLog 官方部署包复制的配置资产（init SQL / ui config.js / 字典）
-                            —— 社区版与分析平台两套部署脚本的数据源
+  clklog-community/         Config assets copied from the official ClkLog deploy package
+                            (init SQL, ui config.js, dictionaries)
+                            — the data source for both community and analytics deploy scripts
 docs/
-  product/                  PRD（产品帽）
-  architecture/             实现方案与契约（架构帽）
-  project/                  排期、验收记录、复盘（项目帽）
-examples/report-sdk/        上报 SDK 示例（多语言）
+  product/                  PRDs (product hat)
+  architecture/             Implementation plans and contracts (architecture hat)
+  project/                  Schedule, acceptance records, retrospectives (project hat)
+examples/report-sdk/        Ingest SDK examples (several languages)
 ```
 
 ---
 
-## 文档导航
+## Documentation
 
-| 想了解 | 看这里 |
+| If you want | Read |
 |---|---|
-| 开发方法论（宪章驱动开发 / CDD） | [`CDD-methodology.md`](CDD-methodology.md) |
-| 项目现状与阶段进展 | [`docs/project/project-status.md`](docs/project/project-status.md) |
-| 文件导航（按任务找文件） | [`INDEX.md`](INDEX.md) |
-| 部署脚本设计与取舍 | [`docs/architecture/standalone-test-env-design.md`](docs/architecture/standalone-test-env-design.md)、[`docs/architecture/candela-deploy-two-paths.md`](docs/architecture/candela-deploy-two-paths.md) |
-| 部署实测与验收证据 | [`docs/project/deployment-record-standalone-test-env.md`](docs/project/deployment-record-standalone-test-env.md)、[`docs/project/deployment-record-candela-two-paths.md`](docs/project/deployment-record-candela-two-paths.md) |
-| 容器化 / K8s / Helm 可行性 | [`docs/architecture/containerization-feasibility.md`](docs/architecture/containerization-feasibility.md) |
-| 分析平台总体方案与契约 | [`docs/architecture/analytics-extension-plan.md`](docs/architecture/analytics-extension-plan.md)、[`docs/architecture/clklog-analytics-design.md`](docs/architecture/clklog-analytics-design.md) |
-| 参与贡献 / 报告安全问题 | [`CONTRIBUTING.md`](CONTRIBUTING.md)、[`SECURITY.md`](SECURITY.md) |
-| 旧生产运维记录 | 已撤出。文件 [`docs/project/legacy-production-handover.md`](docs/project/legacy-production-handover.md) 只说明撤出原因 |
-| 国际化规范（术语表 / 新增语言） | [`docs/architecture/i18n-glossary.md`](docs/architecture/i18n-glossary.md) |
-| 上报协议与 SDK | [`docs/architecture/reporting-protocol.md`](docs/architecture/reporting-protocol.md)、[`examples/report-sdk/`](examples/report-sdk/) |
+| Development method (Charter-Driven Development / CDD) | [`CDD-methodology.md`](CDD-methodology.md) · [中文](CDD-methodology.zh-CN.md) |
+| This README in Chinese | [`README.zh-CN.md`](README.zh-CN.md) |
+| Status and milestones | [`docs/project/project-status.md`](docs/project/project-status.md) |
+| File index (task → file) | [`INDEX.md`](INDEX.md) |
+| Deploy-script design | [`docs/architecture/standalone-test-env-design.md`](docs/architecture/standalone-test-env-design.md), [`docs/architecture/candela-deploy-two-paths.md`](docs/architecture/candela-deploy-two-paths.md) |
+| Deploy evidence | [`docs/project/deployment-record-standalone-test-env.md`](docs/project/deployment-record-standalone-test-env.md), [`docs/project/deployment-record-candela-two-paths.md`](docs/project/deployment-record-candela-two-paths.md) |
+| Containers / Kubernetes / Helm feasibility | [`docs/architecture/containerization-feasibility.md`](docs/architecture/containerization-feasibility.md) |
+| Overall analytics plan and contracts | [`docs/architecture/analytics-extension-plan.md`](docs/architecture/analytics-extension-plan.md), [`docs/architecture/clklog-analytics-design.md`](docs/architecture/clklog-analytics-design.md) |
+| Contributing / security reports | [`CONTRIBUTING.md`](CONTRIBUTING.md), [`SECURITY.md`](SECURITY.md) |
+| Old production runbook | Withdrawn. [`docs/project/legacy-production-handover.md`](docs/project/legacy-production-handover.md) only explains why |
+| Internationalization (glossary / adding a language) | [`docs/architecture/i18n-glossary.md`](docs/architecture/i18n-glossary.md) |
+| Ingest protocol and SDKs | [`docs/architecture/reporting-protocol.md`](docs/architecture/reporting-protocol.md), [`examples/report-sdk/`](examples/report-sdk/) |
 
 ---
 
-## 命名与边界
+## Names and boundaries
 
-| 名字 | 指什么 | 说明 |
+| Name | Means | Notes |
 |---|---|---|
-| **Candela** | **本项目 / 分析平台** | 仓库、镜像（`candela-server` / `candela-web` / `candela-migrate`）、容器（`candela-server` 等）、compose 栈（`candela`）、部署目录（`/data/app/candela`）、supervisor 程序（`candela_server` / `candela_ingestor`）、界面品牌（标题 / 字标 / 邮件署名） |
-| **ClkLog** | **上游社区版**（数据采集与基础报表） | 官方镜像、社区版容器（`clklog-receiver` / `clklog-api` / `clklog-manage` / `clklog-ui` / `clklog-init` / Flink）、社区版库（MySQL `clklog`、ClickHouse `clklog`）、上报协议与 SDK（`ClkLogClient`、`CLKLOG_ENDPOINT` / `CLKLOG_TOKEN` / `CLKLOG_PROJECT`）。**这些名字保持原样**——它们指向上游协议与组件，改名会让接入文档里的示例失效 |
-| `sa` 系列**技术标识** | 历史遗留内部标识 | 访问路径 `/sa/`、接口前缀 `sa/api`、库名 `clklog_sa` / `clklog_sa_meta`、只读账号 `sa_readonly`、环境变量 `CLKLOG_*`、已保存 SQL 里的 `clklog_sa.` 与 `sa_in_cohort()`。它们已固化在 nginx 路由、前端构建 base、Prisma 数据源、ClickHouse DDL 与用户已保存的分析配置中，**迁移成本高且会破坏老链接与老卡片**，因此留作独立 phase（带旧路径兼容后再切换），不在品牌层改名范围内 |
+| **Candela** | **This project / the analytics platform** | The repository, images (`candela-server`, `candela-web`, `candela-migrate`), containers (`candela-server` and the rest), the compose stack (`candela`), the deploy directory (`/data/app/candela`), supervisor programs (`candela_server`, `candela_ingestor`), and the product brand (title, wordmark, email signature) |
+| **ClkLog** | **The upstream community edition** (collection and basic reports) | Official images, community containers (`clklog-receiver`, `clklog-api`, `clklog-manage`, `clklog-ui`, `clklog-init`, Flink), community databases (MySQL `clklog`, ClickHouse `clklog`), and the ingest protocol and SDK (`ClkLogClient`, `CLKLOG_ENDPOINT`, `CLKLOG_TOKEN`, `CLKLOG_PROJECT`). **These names stay as they are.** They point at the upstream protocol and components; renaming them would break the examples in the integration docs |
+| `sa` **technical identifiers** | Historical internal identifiers | The path `/sa/`, the API prefix `sa/api`, database names `clklog_sa` and `clklog_sa_meta`, the read-only account `sa_readonly`, environment variables `CLKLOG_*`, and `clklog_sa.` plus `sa_in_cohort()` inside saved SQL. They are fixed in nginx routes, the web build base, the Prisma datasource, ClickHouse DDL, and analysis configs users have already saved. **Moving them is expensive and would break old links and old cards**, so that rename is its own phase (keep the old path working, then switch). It is out of scope for the brand rename |
 
-**为什么名字里不带 ClkLog**：本项目是 ClkLog 社区版的旁路扩展与私有化编排。带上上游名字容易被误认为"ClkLog 官方出品"，也涉及上游商标使用边界；因此品牌名独立，只在 README / `NOTICE` 中明确"构建于 ClkLog 社区版之上"。
+**Why the name does not include ClkLog.** This project is a sidecar and a private-deploy layout on top of ClkLog Community. Putting the upstream name in the brand makes it easy to mistake the project for an official ClkLog product, and it crosses the upstream trademark line. The brand stands alone. README and `NOTICE` are where we say it is built on ClkLog Community Edition.
 
 ---
 
-## 许可与上游归属
+## License and upstream attribution
 
-本项目以 **GNU Affero General Public License v3.0** 发布（AGPL-3.0，SPDX：`AGPL-3.0-only`），全文见 [`LICENSE`](LICENSE)。版权归自然人 huzhengkun；模型辅助编写不改变这项许可。
+This project is released under the **GNU Affero General Public License v3.0** (AGPL-3.0, SPDX: `AGPL-3.0-only`). The full text is [`LICENSE`](LICENSE). Copyright is held by the natural person huzhengkun. Model-assisted writing does not change that license.
 
-**上游归属**：本项目是 [ClkLog](https://www.clklog.com/) 社区版（AGPL-3.0）的旁路扩展与私有化编排，仓库内包含复制或改编自其官方部署包的配置文件；上游组件、镜像与逐文件改动声明见 [`NOTICE`](NOTICE)。本项目**不修改社区版镜像与表结构**，分析域全部旁路在独立库（`clklog_sa` / `clklog_sa_meta`）中。
+**Upstream.** This project is a sidecar and a private-deploy layout for [ClkLog](https://www.clklog.com/) Community Edition (AGPL-3.0). The repository contains configuration files copied or adapted from the official deploy package. Upstream components, images, and the per-file change list are in [`NOTICE`](NOTICE). This project **does not modify community images or table definitions**. The analytics domain lives entirely in its own databases (`clklog_sa` and `clklog_sa_meta`).
 
-**网络服务注意**：AGPL-3.0 §13 要求，若通过网络向用户提供本软件的服务，须向这些用户提供获取对应源码的机会。以本项目对外提供服务者应自行履行该义务。
+**Network use.** AGPL-3.0 §13 requires that if you offer this software as a network service, you give those users a way to obtain the corresponding source. Anyone who runs this project as a service is responsible for that obligation.

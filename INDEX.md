@@ -9,14 +9,17 @@
 索引版本: 4
 最后全量扫描: 2026-10-11
 下次计划扫描: 2026-10-18
-计数(口径 rg --files <目录> -g '*.md'): 根目录=8, docs/product=91, docs/architecture=93, docs/project=55, examples/report-sdk=2, puppet=0, scripts=0
+计数(口径 rg --files <目录> -g '*.md'): 根目录=10, docs/product=91, docs/architecture=93, docs/project=55, examples/report-sdk=2, puppet=0, scripts=0
 -->
 
 ## 任务入口
 
 | 任务 | 首选文件 |
 |------|---------|
-| 项目现状与入口 | `README.md` |
+| 项目现状与入口（英文，GitHub 默认） | `README.md` |
+| 项目现状与入口（中文） | `README.zh-CN.md` |
+| 开发方法论 CDD（英文） | `CDD-methodology.md` |
+| 开发方法论 CDD（中文） | `CDD-methodology.zh-CN.md` |
 | **接手/交接入口（仓库来源、目标机现状、待办与已知坑）** | `docs/project/handoff-candela-new-repo.md` |
 | 项目现状与阶段进展（原 README 内容迁移：阶段清单 / 架构速览 / 文档入口 / 约束） | `docs/project/project-status.md` |
 | 产品与界面设计基线（用户/目的/品牌性格/设计原则） | `PRODUCT.md` |
