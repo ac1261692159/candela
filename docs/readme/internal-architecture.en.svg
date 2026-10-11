@@ -1,0 +1,62 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="910" viewBox="0 0 1200 910" role="img" aria-labelledby="title desc">
+<title id="title">Candela: internal responsibilities</title><desc id="desc">React calls NestJS APIs. A separate ingestor consumes Kafka. MySQL, ClickHouse and Redis serve distinct storage roles; AI is optional.</desc>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10Z" fill="#7786a1"/></marker></defs>
+<rect width="1200" height="910" rx="24" fill="#f5f7fb"/>
+<g font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Microsoft YaHei', sans-serif">
+<text x="40" y="38" font-size="14" fill="#3265ca" font-weight="700">02 / INSIDE CANDELA</text>
+<text x="40" y="78" font-size="30" fill="#152646" font-weight="700">Explore, query, save, and monitor.</text>
+<text x="40" y="109" font-size="18" fill="#60708a" font-weight="400">Logical responsibility groups · HTTP API and ingestion run as separate processes.</text>
+<rect x="40" y="147" width="740" height="99" rx="16" fill="#fff" stroke="#dce3ee"/>
+<text x="62" y="182" font-size="22" fill="#1f3151" font-weight="650">analytics-web · React</text>
+<text x="62" y="211" font-size="18" fill="#60708a" font-weight="400">Ant Design + ECharts · conditions, charts, dashboards, languages</text>
+<rect x="830" y="147" width="330" height="99" rx="16" fill="#eaf0ff" stroke="#bdcff4"/>
+<text x="852" y="182" font-size="22" fill="#1f3151" font-weight="650">Kafka · clklog</text>
+<text x="852" y="211" font-size="18" fill="#60708a" font-weight="400">Independent consumer group</text>
+<path d="M410 246 V304" fill="none" stroke="#7786a1" stroke-width="2" stroke-linejoin="round" marker-end="url(#arrow)"/>
+<text x="430" y="280" font-size="18" fill="#3265ca" font-weight="600">/sa/api</text>
+<path d="M995 246 V304" fill="none" stroke="#7786a1" stroke-width="2" stroke-linejoin="round" marker-end="url(#arrow)"/>
+<rect x="40" y="304" width="740" height="314" rx="16" fill="#fff" stroke="#bdcff4"/>
+<text x="64" y="343" font-size="24" fill="#1f3151" font-weight="700">analytics-server · NestJS</text>
+<text x="64" y="374" font-size="18" fill="#60708a" font-weight="400">Auth + RBAC + project scope → validation → services</text>
+<rect x="64" y="399" width="330" height="88" rx="16" fill="#f5f7fb" stroke="#dce3ee"/>
+<text x="86" y="434" font-size="22" fill="#1f3151" font-weight="650">Analytics</text>
+<text x="86" y="463" font-size="18" fill="#60708a" font-weight="400">Events / funnels / retention / SQL</text>
+<rect x="418" y="399" width="330" height="88" rx="16" fill="#f5f7fb" stroke="#dce3ee"/>
+<text x="440" y="434" font-size="22" fill="#1f3151" font-weight="650">Catalog &amp; users</text>
+<text x="440" y="463" font-size="18" fill="#60708a" font-weight="400">Metadata / cohorts / tags / timeline</text>
+<rect x="64" y="502" width="330" height="88" rx="16" fill="#f5f7fb" stroke="#dce3ee"/>
+<text x="86" y="537" font-size="22" fill="#1f3151" font-weight="650">Dashboards &amp; metrics</text>
+<text x="86" y="566" font-size="18" fill="#60708a" font-weight="400">Saved cards / cache refresh</text>
+<rect x="418" y="502" width="330" height="88" rx="16" fill="#f5f7fb" stroke="#dce3ee"/>
+<text x="440" y="537" font-size="22" fill="#1f3151" font-weight="650">Governance &amp; alerts</text>
+<text x="440" y="566" font-size="18" fill="#60708a" font-weight="400">Quality / reconciliation / delivery</text>
+<rect x="830" y="304" width="330" height="172" rx="16" fill="#f0fbf7" stroke="#b5ddcf"/>
+<text x="852" y="339" font-size="22" fill="#1f3151" font-weight="650">analytics-ingestor</text>
+<text x="852" y="368" font-size="18" fill="#60708a" font-weight="400">Parse → batch writes</text>
+<text x="852" y="393" font-size="18" fill="#60708a" font-weight="400">Discover metadata</text>
+<text x="852" y="418" font-size="18" fill="#60708a" font-weight="400">Record failures</text>
+<rect x="830" y="508" width="330" height="190" rx="16" fill="#f6f2ff" stroke="#cfc2ee" stroke-dasharray="7 5"/>
+<text x="852" y="542" font-size="15" fill="#77549e" font-weight="700">OPTIONAL · AI HARNESS</text>
+<text x="852" y="574" font-size="18" fill="#665380" font-weight="400">Page context + analytics tools</text>
+<text x="852" y="602" font-size="18" fill="#665380" font-weight="400">Broker → isolated runtime</text>
+<text x="852" y="630" font-size="18" fill="#665380" font-weight="400">Configured model provider</text>
+<text x="852" y="658" font-size="18" fill="#665380" font-weight="400">Off by default</text>
+<path d="M780 576 H830" fill="none" stroke="#7786a1" stroke-width="2" stroke-linejoin="round" marker-end="url(#arrow)" stroke-dasharray="6 5"/>
+<path d="M280 618 V721 H215 V746" fill="none" stroke="#7786a1" stroke-width="2" stroke-linejoin="round" marker-end="url(#arrow)"/>
+<path d="M410 618 V721 H590 V746" fill="none" stroke="#7786a1" stroke-width="2" stroke-linejoin="round" marker-end="url(#arrow)"/>
+<path d="M540 618 V710 H965 V746" fill="none" stroke="#7786a1" stroke-width="2" stroke-linejoin="round" marker-end="url(#arrow)"/>
+<path d="M1160 391 H1179 V731 H725 V746" fill="none" stroke="#7786a1" stroke-width="2" stroke-linejoin="round" marker-end="url(#arrow)"/>
+<rect x="40" y="746" width="350" height="108" rx="16" fill="#fff" stroke="#dce3ee"/>
+<text x="62" y="781" font-size="22" fill="#1f3151" font-weight="650">MySQL · clklog_sa_meta</text>
+<text x="62" y="810" font-size="18" fill="#60708a" font-weight="400">Metadata, definitions, permissions</text>
+<text x="62" y="835" font-size="18" fill="#60708a" font-weight="400">Dashboards and configuration</text>
+<rect x="415" y="746" width="350" height="108" rx="16" fill="#f0fbf7" stroke="#b5ddcf"/>
+<text x="437" y="781" font-size="22" fill="#1f3151" font-weight="650">ClickHouse · clklog_sa</text>
+<text x="437" y="810" font-size="18" fill="#60708a" font-weight="400">Events, profiles, cohort members</text>
+<text x="437" y="835" font-size="18" fill="#60708a" font-weight="400">Read-only analysis queries</text>
+<rect x="790" y="746" width="370" height="108" rx="16" fill="#fff" stroke="#dce3ee"/>
+<text x="812" y="781" font-size="22" fill="#1f3151" font-weight="650">Redis</text>
+<text x="812" y="810" font-size="18" fill="#60708a" font-weight="400">Query cache and sessions</text>
+<text x="812" y="835" font-size="18" fill="#60708a" font-weight="400">Background-task coordination</text>
+<text x="40" y="885" font-size="17" fill="#60708a" font-weight="400">Solid arrows: requests / storage access   ·   Dashed: optional AI integration</text>
+</g></svg>

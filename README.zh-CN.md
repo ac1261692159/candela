@@ -1,169 +1,94 @@
 # Candela
 
-[English](README.md) | **中文**
+**把用户行为变成可行动的分析。**
 
-[CDD methodology](CDD-methodology.md) · [宪章驱动开发](CDD-methodology.zh-CN.md)
+开源、可私有化的用户行为分析平台。在自己的服务器上，了解用户做了什么、在哪一步流失、是否再次回来，并用看板与告警持续跟踪变化。
 
-> **全 AI 编写（Vibe Coding）**：本项目 **100% 由 AI 编写**——没有人类手写业务代码，人只负责定目标、验收与拍板；同一份代码库由多个厂商的模型接力产出，靠 [`AGENTS.md`](AGENTS.md) 的规则与架构约束保持可控与质量。详见下方 [全 AI 编写](#全-ai-编写vibe-coding)。
+**事件分析 · 转化漏斗 · 留存分析 · 用户分群 · 看板与告警**
 
-**开源、可私有化的用户行为分析平台** —— 跑在 ClkLog 社区版之上，把原始埋点变成可度量、可追问、可告警的洞察。
-把该项目直接通过AI agent 打开（如cursor,codex,zcode等），无需多言，ai什么都懂！
+[English](README.md) | **中文** · [AGPL-3.0](LICENSE) · [13 种界面语言](#语言) · [全 AI 编写](#全-ai-编写vibe-coding)
 
-> Candela 是**发光强度**的国际单位：我们把用户行为「点亮」成可度量的数。项目原先叫 `clklog_manager`，2026-10-10 更名为 Candela；命名边界见下文「[命名与边界](#命名与边界)」。
+**[快速开始](#快速开始) · [核心功能](#核心功能) · [功能展示](#能力概览) · [架构](#架构) · [完整部署](#部署)**
 
-在 ClkLog 社区版（数据采集与基础报表）之上旁路扩展出一个完整的分析平台：事件分析、漏斗、留存、用户分群与标签、看板、自定义 SQL 与图表、指标与告警、项目级权限（RBAC）、多语言界面、AI 数据分析助手。分析域使用独立数据库（MySQL `clklog_sa_meta` + ClickHouse `clklog_sa`），**不修改社区版镜像、不 ALTER 社区版表**，因此官方升级不受影响。
+<img src="docs/readme/05-dashboard.png" alt="Candela 看板：日活、新增用户、收入趋势与参与深度集中在同一页面" width="1000">
 
-- 许可：AGPL-3.0（见 [`LICENSE`](LICENSE)），上游归属见 [`NOTICE`](NOTICE)
-- **接手/交接入口**：[`docs/project/handoff-candela-new-repo.md`](docs/project/handoff-candela-new-repo.md)（仓库来源、目标机现状、待办与已知坑）
-- 阶段进展与设计速览：[`docs/project/project-status.md`](docs/project/project-status.md)
-- 文件导航：[`INDEX.md`](INDEX.md)
+*把日活、转化、收入和留存存成可复用的分析卡片，集中查看、筛选与分享。本文截图来自已运行的实例，部分界面仍显示更名前的 ClkLog 品牌；看板名和事件名是用户数据。*
 
----
+Candela 基于 **ClkLog 社区版**旁路扩展：社区版负责采集与基础报表，Candela 提供行为分析、协作与治理。两者消费同一条 Kafka 事件流，分析域使用独立数据库；**不修改社区版镜像与表结构**。AI 分析助手为可选组件，默认关闭。
 
-## 目录
+## 核心功能
 
-- [能管理什么、能分析什么](#能管理什么能分析什么)
-- [全 AI 编写](#全-ai-编写vibe-coding)
-  - [AGENTS.md：让多模型协作可控的那一层](#agentsmd让多模型协作可控的那一层)
-- [能力概览](#能力概览)
-  - [埋点管理](#埋点管理)
-  - [分析](#分析)
-  - [用户](#用户)
-  - [看板、SQL 与指标](#看板sql-与指标)
-  - [数据管理](#数据管理)
-  - [运维与告警](#运维与告警)
-  - [权限](#权限)
-  - [AI 助手](#ai-助手)
-  - [语言](#语言)
-- [架构](#架构)
-- [部署](#部署)
-  - [前置条件](#前置条件)
-  - [第 1 步：部署中间件](#第-1-步部署中间件)
-  - [第 2 步：部署-clklog-社区版](#第-2-步部署-clklog-社区版)
-  - [第 3 步：部署分析平台（两种方式）](#第-3-步部署分析平台两种方式)
-  - [访问与验收](#访问与验收)
-  - [日常运维](#日常运维)
-- [配置与密钥](#配置与密钥)
-- [本地开发](#本地开发)
-- [目录结构](#目录结构)
-- [文档导航](#文档导航)
-- [命名与边界](#命名与边界)
-- [许可与上游归属](#许可与上游归属)
-
----
-
-## 能管理什么、能分析什么
-
-Candela 不自带一套固定的页面浏览、渠道报表。事件由你定义，平台负责收下、命名，并回答关于这些事件的问题。ClkLog 社区版仍然接收上报，并保留它自己的预置流量报表。Candela 管的是这些事件，以及事件背后的人。
-
-### 管理的数据
-
-| 数据 | 是什么 | 例子 |
-|---|---|---|
-| 行为事件 | 一个人做了什么，加上你附上的属性 | `PaySuccess`，带 `amount`、`pay_type`、`product_id` |
-| 是谁做的 | 登录前是匿名 ID，注册或登录后是登录 ID | 设备上的 `distinct_id`，`$SignUp` 之后的 `user_key` |
-| 用户属性 | 你写在人身上的属性（`user_set`） | `plan=pro`、`city=上海` |
-| SDK 自动带上的上下文 | 设备、页面、渠道、地域，不用手写 | `$os`、`$url`、`$utm_source`、`$city` |
-| 埋点目录 | 事件和属性的显示名、类型、是否在分析里可见 | 隐藏一个已下线的事件，分析选择器里就不再出现 |
-| 你补上的定义 | 虚拟事件、虚拟属性、保存下来的指标 | 「App 下单」= `SubmitOrder` 且 `channel=app` |
-| 一组人 | 用户分群、用户标签 | 近 7 天付过款的人 |
-| 对照表 | 用 CSV 上传的维度表 | 按 `product_id` 关联的商品目录 |
-| 保存下来的工作 | 看板、分析卡片、告警规则 | 一份获客周报 |
-
-事件名和属性名都是你的。`PageView`、`SubmitOrder`、`PaySuccess` 只是例子，不是内置方案。已经上报的事件会变成一行，可以改显示名、隐藏，或写说明。
-
-<img src="docs/readme/00-events.png" alt="埋点目录：已上报事件的显示名、状态和近期量" width="880">
-
-*埋点目录。每一行是一个已经上报的事件。点开可以改显示名、状态和说明。*
-
-### 能做的分析
-
-| 想问的问题 | 在哪里问 |
+| 你想解决的问题 | Candela 提供的能力 |
 |---|---|
-| 发生了多少次、多少人、求和或平均，按某个属性拆开，按小时、天、周、月对比 | 事件分析 |
-| 做了第 1 步的人里，有多少人走到第 2 步直到第 N 步，在哪一步离开 | 漏斗（2–32 步，带时间窗口） |
-| 做了 A 的人里，第 N 天又做了 B 的有多少 | 留存 |
-| 这一个人按时间做了哪些事 | 用户行为序列 |
-| 上面三种模型盖不住的问题 | 自定义 SQL（只读）和看板上的图表 |
-| 某个保存下来的数越过一条线时通知我 | 指标和告警（飞书、邮件、短信等通道） |
+| 用户做了什么，哪些行为在增长？ | **事件分析**：次数、人数、聚合指标、属性拆分与趋势对比 |
+| 注册到付费，用户在哪一步离开？ | **转化漏斗**：多步骤转化、流失位置与转化窗口 |
+| 新用户过几天还会回来吗？ | **留存分析**：初始与回访事件、日期队列与留存趋势 |
+| 哪些人值得进一步关注？ | **用户分群与行为序列**：条件 / SQL / ID 分群、标签与单用户追踪 |
+| 如何让团队持续跟踪业务？ | **看板、指标与告警**：保存分析卡片，跨渠道通知指标变化 |
+| 标准分析模型回答不了的问题怎么办？ | **自定义 SQL 与可选 AI 助手**：只读查询、图表与当前页面上下文分析 |
 
-<img src="docs/readme/01-event-analysis.png" alt="事件分析：近 30 天的人均启动次数和平均会话时长" width="880">
+埋点目录、数据质量、维度表、项目级权限与 13 种界面语言支撑日常使用。事件和属性由你定义，适用于 Web、App、小程序等业务的产品分析。
 
-*事件分析。同一个时间范围上的两个指标：人均启动次数，以及平均会话时长。*
+## 快速开始
 
-<img src="docs/readme/03-funnel-analysis.png" alt="从应用启动到登录、再到引导的漏斗，引导步流失明显" width="880">
+### 1. 准备一台服务器
 
-*漏斗。启动应用的人里，大多数走到了登录。人主要是在引导这一步离开的。*
+下面采用 **Docker Compose 单机部署**，在工作站的仓库根目录执行。需要：
 
-<img src="docs/readme/04-retention-analysis.png" alt="留存表：每个日期队列在第 1 天到第 30 天的回访人数" width="880">
+- 一台可通过 SSH 密钥以 root 登录的 **AlmaLinux 9** 服务器；已实测环境为 AlmaLinux 9.6。
+- 建议 **4 核 CPU / 16 GiB 内存 / 40 GB 以上磁盘**，放行入站端口 `80`。
+- 工作站安装 Git、SSH、rsync；服务器可访问镜像仓库、系统软件源和 npm 源。镜像源调整见[前置条件](#前置条件)。
 
-*留存。每一行是一批人。每一列是这批人在第 N 天又回来的人数。*
+### 2. 部署并验收
 
-<img src="docs/readme/06-usertimeline01.png" alt="用户行为序列：用业务 ID 找出一个人，并看到他产生了哪些事件" width="880">
+```bash
+git clone https://github.com/ac1261692159/candela.git
+cd candela
+export HOST=root@your-server  # 替换成你的 SSH 目标
 
-*用户行为序列。用一个业务 ID 把这个人找出来。页面会归并到这个人，并给出他产生了哪些事件。*
+# 按顺序部署：中间件 → ClkLog 标准模式 → Candela
+bash scripts/standalone-test-env/deploy-remote.sh mw
+bash scripts/standalone-test-env/deploy-remote.sh clklog
+bash scripts/standalone-test-env/candela/deploy-remote.sh docker
 
-<img src="docs/readme/06-usertimeline02.png" alt="同一个人：左边是用户属性，右边是事件列表" width="880">
+# 两套验收都要通过，包含上报与入库行数核对
+bash scripts/standalone-test-env/candela/deploy-remote.sh verify
+bash scripts/standalone-test-env/deploy-remote.sh verify
+```
 
-*同一个人再往下。左边是用户属性，右边是事件列表。*
+脚本会安装所需运行组件、构建应用并初始化数据库；首次部署耗时取决于下载与构建速度。步骤可幂等重跑，AI 助手无需在首次部署时配置。
 
-<img src="docs/readme/02-custom-analysis_and_harness.png" alt="自定义 SQL 查询 CDN 下载速度，右侧 AI 助手读到了当前结果" width="880">
+### 3. 登录并完成第一次分析
 
-*自定义 SQL，旁边是 AI 助手。查询是只读的。助手能看到当前这次结果。*
+打开 **`http://<服务器IP>/sa/`**，以 `admin` 登录。初始口令由脚本随机生成，保存在目标机 `/data/app/candela/configs/candela.env` 的 `ADMIN_INIT_PASSWORD` 中；通过目标机上的受控终端查看，勿提交或分享该文件。ClkLog 社区版入口为 `http://<服务器IP>/`。
 
-<img src="docs/readme/05-dashboard.png" alt="看板：日活、收入、游戏时长和留存卡片" width="880">
+1. 选择项目，打开**接入指南**，按页面说明取得上报地址、项目标识和 token，下载对应 SDK 示例。
+2. 运行示例或上报自己的事件，在 **Debug** 中确认到达；首次数据进入可能有延迟。
+3. 打开**事件分析**，选择事件、时间范围与指标，查看结果。
+4. 将结果保存为**看板卡片**；需要持续监测时，再配置指标告警。
 
-*看板。同一批结果存成一块板上的卡片：人数、趋势和收入。*
+上报示例见 [`examples/report-sdk/`](examples/report-sdk/)，协议见[上报规范](docs/architecture/reporting-protocol.md)。截图中的事件与看板仅为示例，需要接入数据后创建自己的分析。
 
-<img src="docs/readme/09-alert02.png" alt="告警通道：邮件、Telegram、WhatsApp 和短信" width="880">
+已有 ClkLog 标准模式、需要宿主进程部署或自定义目录？继续看[完整部署](#部署)与[部署方案](docs/architecture/candela-deploy-two-paths.md)。
 
-*告警。某个保存下来的数越过一条线时，从这些通道里选出一条把消息送出去。*
+## 阅读导航
 
-一条常见路径：登记事件，在 Debug 里确认已经入库，跑分析，把结果存成看板卡片。
-
----
-
-## 全 AI 编写（Vibe Coding）
-
-> **本项目 100% 由 AI 编写**：没有人类手写业务代码，人只负责定目标、验收与拍板。
-
-同一份代码库由不同厂商、不同能力的模型接力产出，按参与度大致为：
-
-| 模型 | 客户端 | 参与度 |
-|---|---|---|
-| DeepSeek V4.0 / V4.1-Flash | ZCode | ~80% |
-| Grok 4.5 | Cursor | ~12% |
-| GLM 5.3-Flash | ZCode | ~5% |
-| GPT-5.6 Sol | Codex | ~3% |
-
-模型会换、会话会断、单次输出质量参差——项目仍能保持一致与质量，靠的不是"某个模型足够强"，而是仓库里那层**与模型无关的规则与架构**：无论哪家模型、哪个版本上场，只要遵守同一套约束，产出的行为就收敛到同一个可验收标准。这层约束的入口就是 [`AGENTS.md`](AGENTS.md)。
-PS：好模型只是加速器，不是必要条件——哪怕只有 DeepSeek，一样能「手搓原子弹」。
-
-> 我的宗旨是：把「技术问题」变成「工程问题」——难度照旧，但保障方式从「靠某个模型够强」换成「靠规则与验证」；这也是本项目采用 CDD 的由来。
-
-### AGENTS.md：让多模型协作可控的那一层
-
-[`AGENTS.md`](AGENTS.md) 是本仓库的 **Agent 工作规则（唯一事实来源，SSOT）**，也是"不依赖模型记忆、不依赖会话上下文"的关键——模型每次开工都从文件重新装载规则，而不是靠上一轮对话的残留。
-
-**但它不是一份零散的约定，而是一套成体系的方法论——CDD（Charter-Driven Development，宪章驱动开发），完整论述见 [`CDD-methodology.zh-CN.md`](CDD-methodology.zh-CN.md)。** 在 Candela 里，`AGENTS.md` 就是这套宪章的载体：它把职责边界、架构红线、设计前置与验收要求固化为持续有效的规则，让全 AI 编程的**可控性来自规则，而不是来自某个模型**。这意味着无论换哪家、哪个版本的模型接力，产出都收敛到同一个可验收标准，且每次事故与决策都能回写为新约束、越用越稳——这正是本项目能持续交付的**不可或缺**的前提。
-
-它主要做了五件事：
-
-| 机制 | 做什么 | 为什么对"多模型"重要 |
-|---|---|---|
-| **帽子（角色）** | 每顶帽子只有唯一工作目录（`docs/architecture/`、`docs/product/`、`docs/project/`、`apps/` + `scripts/`、`deploy-assets/`）与唯一问题，一次只戴一顶 | 把"在哪写、回答什么问题"变成客观选择，模型不会越界改错地方 |
-| **程序/实现门禁** | 动代码前，`docs/product/` 与 `docs/architecture/` 必须已有**仓库内真实文档**，且含 `phase` id、阶段范围、验收标准、非目标，缺一即门禁未过 | 先设计后实现，杜绝"边写边编方案"，把创意与实现分离 |
-| **绝对红线** | 7 条不可逾越的边界：不侵入 ClkLog 社区版、不破坏数据链路、密钥不入库、ClickHouse 查询必须有界、目录属主要正确、不静默删数据、部署真相在脚本 | 边界与模型能力无关，任何模型都不能自主突破 |
-| **可机检的硬门禁** | 结构棘轮（`arch_ratchet.py`）、i18n 双校验（`i18n_check.py` / `i18n_scan.py`）、验收脚本（端到端上报 12 / 19 项） | 把"质量"判定成命令退出码，模型无法自我宣称"已完成" |
-| **文档与证据纪律** | 文档分层各司其职（README / AGENTS / INDEX / `docs/` / 代码）、改公共契约同步契约文档、交付附变更证据、按需导航而非通读 | 换模型时靠索引与 SSOT 重新定位，而不是依赖超长上下文 |
-
-一句话概括：**CDD 把"人评审模型输出"变成"模型对照规则自证"**——规则可检索、门禁可运行、验收可复核，于是换谁的模型都不影响仓库的一致性下限。**没有这层宪章，多模型接力会退化为"每次重新对齐 + 依赖超长上下文 + 质量随模型与运气波动"；正因为它把治理固定进仓库，全 AI 编程才可复现、可交接、可长期演化。** 方法与设计理由见 [`CDD-methodology.zh-CN.md`](CDD-methodology.zh-CN.md)；配套文件：文件导航 [`INDEX.md`](INDEX.md)、代码架构硬门禁细则 [`docs/architecture/code-hard-gates.md`](docs/architecture/code-hard-gates.md)、架构棘轮基线 [`docs/architecture/arch-ratchet-baseline.md`](docs/architecture/arch-ratchet-baseline.md)。
+| 接下来想做什么 | 跳转 |
+|---|---|
+| 看实际界面与功能细节 | [能力概览](#能力概览) |
+| 理解数据流与内部职责 | [架构](#架构) |
+| 配置、升级、回滚或排查部署 | [部署](#部署) · [配置与密钥](#配置与密钥) |
+| 本地开发或参与贡献 | [本地开发](#本地开发) · [目录结构](#目录结构) · [贡献指南](CONTRIBUTING.md) |
+| 了解 AI 编写与工程方法 | [全 AI 编写与 CDD](#全-ai-编写vibe-coding) |
+| 接手项目或查设计资料 | [文档导航](#文档导航) · [交接文档](docs/project/handoff-candela-new-repo.md) · [文件索引](INDEX.md) |
 
 ---
 
 ## 能力概览
 
-上面的图是已经跑出来的例子。下面按领域写每一块实际能做什么。
+从上报事件到分析、分群、看板与告警，下面按使用环节展示。图片可点击查看原尺寸。
+
+[埋点](#埋点管理) · [事件](#事件分析) · [漏斗](#漏斗) · [留存](#留存) · [用户](#用户) · [看板与 SQL](#看板sql-与指标) · [数据](#数据管理) · [告警](#运维与告警) · [权限](#权限) · [AI](#ai-助手)
 
 ### 埋点管理
 
@@ -175,19 +100,47 @@ PS：好模型只是加速器，不是必要条件——哪怕只有 DeepSeek，
 - 虚拟属性是在已有属性上保存的一个表达式。筛选、分组和聚合可以把它当普通属性用。
 - 事件上可以写备注。Debug 按人或按事件名查看最近的原始事件，属性原文都在，用来在做看板之前确认新事件已经入库。
 
+<img src="docs/readme/00-events.png" alt="埋点目录：事件显示名、状态与近期数据量" width="1000">
+
+*埋点目录：确认已上报事件，维护显示名、属性与可见性。*
+
 ### 分析
 
-四种问法，每种结果都能出图。任意一种都可以存成卡片、导出 CSV，或存成指标。
+事件、漏斗与留存用于汇总分析，用户行为序列用于追踪个体。分析结果可保存为卡片或导出 CSV；事件分析与留存切片还可定义可复用指标。
 
-**事件分析。** 同一个时间范围上放多个指标：次数、人数、求和、平均、最大、最小、去重计数、分位数、人均。按事件属性和用户属性筛选，条件可以且/或组合。按某个属性拆开，或按小时、天、周、月拆开。公式把已经加上的指标再算一遍。扫描量大时可以走近似计算。结果是一条时间序列和一张表。
+#### 事件分析
 
-**漏斗。** 2 到 32 步。每一步是一个事件，可以再加筛选。你规定这些步骤必须落在多长的时间窗口里。结果给出总转化、每一步的流失、漏斗图和步骤表。
+同一个时间范围上放多个指标：次数、人数、求和、平均、最大、最小、去重计数、分位数、人均。按事件属性和用户属性筛选，条件可以且/或组合。按某个属性拆开，或按小时、天、周、月拆开。公式把已经加上的指标再算一遍。扫描量大时可以走近似计算。结果是一条时间序列和一张表。
 
-**留存。** 指定初始事件和回访事件，可以是同一个，也可以是两个。口径可以是「做过初始事件的全部人」，也可以只留「当天是首日的人」。表的每一行是一批人，每一列是第 N 天（第 1 天、第 7 天、第 30 天，或你自己加的一天）。趋势把其中一列拉成跨批次的曲线。
+<img src="docs/readme/01-event-analysis.png" alt="事件分析：人均启动次数与平均会话时长" width="1000">
 
-**用户行为序列。** 用一个业务属性把人找出来，不必先知道内部 ID。页面会归并到这个人，列出他的属性，并按时间给出事件、各类事件的占比，以及某一行前后的相邻事件。
+*事件分析：同一时间范围内对比多个指标，观察变化。*
+
+#### 漏斗
+
+2 到 32 步。每一步是一个事件，可以再加筛选。你规定这些步骤必须落在多长的时间窗口里。结果给出总转化、每一步的流失、漏斗图和步骤表。
+
+<img src="docs/readme/03-funnel-analysis.png" alt="转化漏斗：从应用启动到登录与引导" width="1000">
+
+*转化漏斗：按步骤查看转化，定位流失最明显的环节。*
+
+#### 留存
+
+指定初始事件和回访事件，可以是同一个，也可以是两个。口径可以是「做过初始事件的全部人」，也可以只留「当天是首日的人」。表的每一行是一批人，每一列是第 N 天（第 1 天、第 7 天、第 30 天，或你自己加的一天）。趋势把其中一列拉成跨批次的曲线。
+
+<img src="docs/readme/04-retention-analysis.png" alt="留存分析：各日期队列第 1 至第 30 天回访情况" width="1000">
+
+*留存分析：比较不同日期队列，观察用户是否持续回来。*
+
+#### 用户行为序列
+
+用一个业务属性把人找出来，不必先知道内部 ID。页面会归并到这个人，列出他的属性，并按时间给出事件、各类事件的占比，以及某一行前后的相邻事件。
 
 每次分析都有一个分析主体，也就是「一个」按什么来计。预置主体是用户。一个项目可以再加别的主体。
+
+<img src="docs/readme/06-usertimeline01.png" alt="用户行为序列：用业务 ID 定位用户并查看事件" width="1000">
+
+*用户行为序列：把汇总指标下钻到一个人的具体行为。*
 
 ### 用户
 
@@ -226,6 +179,10 @@ PS：好模型只是加速器，不是必要条件——哪怕只有 DeepSeek，
 
 投递通道有飞书、钉钉、企业微信、通用 Webhook、邮件、短信（阿里云、腾讯云、AWS、Twilio）、Telegram 和 WhatsApp。正文来自模板。通道可以暂停，失败的投递会重试，也可以先发一条测试消息。每条规则有健康度，变更写进日志。
 
+<img src="docs/readme/09-alert02.png" alt="告警通道：邮件、Telegram、WhatsApp 与短信配置" width="1000">
+
+*告警通道：选择团队使用的通知方式。*
+
 ### 权限
 
 平台超管管这套安装：项目、运维面板，以及谁是项目的 owner。项目内部的角色是项目 owner、分析管理员、分析师、普通成员、外部人员。人可以放进成员组，授权可以授给整个组。
@@ -240,40 +197,50 @@ PS：好模型只是加速器，不是必要条件——哪怕只有 DeepSeek，
 
 它**默认关闭**。打开需要 Harness 运行时和供应商的密钥。见 [配置与密钥](#配置与密钥)。
 
+<img src="docs/readme/02-custom-analysis_and_harness.png" alt="自定义 SQL 与旁侧 AI 分析助手" width="1000">
+
+*自定义 SQL 与可选 AI 助手：基于当前查询结果继续追问；AI 助手需额外启用。*
+
 ### 语言
 
 界面、报错、导出和通知文本有 13 门语言：简体中文、繁体中文、英语、日语、韩语、俄语、法语、德语、西班牙语、葡萄牙语、越南语、泰语、印尼语。语言跟着登录的人走。你自己起的名字（事件、看板、备注、SQL）保持原样。
 
 CI 会检查每门语言的键是否齐全，以及新增的界面文字有没有写死在代码里。
 
+[返回阅读导航](#阅读导航)
+
 ---
 
 ## 架构
 
-```
-        浏览器                        SDK（Web / App / 小程序）
-          │                                    │
-          └──────────────► 宿主 nginx :80 ◄─────┘
-                              │
-        ┌─────────────────────┼──────────────────────────┐
-        │                     │                          │
-  分析平台 /sa/            社区版 /                  数据上报 /receiver/
-        │                     │                          │
-   ┌────┴─────┐        ┌──────┴───────┐          ┌───────┴────────┐
-   │ 前端静态 │        │ UI / API /   │          │   receiver     │
-   └──────────┘        │ Manage       │          └───────┬────────┘
-        │              └──────┬───────┘                  │
-   ┌────┴──────────┐   ┌──────┴───────┐        Kafka topic clklog
-   │ analytics-    │   │ MySQL clklog │                  │
-   │ server :3100  │   │ Redis        │          ┌───────┴────────┐
-   ├───────────────┤   └──────────────┘          │  Flink 解析作业 │
-   │ ingestor      │                             └───────┬────────┘
-   │ (Kafka 消费)  │                                     │
-   └───────┬────────┘                            ClickHouse clklog
-           │                                             │
-   ClickHouse clklog_sa ◄── 旁路写入 ◄───────────────────┘（只读）
-   MySQL clklog_sa_meta（平台元数据）
-```
+### 系统与数据链路
+
+一份上报进入 Kafka 后，由**两条独立消费链路**处理。社区版 Flink 写入社区版 ClickHouse 库；Candela ingestor 使用独立消费组，写入分析域事件与用户画像。Candela 的事件入库直接来自 Kafka。
+
+<img src="docs/readme/data-flow.zh-CN.svg" alt="数据链路：SDK 经 nginx 与 receiver 写入 Kafka，再分别由社区版 Flink 和 Candela ingestor 消费，写入各自的 ClickHouse 库" width="1000">
+
+社区版镜像和表结构保持原样。Candela 可只读访问社区版数据进行一致性核对，两条消费链路的进度彼此独立。**ClkLog 必须运行标准模式**；跳过 Kafka 的快速模式无法向 Candela 提供事件流。
+
+### Candela 内部职责
+
+前端构建分析条件、展示结果；后端负责鉴权、项目隔离、查询编排与业务管理。下图按职责分组，表示逻辑关系，具体模块边界以源码为准。
+
+<img src="docs/readme/internal-architecture.zh-CN.svg" alt="Candela 内部架构：React 前端通过 NestJS API 访问分析和管理模块，独立 ingestor 消费 Kafka，数据分别存储于 MySQL、ClickHouse 与 Redis；AI Harness 为可选隔离运行时" width="1000">
+
+| 部分 | 负责什么 |
+|---|---|
+| **Web** | React + Ant Design + ECharts；分析条件、图表、看板、语言与页面上下文 |
+| **HTTP API 与业务模块** | NestJS；登录与项目权限，事件 / 漏斗 / 留存 / SQL 查询，埋点、用户、看板、治理与告警 |
+| **Ingestor** | 独立 Kafka 消费进程；解析事件与用户属性、批量写入、自动发现元数据、失败记录 |
+| **MySQL** | 元数据、分析定义、看板、权限与平台配置（`clklog_sa_meta`） |
+| **ClickHouse** | 事件、用户画像、分群与标签成员等分析数据（`clklog_sa`）；自定义 SQL 使用 `sa_readonly` |
+| **Redis** | 查询与看板缓存、会话及后台任务协调 |
+| **可选 AI Harness** | 通过 broker 管理隔离运行时，读取授权页面上下文并调用分析工具；启用前需安装运行时与配置模型服务 |
+
+事件入库后，ingestor 会发现事件与属性元数据；分析请求在权限与项目范围内执行，查询结果可以保存为看板卡片，并由后台任务刷新缓存或评估告警。
+
+<details>
+<summary>部署组件与默认端口</summary>
 
 | 组件 | 说明 | 端口（默认） |
 |---|---|---|
@@ -285,6 +252,10 @@ CI 会检查每门语言的键是否齐全，以及新增的界面文字有没�
 | 社区版应用 | `clklog-ui` / `receiver` / `api` / `manage` / `init` + Flink `jobmanager`/`taskmanager` | 127.0.0.1:8081–8085 |
 | 分析平台 | `analytics-server`(HTTP) / `analytics-ingestor`(Kafka 消费) / 前端静态 | `127.0.0.1:3100`（常规方案）/ `:3100` + `:8086`（容器方案） |
 
+</details>
+
+[返回阅读导航](#阅读导航)
+
 ---
 
 ## 部署
@@ -292,7 +263,7 @@ CI 会检查每门语言的键是否齐全，以及新增的界面文字有没�
 三个组件按顺序部署：**中间件 → ClkLog 社区版 → 分析平台**。全部脚本**幂等、可反复执行**，不依赖任何 CI/CD：源码由工作站 rsync 到目标机、在目标机上构建。
 
 > 已在 **AlmaLinux 9.6 / 4 核 15 GiB / 92 GB 盘**上完整实测：中间件与社区版 12/12、分析平台常规方案 18/18、容器方案 19/19，两套方案的幂等复跑均为零差异。
-> 脚本位于 `scripts/standalone-test-env/`；设计取舍见 [`docs/architecture/standalone-test-env-design.md`](docs/architecture/standalone-test-env-design.md) 与 [`docs/architecture/candela-deploy-two-paths.md`](docs/architecture/candela-deploy-two-paths.md)，实测证据见 `docs/project/deployment-record-*.md`。
+> 脚本位于 `scripts/standalone-test-env/`；设计取舍见 [`docs/architecture/standalone-test-env-design.md`](docs/architecture/standalone-test-env-design.md) 与 [`docs/architecture/candela-deploy-two-paths.md`](docs/architecture/candela-deploy-two-paths.md)，实测证据见[中间件与社区版部署记录](docs/project/deployment-record-standalone-test-env.md)、[Candela 部署记录](docs/project/deployment-record-candela-two-paths.md)。
 
 ### 前置条件
 
@@ -305,7 +276,7 @@ CI 会检查每门语言的键是否齐全，以及新增的界面文字有没�
 | 资源 | 建议 ≥4 核 / ≥16 GiB（实测 15 GiB 可用）；各组件内存上限已按小机器折算并显式设置 |
 | 磁盘 | 建议 ≥40 GB（镜像约 2 GB，其余为 ClickHouse 数据与日志） |
 
-两个部署根目录（可用环境变量覆盖）：
+两个默认部署根目录：Candela 脚本用 `BASE_DIR` / `MW_BASE_DIR` 覆盖；中间件与社区版远程入口用 `BASE_DIR` 覆盖其根目录。
 
 - `<MW_BASE_DIR>` = `/data/clklog-oss-test` —— 中间件与社区版（数据、配置、密钥、脚本）
 - `<BASE_DIR>` = `/data/app/candela` —— 分析平台（发布、配置、密钥、镜像配方）
@@ -323,15 +294,15 @@ CI 会检查每门语言的键是否齐全，以及新增的界面文字有没�
 部署脚本**不会**默认连某一台机器。每次都要给出 SSH 目标：
 
 ```bash
-# 在工作站、仓库根目录执行
-export HOST=user@your-server
+# 在工作站、仓库根目录执行（目标机需 root 权限）
+export HOST=root@your-server
 bash scripts/standalone-test-env/deploy-remote.sh mw
 ```
 
-换目录：
+更换中间件目录（社区版部署与验收也传同一 `BASE_DIR`，Candela 部署则通过 `MW_BASE_DIR` 指向它）：
 
 ```bash
-HOST=user@your-server MW_BASE_DIR=/data/mw bash scripts/standalone-test-env/deploy-remote.sh mw
+HOST=root@your-server BASE_DIR=/data/mw bash scripts/standalone-test-env/deploy-remote.sh mw
 ```
 
 完成后：4 个容器 healthy、社区版 MySQL 库表建好、Kafka topic 就绪。容器名与端口见上方 [架构](#架构) 表。
@@ -343,10 +314,10 @@ HOST=user@your-server MW_BASE_DIR=/data/mw bash scripts/standalone-test-env/depl
 部署社区版 1.3.0 **标准模式**（`receiver → Kafka → Flink → ClickHouse`），并在宿主 nginx 上加单机入口（按路径分流，无需域名）。
 
 ```bash
-HOST=user@your-server bash scripts/standalone-test-env/deploy-remote.sh clklog
+HOST=root@your-server bash scripts/standalone-test-env/deploy-remote.sh clklog
 ```
 
-> **必须是标准模式**：分析平台的数据来源就是同一个 Kafka topic 与 ClickHouse 库，快速模式（receiver 直写 ClickHouse、不经 Kafka）下平台拿不到数据。
+> **必须是标准模式**：Candela ingestor 从同一个 Kafka topic 独立消费事件；社区版 ClickHouse 数据用于只读查询与核对，快速模式（receiver 直写 ClickHouse、不经 Kafka）下平台拿不到数据。
 
 ---
 
@@ -359,7 +330,7 @@ HOST=user@your-server bash scripts/standalone-test-env/deploy-remote.sh clklog
 版本化发布（`releases/<时间戳>` + `current`/`previous` 软链，切换与回滚原子），supervisord 管理 `analytics-server` 与 `analytics-ingestor` 两个进程，前端静态由宿主 nginx 直出。
 
 ```bash
-HOST=user@your-server bash scripts/standalone-test-env/candela/deploy-remote.sh native
+HOST=root@your-server bash scripts/standalone-test-env/candela/deploy-remote.sh native
 ```
 
 流程：安装 Node 24.20.0（校验 SHA256）→ 安装 supervisord（EPEL）→ 构建前后端（Prisma Client 在**构建期**生成，启动不依赖 npm 网络）→ 组装产物（含静态预压缩 gzip）→ 原子切换发布 → 初始化数据库 → 写 supervisor 程序 → 配 nginx → 就绪判定。
@@ -369,10 +340,13 @@ HOST=user@your-server bash scripts/standalone-test-env/candela/deploy-remote.sh 
 三个镜像（`analytics-server` / `analytics-web` / 一次性 `manager-migrate`），栈名 `candela`，接入中间件共享网络 `clklog-net`（容器内按服务名寻址 `mysql`/`redis`/`kafka`/`clickhouse`）。
 
 ```bash
-HOST=user@your-server bash scripts/standalone-test-env/candela/deploy-remote.sh docker
+HOST=root@your-server bash scripts/standalone-test-env/candela/deploy-remote.sh docker
 ```
 
 镜像按内容哈希打 tag：源码与 Dockerfile 未变则复用镜像（重跑零动作）。回滚＝把 `<BASE_DIR>/configs/candela.env` 里的 `DOCKER_*_TAG` 改回上一个 tag，再执行 `docker --skip-build`。
+
+<details>
+<summary>数据库初始化细节</summary>
 
 #### 数据库初始化（两套方案共用，自动执行）
 
@@ -384,7 +358,7 @@ HOST=user@your-server bash scripts/standalone-test-env/candela/deploy-remote.sh 
 
 > 元数据库若已有**可用**的迁移历史，走 `prisma migrate deploy` 增量路径；只有"没有历史"或"历史里有失败记录"时才走基线重建（会清空元数据库并显式告警）。原因见 [`docs/architecture/candela-deploy-two-paths.md`](docs/architecture/candela-deploy-two-paths.md) §3、§5。
 
----
+</details>
 
 ### 访问与验收
 
@@ -396,16 +370,19 @@ HOST=user@your-server bash scripts/standalone-test-env/candela/deploy-remote.sh 
 一键验收（自动识别当前是常规还是容器形态）：
 
 ```bash
-HOST=user@your-server bash scripts/standalone-test-env/candela/deploy-remote.sh verify   # 分析平台（18 项；启用 AI Harness 的机器 +3 项）
-HOST=user@your-server bash scripts/standalone-test-env/deploy-remote.sh verify           # 中间件 + 社区版（12 项）
+HOST=root@your-server bash scripts/standalone-test-env/candela/deploy-remote.sh verify   # 分析平台（常规 18 项 / Docker 19 项；启用 AI Harness +3 项）
+HOST=root@your-server bash scripts/standalone-test-env/deploy-remote.sh verify           # 中间件 + 社区版（12 项）
 ```
 
 验收覆盖：进程/容器状态、HTTP 入口、MySQL 表与超管、ClickHouse 表与 `sa_readonly` 只读性验证、Kafka 消费组 LAG、**端到端上报链路**（经 receiver 上报 → 社区版 `log_analysis` 与分析平台 `sa_events` 行数同时增长）、平台登录接口；装了 harness 运行时的机器额外校验 broker 进程/socket 探活/开关一致性。
 
+<details>
+<summary>日常运维：重部署、回滚、清理与排障</summary>
+
 ### 日常运维
 
 ```bash
-export HOST=user@your-server
+export HOST=root@your-server
 M=scripts/standalone-test-env/candela/deploy-remote.sh
 
 bash $M push            # 只推送最新源码/脚本，不部署
@@ -420,8 +397,8 @@ bash $M wipe            # 只铲数据库（默认 dry-run，只打印将要删�
 bash $M wipe --yes      # 真删数据库，并自动重建环境级资源（Kafka topic、社区版 ClickHouse 库表）
 
 # 清空整机部署（容器/镜像/卷/数据目录/配置/Node），恢复到「只剩基础设施」：
-HOST=user@your-server bash scripts/standalone-test-env/deploy-remote.sh teardown        # dry-run，先看要删什么
-HOST=user@your-server bash scripts/standalone-test-env/deploy-remote.sh teardown --yes  # 真删；密钥文件随之删除，下次部署会重新生成口令
+HOST=root@your-server bash scripts/standalone-test-env/deploy-remote.sh teardown        # dry-run，先看要删什么
+HOST=root@your-server bash scripts/standalone-test-env/deploy-remote.sh teardown --yes  # 真删；密钥文件随之删除，下次部署会重新生成口令
 
 # 排障
 supervisorctl status candela_server candela_ingestor   # 常规方案
@@ -430,6 +407,10 @@ docker logs -f candela-server
 tail -f /data/logs/production/candela/analytics-server.log
 ```
 
+</details>
+
+[返回阅读导航](#阅读导航)
+
 ---
 
 ## 配置与密钥
@@ -437,36 +418,51 @@ tail -f /data/logs/production/candela/analytics-server.log
 - **密钥不落仓库、不进日志**：全部随机口令由部署脚本生成，只写目标机 `<BASE_DIR>/configs/candela.env`（0600）；中间件口令同理在 `<MW_BASE_DIR>/config/deploy.env`。两个文件都**不要提交、不要外发**。
 - **配置来源**：平台运行配置是 `<BASE_DIR>/configs/config.yaml`，由部署脚本从仓库的 `apps/analytics-server/config_server.yaml` **派生**——只改「部署期变量」（数据库/Redis/Kafka 地址、Harness 开关），且**每处替换都断言命中次数**，仓库配置一旦改形会立刻报错而非静默错配。因此**不要手工编辑目标机上的 `config.yaml`**（重跑会被覆盖；要改就改仓库里的源文件）。
 - 应用通过 `APP_CONFIG_PATH` 读取该 YAML，其中的 `${VAR}` 占位符由环境文件注入。
-- **AI 分析助手默认关闭**（`deepseek_harness.enabled: false`）：启用需要额外的 harness 运行时（rootless podman + broker）与模型供应商密钥（在平台「设置 → AI Workspace 管理 → 模型供应商」添加，密钥以 AES-256-GCM 密文入库）。启用前请读 [`docs/architecture/clklog-ai-workspace-design.md`](docs/architecture/clklog-ai-workspace-design.md)；测试环境启用步骤：目标机上 `bash <BASE_DIR>/ops/candela/install-harness.sh`（幂等安装运行时并写 `configs/harness.enabled` 标记），随后重跑一次部署（`HARNESS_ENABLED=1 bash deploy-native.sh --skip-build`）让开关收敛为 `true` —— 设计与验收见 [`docs/architecture/standalone-test-env-harness-design.md`](docs/architecture/standalone-test-env-harness-design.md)。
+- **AI 分析助手默认关闭**（`deepseek_harness.enabled: false`）：启用需要额外的 harness 运行时（rootless podman + broker）与模型供应商密钥（在平台「设置 → AI Workspace 管理 → 模型供应商」添加，密钥以 AES-256-GCM 密文入库）。启用前请读 [`docs/architecture/clklog-ai-workspace-design.md`](docs/architecture/clklog-ai-workspace-design.md)；测试环境启用步骤：目标机上 `bash <BASE_DIR>/ops/candela/install-harness.sh`（幂等安装运行时并写 `<BASE_DIR>/configs/harness.enabled` 标记），随后重跑一次部署（`HARNESS_ENABLED=1 bash deploy-native.sh --skip-build`）让开关收敛为 `true` —— 设计与验收见 [`docs/architecture/standalone-test-env-harness-design.md`](docs/architecture/standalone-test-env-harness-design.md)。
 - **只读隔离**：平台执行自定义 SQL / AI 查询走 `sa_readonly`（配置键 `READONLY_CH_PASSWORD`）；写入账号 `default` 只用于平台自身旁路写入。
+
+[返回阅读导航](#阅读导航)
 
 ---
 
 ## 本地开发
 
-前端（Vite，`base=/sa/`）与后端（NestJS + Prisma）分别启动。
+使用 Node 24，并准备可连接的 MySQL、ClickHouse、Redis 与 Kafka。按[配置说明](#配置与密钥)设置连接信息后，在仓库根目录分别打开三个终端：
 
 ```bash
-# 后端（需要 Node 24 与可用的 MySQL、ClickHouse、Redis、Kafka）
+# 终端 1：后端 HTTP :3100
 cd apps/analytics-server
 npm ci
 npx prisma generate
-npm run start:dev            # HTTP :3100
-npm run start:ingestor:dev   # Kafka 消费者（单独进程）
-
-# 前端
-cd apps/analytics-web
-npm ci
-npm run dev                  # Vite :8180，代理 /sa/api → :3100
-
-# 测试与门禁（CI 同样执行）
-cd apps/analytics-server && npm test
-cd apps/analytics-web && npx vitest run
-python3 scripts/i18n_check.py && python3 scripts/i18n_scan.py --check
-python3 scripts/arch_ratchet.py          # 结构规模棘轮（只减不增）
+npm run start:dev
 ```
 
-本地依赖数据的获取方式：用 `scripts/standalone-test-env/` 在你自己的机器上自建一套中间件（见上「部署」，必须设置 `HOST`）。公开检查见 [`.github/workflows/ci.yml`](.github/workflows/ci.yml)。若要在 GitLab 上构建并 rsync 产物，复制 [`scripts/gitlab-ci.yml.template`](scripts/gitlab-ci.yml.template) 为根目录 `.gitlab-ci.yml`，再填入你自己的 runner 标签和主机。
+```bash
+# 终端 2：独立 Kafka 消费进程
+cd apps/analytics-server
+npm run start:ingestor:dev
+```
+
+```bash
+# 终端 3：前端 Vite :8180，代理 /sa/api → :3100
+cd apps/analytics-web
+npm ci
+npm run dev
+```
+
+打开 `http://localhost:8180/sa/`。测试与门禁从仓库根目录执行：
+
+```bash
+(cd apps/analytics-server && npm test)
+(cd apps/analytics-web && npx vitest run)
+python3 scripts/arch_ratchet.py
+python3 scripts/i18n_check.py
+python3 scripts/i18n_scan.py --check
+```
+
+中间件部署见[部署](#部署)。公开检查见 [`.github/workflows/ci.yml`](.github/workflows/ci.yml)。GitLab 构建模板见 [`scripts/gitlab-ci.yml.template`](scripts/gitlab-ci.yml.template)，使用时填入自己的 runner 标签与目标机。
+
+[返回阅读导航](#阅读导航)
 
 ---
 
@@ -492,6 +488,32 @@ docs/
 examples/report-sdk/        上报 SDK 示例（多语言）
 ```
 
+[返回阅读导航](#阅读导航)
+
+---
+
+## 全 AI 编写（Vibe Coding）
+
+**本项目业务代码 100% 由 AI 编写。** 人负责目标、验收与决策，不同厂商的模型在同一仓库接力。项目采用 **CDD（Charter-Driven Development，宪章驱动开发）**，通过仓库内持续有效的规则、设计文档与可执行门禁支持交接和验证。
+
+[`AGENTS.md`](AGENTS.md) 是 Agent 工作规则的唯一入口；[`INDEX.md`](INDEX.md) 提供按任务定位文件的导航。模型每次开工都能重新读取职责边界、架构红线与验收要求。完整方法论见[宪章驱动开发](CDD-methodology.zh-CN.md)（[English](CDD-methodology.md)）。
+
+<details>
+<summary>参与模型与工程方法</summary>
+
+| 模型 | 客户端 | 参与度 |
+|---|---|---|
+| DeepSeek V4.0 / V4.1-Flash | ZCode | ~80% |
+| Grok 4.5 | Cursor | ~12% |
+| GLM 5.3-Flash | ZCode | ~5% |
+| GPT-5.6 Sol | Codex | ~3% |
+
+以上为原项目记录的粗略参与比例。工程约束由仓库规则定义，检查覆盖结构规模、国际化资源与硬编码，部署验收覆盖端到端上报及入库。设计、实现与验收证据可从[文档导航](#文档导航)继续阅读。
+
+</details>
+
+[返回阅读导航](#阅读导航)
+
 ---
 
 ## 文档导航
@@ -510,9 +532,13 @@ examples/report-sdk/        上报 SDK 示例（多语言）
 | 国际化规范（术语表 / 新增语言） | [`docs/architecture/i18n-glossary.md`](docs/architecture/i18n-glossary.md) |
 | 上报协议与 SDK | [`docs/architecture/reporting-protocol.md`](docs/architecture/reporting-protocol.md)、[`examples/report-sdk/`](examples/report-sdk/) |
 
+[返回阅读导航](#阅读导航)
+
 ---
 
 ## 命名与边界
+
+Candela 是发光强度的国际单位。项目于 2026-10-10 从 `clklog_manager` 更名为 Candela。
 
 | 名字 | 指什么 | 说明 |
 |---|---|---|
@@ -521,6 +547,8 @@ examples/report-sdk/        上报 SDK 示例（多语言）
 | `sa` 系列**技术标识** | 历史遗留内部标识 | 访问路径 `/sa/`、接口前缀 `sa/api`、库名 `clklog_sa` / `clklog_sa_meta`、只读账号 `sa_readonly`、环境变量 `CLKLOG_*`、已保存 SQL 里的 `clklog_sa.` 与 `sa_in_cohort()`。它们已固化在 nginx 路由、前端构建 base、Prisma 数据源、ClickHouse DDL 与用户已保存的分析配置中，**迁移成本高且会破坏老链接与老卡片**，因此留作独立 phase（带旧路径兼容后再切换），不在品牌层改名范围内 |
 
 **为什么名字里不带 ClkLog**：本项目是 ClkLog 社区版的旁路扩展与私有化编排。带上上游名字容易被误认为"ClkLog 官方出品"，也涉及上游商标使用边界；因此品牌名独立，只在 README / `NOTICE` 中明确"构建于 ClkLog 社区版之上"。
+
+[返回阅读导航](#阅读导航)
 
 ---
 

@@ -1,171 +1,94 @@
 # Candela
 
-**English** | [中文](README.zh-CN.md)
+**Turn user behavior into decisions.**
 
-[CDD methodology](CDD-methodology.md) · [宪章驱动开发](CDD-methodology.zh-CN.md)
+An open-source, self-hosted user-behavior analytics platform. Understand what users do, where they drop off, and whether they return—then track the changes with dashboards and alerts on your own server.
 
-> **Fully AI-written (vibe coding):** this project is **100% written by AI**. No human hand-wrote the application code. People set goals, accept the result, and make the calls. Several vendors' models took turns on the same repository, kept in line by the rules and architecture constraints in [`AGENTS.md`](AGENTS.md). See [Fully AI-written](#fully-ai-written-vibe-coding) below.
+**Event analysis · Funnels · Retention · Cohorts · Dashboards & alerts**
 
-**An open-source, self-hosted user-behavior analytics platform.** It runs alongside ClkLog Community Edition and turns raw events into measurements you can query, follow up, and alert on.
+**English** | [中文](README.zh-CN.md) · [AGPL-3.0](LICENSE) · [13 interface languages](#languages) · [Fully AI-written](#fully-ai-written-vibe-coding)
 
-Open this repository in an AI agent (Cursor, Codex, ZCode, and the like). The rules in the repo are enough for the agent to know how the project is built.
+**[Quick start](#quick-start) · [Core features](#core-features) · [Product tour](#capabilities) · [Architecture](#architecture) · [Deployment guide](#deploy)**
 
-> Candela is the SI unit of luminous intensity: we turn user behavior into numbers you can measure. The project was renamed from `clklog_manager` to Candela on 2026-10-10. See [Names and boundaries](#names-and-boundaries).
+<img src="docs/readme/05-dashboard.png" alt="Candela dashboard: active and new users, revenue trends, and engagement on one page" width="1000">
 
-On top of ClkLog Community Edition (collection and basic reports), Candela adds a full analytics platform as a sidecar: event analysis, funnels, retention, cohorts and tags, dashboards, custom SQL and charts, metrics and alerts, project-level RBAC, a multilingual UI, and an AI analysis assistant. The analytics domain uses its own databases (MySQL `clklog_sa_meta` and ClickHouse `clklog_sa`). **It does not modify the community images and does not ALTER community tables**, so an official ClkLog upgrade still applies.
+*Save activity, conversion, revenue, and retention as reusable analysis cards. View, filter, and share them on a dashboard. Screenshots come from a running installation; some still show the earlier ClkLog branding. Dashboard and event names are user-defined.*
 
-- License: AGPL-3.0 ([`LICENSE`](LICENSE)). Upstream attribution: [`NOTICE`](NOTICE)
-- **Handoff:** [`docs/project/handoff-candela-new-repo.md`](docs/project/handoff-candela-new-repo.md) (where the repo came from, the target machine, open work, and known pitfalls)
-- Status and design snapshot: [`docs/project/project-status.md`](docs/project/project-status.md)
-- File index: [`INDEX.md`](INDEX.md)
+Built alongside **ClkLog Community Edition**: ClkLog handles collection and basic reports; Candela adds behavioral analytics, collaboration, and governance. Both consume the same Kafka event stream, with separate analytics databases. **Community images and table definitions stay unchanged.** The optional AI analysis assistant is off by default.
 
----
+## Core features
 
-## Contents
-
-- [What you manage and what you can ask](#what-you-manage-and-what-you-can-ask)
-- [Fully AI-written](#fully-ai-written-vibe-coding)
-  - [AGENTS.md](#agentsmd-the-layer-that-keeps-multi-model-work-controllable)
-- [Capabilities](#capabilities)
-  - [Tracking catalog](#tracking-catalog)
-  - [Analysis](#analysis)
-  - [Users](#users)
-  - [Dashboards, SQL, and metrics](#dashboards-sql-and-metrics)
-  - [Data management](#data-management)
-  - [Operations and alerts](#operations-and-alerts)
-  - [Access control](#access-control)
-  - [AI assistant](#ai-assistant)
-  - [Languages](#languages)
-- [Architecture](#architecture)
-- [Deploy](#deploy)
-  - [Prerequisites](#prerequisites)
-  - [Step 1: Deploy middleware](#step-1-deploy-middleware)
-  - [Step 2: Deploy ClkLog Community](#step-2-deploy-clklog-community)
-  - [Step 3: Deploy the analytics platform](#step-3-deploy-the-analytics-platform-two-ways)
-  - [Access and verification](#access-and-verification)
-  - [Day-to-day operations](#day-to-day-operations)
-- [Configuration and secrets](#configuration-and-secrets)
-- [Local development](#local-development)
-- [Repository layout](#repository-layout)
-- [Documentation](#documentation)
-- [Names and boundaries](#names-and-boundaries)
-- [License and upstream attribution](#license-and-upstream-attribution)
-
----
-
-## What you manage and what you can ask
-
-Candela does not ship a fixed catalog of page views and channels. You define the events. The platform keeps them, names them, and answers questions about them. ClkLog Community still receives the stream and keeps its own preset traffic reports. Candela is where you work with the events and the people behind them.
-
-### Data you manage
-
-| Data | What it is | Example |
-|---|---|---|
-| Behavior events | Something a person did, plus the properties you attached | `PaySuccess` with `amount`, `pay_type`, `product_id` |
-| Who did it | An anonymous id before login, a login id after signup | `distinct_id` on the device, `user_key` after `$SignUp` |
-| User properties | Attributes you set on a person (`user_set`) | `plan=pro`, `city=Shanghai` |
-| Context the SDK adds | Device, page, campaign, and location, collected automatically | `$os`, `$url`, `$utm_source`, `$city` |
-| Tracking catalog | Display names, types, and whether an event or property is visible | Hide a retired event so it drops out of the analysis pickers |
-| Definitions you add | Virtual events, virtual properties, saved metrics | "App checkout" = `SubmitOrder` where `channel=app` |
-| Groups of people | Cohorts and tags | People who paid in the last 7 days |
-| Reference tables | Dimension tables you upload as CSV | A product catalog joined on `product_id` |
-| Saved work | Dashboards, analysis cards, alert rules | A weekly acquisition board |
-
-Event and property names are yours. `PageView`, `SubmitOrder`, and `PaySuccess` are examples, not a built-in schema. A reported event shows up as a row you can name, hide, or describe.
-
-<img src="docs/readme/00-events.png" alt="Event catalog: reported events with display names, status, and recent volume" width="880">
-
-*Tracking catalog. Each row is an event that has already been reported. Open it to set the display name, status, and description.*
-
-### Questions you can ask
-
-| Question | Where you ask it |
+| Your question | What Candela provides |
 |---|---|
-| How many times, how many people, a sum or an average, split by a property, compared across hours, days, weeks, or months | Event analysis |
-| Of the people who did step 1, how many reached step 2 through step N, and where they dropped off | Funnel (2–32 steps, with a time window) |
-| Of the people who did A, how many came back and did B on day N | Retention |
-| What this one person did, in order | User timeline |
-| A question the three models above do not cover | Custom SQL (read-only) and charts on a dashboard |
-| Tell me when a saved number crosses a line | Metrics and alerts (Feishu, email, SMS, and other channels) |
+| What do users do, and which behaviors are growing? | **Event analysis**: counts, unique users, aggregations, property breakdowns, and trends |
+| Where do users leave between signup and payment? | **Funnels**: step conversion, drop-off, and conversion windows |
+| Do new users come back after a few days? | **Retention**: start and return events, daily cohorts, and retention trends |
+| Which people need a closer look? | **Cohorts and timelines**: condition / SQL / ID cohorts, tags, and individual behavior |
+| How can the team keep following the business? | **Dashboards, metrics, and alerts**: saved cards and notifications across channels |
+| What if the standard analysis models do not cover my question? | **Custom SQL and optional AI**: read-only queries, charts, and analysis of the current page context |
 
-<img src="docs/readme/01-event-analysis.png" alt="Event analysis: starts per user and average session length over 30 days" width="880">
+A tracking catalog, data-quality checks, dimension tables, project-level permissions, and 13 interface languages support everyday use. Define your own events and properties for Web, App, mini-program, and other product analytics.
 
-*Event analysis. Two metrics on one time range: starts per user, and average session length.*
+## Quick start
 
-<img src="docs/readme/03-funnel-analysis.png" alt="Funnel from app start through login into onboarding, with a sharp drop at the guide step" width="880">
+### 1. Prepare a server
 
-*Funnel. Of everyone who started the app, most reached login. The guide step is where most people left.*
+This path uses a **single-server Docker Compose deployment**. Run the commands from the repository root on your workstation. You need:
 
-<img src="docs/readme/04-retention-analysis.png" alt="Retention table: day-1 through day-30 return counts for each daily cohort" width="880">
+- An **AlmaLinux 9** server with SSH key access as root; the recorded deployment was tested on AlmaLinux 9.6.
+- Recommended **4 CPU cores / 16 GiB RAM / 40 GB or more disk**, with inbound port `80` open.
+- Git, SSH, and rsync on the workstation; access to image registries, OS package repositories, and npm from the server. See [Prerequisites](#prerequisites) for mirror settings.
 
-*Retention. Each row is a cohort. Each column is how many of those people came back on that day.*
+### 2. Deploy and verify
 
-<img src="docs/readme/06-usertimeline01.png" alt="User timeline: look a person up by a business id and see which events they produced" width="880">
+```bash
+git clone https://github.com/ac1261692159/candela.git
+cd candela
+export HOST=root@your-server  # Replace with your SSH target
 
-*User timeline. Look a person up by a business id. The page resolves them and shows which events they produced.*
+# In order: middleware → ClkLog standard mode → Candela
+bash scripts/standalone-test-env/deploy-remote.sh mw
+bash scripts/standalone-test-env/deploy-remote.sh clklog
+bash scripts/standalone-test-env/candela/deploy-remote.sh docker
 
-<img src="docs/readme/06-usertimeline02.png" alt="Same person: user attributes on the left and the event list on the right" width="880">
+# Both suites must pass, including reporting and row-count checks
+bash scripts/standalone-test-env/candela/deploy-remote.sh verify
+bash scripts/standalone-test-env/deploy-remote.sh verify
+```
 
-*Same person, further down. Attributes on the left, the event list on the right.*
+The scripts install runtime components, build the applications, and initialize the databases. First-run time depends on downloads and builds. Steps are idempotent and can be repeated; AI setup is optional.
 
-<img src="docs/readme/02-custom-analysis_and_harness.png" alt="Custom SQL for CDN download speed, with the AI assistant reading the current result" width="880">
+### 3. Log in and run your first analysis
 
-*Custom SQL, with the AI assistant beside it. The query stays read-only. The assistant can see the current result.*
+Open **`http://<server-ip>/sa/`** and sign in as `admin`. The scripts generate the initial password on the target, in the `ADMIN_INIT_PASSWORD` entry of `/data/app/candela/configs/candela.env`. Read it in a controlled terminal on the target; do not commit or share that file. ClkLog Community is at `http://<server-ip>/`.
 
-<img src="docs/readme/05-dashboard.png" alt="Dashboard of daily active users, revenue, play time, and retention cards" width="880">
+1. Select a project and open the **integration guide**. Follow its instructions for the endpoint, project identifier, and token; download an SDK example.
+2. Run the example or send your own event. Confirm it arrives in **Debug**; first data may take time to appear.
+3. Open **event analysis**, select an event, time range, and metric, then inspect the result.
+4. Save the result as a **dashboard card**. Add a metric alert when you want ongoing monitoring.
 
-*Dashboard. The same results, saved as cards on one board: counts, a trend, and revenue.*
+SDK examples: [`examples/report-sdk/`](examples/report-sdk/). Protocol: [reporting specification](docs/architecture/reporting-protocol.md). The screenshots show example events and dashboards; connect your data to build your own analyses.
 
-<img src="docs/readme/09-alert02.png" alt="Alert channels: email, Telegram, WhatsApp, and SMS providers" width="880">
+Already running ClkLog standard mode, need native processes, or want custom directories? See the [deployment guide](#deploy) and [deployment design](docs/architecture/candela-deploy-two-paths.md).
 
-*Alerts. When a saved number crosses a line, the message goes out through one of these channels.*
+## Find your way
 
-A typical path: register the event, confirm it arrived in Debug, run the analysis, save the result as a dashboard card.
-
----
-
-## Fully AI-written (vibe coding)
-
-> **This project is 100% written by AI.** No human hand-wrote the application code. People set goals, accept the result, and make the calls.
-
-Models from different vendors, with different strengths, took turns on the same repository. Rough share of the work:
-
-| Model | Client | Share |
-|---|---|---|
-| DeepSeek V4.0 / V4.1-Flash | ZCode | ~80% |
-| Grok 4.5 | Cursor | ~12% |
-| GLM 5.3-Flash | ZCode | ~5% |
-| GPT-5.6 Sol | Codex | ~3% |
-
-Models change, sessions break, and a single reply varies in quality. The repository stays consistent because of a **model-independent layer of rules and architecture**, not because one model is strong enough. Whichever vendor or version shows up, the same constraints pull the result toward the same acceptance bar. That layer starts at [`AGENTS.md`](AGENTS.md).
-
-A strong model is an accelerator, not a requirement. DeepSeek alone was enough to build the system.
-
-> The aim is to turn a technical problem into an engineering problem. The difficulty stays. The guarantee moves from "this model is strong enough" to "the rules and the checks." That is why this project uses CDD.
-
-### AGENTS.md: the layer that keeps multi-model work controllable
-
-[`AGENTS.md`](AGENTS.md) is the **agent working rules for this repository (the single source of truth)**. It does not depend on model memory or on the previous chat. Each session reloads the rules from the file.
-
-**Those rules are not a loose list of tips. They are a method: CDD (Charter-Driven Development). The full argument is in [`CDD-methodology.md`](CDD-methodology.md).** In Candela, `AGENTS.md` is the charter. It fixes role boundaries, architecture red lines, design-before-code, and acceptance as standing rules, so control comes from the rules rather than from whichever model is in the seat. A handoff between vendors still converges on the same acceptance bar, and each incident or decision can be written back as a new constraint. That is a necessary condition for this project to keep shipping.
-
-It does five things:
-
-| Mechanism | What it does | Why it matters when models take turns |
-|---|---|---|
-| **Hats (roles)** | Each hat has one working directory (`docs/architecture/`, `docs/product/`, `docs/project/`, `apps/` + `scripts/`, `deploy-assets/`) and one question. Wear one hat at a time | "Where to write" and "which question to answer" become objective. The model does not edit the wrong place |
-| **Implementation gate** | Before code changes, `docs/product/` and `docs/architecture/` must already contain **real files in the repo**, each with a `phase` id, scope, acceptance criteria, and non-goals. Missing any of these means the gate is not passed | Design first. No inventing the plan while coding. Ideas and implementation stay separate |
-| **Hard red lines** | Seven boundaries that are not optional: do not invade ClkLog Community, do not break the data path, do not commit secrets, bound every ClickHouse query, keep directory owners correct, do not silently delete data, deploy truth lives in the scripts | The boundary does not depend on model skill. No model may cross it on its own |
-| **Machine-checked gates** | Structure ratchet (`arch_ratchet.py`), two i18n checks (`i18n_check.py` / `i18n_scan.py`), and the acceptance scripts (end-to-end ingest, 12 and 19 checks) | Quality is a process exit code. The model cannot declare itself done |
-| **Document and evidence discipline** | Each layer has one job (README / AGENTS / INDEX / `docs/` / code). Contract changes update the contract docs. Delivery includes evidence. Read the index, not the whole tree | A new model relocates from the index and the sources of truth, not from a huge chat context |
-
-In one line: **CDD turns "a person reviews the model's output" into "the model proves itself against the rules."** The rules are searchable, the gates run, and acceptance can be rechecked, so swapping models does not lower the floor. **Without the charter, multi-model handoffs fall back to realigning every time, leaning on a huge context, and letting quality follow the model and luck. Because governance lives in the repo, fully AI-written work can be repeated, handed off, and kept alive.** Method and rationale: [`CDD-methodology.md`](CDD-methodology.md). Companions: the file index [`INDEX.md`](INDEX.md), the code hard gates [`docs/architecture/code-hard-gates.md`](docs/architecture/code-hard-gates.md), and the architecture ratchet baseline [`docs/architecture/arch-ratchet-baseline.md`](docs/architecture/arch-ratchet-baseline.md).
+| Next step | Go to |
+|---|---|
+| Explore actual screens and feature details | [Capabilities](#capabilities) |
+| Understand the data flow and internal responsibilities | [Architecture](#architecture) |
+| Configure, upgrade, roll back, or troubleshoot | [Deploy](#deploy) · [Configuration and secrets](#configuration-and-secrets) |
+| Develop locally or contribute | [Local development](#local-development) · [Repository layout](#repository-layout) · [Contributing](CONTRIBUTING.md) |
+| Read about AI-written development | [Fully AI-written and CDD](#fully-ai-written-vibe-coding) |
+| Take over the project or find design documents | [Documentation](#documentation) · [Handoff](docs/project/handoff-candela-new-repo.md) · [File index](INDEX.md) |
 
 ---
 
 ## Capabilities
 
-The pictures above are worked examples. This is the rest of the product, area by area.
+Follow the workflow from reported events to analysis, cohorts, dashboards, and alerts. Click an image to inspect it at full size.
+
+[Catalog](#tracking-catalog) · [Events](#event-analysis) · [Funnels](#funnel) · [Retention](#retention) · [Users](#users) · [Dashboards & SQL](#dashboards-sql-and-metrics) · [Data](#data-management) · [Alerts](#operations-and-alerts) · [Permissions](#access-control) · [AI](#ai-assistant)
 
 ### Tracking catalog
 
@@ -177,19 +100,47 @@ Reported events show up on their own. You do not register a name before the firs
 - A virtual property is a saved expression over properties you already have. Analysis can filter, break down, and aggregate on it the same way as on a stored property.
 - Notes sit on the event. Debug shows the latest raw events for a person or an event name, properties included, so you can confirm a new event landed before anyone builds a dashboard on it.
 
+<img src="docs/readme/00-events.png" alt="Tracking catalog: display names, status, and recent event volume" width="1000">
+
+*Tracking catalog: confirm reported events and manage names, properties, and visibility.*
+
 ### Analysis
 
-Four ways to ask a question, plus a chart for each answer. Any of them can be saved as a card, exported as CSV, or turned into a metric.
+Use event, funnel, and retention models for aggregate analysis, or inspect an individual user’s timeline. Save analytical results as cards or export them as CSV; event analysis and retention slices can also define reusable metrics.
 
-**Event analysis.** Put several metrics on one time range: count, unique users, sum, average, max, min, distinct count, a percentile, or a per-user rate. Filter on event properties and user properties, combined with and/or. Break the result down by a property, or by hour, day, week, or month. A formula combines metrics you already added. Approximate calculation is there when the scan is large. The result is a time series and a table.
+#### Event analysis
 
-**Funnel.** 2 to 32 steps. Each step is an event plus an optional filter. You set the window in which the steps must happen. The result is the overall conversion, the drop-off at each step, a funnel chart, and the step table.
+Put several metrics on one time range: count, unique users, sum, average, max, min, distinct count, a percentile, or a per-user rate. Filter on event properties and user properties, combined with and/or. Break the result down by a property, or by hour, day, week, or month. A formula combines metrics you already added. Approximate calculation is there when the scan is large. The result is a time series and a table.
 
-**Retention.** Pick a start event and a return event. They can be the same event or two different ones. Choose everyone who did the start event, or only people whose first day it was. The table is one row per cohort and one column per return day (day 1, day 7, day 30, or a day you add). A trend follows one of those columns across cohorts.
+<img src="docs/readme/01-event-analysis.png" alt="Event analysis: starts per user and average session length" width="1000">
 
-**User timeline.** Look a person up by a business attribute, without knowing the internal id. The page resolves them, lists their attributes, and shows the events in order, with the share of each event and the neighboring events around a row.
+*Event analysis: compare several metrics over the same time range.*
+
+#### Funnel
+
+2 to 32 steps. Each step is an event plus an optional filter. You set the window in which the steps must happen. The result is the overall conversion, the drop-off at each step, a funnel chart, and the step table.
+
+<img src="docs/readme/03-funnel-analysis.png" alt="Funnel from app start to login and onboarding" width="1000">
+
+*Funnel: follow conversion step by step and locate the largest drop-off.*
+
+#### Retention
+
+Pick a start event and a return event. They can be the same event or two different ones. Choose everyone who did the start event, or only people whose first day it was. The table is one row per cohort and one column per return day (day 1, day 7, day 30, or a day you add). A trend follows one of those columns across cohorts.
+
+<img src="docs/readme/04-retention-analysis.png" alt="Retention: day-1 through day-30 returns for daily cohorts" width="1000">
+
+*Retention: compare daily cohorts and see whether people keep coming back.*
+
+#### User timeline
+
+Look a person up by a business attribute, without knowing the internal id. The page resolves them, lists their attributes, and shows the events in order, with the share of each event and the neighboring events around a row.
 
 Every analysis has a subject, the unit you are counting. The preset subject is the user. A project can add others.
+
+<img src="docs/readme/06-usertimeline01.png" alt="User timeline: resolve a person by a business ID and inspect their events" width="1000">
+
+*User timeline: move from an aggregate number to one person’s behavior.*
 
 ### Users
 
@@ -228,6 +179,10 @@ Alerts cover both the product and the machine. A metric alert fires when a saved
 
 Delivery goes through Feishu, DingTalk, WeCom, a generic webhook, email, SMS (Alibaba Cloud, Tencent Cloud, AWS, Twilio), Telegram, and WhatsApp. Message text comes from a template. You can mute a channel, retry a failed delivery, and send a test message. Each rule shows a health state, and changes are written to a log.
 
+<img src="docs/readme/09-alert02.png" alt="Alert channels: email, Telegram, WhatsApp, and SMS" width="1000">
+
+*Alert channels: choose the notification services your team uses.*
+
 ### Access control
 
 A platform admin runs the installation: projects, the ops console, and who owns a project. Inside a project the roles are project owner, analysis admin, analyst, member, and external. People can also be placed in member groups, and a grant can target the group.
@@ -242,41 +197,50 @@ An assistant sits beside the analysis you already have open. It can read the cur
 
 It is **off by default**. Turning it on needs the Harness runtime and a provider key. See [Configuration and secrets](#configuration-and-secrets).
 
+<img src="docs/readme/02-custom-analysis_and_harness.png" alt="Custom SQL with an AI assistant beside the current result" width="1000">
+
+*Custom SQL with optional AI: follow up on the current query result. The assistant requires additional setup.*
+
 ### Languages
 
 The interface, errors, exports, and notification text ship in 13 languages: simplified Chinese, traditional Chinese, English, Japanese, Korean, Russian, French, German, Spanish, Portuguese, Vietnamese, Thai, and Indonesian. The language follows the signed-in user. Names you created (events, dashboards, notes, SQL) stay as you wrote them.
 
 CI checks that every language has the same keys, and that new interface text is not hardcoded.
 
+[Back to navigation](#find-your-way)
+
 ---
 
 ## Architecture
 
-```
-        Browser                       SDK (Web / App / mini program)
-          │                                    │
-          └──────────────►  Host nginx :80 ◄─────┘
-                              │
-        ┌─────────────────────┼──────────────────────────┐
-        │                     │                          │
-  Analytics /sa/         Community /               Ingest /receiver/
-        │                     │                          │
-   ┌────┴─────┐        ┌──────┴───────┐          ┌───────┴────────┐
-   │ Web      │        │ UI / API /   │          │   receiver     │
-   │ static   │        │ Manage       │          └───────┬────────┘
-   └──────────┘        └──────┬───────┘                  │
-        │              ┌──────┴───────┐        Kafka topic clklog
-   ┌────┴──────────┐   │ MySQL clklog │                  │
-   │ analytics-    │   │ Redis        │          ┌───────┴────────┐
-   │ server :3100  │   └──────────────┘          │  Flink job     │
-   ├───────────────┤                             └───────┬────────┘
-   │ ingestor      │                                     │
-   │ (Kafka)       │                            ClickHouse clklog
-   └───────┬────────┘                                     │
-           │                                              │
-   ClickHouse clklog_sa ◄── sidecar write ◄──────────────┘ (read-only)
-   MySQL clklog_sa_meta (platform metadata)
-```
+### System and data flow
+
+Each reported batch enters Kafka and is handled by **two independent consumer paths**. Community Flink writes the community ClickHouse database. Candela ingestor uses its own consumer group to write analytics events and user profiles. Candela event ingestion comes directly from Kafka.
+
+<img src="docs/readme/data-flow.en.svg" alt="Data flow: SDK through nginx and receiver into Kafka, then independent community Flink and Candela ingestor consumers write their own ClickHouse databases" width="1000">
+
+Community images and tables remain unchanged. Candela can read community data for consistency checks; the two consumers progress independently. **ClkLog standard mode is required**: quick mode skips Kafka and cannot provide the event stream to Candela.
+
+### Inside Candela
+
+The web app builds analysis conditions and presents results. The backend handles authentication, project isolation, query execution, and business management. The diagram groups logical responsibilities; source modules define the actual boundaries.
+
+<img src="docs/readme/internal-architecture.en.svg" alt="Candela internals: React through NestJS API to analytics and management modules; an independent ingestor consumes Kafka; MySQL, ClickHouse, and Redis store different data; optional isolated AI Harness" width="1000">
+
+| Part | Responsibility |
+|---|---|
+| **Web** | React + Ant Design + ECharts; analysis conditions, charts, dashboards, languages, and page context |
+| **HTTP API and business modules** | NestJS; authentication and project permissions, event / funnel / retention / SQL queries, catalog, users, dashboards, governance, and alerts |
+| **Ingestor** | Separate Kafka consumer process; event and profile parsing, batch writes, metadata discovery, and failure records |
+| **MySQL** | Metadata, analysis definitions, dashboards, permissions, and platform configuration (`clklog_sa_meta`) |
+| **ClickHouse** | Events, profiles, cohort and tag membership (`clklog_sa`); custom SQL uses `sa_readonly` |
+| **Redis** | Query and dashboard caches, sessions, and background-task coordination |
+| **Optional AI Harness** | Broker-managed isolated runtimes, authorized page context, and analytics tools; requires runtime installation and a model provider |
+
+After ingestion, event and property metadata are discovered automatically. Analysis runs within the caller’s project and permissions. Results can become dashboard cards; background work refreshes caches and evaluates alerts.
+
+<details>
+<summary>Deployment components and default ports</summary>
 
 | Component | Role | Port (default) |
 |---|---|---|
@@ -288,6 +252,10 @@ CI checks that every language has the same keys, and that new interface text is 
 | Community apps | `clklog-ui` / `receiver` / `api` / `manage` / `init` plus Flink `jobmanager` / `taskmanager` | 127.0.0.1:8081–8085 |
 | Analytics platform | `analytics-server` (HTTP) / `analytics-ingestor` (Kafka consumer) / web static files | `127.0.0.1:3100` (native) / `:3100` + `:8086` (containers) |
 
+</details>
+
+[Back to navigation](#find-your-way)
+
 ---
 
 ## Deploy
@@ -295,7 +263,7 @@ CI checks that every language has the same keys, and that new interface text is 
 Deploy the three layers in order: **middleware → ClkLog Community → analytics platform**. Every script is **idempotent and safe to re-run**. There is no CI/CD requirement: the workstation rsyncs the source to the target, and the target builds it.
 
 > Verified end to end on **AlmaLinux 9.6 / 4 cores / 15 GiB RAM / 92 GB disk**: middleware and community 12/12, native analytics 18/18, container analytics 19/19. Re-running either analytics path produced zero drift.
-> Scripts live in `scripts/standalone-test-env/`. Design: [`docs/architecture/standalone-test-env-design.md`](docs/architecture/standalone-test-env-design.md) and [`docs/architecture/candela-deploy-two-paths.md`](docs/architecture/candela-deploy-two-paths.md). Evidence: `docs/project/deployment-record-*.md`.
+> Scripts live in `scripts/standalone-test-env/`. Design: [`docs/architecture/standalone-test-env-design.md`](docs/architecture/standalone-test-env-design.md) and [`docs/architecture/candela-deploy-two-paths.md`](docs/architecture/candela-deploy-two-paths.md). Evidence: [middleware and community deployment](docs/project/deployment-record-standalone-test-env.md), [Candela deployment](docs/project/deployment-record-candela-two-paths.md).
 
 ### Prerequisites
 
@@ -308,7 +276,7 @@ Deploy the three layers in order: **middleware → ClkLog Community → analytic
 | Capacity | At least 4 cores and 16 GiB is the recommendation (15 GiB has been shown to work). Memory caps are set explicitly for a small machine |
 | Disk | At least 40 GB (images are about 2 GB; the rest is ClickHouse data and logs) |
 
-Two deploy roots (override with environment variables):
+Two default deploy roots: Candela scripts accept `BASE_DIR` / `MW_BASE_DIR`; the middleware and community remote entry accepts `BASE_DIR` for its own root.
 
 - `<MW_BASE_DIR>` = `/data/clklog-oss-test` — middleware and community (data, config, secrets, scripts)
 - `<BASE_DIR>` = `/data/app/candela` — analytics platform (releases, config, secrets, image recipes)
@@ -327,14 +295,14 @@ The script does not pick a machine for you. Pass the SSH target every time:
 
 ```bash
 # From the workstation, at the repository root
-export HOST=user@your-server
+export HOST=root@your-server
 bash scripts/standalone-test-env/deploy-remote.sh mw
 ```
 
-To use another directory:
+To use another middleware directory (apply the same `BASE_DIR` to the community deploy and verification commands, then pass it as `MW_BASE_DIR` to Candela):
 
 ```bash
-HOST=user@your-server MW_BASE_DIR=/data/mw bash scripts/standalone-test-env/deploy-remote.sh mw
+HOST=root@your-server BASE_DIR=/data/mw bash scripts/standalone-test-env/deploy-remote.sh mw
 ```
 
 When it finishes: 4 containers healthy, community MySQL schema in place, Kafka topic ready. Container names and ports are in the [Architecture](#architecture) table.
@@ -346,10 +314,10 @@ When it finishes: 4 containers healthy, community MySQL schema in place, Kafka t
 Deploys Community 1.3.0 in **standard mode** (`receiver → Kafka → Flink → ClickHouse`) and adds a single-host nginx entry (path routing, no domain).
 
 ```bash
-HOST=user@your-server bash scripts/standalone-test-env/deploy-remote.sh clklog
+HOST=root@your-server bash scripts/standalone-test-env/deploy-remote.sh clklog
 ```
 
-> **Standard mode is required.** The analytics platform reads the same Kafka topic and the same ClickHouse database. Quick mode (receiver writes ClickHouse directly and skips Kafka) gives the platform nothing to consume.
+> **Standard mode is required.** Candela ingestor consumes events independently from the same Kafka topic; community ClickHouse data is used for read-only queries and checks. Quick mode (receiver writes ClickHouse directly and skips Kafka) gives the platform nothing to consume.
 
 ---
 
@@ -362,7 +330,7 @@ Both paths **share the database init scripts, config rendering, and secret contr
 Versioned releases (`releases/<timestamp>` plus `current` / `previous` symlinks, so switch and rollback are atomic). Supervisord runs `analytics-server` and `analytics-ingestor`. Host nginx serves the web build.
 
 ```bash
-HOST=user@your-server bash scripts/standalone-test-env/candela/deploy-remote.sh native
+HOST=root@your-server bash scripts/standalone-test-env/candela/deploy-remote.sh native
 ```
 
 Flow: install Node 24.20.0 (SHA256 checked) → install supervisord (EPEL) → build server and web (Prisma Client is generated **at build time**, so startup does not need the npm registry) → assemble the release (including precompressed gzip) → atomic switch → initialize databases → write supervisor programs → configure nginx → readiness check.
@@ -372,10 +340,13 @@ Flow: install Node 24.20.0 (SHA256 checked) → install supervisord (EPEL) → b
 Three images (`analytics-server`, `analytics-web`, and a one-shot `manager-migrate`). Stack name `candela`, joined to the middleware network `clklog-net` (containers address `mysql`, `redis`, `kafka`, and `clickhouse` by service name).
 
 ```bash
-HOST=user@your-server bash scripts/standalone-test-env/candela/deploy-remote.sh docker
+HOST=root@your-server bash scripts/standalone-test-env/candela/deploy-remote.sh docker
 ```
 
 Images are tagged by content hash. Unchanged source and Dockerfiles reuse the existing image (a re-run does nothing). Rollback means setting `DOCKER_*_TAG` in `<BASE_DIR>/configs/candela.env` back to the previous tag, then running `docker --skip-build`.
+
+<details>
+<summary>Database initialization details</summary>
 
 #### Database initialization (shared, runs automatically)
 
@@ -387,7 +358,7 @@ No manual SQL:
 
 > If the metadata database already has a **usable** migration history, the path is incremental `prisma migrate deploy`. A baseline rebuild (which empties the metadata database and says so) runs only when there is no history, or the history contains a failed record. See [`docs/architecture/candela-deploy-two-paths.md`](docs/architecture/candela-deploy-two-paths.md) §3 and §5.
 
----
+</details>
 
 ### Access and verification
 
@@ -399,16 +370,19 @@ No manual SQL:
 One-shot verification. The script detects whether the current install is native or containers:
 
 ```bash
-HOST=user@your-server bash scripts/standalone-test-env/candela/deploy-remote.sh verify   # analytics (18 checks; +3 when AI Harness is installed)
-HOST=user@your-server bash scripts/standalone-test-env/deploy-remote.sh verify           # middleware + community (12 checks)
+HOST=root@your-server bash scripts/standalone-test-env/candela/deploy-remote.sh verify   # analytics (native: 18; Docker: 19; +3 with AI Harness)
+HOST=root@your-server bash scripts/standalone-test-env/deploy-remote.sh verify           # middleware + community (12 checks)
 ```
 
 Coverage: process or container state, HTTP entry, MySQL tables and the superuser, ClickHouse tables and a proof that `sa_readonly` cannot write, Kafka consumer-group lag, the **end-to-end ingest path** (report through the receiver, then both community `log_analysis` and platform `sa_events` row counts increase), and the platform login API. A machine with the Harness runtime also checks the broker process, the socket health probe, and that the switch matches.
 
+<details>
+<summary>Operations: redeploy, roll back, clean up, and troubleshoot</summary>
+
 ### Day-to-day operations
 
 ```bash
-export HOST=user@your-server
+export HOST=root@your-server
 M=scripts/standalone-test-env/candela/deploy-remote.sh
 
 bash $M push            # push the latest source and scripts, do not deploy
@@ -423,8 +397,8 @@ bash $M wipe            # drop databases only (dry-run by default; prints what w
 bash $M wipe --yes      # actually drop them, then recreate environment resources (Kafka topic, community ClickHouse tables)
 
 # Wipe the whole install (containers, images, volumes, data dirs, config, Node) back to "infrastructure only":
-HOST=user@your-server bash scripts/standalone-test-env/deploy-remote.sh teardown        # dry-run
-HOST=user@your-server bash scripts/standalone-test-env/deploy-remote.sh teardown --yes  # real delete; secret files go with it, and the next deploy generates new passwords
+HOST=root@your-server bash scripts/standalone-test-env/deploy-remote.sh teardown        # dry-run
+HOST=root@your-server bash scripts/standalone-test-env/deploy-remote.sh teardown --yes  # real delete; secret files go with it, and the next deploy generates new passwords
 
 # Troubleshooting
 supervisorctl status candela_server candela_ingestor   # native
@@ -433,6 +407,10 @@ docker logs -f candela-server
 tail -f /data/logs/production/candela/analytics-server.log
 ```
 
+</details>
+
+[Back to navigation](#find-your-way)
+
 ---
 
 ## Configuration and secrets
@@ -440,36 +418,51 @@ tail -f /data/logs/production/candela/analytics-server.log
 - **Secrets stay off the repo and out of logs.** Deploy scripts generate every random password and write it only on the target, in `<BASE_DIR>/configs/candela.env` (mode 0600). Middleware passwords live in `<MW_BASE_DIR>/config/deploy.env`. Do not commit either file, and do not send them out.
 - **Where config comes from.** The running platform config is `<BASE_DIR>/configs/config.yaml`, **rendered** by the deploy script from `apps/analytics-server/config_server.yaml`. The render changes only deploy-time values (database, Redis, and Kafka addresses, and the Harness switch), and **each substitution asserts how many times it must match**. If the repo config changes shape, the script fails instead of silently mismatching. Do not hand-edit `config.yaml` on the target (the next deploy overwrites it; change the source file in the repo).
 - The app reads that YAML through `APP_CONFIG_PATH`. `${VAR}` placeholders are filled from the env file.
-- **The AI assistant is off by default** (`deepseek_harness.enabled: false`). Turning it on needs the Harness runtime (rootless podman plus a broker) and a model-provider key (added in the product under Settings → AI Workspace → model providers; the key is stored as AES-256-GCM ciphertext). Read [`docs/architecture/clklog-ai-workspace-design.md`](docs/architecture/clklog-ai-workspace-design.md) first. On a test machine: `bash <BASE_DIR>/ops/candela/install-harness.sh` (idempotent; writes the `configs/harness.enabled` marker), then redeploy once (`HARNESS_ENABLED=1 bash deploy-native.sh --skip-build`) so the switch settles on `true`. Design and acceptance: [`docs/architecture/standalone-test-env-harness-design.md`](docs/architecture/standalone-test-env-harness-design.md).
+- **The AI assistant is off by default** (`deepseek_harness.enabled: false`). Turning it on needs the Harness runtime (rootless podman plus a broker) and a model-provider key (added in the product under Settings → AI Workspace → model providers; the key is stored as AES-256-GCM ciphertext). Read [`docs/architecture/clklog-ai-workspace-design.md`](docs/architecture/clklog-ai-workspace-design.md) first. On a test machine: `bash <BASE_DIR>/ops/candela/install-harness.sh` (idempotent; writes the `<BASE_DIR>/configs/harness.enabled` marker), then redeploy once (`HARNESS_ENABLED=1 bash deploy-native.sh --skip-build`) so the switch settles on `true`. Design and acceptance: [`docs/architecture/standalone-test-env-harness-design.md`](docs/architecture/standalone-test-env-harness-design.md).
 - **Read-only isolation.** Custom SQL and AI queries use `sa_readonly` (config key `READONLY_CH_PASSWORD`). The writer account `default` is only for the platform's own sidecar writes.
+
+[Back to navigation](#find-your-way)
 
 ---
 
 ## Local development
 
-Start the web app (Vite, `base=/sa/`) and the server (NestJS + Prisma) separately.
+Use Node 24 and reachable MySQL, ClickHouse, Redis, and Kafka instances. Set up connections using [Configuration and secrets](#configuration-and-secrets), then open three terminals at the repository root:
 
 ```bash
-# Server (Node 24, plus a reachable MySQL, ClickHouse, Redis, and Kafka)
+# Terminal 1: backend HTTP :3100
 cd apps/analytics-server
 npm ci
 npx prisma generate
-npm run start:dev            # HTTP :3100
-npm run start:ingestor:dev   # Kafka consumer (its own process)
-
-# Web
-cd apps/analytics-web
-npm ci
-npm run dev                  # Vite :8180, proxies /sa/api to :3100
-
-# Tests and gates (CI runs the same checks)
-cd apps/analytics-server && npm test
-cd apps/analytics-web && npx vitest run
-python3 scripts/i18n_check.py && python3 scripts/i18n_scan.py --check
-python3 scripts/arch_ratchet.py          # structure ratchet (may only shrink)
+npm run start:dev
 ```
 
-For local data, stand up middleware on your own machine with `scripts/standalone-test-env/` (see [Deploy](#deploy); `HOST` is required). Public checks: [`.github/workflows/ci.yml`](.github/workflows/ci.yml). To build on GitLab and rsync the artifacts, copy [`scripts/gitlab-ci.yml.template`](scripts/gitlab-ci.yml.template) to `.gitlab-ci.yml` at the repo root, then fill in your own runner tags and hosts.
+```bash
+# Terminal 2: independent Kafka consumer
+cd apps/analytics-server
+npm run start:ingestor:dev
+```
+
+```bash
+# Terminal 3: web Vite :8180, proxies /sa/api → :3100
+cd apps/analytics-web
+npm ci
+npm run dev
+```
+
+Open `http://localhost:8180/sa/`. Run tests and gates from the repository root:
+
+```bash
+(cd apps/analytics-server && npm test)
+(cd apps/analytics-web && npx vitest run)
+python3 scripts/arch_ratchet.py
+python3 scripts/i18n_check.py
+python3 scripts/i18n_scan.py --check
+```
+
+Middleware setup: [Deploy](#deploy). Public checks: [`.github/workflows/ci.yml`](.github/workflows/ci.yml). The GitLab build template is [`scripts/gitlab-ci.yml.template`](scripts/gitlab-ci.yml.template); fill in your own runner tags and target hosts.
+
+[Back to navigation](#find-your-way)
 
 ---
 
@@ -496,6 +489,32 @@ docs/
 examples/report-sdk/        Ingest SDK examples (several languages)
 ```
 
+[Back to navigation](#find-your-way)
+
+---
+
+## Fully AI-written (vibe coding)
+
+**The application code in this project is 100% AI-written.** People set goals, accept results, and make decisions; models from different vendors take turns on the same repository. The project uses **CDD (Charter-Driven Development)**: persistent repository rules, design documents, and executable checks support handoffs and verification.
+
+[`AGENTS.md`](AGENTS.md) is the source of agent working rules; [`INDEX.md`](INDEX.md) maps tasks to files. Each session can reload role boundaries, architecture red lines, and acceptance requirements. Read the full argument in [CDD methodology](CDD-methodology.md) ([中文](CDD-methodology.zh-CN.md)).
+
+<details>
+<summary>Participating models and engineering method</summary>
+
+| Model | Client | Share |
+|---|---|---|
+| DeepSeek V4.0 / V4.1-Flash | ZCode | ~80% |
+| Grok 4.5 | Cursor | ~12% |
+| GLM 5.3-Flash | ZCode | ~5% |
+| GPT-5.6 Sol | Codex | ~3% |
+
+These are rough shares recorded by the original project. The repository rules define the engineering constraints; checks cover structure, translation resources, and hardcoded text, while deployment acceptance covers reporting and database writes end to end. Design and acceptance evidence are linked under [Documentation](#documentation).
+
+</details>
+
+[Back to navigation](#find-your-way)
+
 ---
 
 ## Documentation
@@ -515,9 +534,13 @@ examples/report-sdk/        Ingest SDK examples (several languages)
 | Internationalization (glossary / adding a language) | [`docs/architecture/i18n-glossary.md`](docs/architecture/i18n-glossary.md) |
 | Ingest protocol and SDKs | [`docs/architecture/reporting-protocol.md`](docs/architecture/reporting-protocol.md), [`examples/report-sdk/`](examples/report-sdk/) |
 
+[Back to navigation](#find-your-way)
+
 ---
 
 ## Names and boundaries
+
+Candela is the SI unit of luminous intensity. The project was renamed from `clklog_manager` to Candela on 2026-10-10.
 
 | Name | Means | Notes |
 |---|---|---|
@@ -526,6 +549,8 @@ examples/report-sdk/        Ingest SDK examples (several languages)
 | `sa` **technical identifiers** | Historical internal identifiers | The path `/sa/`, the API prefix `sa/api`, database names `clklog_sa` and `clklog_sa_meta`, the read-only account `sa_readonly`, environment variables `CLKLOG_*`, and `clklog_sa.` plus `sa_in_cohort()` inside saved SQL. They are fixed in nginx routes, the web build base, the Prisma datasource, ClickHouse DDL, and analysis configs users have already saved. **Moving them is expensive and would break old links and old cards**, so that rename is its own phase (keep the old path working, then switch). It is out of scope for the brand rename |
 
 **Why the name does not include ClkLog.** This project is a sidecar and a private-deploy layout on top of ClkLog Community. Putting the upstream name in the brand makes it easy to mistake the project for an official ClkLog product, and it crosses the upstream trademark line. The brand stands alone. README and `NOTICE` are where we say it is built on ClkLog Community Edition.
+
+[Back to navigation](#find-your-way)
 
 ---
 

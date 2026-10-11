@@ -18,7 +18,8 @@
 |------|---------|
 | 项目现状与入口（英文，GitHub 默认） | `README.md` |
 | 项目现状与入口（中文） | `README.zh-CN.md` |
-| README 配图（埋点、事件分析、漏斗、留存、用户行为序列、自定义 SQL、看板、告警通道） | `docs/readme/` |
+| 快速开始（Docker Compose 三步部署、验收与首次分析） | [English](README.md#quick-start)、[中文](README.zh-CN.md#快速开始) |
+| README 配图（功能截图 + 中英文数据链路 / 内部职责 SVG 架构图） | `docs/readme/` |
 | 开发方法论 CDD（英文） | `CDD-methodology.md` |
 | 开发方法论 CDD（中文） | `CDD-methodology.zh-CN.md` |
 | **接手/交接入口（仓库来源、目标机现状、待办与已知坑）** | `docs/project/handoff-candela-new-repo.md` |
@@ -280,7 +281,7 @@
 | rootless Podman Runtime Broker | `apps/analytics-harness-broker/` |
 | 分析平台整体源码说明 | `apps/README.md` |
 | ClkLog 配置资产（init SQL / ui config.js / 字典；两套部署脚本的数据源） | `deploy-assets/clklog-community/` |
-| 部署脚本（中间件 + 社区版；Candela 平台在 `candela/`） | `scripts/standalone-test-env/` |
+| 部署脚本（中间件 + 社区版；Candela 平台在 `scripts/standalone-test-env/candela/`） | `scripts/standalone-test-env/` |
 | 公开 CI（GitHub Actions） | `.github/workflows/ci.yml` |
 | GitLab 构建并 rsync 的模板（不自动启用；复制为根目录 `.gitlab-ci.yml` 后填写 runner 与主机） | `scripts/gitlab-ci.yml.template` |
 | CI 构建脚本（build.sh）与部署产物结构 | `scripts/build.sh` |
@@ -298,12 +299,12 @@
 
 | 目录 | 摘要 | .md 数 |
 |------|------|--------|
-| 根目录 | README（项目入口）+ AGENTS（Agent 规则）+ INDEX（导航）+ PRODUCT（产品与设计基线）+ CODE_HANDOVER（代码审计台账） | 5 |
+| 根目录 | 中英文 README 与 CDD 方法论、Agent 规则、文件导航、产品基线、代码交接、贡献与安全说明 | 10 |
 | `docs/product/` | 产品帽：PRD + 对标差异活文档 + 用户分群/权限/数据表/时区调研 + 前端原型图 | 91 |
-| `docs/architecture/` | 架构帽：实现方案、契约、棘轮与硬门禁、容器化可行性调研、独立测试环境与分析平台两套部署方案 | 88 |
-| `docs/project/` | 项目帽：排期、里程碑、风险、验收记录、项目现状快照、旧生产运维归档（含运维告警 v1/v2/v3、运维收尾加固、数据表 v2 对拍、时区系统 v1）、AI 阶段复盘与红线覆盖、SQL 卡片审计、SQL 图表验收、事件图表字段绑定验收、AI 事件图表验收、SQL 双轴验收、独立测试环境部署记录、Gate 0 探测复盘、CI 提速、接入指南全语言实测 | 53 |
+| `docs/architecture/` | 架构帽：实现方案、契约、棘轮与硬门禁、容器化可行性调研、独立测试环境与分析平台两套部署方案 | 93 |
+| `docs/project/` | 项目帽：排期、里程碑、风险、验收记录、项目现状快照、旧生产运维归档（含运维告警 v1/v2/v3、运维收尾加固、数据表 v2 对拍、时区系统 v1）、AI 阶段复盘与红线覆盖、SQL 卡片审计、SQL 图表验收、事件图表字段绑定验收、AI 事件图表验收、SQL 双轴验收、独立测试环境部署记录、Gate 0 探测复盘、CI 提速、接入指南全语言实测 | 55 |
 | `apps/` | 分析平台源码：NestJS 后端 + React 前端 + Harness Host + Runtime Broker + Dockerfile 镜像配方 + README | - |
-| `examples/report-sdk/` | 上报 SDK 示例（17 类语言/端 + `verify.sh` 验收器 + `backfill/` 批量回补 CLI），均已实测；各工程由 `scripts/build-sdk-demos.sh` 打成 zip 供接入指南下载 | 2 |
+| `examples/report-sdk/` | 上报 SDK 示例（17 类语言/端 + `verify.sh` 验收器 + `examples/report-sdk/backfill/` 批量回补 CLI），均已实测；各工程由 `scripts/build-sdk-demos.sh` 打成 zip 供接入指南下载 | 2 |
 | `deploy-assets/` | ClkLog 配置资产：init SQL、ui config.js、地区字典、ClickHouse/Flink 配置（部署脚本数据源） | 0 |
 | `scripts/` | CI/部署脚本：build.sh、server/ingestor 启动、Harness Runtime 安装、nginx/supervisord 配置、架构棘轮、分析主体冒烟、独立测试环境部署（standalone-test-env/） | 0 |
 

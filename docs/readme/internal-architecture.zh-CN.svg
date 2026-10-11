@@ -1,0 +1,62 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="910" viewBox="0 0 1200 910" role="img" aria-labelledby="title desc">
+<title id="title">Candela：内部职责架构</title><desc id="desc">React 访问 NestJS API，独立 ingestor 消费 Kafka；MySQL、ClickHouse、Redis 各有存储职责，AI 为可选组件。</desc>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10Z" fill="#7786a1"/></marker></defs>
+<rect width="1200" height="910" rx="24" fill="#f5f7fb"/>
+<g font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Microsoft YaHei', sans-serif">
+<text x="40" y="38" font-size="14" fill="#3265ca" font-weight="700">02 / INSIDE CANDELA</text>
+<text x="40" y="78" font-size="30" fill="#152646" font-weight="700">从探索与查询，到保存与持续监测。</text>
+<text x="40" y="109" font-size="18" fill="#60708a" font-weight="400">按逻辑职责分组 · HTTP API 与数据消费分别运行。</text>
+<rect x="40" y="147" width="740" height="99" rx="16" fill="#fff" stroke="#dce3ee"/>
+<text x="62" y="182" font-size="22" fill="#1f3151" font-weight="650">analytics-web · React</text>
+<text x="62" y="211" font-size="18" fill="#60708a" font-weight="400">Ant Design + ECharts · 条件编排、图表、看板与多语言</text>
+<rect x="830" y="147" width="330" height="99" rx="16" fill="#eaf0ff" stroke="#bdcff4"/>
+<text x="852" y="182" font-size="22" fill="#1f3151" font-weight="650">Kafka · clklog</text>
+<text x="852" y="211" font-size="18" fill="#60708a" font-weight="400">独立消费组</text>
+<path d="M410 246 V304" fill="none" stroke="#7786a1" stroke-width="2" stroke-linejoin="round" marker-end="url(#arrow)"/>
+<text x="430" y="280" font-size="18" fill="#3265ca" font-weight="600">/sa/api</text>
+<path d="M995 246 V304" fill="none" stroke="#7786a1" stroke-width="2" stroke-linejoin="round" marker-end="url(#arrow)"/>
+<rect x="40" y="304" width="740" height="314" rx="16" fill="#fff" stroke="#bdcff4"/>
+<text x="64" y="343" font-size="24" fill="#1f3151" font-weight="700">analytics-server · NestJS</text>
+<text x="64" y="374" font-size="18" fill="#60708a" font-weight="400">登录 / RBAC / 项目范围 → 参数校验 → 业务服务</text>
+<rect x="64" y="399" width="330" height="88" rx="16" fill="#f5f7fb" stroke="#dce3ee"/>
+<text x="86" y="434" font-size="22" fill="#1f3151" font-weight="650">分析查询</text>
+<text x="86" y="463" font-size="18" fill="#60708a" font-weight="400">事件 / 漏斗 / 留存 / SQL</text>
+<rect x="418" y="399" width="330" height="88" rx="16" fill="#f5f7fb" stroke="#dce3ee"/>
+<text x="440" y="434" font-size="22" fill="#1f3151" font-weight="650">埋点与用户</text>
+<text x="440" y="463" font-size="18" fill="#60708a" font-weight="400">元数据 / 分群 / 标签 / 行为序列</text>
+<rect x="64" y="502" width="330" height="88" rx="16" fill="#f5f7fb" stroke="#dce3ee"/>
+<text x="86" y="537" font-size="22" fill="#1f3151" font-weight="650">看板与指标</text>
+<text x="86" y="566" font-size="18" fill="#60708a" font-weight="400">保存卡片 / 缓存刷新</text>
+<rect x="418" y="502" width="330" height="88" rx="16" fill="#f5f7fb" stroke="#dce3ee"/>
+<text x="440" y="537" font-size="22" fill="#1f3151" font-weight="650">治理与告警</text>
+<text x="440" y="566" font-size="18" fill="#60708a" font-weight="400">质量 / 一致性核对 / 通知投递</text>
+<rect x="830" y="304" width="330" height="172" rx="16" fill="#f0fbf7" stroke="#b5ddcf"/>
+<text x="852" y="339" font-size="22" fill="#1f3151" font-weight="650">analytics-ingestor</text>
+<text x="852" y="368" font-size="18" fill="#60708a" font-weight="400">解析 → 批量写入</text>
+<text x="852" y="393" font-size="18" fill="#60708a" font-weight="400">发现事件与属性元数据</text>
+<text x="852" y="418" font-size="18" fill="#60708a" font-weight="400">记录消费失败</text>
+<rect x="830" y="508" width="330" height="190" rx="16" fill="#f6f2ff" stroke="#cfc2ee" stroke-dasharray="7 5"/>
+<text x="852" y="542" font-size="15" fill="#77549e" font-weight="700">可选 · AI HARNESS</text>
+<text x="852" y="574" font-size="18" fill="#665380" font-weight="400">页面上下文 + 分析工具</text>
+<text x="852" y="602" font-size="18" fill="#665380" font-weight="400">Broker → 隔离运行时</text>
+<text x="852" y="630" font-size="18" fill="#665380" font-weight="400">已配置的模型服务</text>
+<text x="852" y="658" font-size="18" fill="#665380" font-weight="400">默认关闭</text>
+<path d="M780 576 H830" fill="none" stroke="#7786a1" stroke-width="2" stroke-linejoin="round" marker-end="url(#arrow)" stroke-dasharray="6 5"/>
+<path d="M280 618 V721 H215 V746" fill="none" stroke="#7786a1" stroke-width="2" stroke-linejoin="round" marker-end="url(#arrow)"/>
+<path d="M410 618 V721 H590 V746" fill="none" stroke="#7786a1" stroke-width="2" stroke-linejoin="round" marker-end="url(#arrow)"/>
+<path d="M540 618 V710 H965 V746" fill="none" stroke="#7786a1" stroke-width="2" stroke-linejoin="round" marker-end="url(#arrow)"/>
+<path d="M1160 391 H1179 V731 H725 V746" fill="none" stroke="#7786a1" stroke-width="2" stroke-linejoin="round" marker-end="url(#arrow)"/>
+<rect x="40" y="746" width="350" height="108" rx="16" fill="#fff" stroke="#dce3ee"/>
+<text x="62" y="781" font-size="22" fill="#1f3151" font-weight="650">MySQL · clklog_sa_meta</text>
+<text x="62" y="810" font-size="18" fill="#60708a" font-weight="400">元数据、分析定义与权限</text>
+<text x="62" y="835" font-size="18" fill="#60708a" font-weight="400">看板与平台配置</text>
+<rect x="415" y="746" width="350" height="108" rx="16" fill="#f0fbf7" stroke="#b5ddcf"/>
+<text x="437" y="781" font-size="22" fill="#1f3151" font-weight="650">ClickHouse · clklog_sa</text>
+<text x="437" y="810" font-size="18" fill="#60708a" font-weight="400">事件、画像与分群成员</text>
+<text x="437" y="835" font-size="18" fill="#60708a" font-weight="400">分析查询只读执行</text>
+<rect x="790" y="746" width="370" height="108" rx="16" fill="#fff" stroke="#dce3ee"/>
+<text x="812" y="781" font-size="22" fill="#1f3151" font-weight="650">Redis</text>
+<text x="812" y="810" font-size="18" fill="#60708a" font-weight="400">查询缓存与会话</text>
+<text x="812" y="835" font-size="18" fill="#60708a" font-weight="400">后台任务协调</text>
+<text x="40" y="885" font-size="17" fill="#60708a" font-weight="400">实线：请求与存储访问   ·   虚线：可选 AI 集成</text>
+</g></svg>
