@@ -396,7 +396,7 @@ describe('模板 DTO 的通道组白名单', () => {
 
 /**
  * 通道测试消息本地化（i18n v1）：正文 / 通道名 / 变量 / detail 都按**操作者**语言渲染，
- * 中文逐字不变（与迁移前的硬编码文案一致）。
+ * 中文与当前 zh-CN 资源逐字一致（产品名是 Candela）。
  */
 describe('通道测试消息本地化（i18n v1）', () => {
   const service = () =>
@@ -416,8 +416,8 @@ describe('通道测试消息本地化（i18n v1）', () => {
 
       const zhResult = await service().test('webhook', target, 'admin', 'zh-CN');
       const zhCtx = sent[0];
-      expect(zhCtx.text).toMatch(/^【测试】ClkLog 告警通道连通性测试\n通道：通用 Webhook\n时间：/);
-      expect(zhCtx.subject).toBe('ClkLog 告警通道测试（通用 Webhook）');
+      expect(zhCtx.text).toMatch(/^【测试】Candela 告警通道连通性测试\n通道：通用 Webhook\n时间：/);
+      expect(zhCtx.subject).toBe('Candela 告警通道测试（通用 Webhook）');
       expect(zhCtx.vars).toMatchObject({
         rule_name: '通道连通性测试',
         status: '触发',
@@ -429,8 +429,8 @@ describe('通道测试消息本地化（i18n v1）', () => {
 
       const enResult = await service().test('webhook', target, 'admin', 'en-US');
       const enCtx = sent[1];
-      expect(enCtx.text).toMatch(/^\[Test\] ClkLog alert channel connectivity test\nChannel: Generic Webhook\nTime: /);
-      expect(enCtx.subject).toBe('ClkLog alert channel test (Generic Webhook)');
+      expect(enCtx.text).toMatch(/^\[Test\] Candela alert channel connectivity test\nChannel: Generic Webhook\nTime: /);
+      expect(enCtx.subject).toBe('Candela alert channel test (Generic Webhook)');
       expect(enCtx.vars).toMatchObject({
         rule_name: 'Channel connectivity test',
         status: 'Triggered',

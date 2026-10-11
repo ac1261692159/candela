@@ -1,4 +1,5 @@
 import { describe, expect, it } from 'vitest';
+import { epochOfWallClock } from '../../time-range/resolve';
 import { CHART_CONFIG_SCHEMA_VERSION, CHART_RECOMMENDATION_VERSION } from '../chart.constants';
 import type { ChartConfigV1, QueryColumn, TrendOptions } from '../chart.types';
 import { resolveVisualization } from '../chart-pipeline';
@@ -89,7 +90,8 @@ describe('trend.adapter', () => {
       axisLabel?: { formatter?: (value: number) => string };
     };
     expect(xAxis.type).toBe('time');
-    const first = Date.parse('2026-09-01T00:00:00');
+    // 上海墙钟午夜，不跟 runner 本地时区走（CI 是 UTC，裸 Date.parse 会显示成 08:00）
+    const first = epochOfWallClock('Asia/Shanghai', 2026, 9, 1);
     expect(xAxis.axisLabel?.formatter?.(first)).toBe('9月1日');
   });
 
