@@ -23,6 +23,7 @@ On top of ClkLog Community Edition (collection and basic reports), Candela adds 
 
 ## Contents
 
+- [What you manage and what you can ask](#what-you-manage-and-what-you-can-ask)
 - [Fully AI-written](#fully-ai-written-vibe-coding)
   - [AGENTS.md](#agentsmd-the-layer-that-keeps-multi-model-work-controllable)
 - [Capabilities](#capabilities)
@@ -40,6 +41,41 @@ On top of ClkLog Community Edition (collection and basic reports), Candela adds 
 - [Documentation](#documentation)
 - [Names and boundaries](#names-and-boundaries)
 - [License and upstream attribution](#license-and-upstream-attribution)
+
+---
+
+## What you manage and what you can ask
+
+Candela does not ship a fixed catalog of page views and channels. You define the events. The platform keeps them, names them, and answers questions about them. ClkLog Community still receives the stream and keeps its own preset traffic reports. Candela is where you work with the events and the people behind them.
+
+### Data you manage
+
+| Data | What it is | Example |
+|---|---|---|
+| Behavior events | Something a person did, plus the properties you attached | `PaySuccess` with `amount`, `pay_type`, `product_id` |
+| Who did it | An anonymous id before login, a login id after signup | `distinct_id` on the device, `user_key` after `$SignUp` |
+| User properties | Attributes you set on a person (`user_set`) | `plan=pro`, `city=Shanghai` |
+| Context the SDK adds | Device, page, campaign, and location, collected automatically | `$os`, `$url`, `$utm_source`, `$city` |
+| Tracking catalog | Display names, types, and whether an event or property is visible | Hide a retired event so it drops out of the analysis pickers |
+| Definitions you add | Virtual events, virtual properties, saved metrics | "App checkout" = `SubmitOrder` where `channel=app` |
+| Groups of people | Cohorts and tags | People who paid in the last 7 days |
+| Reference tables | Dimension tables you upload as CSV | A product catalog joined on `product_id` |
+| Saved work | Dashboards, analysis cards, alert rules | A weekly acquisition board |
+
+Event and property names are yours. `PageView`, `SubmitOrder`, and `PaySuccess` are examples, not a built-in schema.
+
+### Questions you can ask
+
+| Question | Where you ask it |
+|---|---|
+| How many times, how many people, a sum or an average, split by a property, compared across hours, days, weeks, or months | Event analysis |
+| Of the people who did step 1, how many reached step 2 through step N, and where they dropped off | Funnel (2–32 steps, with a time window) |
+| Of the people who did A, how many came back and did B on day N | Retention |
+| What this one person did, in order | User timeline |
+| A question the three models above do not cover | Custom SQL (read-only) and charts on a dashboard |
+| Tell me when a saved number crosses a line | Metrics and alerts (Feishu, email, SMS, and other channels) |
+
+A typical path: register the event, confirm it arrived in Debug, run the analysis, save the result as a dashboard card.
 
 ---
 
@@ -83,6 +119,8 @@ In one line: **CDD turns "a person reviews the model's output" into "the model p
 ---
 
 ## Capabilities
+
+The tables above are the data and the questions. This is the same surface as a feature list:
 
 | Area | What you get |
 |---|---|
