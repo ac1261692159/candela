@@ -1,0 +1,58 @@
+{
+  "document": {
+    "title": "Candela 분석 플랫폼"
+  },
+  "menu": {
+    "report": "리포트",
+    "dashboards": "대시보드 목록",
+    "cards": "분석 카드",
+    "analysis": "분석",
+    "event": "이벤트 분석",
+    "funnel": "퍼널 분석",
+    "retention": "리텐션 분석",
+    "sql": "사용자 정의 SQL",
+    "user": "사용자",
+    "cohorts": "사용자 코호트",
+    "tags": "사용자 태그",
+    "subjects": "분석 주체",
+    "meta": "트래킹 관리",
+    "events": "메타 이벤트",
+    "virtualProperties": "가상 속성",
+    "eventAttributes": "이벤트 속성",
+    "userProperties": "사용자 속성",
+    "virtualEvents": "가상 이벤트",
+    "data": "데이터 관리",
+    "onboarding": "연동 가이드",
+    "metrics": "지표",
+    "debug": "Debug",
+    "quality": "데이터 품질",
+    "datatables": "데이터 테이블",
+    "iam": "프로젝트 권한",
+    "members": "멤버 관리",
+    "groups": "멤버 그룹",
+    "roles": "역할 관리",
+    "dataPolicies": "데이터 권한",
+    "ops": "운영",
+    "slowQueries": "슬로우 SQL",
+    "serverStatus": "서버 상태",
+    "alerts": "모니터링 알림",
+    "dataManagement": "데이터 운영",
+    "settings": "설정",
+    "profile": "개인 설정",
+    "projectOwners": "프로젝트 설정",
+    "apiKeys": "API Key 관리",
+    "aiWorkspace": "AI Workspace",
+    "logout": "로그아웃",
+    "users": "사용자 관리",
+    "userTimeline": "사용자 행동 시퀀스"
+  },
+  "header": {
+    "collapseMenu": "메뉴 접기",
+    "expandMenu": "메뉴 펼치기",
+    "openMenu": "메뉴 열기",
+    "menu": "메뉴"
+  },
+  "drawer": {
+    "title": "Candela 분석"
+  }
+}

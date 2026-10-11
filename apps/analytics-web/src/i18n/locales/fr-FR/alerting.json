@@ -1,0 +1,554 @@
+{
+  "tab": {
+    "overview": "Vue d'ensemble",
+    "rules": "Politiques",
+    "history": "Historique",
+    "mute": "Mise en sourdine",
+    "notifications": "Notifications",
+    "templates": "Modèles de notification",
+    "channels": "Configuration des canaux",
+    "contacts": "Contacts",
+    "audits": "Journal des modifications"
+  },
+  "workbench": {
+    "title": "Alertes",
+    "firing": "{{count}} alerte(s) en cours de déclenchement",
+    "firing_one": "{{count}} alerte en cours de déclenchement",
+    "firing_other": "{{count}} alertes en cours de déclenchement",
+    "noContact": "Aucun contact actif : les alertes ne seront pas envoyées",
+    "noContactHint": "Ajoutez des contacts dans l'onglet « Contacts » et laissez-les actifs ; une règle sans contact lié envoie à tous les contacts actifs.",
+    "brokenRules": "{{count}} règle(s) actuellement invalide(s)",
+    "brokenRules_one": "{{count}} règle actuellement invalide",
+    "brokenRules_other": "{{count}} règles actuellement invalides",
+    "brokenRulesHint": "{{names}} : la métrique liée a été supprimée ou l'évaluation échoue depuis plusieurs cycles ; ces règles ne se déclencheront pas (voir la colonne Santé de l'onglet « Politiques »).",
+    "notifyFail24h": "{{count}} échec(s) de remise de notification sur les 24 dernières heures",
+    "notifyFail24h_one": "{{count}} échec de remise de notification sur les 24 dernières heures",
+    "notifyFail24h_other": "{{count}} échecs de remise de notification sur les 24 dernières heures",
+    "notifyFail24hHint": "Seuls les échecs survenant après trois tentatives sont enregistrés ; consultez la cause dans l'onglet « Notifications »."
+  },
+  "overview": {
+    "firedToday": "Déclenchements du jour",
+    "unresolved": "Non rétablies",
+    "notifyFailToday": "Échecs de notification du jour",
+    "firingEmpty": "Aucune alerte en cours de déclenchement",
+    "topRules": "Règles les plus déclenchées aujourd'hui",
+    "topRulesEmpty": "Aucun déclenchement aujourd'hui",
+    "fireCount": "Nombre de déclenchements"
+  },
+  "status": {
+    "firing": "Déclenchée",
+    "normal": "Normale",
+    "resolved": "Rétablie"
+  },
+  "severity": {
+    "label": "Niveau",
+    "alertLevel": "Niveau d'alerte",
+    "critical": "Critique",
+    "warning": "Avertissement",
+    "info": "Information"
+  },
+  "kind": {
+    "fire": "Déclenchement d'alerte",
+    "resolve": "Rétablissement d'alerte"
+  },
+  "rule": {
+    "label": "Règle",
+    "createMetric": "Nouvelle alerte de métrique",
+    "editTitle": "Modifier la condition de déclenchement",
+    "editTitleNamed": "Modifier la condition de déclenchement · {{name}}",
+    "saving": "Enregistrement",
+    "editorHint": "La détection s'exécute toutes les 60 secondes. Fenêtre × persistance de l'anomalie = nombre de dépassements consécutifs avant le déclenchement. Les règles intégrées ne peuvent pas être supprimées.",
+    "editorMetricHint": "Les valeurs de métrique sont évaluées en temps réel via la même chaîne de requête que l'atelier.",
+    "targetMetric": "Métrique observée",
+    "target": "Objet observé",
+    "metricTag": "Métrique de gestion des données",
+    "comparator": "Comparaison",
+    "threshold": "Seuil",
+    "statWindow": "Fenêtre statistique",
+    "statWindowHint": "L'analyse d'événements filtre par jour (stat_date) : la fenêtre se compte donc en jours et non en minutes ; « aujourd'hui » correspond au cumul du jour",
+    "windowMinutesLabel": "Granularité des points de données",
+    "windowMinutesOption": "{{minutes}} min",
+    "windowTimes": "{{window}} × {{times}}",
+    "windowMinutesTimes": "{{minutes}} min × {{times}}",
+    "windowDays": "{{days}} jours",
+    "forWindows": "Anomalie persistante",
+    "forWindowsHint": "Nombre de dépassements consécutifs requis pour déclencher (une détection toutes les 60 secondes)",
+    "timesSuffix": "fois",
+    "repeatInterval": "Intervalle de répétition des notifications pendant le déclenchement (minutes)",
+    "notifyOnResolve": "Notifier au rétablissement",
+    "timeSourceHint": "Suivre la métrique = utiliser la fenêtre d'interrogation de la métrique ; définie par cette règle = utiliser la fenêtre statistique ci-dessous",
+    "timeSourceHintMetric": "Suit par défaut la fenêtre d'interrogation de la métrique ; vous pouvez aussi définir une fenêtre propre à cette règle",
+    "timeFromMetric": "Suivre la métrique",
+    "timeFromMetricWith": "Suivre la métrique ({{window}})",
+    "timeFromRule": "Définie par cette règle",
+    "timeFromRuleNoWindow": "Définie par cette règle (cette métrique n'a pas de fenêtre d'interrogation)",
+    "name": "Nom de la règle",
+    "defaultName": "Alerte {{metric}}",
+    "created": "Alerte de métrique créée",
+    "metricSource": "L'alerte porte sur une métrique enregistrée dans « Gestion des données → Métriques »",
+    "metricSourceHint": "La détection s'exécute toutes les 60 secondes et ne se déclenche qu'après le nombre de dépassements consécutifs configuré. Les fenêtres se comptent en jours (aujourd'hui / N derniers jours) ; les valeurs sont évaluées en temps réel via la même chaîne de requête que l'atelier, sans dépendre du cache des cartes.",
+    "probe": "Tester la valeur",
+    "probeFailedPrefix": "Échec de la récupération",
+    "probeFailed": "Échec de la récupération : {{error}}",
+    "probeResult": "Valeur actuelle : {{value}} ({{window}}{{pick}}, durée {{ms}} ms)",
+    "probePick": " · {{pick}}",
+    "editCondition": "Modifier la condition",
+    "muteQuick": "Mise en sourdine rapide",
+    "allContacts": "Tous les contacts actifs",
+    "checkInterval": "Détection toutes les 60 secondes",
+    "source": {
+      "metric": "Métrique : {{name}}",
+      "builtin": "Exploitation"
+    },
+    "column": {
+      "health": "Santé",
+      "condition": "Condition",
+      "window": "Fenêtre / persistance",
+      "currentValue": "Valeur actuelle"
+    },
+    "health": {
+      "metricMissing": "Métrique supprimée",
+      "evalFailed": "Échec de l'évaluation",
+      "noContact": "Aucun contact"
+    }
+  },
+  "event": {
+    "filterLabel": "État de l'événement",
+    "firedAt": "Heure de déclenchement",
+    "value": "Valeur au déclenchement",
+    "lastSeen": "Dernière observation"
+  },
+  "notification": {
+    "time": "Heure",
+    "kindFire": "Déclenchement",
+    "kindRepeat": "Répétition",
+    "kindResolve": "Rétablissement",
+    "result": "Résultat",
+    "error": "Erreur"
+  },
+  "contact": {
+    "label": "Contact",
+    "hint": "Choisissez un canal puis suivez les indications ; le webhook d'un bot de groupe est lui-même un identifiant, tandis que les canaux à identifiants (e-mail / SMS / Telegram / WhatsApp) se configurent d'abord dans la page « Configuration des canaux ». Une règle peut être liée à plusieurs contacts (envoi simultané sur plusieurs canaux) ; sans contact lié, l'alerte part vers tous les contacts actifs.",
+    "updated": "Contact mis à jour",
+    "editTitle": "Modifier le contact",
+    "editTitleNamed": "Modifier le contact · {{name}}",
+    "maskedHint": "Les adresses et les clés sont masquées dans la liste et ne sont donc pas préremplies : laissez vide pour conserver la valeur actuelle, seule une nouvelle valeur l'écrase.",
+    "webhookUrl": "Adresse webhook",
+    "webhookRequired": "Saisissez l'adresse webhook",
+    "address": "Adresse",
+    "addressLabel": "Adresse de réception",
+    "addressEmail": "E-mail",
+    "addressChatId": "chat_id (par ex. -1001234567890)",
+    "addressWhatsapp": "Numéro (E.164, par ex. 8613800138000)",
+    "addressSms": "Numéro de téléphone (par ex. +8613800138000)",
+    "secret": "Clé",
+    "secretOptional": "Clé (facultative)",
+    "secretHint": "Clé de signature Feishu/DingTalk ; laissez vide si le bot n'a pas de vérification de signature",
+    "smsProvider": "Fournisseur SMS",
+    "smsProviderHint": "Vide = fournisseur actif par défaut de la plateforme",
+    "disableHint": "Une fois désactivé, aucune remise n'a lieu",
+    "bodyTemplateHint": "Modèle de body, mêmes paramètres que les modèles d'alerte, plus {{text}} et {{textJson}}",
+    "bodyTemplatePlaceholder": "Modèle de body (facultatif, par défaut {\"text\":\"{{textJson}}\"})",
+    "alertContacts": "Contacts de l'alerte",
+    "multiHint": "Sélection multiple possible : la règle envoie à tous les contacts liés lorsqu'elle se déclenche ; sans sélection, l'envoi va à tous les contacts actifs",
+    "multiExtra": "Sélection multiple possible (envoi simultané sur plusieurs canaux) ; aucune sélection = tous les contacts actifs",
+    "noneSelected": "Aucune sélection = tous les contacts actifs",
+    "disabledName": "{{name}} (désactivé)",
+    "locale": "Langue",
+    "localeDefault": "Langue par défaut de la plateforme",
+    "localeHint": "Les notifications sont rendues dans la langue du destinataire ; vide = langue par défaut de la plateforme",
+    "timezone": "Fuseau horaire",
+    "timezoneHint": "Les heures de déclenchement et de rétablissement des notifications sont rendues dans ce fuseau ; vide = fuseau du projet ou de la plateforme",
+    "timezoneDefault": "Suivre le projet ou la plateforme"
+  },
+  "channel": {
+    "label": "Canal",
+    "feishu": "Feishu",
+    "dingtalk": "DingTalk",
+    "wecom": "WeCom",
+    "webhook": "Webhook générique",
+    "email": "E-mail",
+    "sms": "SMS",
+    "telegram": "Telegram",
+    "whatsapp": "WhatsApp",
+    "configMissing": "Non configuré : {{names}}",
+    "unavailable": "Ce canal est actuellement indisponible",
+    "pageHint": {
+      "title": "Cette page configure les canaux « à identifiants »",
+      "body": "Le webhook d'un bot de groupe (Feishu / DingTalk / WeCom / Webhook générique) est lui-même un identifiant : renseignez-le dans la page « Contacts ». Cette page configure SMTP, les fournisseurs SMS, Telegram et WhatsApp. Les clés sont en écriture seule ; après l'enregistrement, utilisez « Envoyer un test » pour vérifier la connectivité."
+    },
+    "envOnly": "Variable d'environnement",
+    "notEnabled": "Non activé",
+    "pausedTag": "En pause",
+    "muted": "Ce canal est en pause",
+    "mutedOn": "{{channel}} mis en pause",
+    "mutedOff": "{{channel}} réactivé",
+    "platformFallbackTag": "Canal e-mail de la plateforme",
+    "platformFallbackNote": "Les e-mails sont envoyés via le compte SMTP de « Paramètres → Utilisateurs → Canal e-mail » ; rien à ressaisir ici.",
+    "secretTag": "Clé {{hint}}",
+    "secretTitle": "Identifiants (écriture seule)",
+    "secretTitleConfigured": "Identifiants (écriture seule, configurés {{hint}})",
+    "pageNote": "Remarque : DingTalk / WeCom / Telegram limitent le débit à 20 messages par minute ; la plateforme met automatiquement en file d'attente et fusionne par canal. Les signatures et modèles SMS chinois doivent d'abord être déclarés et validés dans la console du fournisseur ; AWS SNS n'a pas de région en Chine continentale et l'envoi vers un numéro chinois doit être déclaré.",
+    "enableFirst": "Dépliez d'abord « {{channel}} », renseignez et enregistrez la configuration, puis activez",
+    "enabled": "{{channel}} activé",
+    "disabled": "{{channel}} désactivé",
+    "saved": "Configuration de {{channel}} enregistrée",
+    "sendTest": "Envoyer un test",
+    "testSmtp": "Adresse e-mail de test",
+    "testChatId": "chat_id de test",
+    "testPhone": "Numéro de test",
+    "testTarget": "Cible de test (non enregistrée)",
+    "testOk": "Test réussi",
+    "testFail": "Échec du test",
+    "testError": "{{detail}} : {{error}}",
+    "lastModified": "Dernière modification par {{user}}"
+  },
+  "channelGroup": {
+    "chat": "Bots de groupe et messagerie instantanée",
+    "email": "E-mail",
+    "sms": "SMS"
+  },
+  "channelConfig": {
+    "helpTitle": "Configurer {{channel}}",
+    "muteLabel": "Suspendre l'envoi",
+    "muteHint": "La mise en pause conserve la configuration et les secrets, mais ce canal n'envoie plus aucune alerte (le repli e-mail de la plateforme est bloqué aussi). « Envoyer un test » reste utilisable pour vérifier les identifiants.",
+    "smtp": {
+      "label": "E-mail (SMTP)",
+      "hint": "Utilisez de préférence un compte d'envoi dédié avec un mot de passe d'application ; après l'enregistrement, « Envoyer un test » vérifie d'abord la connectivité puis envoie réellement un message.",
+      "field": {
+        "host": "Serveur SMTP",
+        "port": "Port",
+        "secure": "SSL/TLS (généralement activé pour le port 465)",
+        "user": "Nom d'utilisateur",
+        "from": "Expéditeur",
+        "fromPlaceholder": "Candela Alertes <alerts@example.com>",
+        "pass": "Mot de passe / code d'autorisation"
+      },
+      "help": "1. Préparation : créez une boîte d'envoi dédiée, activez SMTP dans la console du fournisseur et générez un **mot de passe d'application** — la plupart refusent l'envoi avec le mot de passe de connexion.\n2. À renseigner : hôte + port (465 avec SSL/TLS activé, 587 avec STARTTLS). L'expéditeur doit correspondre à l'utilisateur SMTP, sinon le fournisseur rejette le message.\n3. Vérification : « Envoyer un test » valide d'abord la connexion puis envoie réellement un message ; en cas d'échec le message brut du fournisseur s'affiche (échec d'authentification / expéditeur différent / limitation de débit). Configuré une fois, il sert partout : enregistrez le même compte dans « Paramètres → Utilisateurs → Canal e-mail », les alertes y basculent automatiquement."
+    },
+    "telegram": {
+      "label": "Telegram",
+      "hint": "Créez un bot avec @BotFather pour obtenir le Token ; côté contact, indiquez seulement le chat_id. En Chine continentale, une sortie via proxy est nécessaire ; vous pouvez pointer api_base vers votre propre service Bot API.",
+      "help": "1. Préparation : cherchez @BotFather dans Telegram → envoyez /newbot (le nom d'utilisateur doit finir par « bot ») → collez le token dans « Bot Token » ci-dessous et enregistrez ; ouvrez ensuite **le bot dans votre propre Telegram et appuyez sur START** — un bot ne peut pas engager la conversation, sinon le test échoue avec chat not found.\n2. À renseigner : le chat_id du contact est l'ID numérique renvoyé par @userinfobot (votre ID utilisateur en privé) ; pour un groupe, ajoutez d'abord le bot au groupe puis désactivez le mode privé avec /setprivacy dans BotFather, sinon il ne verra pas les messages.\n3. Vérification : « Envoyer un test » envoie réellement un message et affiche l'erreur brute de Telegram en cas d'échec (ex. chat not found) ; si le serveur n'atteint pas Telegram, pointez « Adresse de l'API » vers un serveur Bot API auto-hébergé (vide = api.telegram.org officiel).",
+      "field": {
+        "apiBase": "Adresse de l'API (facultative, officielle par défaut)",
+        "botToken": "Bot Token"
+      }
+    },
+    "whatsapp": {
+      "label": "WhatsApp (Cloud API)",
+      "hint": "Nécessite une vérification Meta Business, l'enregistrement d'un numéro et la validation d'un modèle ; les alertes sont « business-initiated » et, hors fenêtre, seuls des messages modèles sont possibles. Le modèle doit contenir 1 à 4 variables (règle / valeur actuelle / condition / projet).",
+      "field": {
+        "phoneNumberId": "Phone Number ID",
+        "templateName": "Nom du modèle",
+        "templateLang": "Langue du modèle",
+        "paramCount": "Nombre de variables du modèle (1 à 4)",
+        "apiVersion": "Version de la Graph API",
+        "accessToken": "System User Token"
+      },
+      "help": "1. Préparation : un compte Meta Business vérifié et un numéro WhatsApp Business enregistré ; récupérez le Phone Number ID dans la console Meta.\n2. À renseigner : Phone Number ID, nom du modèle, langue du modèle (ex. zh_CN) et nombre de paramètres (1–4). Les alertes sont « business-initiated » : texte libre uniquement dans les 24 h suivant le dernier message du destinataire, sinon un modèle approuvé est requis.\n3. Vérification : numéros au format E.164 sans « + » ; « Envoyer un test » envoie un message avec des variables d'exemple et affiche en cas d'échec le code brut de Meta (modèle non approuvé / nombre de paramètres incorrect / numéro hors liste de test)."
+    },
+    "smsAliyun": {
+      "label": "SMS Alibaba Cloud",
+      "hint": "La signature et le modèle doivent d'abord être déclarés et validés dans la console Alibaba Cloud ; le modèle doit comporter une variable recevant le résumé (exemple ${content}).",
+      "field": {
+        "signName": "Nom de la signature",
+        "templateCode": "Code du modèle",
+        "endpoint": "Point d'accès (facultatif)",
+        "accessKeyId": "AccessKey ID",
+        "accessKeySecret": "AccessKey Secret"
+      },
+      "help": "1. Préparation : activez Aliyun SMS et faites **approuver la signature et le modèle** ; une AccessKey RAM limitée aux droits SMS suffit.\n2. À renseigner : AccessKey ID / Secret, nom de signature, CODE du modèle (type SMS_xxxxxxx) et région. Le texte dépend du modèle ; la plateforme envoie un résumé d'une ligne.\n3. Vérification : numéros au format E.164 (ex. 8613800138000) ; en cas d'échec, le code brut d'Aliyun s'affiche (signature non approuvée / paramètre incorrect / solde insuffisant) — à chercher dans la doc Aliyun."
+    },
+    "smsTencent": {
+      "label": "SMS Tencent Cloud",
+      "hint": "Nécessite une application dans la console (SmsSdkAppId) ainsi qu'une signature et un modèle validés ; le modèle doit comporter une variable recevant le résumé.",
+      "field": {
+        "sdkAppId": "SmsSdkAppId",
+        "signName": "Nom de la signature",
+        "templateId": "ID du modèle",
+        "region": "Région",
+        "secretId": "SecretId",
+        "secretKey": "SecretKey"
+      },
+      "help": "1. Préparation : activez Tencent Cloud SMS, créez une **signature** et un **modèle de texte**, puis attendez l'approbation ; préférez une clé de sous-compte à droits minimaux.\n2. À renseigner : SDK AppID, SecretId / SecretKey, contenu de signature, ID du modèle et région (ex. ap-guangzhou). La plateforme envoie un résumé d'une ligne.\n3. Vérification : en cas d'échec, le code brut de Tencent s'affiche (signature ou modèle non approuvé / nombre de paramètres incorrect / solde insuffisant)."
+    },
+    "smsAws": {
+      "label": "AWS SNS",
+      "hint": "SNS SMS n'a pas de région cn-* (envoi impossible depuis la Chine continentale) ; l'envoi vers un numéro chinois doit être déclaré auprès du support AWS ; le bac à sable par défaut n'autorise que les numéros vérifiés.",
+      "field": {
+        "region": "Region",
+        "accessKeyId": "AccessKey ID",
+        "secretAccessKey": "Secret Access Key"
+      },
+      "help": "1. Préparation : activez SNS dans votre compte AWS. SNS **démarre en bac à sable** : faites ajouter le numéro destinataire à la liste blanche ou demandez l'accès production. Attention : SNS n'a pas de région cn-* — l'envoi vers des numéros chinois nécessite une demande séparée.\n2. À renseigner : AccessKey / Secret, région (ex. ap-southeast-1) et Sender ID (obligatoire dans certaines régions).\n3. Vérification : en cas d'échec, le message brut de SNS s'affiche (bac à sable fermé / région non prise en charge / droits insuffisants / numéro non vérifié)."
+    },
+    "smsTwilio": {
+      "label": "Twilio",
+      "hint": "Canal international ou de secours, sans restriction de région ; le numéro From doit être vérifié ou acheté côté Twilio.",
+      "field": {
+        "fromNumber": "Numéro From (E.164)",
+        "accountSid": "Account SID",
+        "authToken": "Auth Token"
+      },
+      "help": "1. Préparation : achetez ou demandez un numéro d'envoi (Sender) dans votre compte Twilio ; un compte d'essai ne peut écrire qu'à des numéros vérifiés.\n2. À renseigner : Account SID, Auth Token et numéro From (E.164 avec « + »).\n3. Vérification : en cas d'échec, le code Twilio et sa description s'affichent (numéro incompatible avec la destination / destinataire non vérifié / solde insuffisant)."
+    }
+  },
+  "template": {
+    "kindFire": "Déclenchement d'alerte",
+    "kindResolve": "Rétablissement d'alerte",
+    "channelChat": "Chat / Webhook",
+    "saved": "Modèle enregistré",
+    "reset": "Modèle par défaut rétabli",
+    "hint": {
+      "title": "Le contenu des notifications est défini par les modèles",
+      "lead": "Les modèles se configurent par « type d'événement × groupe de canaux » (chat couvre les bots de groupe / IM / Webhook / WhatsApp) et s'appliquent à toutes les règles de ce projet. Les paramètres s'écrivent entre doubles accolades et sont remplacés par les valeurs réelles à l'envoi ; les conditions du type",
+      "tail": "sont prises en charge. Le corps SMS est compressé (espaces) puis tronqué à 40 caractères."
+    },
+    "isDefault": "Modèle par défaut",
+    "customized": "Personnalisé · {{user}}",
+    "subject": "Objet de l'e-mail",
+    "body": "Contenu de la notification",
+    "variables": "Paramètres (cliquez pour insérer au curseur)",
+    "varTooltip": "{{label}} (exemple : {{sample}})",
+    "refreshPreview": "Actualiser l'aperçu",
+    "preview": "Aperçu",
+    "sampleHint": "Données d'exemple · aucun envoi",
+    "previewFailed": "Échec de l'aperçu",
+    "previewSubject": "Objet",
+    "smsNote": "L'envoi compresse les espaces et tronque à 40 caractères ; actuellement {{count}} caractère(s).",
+    "smsNote_one": "L'envoi compresse les espaces et tronque à 40 caractères ; actuellement {{count}} caractère.",
+    "smsNote_other": "L'envoi compresse les espaces et tronque à 40 caractères ; actuellement {{count}} caractères.",
+    "rendering": "Rendu en cours…",
+    "previewEmpty": "Modifiez le contenu à gauche, l'aperçu se rafraîchit automatiquement ici."
+  },
+  "mute": {
+    "scope": "Périmètre",
+    "allRules": "Toutes les règles",
+    "duration": "Durée rapide",
+    "pickDuration": "Choisir une durée",
+    "orRange": "Ou une plage horaire",
+    "reason": "Motif",
+    "reasonPlaceholder": "Facultatif",
+    "add": "Ajouter une mise en sourdine",
+    "added": "Mise en sourdine ajoutée",
+    "needDuration": "Choisissez une durée rapide ou une plage horaire personnalisée",
+    "presetHours": "{{count}} heure(s)",
+    "presetHours_one": "{{count}} heure",
+    "presetHours_other": "{{count}} heures",
+    "presetDays": "{{count}} jour(s)",
+    "presetDays_one": "{{count}} jour",
+    "presetDays_other": "{{count}} jours",
+    "muted": "En sourdine pendant {{duration}}",
+    "start": "Début",
+    "end": "Fin",
+    "release": "Réactiver"
+  },
+  "retention": {
+    "title": "Politique de rétention des données",
+    "hint": "Les trois périmètres se règlent séparément ; une valeur vide signifie une conservation permanente. Le nettoyage s'exécute quotidiennement (vérification toutes les 6 heures) et la suppression est consignée dans le journal des modifications. Supprimer l'« historique des alertes » supprime aussi les notifications correspondantes.",
+    "scope": "Périmètre",
+    "days": "Jours de rétention",
+    "keepForever": "Vide = permanent",
+    "current": "Actuel",
+    "forever": "Conservation permanente",
+    "daysValue": "{{days}} jours",
+    "saved": "Politique de rétention enregistrée",
+    "scopeLabel": {
+      "events": "Historique des alertes",
+      "notifications": "Notifications",
+      "audits": "Journal des modifications"
+    }
+  },
+  "audit": {
+    "hint": "Les modifications de règles, de contacts et de mises en sourdine sont toutes consignées (visibles par les super administrateurs uniquement) ; les adresses des contacts ne sont enregistrées que masquées.",
+    "empty": "Aucune modification",
+    "column": {
+      "time": "Heure",
+      "operator": "Opérateur",
+      "action": "Action",
+      "target": "Objet",
+      "detail": "Modification"
+    },
+    "change": "{{field}} : {{from}} → {{to}}",
+    "fieldEntry": "{{field}}={{value}}",
+    "noChange": "(aucune modification)",
+    "valueOn": "Activé",
+    "valueOff": "Désactivé",
+    "field": {
+      "code": "Code de règle",
+      "comparator": "Comparateur",
+      "windowMinutes": "Granularité (minutes)",
+      "windowDays": "Fenêtre (jours)",
+      "forWindows": "Fenêtres consécutives",
+      "repeatMinutes": "Intervalle de répétition (minutes)",
+      "notifyOnResolve": "Notification de rétablissement",
+      "metricName": "Nom de la métrique",
+      "bodyLength": "Longueur du modèle",
+      "deleted": "Lignes supprimées",
+      "wasDefault": "Était par défaut",
+      "enabledContacts": "Contacts actifs"
+    },
+    "action": {
+      "ruleUpdate": "Règle modifiée",
+      "ruleCreate": "Règle créée",
+      "ruleDelete": "Règle supprimée",
+      "contactCreate": "Contact créé",
+      "contactDelete": "Contact supprimé",
+      "contactDefault": "Défini comme contact par défaut (historique)",
+      "muteCreate": "Mise en sourdine créée",
+      "muteDelete": "Mise en sourdine levée",
+      "contactUpdate": "Contact modifié",
+      "retentionUpdate": "Politique de rétention modifiée",
+      "retentionCleanup": "Nettoyage selon la politique de rétention",
+      "templateUpdate": "Modèle de notification modifié",
+      "templateReset": "Modèle par défaut rétabli"
+    }
+  },
+  "field": {
+    "enabled": "Activé",
+    "enabledAria": "Activer {{name}}",
+    "switchOn": "Activer",
+    "switchOff": "Désactiver",
+    "booleanOn": "Oui",
+    "booleanOff": "Non",
+    "unit": "Unité",
+    "unitPlaceholder": "par ex. fois / utilisateurs",
+    "keepBlank": "Vide = ne pas modifier",
+    "keepCurrent": "Vide = ne pas modifier (actuellement {{value}})",
+    "keepSavedValue": "Vide = conserver la valeur enregistrée",
+    "keepSavedAddress": "Vide = conserver l'adresse enregistrée",
+    "keepSavedSecret": "Vide = conserver la clé enregistrée"
+  },
+  "metric": {
+    "label": "Métrique",
+    "project": "Projet",
+    "select": "Sélectionner une métrique",
+    "noneInProject": "Aucune métrique dans ce projet, créez-en une dans « Gestion des données → Métriques »",
+    "option": "{{name}} ({{kind}})",
+    "optionDisabled": "{{name}} ({{kind}} · {{reason}})",
+    "unavailable": "Indisponible"
+  },
+  "validate": {
+    "required": "Saisissez {{field}}",
+    "select": "Sélectionnez {{field}}"
+  },
+  "separator": {
+    "list": ", ",
+    "pair": "; ",
+    "entry": ", ",
+    "slash": " / "
+  },
+  "window": {
+    "last2Days": "2 derniers jours"
+  },
+  "templateVar": {
+    "ruleName": "Nom de la règle",
+    "ruleCode": "Code de règle",
+    "level": "Niveau (code)",
+    "levelFmt": "Niveau (libellé)",
+    "status": "Statut (libellé)",
+    "statusCode": "Code de statut (fire/repeat/resolve)",
+    "value": "Valeur actuelle (avec unité)",
+    "valueRaw": "Valeur actuelle (nombre brut)",
+    "unit": "Unité",
+    "comparator": "Comparateur (code)",
+    "comparatorFmt": "Comparateur (libellé)",
+    "threshold": "Seuil (avec unité)",
+    "metricName": "Nom de la métrique",
+    "metricKind": "Type de métrique",
+    "windowDays": "Jours de la fenêtre",
+    "windowFmt": "Fenêtre (libellé)",
+    "project": "Nom du projet",
+    "time": "Heure de déclenchement / rétablissement",
+    "detectInterval": "Intervalle de détection",
+    "contactName": "Contact"
+  },
+  "ruleHealth": {
+    "ok": "Normale",
+    "metricMissing": "Métrique supprimée",
+    "evalFailed": "Échec de l'évaluation",
+    "noContact": "Aucun contact",
+    "detailNoMetric": "La règle n'est liée à aucune métrique",
+    "detailMetricDeleted": "La métrique {{metricId}} a été supprimée",
+    "detailEvalFailed": "Échec d'évaluation sur {{times}} cycles consécutifs : {{message}}",
+    "detailNoContact": "Aucun contact : la règle n'a aucun contact lié et le système n'a aucun contact actif"
+  },
+  "unit": {
+    "times": "fois",
+    "rows": "lignes",
+    "pieces": "éléments",
+    "percent": "%"
+  },
+  "error": {
+    "rule": {
+      "notFound": "Règle introuvable : {{code}}",
+      "noFields": "Aucun champ à mettre à jour",
+      "builtinNotDeletable": "Une règle intégrée ne peut pas être supprimée",
+      "metricMissing": "La métrique n'existe pas (créez-la d'abord dans « Gestion des données → Métriques »)",
+      "metricLimit": "Au maximum {{max}} alertes de métrique"
+    },
+    "contact": {
+      "idInvalid": "contact_id invalide",
+      "notFound": "Contact introuvable",
+      "localeInvalid": "Langue non prise en charge : {{locale}}",
+      "timezoneInvalid": "Fuseau horaire invalide (nom IANA requis, par exemple Asia/Shanghai)"
+    },
+    "channel": {
+      "unsupported": "Type de canal non pris en charge : {{kind}}",
+      "unavailable": "Le canal {{channel}} est actuellement indisponible",
+      "unknown": "Canal inconnu : {{channel}}"
+    },
+    "channelConfig": {
+      "unsupported": "Configuration de canal non prise en charge : {{channel}}",
+      "masterKeyMissing": "Clé principale manquante : définissez la variable d'environnement {{env}} (base64 de 32 octets) pour chiffrer les identifiants des canaux"
+    },
+    "template": {
+      "syntaxError": "Erreur de syntaxe du modèle : {{error}}",
+      "subjectSyntaxError": "Erreur de syntaxe de l'objet de l'e-mail : {{error}}",
+      "kindInvalid": "Type d'événement invalide (fire / resolve)",
+      "channelInvalid": "Canal invalide (chat / email / sms)"
+    },
+    "mute": {
+      "notFound": "Mise en sourdine introuvable",
+      "windowInvalid": "Période de mise en sourdine invalide"
+    },
+    "retention": {
+      "scopeInvalid": "Périmètre de rétention non pris en charge : {{scope}}",
+      "daysInvalid": "Les jours de rétention doivent être un entier de 1 à {{max}} ; vide signifie une conservation permanente"
+    },
+    "metric": {
+      "notFound": "Métrique introuvable"
+    },
+    "validate": {
+      "failed": "Échec de la validation",
+      "required": "Saisissez « {{field}} »",
+      "number": "« {{field}} » doit être un nombre",
+      "portRange": "Le port doit être compris entre 1 et 65535",
+      "paramCount": "Le nombre de variables du modèle doit être compris entre 1 et 4",
+      "apiBaseHttp": "L'adresse de l'API doit commencer par http(s)://",
+      "fromFormat": "Format d'expéditeur incorrect (forme possible : nom <mail@example.com>)",
+      "webhookRequired": "Saisissez l'adresse webhook",
+      "webhookHttps": "L'adresse webhook doit commencer par https://",
+      "webhookHttp": "L'adresse webhook doit commencer par http(s)://",
+      "feishuWebhook": "Cela ne ressemble pas à un webhook de bot Feishu (forme attendue : https://open.feishu.cn/open-apis/bot/v2/hook/…)",
+      "dingtalkWebhook": "Cela ne ressemble pas à un webhook de bot DingTalk (forme attendue : https://oapi.dingtalk.com/robot/send?access_token=…)",
+      "dingtalkSecret": "Clé de signature trop courte (SEC… généré par la console DingTalk)",
+      "wecomWebhook": "Cela ne ressemble pas à un webhook de bot de groupe WeCom (forme attendue : https://qyapi.weixin.qq.com/cgi-bin/webhook/send?key=…)",
+      "telegramChatIdRequired": "Indiquez le chat_id (identifiant de conversation de groupe ou privée, obtenable via @userinfobot)",
+      "telegramChatIdFormat": "Le chat_id doit être numérique (les identifiants de groupe commencent par -100)",
+      "emailRequired": "Indiquez l'adresse e-mail du destinataire",
+      "emailFormat": "Format d'adresse e-mail incorrect",
+      "smsRequired": "Indiquez le numéro de téléphone du destinataire",
+      "smsFormat": "Format du numéro incorrect (indiquez de préférence l'indicatif pays, par ex. +8613800138000)",
+      "smsProvider": "Fournisseur SMS invalide (valeurs possibles : {{allowed}})",
+      "whatsappRequired": "Indiquez le numéro de réception (E.164, par ex. 8613800138000)",
+      "whatsappFormat": "Nombre de chiffres incorrect (E.164 sans +, 8 à 15 chiffres)",
+      "headersJson": "Les en-têtes personnalisés doivent être un JSON valide (par ex. {\"Authorization\":\"Bearer xxx\"})",
+      "bodyTemplate": "Erreur de syntaxe du modèle de body : {{error}}"
+    },
+    "ops": {
+      "forbidden": "Seul un super administrateur de plateforme peut accéder à la console d'exploitation"
+    }
+  }
+}

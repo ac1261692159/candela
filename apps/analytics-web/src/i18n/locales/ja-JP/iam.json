@@ -1,0 +1,290 @@
+{
+  "role": {
+    "analysisAdmin": "分析管理者",
+    "analyst": "アナリスト",
+    "member": "一般メンバー",
+    "external": "外部ユーザー",
+    "projectOwner": "プロジェクトオーナー"
+  },
+  "label": {
+    "role": "ロール",
+    "user": "ユーザー"
+  },
+  "message": {
+    "created": "作成しました",
+    "minLength": "6 文字以上"
+  },
+  "dataPolicy": {
+    "title": "データポリシーポリシー",
+    "column": "データポリシー",
+    "unrestricted": "制限なし",
+    "create": "ポリシー作成",
+    "reference": "参照",
+    "referenceCount": "メンバー {{members}} / グループ {{groups}}",
+    "deleteConfirm": "ポリシーを削除しますか？",
+    "definition": "定義 JSON（空欄可、デフォルトではすべて表示）",
+    "detail": "ポリシーの詳細",
+    "scopeEvents": "閲覧可能なイベント",
+    "scopeEventProperties": "閲覧可能なイベントプロパティ",
+    "scopeUserProperties": "閲覧可能なユーザープロパティ",
+    "scopeRowFilter": "行フィルター",
+    "scopeAll": "制限なし",
+    "scopeNone": "なし（すべて非表示）",
+    "rowFilterNone": "なし",
+    "rowFilterAnd": "かつ",
+    "rowFilterItem": "{{prop}} {{op}} {{value}}"
+  },
+  "members": {
+    "title": "メンバー管理",
+    "add": "メンバーを追加",
+    "added": "追加しました",
+    "removeConfirm": "プロジェクトから外しますか？",
+    "remove": "外す",
+    "seed": "デモメンバーを作成",
+    "seedSuccess": "analyst1 / member1 / external1 を作成し、対応するメンバーグループに追加しました",
+    "seedHint": "現在のプロジェクトに 3 つのデモアカウントを作成し、「アナリストグループ / 一般メンバーグループ / 外部ユーザーグループ」に追加します。同名のアカウントが既に存在する場合、パスワードは変更されません。",
+    "demoPassword": "デモアカウントのパスワード"
+  },
+  "subjectGrant": {
+    "action": "ダッシュボード権限",
+    "title": "ダッシュボード権限 · {{name}}",
+    "hint": "チェックで閲覧権限を付与します。フォルダーに付与すると中のすべてのダッシュボード（以後作成されるものを含む）が対象です。編集権限が付与済みの資産はここでは読み取り専用です。",
+    "searchPlaceholder": "フォルダーまたはダッシュボードを検索",
+    "folders": "フォルダー",
+    "dashboards": "ダッシュボード",
+    "ungrouped": "未分類",
+    "editable": "編集可",
+    "saved": "権限を保存しました",
+    "empty": "付与できるフォルダーやダッシュボードがありません"
+  },
+  "groups": {
+    "title": "メンバーグループ",
+    "create": "グループ作成",
+    "createTitle": "メンバーグループを作成",
+    "memberCount": "メンバー数",
+    "members": "メンバー",
+    "membersTitle": "グループメンバー · {{name}}",
+    "membersUpdated": "グループメンバーを更新しました",
+    "membersHint": "すでにこのプロジェクトのメンバーであるユーザーだけを追加できます。グループにオーナーは設定できません。",
+    "membersEmpty": "メンバーがいません"
+  },
+  "roles": {
+    "title": "ロール管理",
+    "ownerNotice": "各プロジェクトのオーナーは最大 1 名で、指定できるのはプラットフォーム管理者のみです。分析管理者はこの定義を変更できません。",
+    "preset": "プリセット",
+    "adjusted": "調整済み",
+    "editDefinition": "ロール定義を編集",
+    "saveSuccess": "分析管理者の定義を保存しました",
+    "readonlyHint": "プリセットロールはカスタマイズできません。分析管理者の定義はプロジェクトオーナーのみ変更できます。",
+    "feature": "機能",
+    "op": "操作権限",
+    "detail": "機能の詳細",
+    "granted": "あり"
+  },
+  "apiKeys": {
+    "title": "API Key 管理",
+    "create": "API Key を新規作成",
+    "hintLead": "外部の AI / 自動化ツールが",
+    "hintTail": "を使用して ClickHouse を読み取り専用でクエリできます。「API Key を新規作成」をクリックすると 1 クリックで生成されます（名前は自動、対象プロジェクトのデフォルトは clklogapp、無期限）。Key の平文は生成時に一度だけ表示されるため、安全な場所に保管してください。",
+    "projectScope": "対象プロジェクト",
+    "active": "有効",
+    "revoked": "失効済み",
+    "expiresAt": "有効期限",
+    "lastUsedAt": "最終使用",
+    "revokeConfirm": "この Key を失効させますか？失効後はすぐに無効になります",
+    "revoke": "失効",
+    "deleteConfirm": "この Key を削除しますか？この操作は元に戻せません",
+    "created": "API Key を生成しました",
+    "revokedMsg": "失効しました",
+    "deleted": "削除しました",
+    "copied": "クリップボードにコピーしました",
+    "createSuccess": "API Key の生成に成功しました",
+    "plaintextWarning": "この Key は一度しか表示されません。閉じると平文を再表示できないため、すぐに保存してください。",
+    "saved": "保存しました"
+  },
+  "projectSettings": {
+    "title": "プロジェクト設定",
+    "createProject": "プロジェクトを新規作成",
+    "createAccount": "ログインアカウントを新規作成",
+    "ownerNotice": "プロジェクトごとにオーナーは必ず 1 名です。プロジェクトの新規作成とオーナーの指定 / 交代はプラットフォーム管理者のみ実行できます。元のオーナーは分析管理者に降格されます。新しいプロジェクトでは分析スペース名を登録するだけで、ClickHouse にデータベースは作成されません。",
+    "projectName": "プロジェクト名",
+    "displayName": "表示名",
+    "currentOwner": "現在のオーナー",
+    "projectOwner": "プロジェクトオーナー",
+    "unassigned": "未指定",
+    "assign": "指定 / 変更",
+    "selectUser": "ユーザーを選択",
+    "userOption": "{{name}}（{{username}}）",
+    "ownerUpdated": "{{name}} のオーナーを更新しました",
+    "projectCreated": "プロジェクトを作成しました",
+    "nameHint": "小文字で始まり、小文字・数字・アンダースコアのみ使用でき、2〜63 文字です。SDK で送信する project_name はこれと一致させる必要があります。",
+    "nameRequired": "プロジェクト名を入力してください",
+    "nameInvalid": "形式が要件を満たしていません",
+    "namePlaceholder": "例：game_ios",
+    "displayNamePlaceholder": "人が読むための名前です。プロジェクト名と同じでもかまいません",
+    "ownerRequired": "オーナーを指定してください",
+    "accountCreated": "アカウントを作成しました。メンバー管理からプロジェクトに追加できます",
+    "accountHint": "作成されるのはログイン ID のみで、どのプロジェクトのメンバーにも自動的にはなりません。プロジェクトに追加するには「メンバー管理」から操作してください。",
+    "username": "ユーザー名",
+    "password": "パスワード"
+  },
+  "error": {
+    "loadFailed": "読み込みに失敗しました。再試行してください",
+    "grant": {
+      "subjectRequired": "subject_id が必要です",
+      "assetsMustBeArray": "asset_ids は配列である必要があります",
+      "subjectTypeInvalid": "subject_type は user か group である必要があります"
+    },
+    "asset": {
+      "folderNotFound": "フォルダーが存在しません",
+      "dashboardNotFound": "ダッシュボードが存在しません：{{id}}",
+      "cardNotFound": "カードが存在しません：{{id}}",
+      "cohortNotFound": "コホートが存在しません",
+      "tagNotFound": "タグが存在しません",
+      "viewGrantDashboardOnly": "閲覧を付与できるのはダッシュボードとフォルダーのみです",
+      "editGrantAnalystOnly": "編集権限はこのプロジェクトのアナリストにのみ付与できます",
+      "editGrantAnalystGroupOnly": "編集権限はロールがアナリストのメンバーグループにのみ付与できます",
+      "withdrawGrantBeforeLock": "先に編集権限を解除してからロックしてください",
+      "unlockBeforeGrant": "先にロックを解除してから付与してください"
+    },
+    "forbidden": "このリソースへのアクセス権がありません",
+    "dataScope": {
+      "invalidProp": "不正なユーザープロパティ名",
+      "unsupportedOperator": "データポリシーの行フィルターは次の演算子に未対応です：{{op}}",
+      "eventForbidden": "イベントをクエリする権限がありません：{{event}}",
+      "propertyForbidden": "プロパティを使用する権限がありません：{{property}}"
+    },
+    "project": {
+      "fieldsRequired": "name と owner_user_id は必須です",
+      "nameInvalid": "プロジェクト名は小文字で始まり、小文字・数字・アンダースコアのみを含み、長さ 2〜63 である必要があります",
+      "exists": "プロジェクトはすでに存在します",
+      "timezoneInvalid": "不正なタイムゾーンです（Asia/Shanghai のような IANA 名を指定してください）"
+    },
+    "demo": {
+      "passwordTooShort": "デモアカウントのパスワードは 6 文字以上必要です"
+    },
+    "role": {
+      "grantsMustBeArray": "grants は配列である必要があります",
+      "invalid": "不正なロール"
+    },
+    "member": {
+      "notMember": "このプロジェクトのメンバーではありません",
+      "ownerAssignForbidden": "メンバー管理からオーナーを指定することはできません",
+      "notFound": "メンバーが存在しません",
+      "ownerRoleForbidden": "オーナーのプロジェクトロールは変更できません",
+      "promoteToOwnerForbidden": "メンバーをオーナーに変更することはできません",
+      "removeOwnerForbidden": "プロジェクトオーナーを削除することはできません",
+      "expiryOwnerForbidden": "プロジェクトオーナーには有効期限を設定できません",
+      "expiryInvalid": "有効期限が正しい時刻ではありません"
+    },
+    "user": {
+      "unavailable": "ユーザーは利用できません",
+      "notFound": "ユーザーが存在しません"
+    },
+    "group": {
+      "bindingForbidden": "メンバーグループにオーナーや不正なロールは設定できません",
+      "notFound": "メンバーグループが存在しません",
+      "ownerForbidden": "メンバーグループにオーナーは設定できません",
+      "memberRequired": "ユーザーはすでにプロジェクトのメンバーである必要があります"
+    },
+    "dataPolicy": {
+      "notFound": "ポリシーが存在しません",
+      "inUse": "メンバーまたはグループからまだ参照されています"
+    },
+    "invite": {
+      "emailInvalid": "メールアドレスの形式が正しくありません",
+      "alreadyMember": "このメールのアカウントは既にプロジェクトのメンバーです",
+      "notFound": "招待が存在しないか、既に終了しています",
+      "emailMismatch": "ログイン中のアカウントのメールが招待と一致しません"
+    }
+  },
+  "permission": {
+    "feature": {
+      "projectAccess": "プロジェクト権限管理",
+      "dataPolicy": "データポリシー",
+      "opsAccount": "運用 · アカウント",
+      "opsProjectSettings": "運用 · プロジェクト設定",
+      "opsApiKey": "運用 · API Key",
+      "opsAiWorkspace": "運用 · AI Workspace",
+      "opsRuntime": "運用 · 今後の運用管理",
+      "subject": "分析主体",
+      "cohort": "コホート管理",
+      "tag": "ユーザータグ管理",
+      "meta": "トラッキング / メタデータ",
+      "modelUsage": "モデル使用",
+      "dashboard": "ダッシュボード使用",
+      "metric": "指標管理",
+      "timeline": "ユーザー行動シーケンス"
+    },
+    "op": {
+      "view": "表示",
+      "edit": "編集",
+      "manage": "管理",
+      "use": "機能利用"
+    },
+    "detail": {
+      "iamMemberView": "プロジェクトのメンバー・メンバーグループ・ロール説明・データポリシーポリシーを表示する",
+      "iamMemberEdit": "メンバーとグループを追加 / 削除し、オーナー以外のロールを割り当てる",
+      "iamRoleEditAdmin": "プロジェクトの「分析管理者」権限定義を編集する",
+      "iamDataPolicyManage": "ポリシーを作成・編集・削除し、メンバーまたはグループに付与する",
+      "opsUserManage": "ログインアカウントを作成・無効化・有効化する",
+      "opsOwnerAssign": "分析プロジェクトを作成し、プロジェクト唯一のオーナーを指定 / 変更する",
+      "opsApikeyManage": "Key の表示・作成・失効",
+      "opsAiWorkspaceManage": "テンプレートと同期",
+      "opsRuntimeAccess": "プレースホルダー。今回はルートなし",
+      "subjectView": "分析で既存の対象を切り替える",
+      "subjectEdit": "プロジェクトの分析主体を表示・編集する",
+      "cohortView": "コホート一覧とメンバープレビューを表示する",
+      "cohortEditOwn": "自分のコホートを作成・編集・削除する",
+      "cohortEditOthers": "他ユーザーのコホートを編集・削除する",
+      "tagView": "タグ一覧とメンバープレビューを表示する",
+      "tagEditOwn": "自分のタグを作成・編集・削除する",
+      "tagEditOthers": "他ユーザーのタグを編集・削除する",
+      "metaView": "イベント・プロパティ・仮想オブジェクト・指標・Debug・データ品質を表示する",
+      "metaPickerView": "分析の選択リストで有効なイベント・プロパティ・ディメンションテーブル項目を読み取る（読み取り専用）",
+      "metaEdit": "定義の編集、確認 / 非表示、Debug",
+      "modelQuery": "イベント / ファネル / リテンションのクエリ",
+      "modelSql": "カスタム SQL",
+      "modelCardSave": "カードを保存",
+      "modelExport": "表示済みのクエリまたはダッシュボードデータをエクスポートする",
+      "dashboardView": "アクセス可能なダッシュボードと設定を表示する",
+      "dashboardViewAll": "プロジェクトのすべてのダッシュボードを表示する",
+      "dashboardEdit": "ダッシュボードを新規作成し、編集を試行する（最終的には AssetPolicy に従う）",
+      "dashboardFilter": "ダッシュボードのフィルターを一時的に変更する",
+      "dashboardFolderManage": "フォルダーの新規作成 / 名前変更 / 削除",
+      "assetLock": "フォルダー・ダッシュボード・カード・コホート・タグのロック / ロック解除",
+      "assetGrant": "ダッシュボード / カード / フォルダーの編集権限と外部公開の閲覧を付与・解除する",
+      "metricView": "保存済みの指標を表示する",
+      "metricEditOwn": "自分の指標を作成・編集・削除する",
+      "metricEditOthers": "他ユーザーの指標を編集・削除する",
+      "timelineView": "指定期間内の 1 ユーザーの全イベントを表示"
+    }
+  },
+  "invite": {
+    "userOrEmailHint": "既存アカウントを選ぶか、メールアドレスを直接入力して未登録の人を招待できます。",
+    "userOrEmailPlaceholder": "アカウントを選択またはメールを入力",
+    "addedDirect": "このメールには既にアカウントがあるため、プロジェクトに直接追加しました",
+    "sent": "招待メールを送信しました",
+    "emailInvalid": "既存アカウントを選ぶか、完全なメールアドレスを入力してください",
+    "pendingTitle": "承諾待ちの招待",
+    "colEmail": "メールアドレス",
+    "colInviter": "招待者",
+    "colExpires": "有効期限",
+    "revoke": "取り消す",
+    "revokeConfirm": "この招待を取り消しますか？相手はリンクから参加できなくなります。"
+  },
+  "member": {
+    "colExpiry": "有効期限",
+    "expiryPermanent": "無期限",
+    "expiryInDays": "{{days}} 日後に期限切れ",
+    "expiredTag": "期限切れ",
+    "renew": "更新",
+    "renewTitle": "新しい有効期限を設定",
+    "renewed": "更新しました",
+    "expiryLabel": "メンバー有効期限（任意）",
+    "expiryHint": "期限切れ後はこのプロジェクトの直接ロールを失います（グループのロールは維持）。空欄＝無期限。"
+  },
+  "audit": {
+    "title": "プロジェクト操作の監査"
+  }
+}

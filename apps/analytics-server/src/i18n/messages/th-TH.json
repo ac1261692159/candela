@@ -1,0 +1,115 @@
+{
+  "alert": {
+    "level": {
+      "critical": "วิกฤต",
+      "warning": "คำเตือน",
+      "info": "ข้อมูล"
+    },
+    "status": {
+      "fire": "ทริกเกอร์",
+      "repeat": "ต่อเนื่อง",
+      "resolve": "กู้คืน"
+    },
+    "kind": {
+      "retention": "ตัวชี้วัดการคงอยู่",
+      "event": "ตัวชี้วัดเหตุการณ์",
+      "builtin": "ตัวชี้วัดที่มีอยู่ภายใน"
+    },
+    "window": {
+      "today": "วันนี้",
+      "lastDays": "{{days}} วันล่าสุด",
+      "minutes": "หน้าต่าง {{minutes}} นาที",
+      "cohort": "คิว {{label}}"
+    },
+    "varSample": {
+      "ruleName": "ปริมาณการส่งข้อมูลวันนี้ต่ำเกินไป",
+      "ruleCode": "metric_ab12cd34",
+      "level": "critical",
+      "levelFmt": "วิกฤต",
+      "status": "ทริกเกอร์",
+      "statusCode": "fire",
+      "value": "1,204 ครั้ง",
+      "valueRaw": "1204",
+      "unit": "ครั้ง",
+      "comparator": "gt",
+      "comparatorFmt": "มากกว่า",
+      "threshold": "1,000 ครั้ง",
+      "metricName": "จำนวนครั้งที่ส่งข้อมูลวันนี้",
+      "metricKind": "ตัวชี้วัดเหตุการณ์",
+      "windowDays": "1",
+      "windowFmt": "วันนี้",
+      "project": "clklogapp",
+      "time": "2026-09-15 21:03:11",
+      "detectInterval": "60s",
+      "contactName": "กลุ่มปฏิบัติการ"
+    },
+    "channelName": {
+      "feishu_webhook": "Feishu",
+      "dingtalk": "DingTalk",
+      "wecom": "WeCom",
+      "telegram": "Telegram",
+      "webhook": "Webhook ทั่วไป",
+      "email": "อีเมล",
+      "sms": "SMS",
+      "whatsapp": "WhatsApp"
+    },
+    "channelTest": {
+      "text": "[ทดสอบ] ทดสอบการเชื่อมต่อช่องทางแจ้งเตือน Candela\nช่องทาง: {{channel}}\nเวลา: {{time}}",
+      "subject": "ทดสอบช่องทางแจ้งเตือน Candela ({{channel}})",
+      "ruleName": "ทดสอบการเชื่อมต่อช่องทาง",
+      "detailTargetInvalid": "ตรวจสอบเป้าหมายไม่ผ่าน",
+      "detailSendFailed": "ส่งไม่สำเร็จ (ข้อผิดพลาดเป็นค่าที่ผู้ให้บริการส่งกลับมาตามเดิม)",
+      "detailSent": "ส่งข้อความทดสอบแล้ว"
+    }
+  },
+  "units": {
+    "times": "ครั้ง",
+    "items": "รายการ",
+    "users": "คน",
+    "sec": "วินาที",
+    "ms": "มิลลิวินาที",
+    "min": "นาที",
+    "h": "ชั่วโมง",
+    "days": "วัน",
+    "percent": "%"
+  },
+  "mail": {
+    "reset": {
+      "subject": "[Candela] รีเซ็ตรหัสผ่าน",
+      "body": "สวัสดี\n\nโปรดใช้ลิงก์ด้านล่างเพื่อรีเซ็ตรหัสผ่านของคุณ (ใช้ได้ {{minutes}} นาที ใช้ได้ครั้งเดียว):\n{{link}}\n\nหากคุณไม่ได้เป็นผู้ขอ โปรดเพิกเฉยต่ออีเมลนี้\n\nCandela Analytics"
+    },
+    "setup": {
+      "subject": "[Candela] ตั้งรหัสผ่านบัญชีของคุณ",
+      "body": "สวัสดี\n\nผู้ดูแลได้สร้างบัญชี Candela Analytics ให้คุณแล้ว โปรดตั้งรหัสผ่านผ่านลิงก์นี้ (ใช้ได้ {{hours}} ชั่วโมง ใช้ได้ครั้งเดียว):\n{{link}}\n\nหลังจากนั้นคุณสามารถเข้าสู่ระบบได้ทันที\n\nCandela Analytics"
+    },
+    "invite": {
+      "subject": "[Candela] คำเชิญเข้าร่วมโปรเจกต์ {{project}}",
+      "body": "สวัสดี\n\n{{inviter}} ได้เชิญคุณเข้าร่วมโปรเจกต์ {{project}} ของ Candela Analytics ในบทบาท {{role}}\n\nโปรดใช้ลิงก์นี้เพื่อสมัครและเข้าร่วม (ใช้ได้ {{days}} วัน):\n{{link}}\n\nหากคุณไม่ได้คาดหวังคำเชิญนี้ โปรดเพิกเฉยอีเมลนี้\n\nCandela Analytics"
+    },
+    "inviteNotify": {
+      "subject": "[Candela] คุณถูกเพิ่มเข้าสู่โปรเจกต์ {{project}}",
+      "body": "สวัสดี\n\n{{inviter}} ได้เพิ่มคุณเข้าสู่โปรเจกต์ {{project}} ของ Candela Analytics ในบทบาท {{role}}\n\nเข้าสู่ระบบด้วยบัญชีเดิมของคุณเพื่อใช้งานได้เลย\n\nCandela Analytics"
+    },
+    "roles": {
+      "analyst": "นักวิเคราะห์",
+      "member": "สมาชิกทั่วไป",
+      "external": "บุคคลภายนอก"
+    },
+    "test": {
+      "subject": "[Candela] ทดสอบช่องทางอีเมล",
+      "body": "นี่คืออีเมลทดสอบจาก Candela Analytics\n\nการได้รับอีเมลฉบับนี้หมายความว่าการตั้งค่า SMTP ใช้งานได้แล้ว: อีเมลรีเซ็ตรหัสผ่าน ตั้งรหัสผ่าน และเชิญโปรเจกต์พร้อมใช้งาน\n\nCandela Analytics"
+    }
+  },
+  "reconcile": {
+    "notify": {
+      "dayAlertSubject": "[Candela] การเทียบข้อมูล {{date}}: ค่าเบี่ยงเบนเกินเกณฑ์ (เกณฑ์ {{threshold}}%)",
+      "failedSubject": "[Candela] การเทียบข้อมูล {{date}} ล้มเหลว",
+      "lineProject": "โปรเจกต์: {{project}}",
+      "lineRange": "ช่วง: {{from}} ~ {{to}}",
+      "lineThreshold": "เกณฑ์: {{threshold}}%; จำนวนวันผิดปกติ: {{days}}",
+      "lineDay": "{{date}}: sa {{sa}} / raw {{raw}} ({{deviation}}%)",
+      "lineReport": "รายงาน: {{path}}",
+      "lineReason": "สาเหตุ: {{reason}}"
+    }
+  }
+}

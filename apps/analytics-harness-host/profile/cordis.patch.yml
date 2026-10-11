@@ -1,0 +1,24 @@
+# ClkLog keeps the official Web profile and standard agent preset. This layer
+# removes direct credential/network configuration and adds only controlled
+# platform tools; shell, files, sessions, commands, permissions, Plan, Goal,
+# Skills, Jobs and Subagents remain the official implementations.
+# Keep host `web` enabled: official standard preset's tool-web injects it.
+# Search/fetch stay disabled; Runtime has no host network.
+- id: session-telemetry-otel
+  disabled: true
+
+- id: llm-deepseek
+  disabled: true
+
+- id: ui-settings-models
+  disabled: true
+
+- id: web-search-deepseek
+  disabled: true
+
+- id: web-fetch-http
+  disabled: true
+
+- insert:
+    - id: clklog-analytics-tools
+      name: '@clklog/analytics-harness-tools'

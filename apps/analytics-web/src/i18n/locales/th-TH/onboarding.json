@@ -1,0 +1,421 @@
+{
+  "page": {
+    "paramsTitle": "พารามิเตอร์การเชื่อมต่อ",
+    "projectName": "ชื่อโปรเจกต์",
+    "reportEndpoint": "ที่อยู่สำหรับส่งข้อมูล",
+    "projectToken": "โทเคนโปรเจกต์",
+    "tokenHint": "ขอจากผู้ดูแลโปรเจกต์ (เพื่อความปลอดภัยจะไม่แสดงบนหน้า) โปรดใส่ผ่านตัวแปรสภาพแวดล้อมหรือการตั้งค่าฝั่งเซิร์ฟเวอร์",
+    "prereqTitle": "อ่านก่อนเชื่อมต่อ",
+    "prereqLead": "วิธีส่งข้อมูลใช้ POST +",
+    "prereqTail": "เหมือนกันทั้งหมด โดยมีสามฟิลด์ฟอร์มดังนี้ ส่วนข้อกำหนดฉบับเต็มดูได้ในเอกสารข้อกำหนดการส่งข้อมูลของรีโป",
+    "descColumn": "คำอธิบาย",
+    "pitfall": "กับดักที่พบบ่อยที่สุด: receiver รับเฉพาะข้อมูลที่ผ่าน base64 + urlencode แล้วเท่านั้น หาก POST body เป็น JSON ดิบ จะถูกแยกวิเคราะห์เป็น “data ว่าง” และถึงแม้ HTTP ยังตอบ 200 ข้อมูลก็จะหายไปเงียบ ๆ",
+    "curlLabel": "คำขอที่เล็กที่สุด (curl)",
+    "curlTokenPlaceholder": "<โทเคนโปรเจกต์>",
+    "curlDataPlaceholder": "<base64(JSON array)>",
+    "plannedTitle": "{{name}}: ยังไม่พัฒนา",
+    "gotIt": "เข้าใจแล้ว",
+    "plannedBody": "SDK นี้ยังไม่ได้ปรับให้เข้ากับโปรโตคอลการส่งข้อมูลของ ClkLog จึงยังไม่มีเอกสารและตัวอย่างการเชื่อมต่อ",
+    "plannedHint": "เชื่อมต่อเองตามโปรโตคอลผ่าน “วิธีเชื่อมต่ออื่น → HTTP / RESTful API” ได้ก่อน (ใช้ได้กับทุกภาษา) หรือแจ้งทีมดูแลแพลตฟอร์มว่าต้องการ SDK ใด เราจะจัดลำดับการพัฒนาให้ตามความต้องการ",
+    "copied": "คัดลอก{{label}}แล้ว"
+  },
+  "drawer": {
+    "title": "เอกสารการเชื่อมต่อ {{name}}",
+    "titleFallback": "เอกสารการเชื่อมต่อ",
+    "faqTitle": "คำถามที่พบบ่อย ({{count}})",
+    "downloadDemo": "ดาวน์โหลดเดโม (zip)",
+    "downloadDemoHint": "ในแพ็กเกจมี {{contents}} และคำแนะนำการรัน (README) โดยไม่มีข้อมูลรับรองใด ๆ"
+  },
+  "code": {
+    "copied": "คัดลอกโค้ดแล้ว",
+    "copyFailed": "คัดลอกไม่สำเร็จ โปรดเลือกด้วยตนเอง"
+  },
+  "group": {
+    "client": "SDK ฝั่งไคลเอนต์",
+    "server": "SDK ฝั่งเซิร์ฟเวอร์",
+    "other": "วิธีเชื่อมต่ออื่น"
+  },
+  "groupHint": {
+    "client": "การเก็บข้อมูลติดตามในแอป เว็บ มินิโปรแกรม หรือเอนจินเกม",
+    "server": "ส่งเหตุการณ์ธุรกิจจากบริการหลังบ้าน (คำสั่งซื้อ การชำระเงิน การสมัคร ฯลฯ)",
+    "other": "ไม่ผูกกับภาษาใดภาษาหนึ่ง: เชื่อมต่อผ่านโปรโตคอล HTTP โดยตรง หรือนำเข้าข้อมูลย้อนหลังเป็นชุด"
+  },
+  "status": {
+    "ready": "ทดสอบจริงแล้ว",
+    "planned": "ยังไม่พัฒนา",
+    "partial": "ทดสอบระดับภาษา"
+  },
+  "protocol": {
+    "project": "ชื่อโปรเจกต์ (= “ชื่อโปรเจกต์” ด้านล่าง ไม่ใช่ชื่อที่แสดงของโปรเจกต์)",
+    "token": "โทเคนโปรเจกต์ ขอจากผู้ดูแลโปรเจกต์ และห้ามใส่ในโค้ดฝั่งหน้าบ้านหรือในรีโป",
+    "data": "อาร์เรย์เหตุการณ์: JSON array → Base64 → URL encode (เหตุการณ์เดียวก็ต้องห่อเป็นอาร์เรย์)"
+  },
+  "encodingSample": "อาร์เรย์เหตุการณ์ดิบ (เหตุการณ์เดียวก็ต้องเป็นอาร์เรย์)\n[{\"type\":\"track\",\"event\":\"PageView\",\"distinct_id\":\"u_1001\",\"time\":1785228036000,\"properties\":{\"channel\":\"app_store\"}}]\n   ↓ JSON.stringify + Base64\nW3sidHlwZSI6InRyYWNrIiwiZXZlbnQiOiJQYWdlVmlldyIsImRpc3RpbmN0X2lkIjoidV8xMDAxIiwidGltZSI6MTc4NTIyODAzNjAwMCwicHJvcGVydGllcyI6eyJjaGFubmVsIjoiYXBwX3N0b3JlIn19XQ==\n   ↓ หลัง URL encode แล้วใส่ในฟิลด์ฟอร์ม data\ndata=W3sidHlwZSI6InRyYWNrIiwiZXZlbnQiOiJQYWdlVmlldyIsImRpc3RpbmN0X2lkIjoidV8xMDAxIiwidGltZSI6MTc4NTIyODAzNjAwMCwicHJvcGVydGllcyI6eyJjaGFubmVsIjoiYXBwX3N0b3JlIn19XQ%3D%3D",
+  "guide": {
+    "http": {
+      "name": "HTTP / RESTful API",
+      "platform": "โปรโตคอลทั่วไป · ใช้ได้กับทุกภาษา",
+      "summary": "SDK ทุกตัวสุดท้ายวิ่งบนโปรโตคอลนี้ ภาษาที่ไม่มี SDK จึงเชื่อมต่อตามนี้ได้เลย",
+      "step1Title": "1. วิธีและที่อยู่ของคำขอ",
+      "step1Body": "POST ไปยังที่อยู่สำหรับส่งข้อมูล ใช้ Content-Type เป็น application/x-www-form-urlencoded และสามฟิลด์ฟอร์มคือสามองค์ประกอบของโปรโตคอล รองรับ GET เช่นกัน แต่เนื้อหาเหตุการณ์จะไปอยู่ใน URL จึงไม่แนะนำ",
+      "step1Code1Label": "คำขอที่เล็กที่สุด (curl)",
+      "step1Code1": "curl -X POST '<ที่อยู่สำหรับส่งข้อมูล>' \\\n  -H 'Content-Type: application/x-www-form-urlencoded' \\\n  --data-urlencode 'project=<ชื่อโปรเจกต์>' \\\n  --data-urlencode 'token=<โทเคนโปรเจกต์>' \\\n  --data-urlencode 'data=<base64(JSON array)>'",
+      "step1Note1": "HTTP 200 บอกเพียงว่าแยกวิเคราะห์รูปแบบผ่าน การตรวจสอบทางธุรกิจและการนำเข้าฐานข้อมูลเป็นแบบอะซิงโครนัส จึงไม่ควรตัดสินความสำเร็จจากเนื้อหาการตอบกลับ",
+      "step1Note2": "ที่อยู่ต้องมีคำนำหน้า /receiver (เกตเวย์จะส่งต่อไปยัง receiver ตามคำนำหน้านี้)",
+      "step2Title": "2. โครงสร้างข้อความเหตุการณ์",
+      "step2Body": "แต่ละสมาชิกใน data คือออบเจ็กต์เหตุการณ์หนึ่งรายการ ความหมายของฟิลด์: type (track คือเหตุการณ์พฤติกรรม / user_set คือคุณสมบัติผู้ใช้ / track_signup คือการเชื่อมโยงตอนเข้าสู่ระบบ), event (ชื่อเหตุการณ์ จำเป็นเมื่อ type เป็น track), distinct_id (ID ผู้เข้าชม คงที่ตลอดช่วง), time (เวลาที่เป็นมิลลิวินาที), identities (ส่วนขยายตัวตน), properties (คุณสมบัติที่กำหนดเอง ขึ้นต้นด้วย $ คือคุณสมบัติที่ตั้งไว้ล่วงหน้า)",
+      "step2Code1Label": "เหตุการณ์พฤติกรรมหนึ่งรายการ",
+      "step3Title": "3. ข้อกำหนดการเข้ารหัส (กับดักที่พบบ่อยที่สุด)",
+      "step3Body": "แปลงอาร์เรย์เหตุการณ์เป็นสตริง JSON แล้วทำ Base64 จากนั้น URL encode ทั้งหมดและใส่ในฟิลด์ data การ POST body เป็น JSON ดิบจะถูกแยกวิเคราะห์เป็น “data ว่าง”: HTTP ยังตอบ 200 แต่ข้อมูลจะหายไปเงียบ ๆ",
+      "step3Code1Label": "ลำดับการเข้ารหัส",
+      "step3Note1": "เหตุการณ์เดียวก็ต้องห่อเป็นอาร์เรย์ ([{...}])",
+      "step3Note2": "อักขระ + / = ในผล Base64 ต้องผ่าน URL encode มิฉะนั้นการแยกวิเคราะห์ฟอร์มจะทำให้เสียหาย",
+      "step4Title": "4. ตัวตนผู้ใช้และการเชื่อมโยงตอนเข้าสู่ระบบ",
+      "step4Body": "ช่วงที่ไม่ระบุตัวตนให้ใช้รหัสอุปกรณ์หรือรหัสผู้เยี่ยมชมเป็น distinct_id เมื่อผู้ใช้เข้าสู่ระบบให้ส่งเหตุการณ์ track_signup หนึ่งรายการ โดยใส่ ID ที่เข้าสู่ระบบลงใน identities.user_key และใส่ ID ไม่ระบุตัวตนเดิมลงใน properties.$track_signup_original_id หลังจากนั้นทุกเหตุการณ์จะแนบ identities.user_key มาโดยอัตโนมัติ และแพลตฟอร์มจะรวมพฤติกรรมก่อนและหลังของคนเดียวกันได้",
+      "step4Code1Label": "เหตุการณ์เชื่อมโยงการเข้าสู่ระบบ",
+      "step5Title": "5. การส่งเป็นชุดและการลองใหม่",
+      "step5Body": "ใส่หลายเหตุการณ์ในอาร์เรย์เดียวกันแล้วส่งครั้งเดียว (แนะนำ 10 ถึง 50 รายการต่อชุด) ภายในชุดหากรายการใดผิดปกติจะไม่กระทบรายการอื่น การลองใหม่ 3 ครั้งโดยถอยกลับ 500ms × จำนวนครั้งก็เพียงพอ หากยังล้มเหลวต่อเนื่องให้เก็บข้อมูลลงคิวในเครื่องแล้วส่งใหม่ภายหลังเพื่อไม่ให้เหตุการณ์หาย",
+      "step6Title": "6. ตรวจสอบผลการส่งข้อมูล",
+      "step6Body": "หลังส่งข้อมูล ไปที่ “จัดการข้อมูล → Debug” แล้วคิวรีตามชื่อเหตุการณ์เพื่อดูข้อมูลล่าสุด (ดูรายละเอียดคุณสมบัติและเวลาที่รับได้) หรือเลือกเหตุการณ์นั้นในวิเคราะห์เหตุการณ์เพื่อดูว่ามีข้อมูลหรือไม่ โดยทั่วไปความหน่วงอยู่ระดับวินาที ส่วนตัวชี้วัดที่รวมด้วย Flink จะล่าช้าระดับนาที",
+      "faq1Q": "API ตอบ 200 แต่บนแพลตฟอร์มหาข้อมูลไม่เจอ",
+      "faq1A": "ตรวจสอบก่อนว่า data เป็นเนื้อหาที่ผ่าน “Base64 + URL encode” แล้วหรือไม่ (ส่ง JSON ตรง ๆ จะได้ 200 แต่ data ว่าง) จากนั้นตรวจว่า project กับ token ตรงกัน และชื่อเหตุการณ์ไม่มีช่องว่างหรือพิมพ์ตัวพิมพ์ผิด",
+      "faq2Q": "time ใช้หน่วยวินาทีหรือมิลลิวินาที",
+      "faq2A": "มิลลิวินาที (13 หลัก) หากส่งเป็นวินาที (10 หลัก) จะถูกตีความเป็นปี 1970 และหากไม่ส่งจะใช้เวลาที่เซิร์ฟเวอร์รับเป็นหลัก",
+      "faq3Q": "ส่งเหตุการณ์เดี่ยวเป็นออบเจ็กต์ JSON ตรง ๆ ได้หรือไม่",
+      "faq3A": "ไม่ได้ หลังถอดรหัส data ต้องเป็นอาร์เรย์ เหตุการณ์เดี่ยวให้เขียนเป็น [{...}]",
+      "faq4Q": "วาง token ไว้ฝั่งหน้าบ้านปลอดภัยหรือไม่",
+      "faq4A": "ไม่แนะนำ โทเคนสำหรับส่งข้อมูลเขียนข้อมูลได้ ฝั่งไคลเอนต์ควรส่งผ่านเซิร์ฟเวอร์ หรือใช้โทเคนแบบจำกัดสิทธิ์ที่อนุญาตเฉพาะการส่งข้อมูล"
+    },
+    "php": {
+      "name": "PHP",
+      "platform": "ฝั่งเซิร์ฟเวอร์ · PHP 7.4+ (ต้องมีส่วนขยาย curl)",
+      "summary": "ส่งเหตุการณ์อย่างคำสั่งซื้อ การชำระเงิน และการสมัครจากโค้ดธุรกิจ",
+      "step1Title": "1. เงื่อนไขเบื้องต้น",
+      "step1Body": "PHP 7.4 ขึ้นไป และเปิดส่วนขยาย curl (php -m | grep curl) ไม่ต้องพึ่งพาไลบรารีภายนอก",
+      "step1Code1Label": "ตรวจสอบสภาพแวดล้อม",
+      "step2Title": "2. เริ่มต้นไคลเอนต์",
+      "step2Body": "พารามิเตอร์สามตัว: ที่อยู่สำหรับส่งข้อมูล ชื่อโปรเจกต์ และโทเคนโปรเจกต์ ให้อ่าน token จากตัวแปรสภาพแวดล้อมและอย่าเขียนลงในโค้ด",
+      "step2Code1Label": "โครงสร้างและการตั้งค่า",
+      "step2Code1": "final class ClkLogClient\n{\n    private array $queue = [];\n    private ?string $loginId = null; // หลังเข้าสู่ระบบจะถูกส่งไปใน identities.user_key อัตโนมัติ\n\n    public function __construct(\n        private readonly string $endpoint,\n        private readonly string $project,\n        private readonly string $token,\n        private readonly int $batchSize = 10,\n    ) {}\n\n    public static function fromEnv(): self\n    {\n        return new self(\n            getenv('CLKLOG_ENDPOINT') ?: '<ที่อยู่สำหรับส่งข้อมูล>',\n            getenv('CLKLOG_PROJECT') ?: '<ชื่อโปรเจกต์>',\n            getenv('CLKLOG_TOKEN') ?: throw new RuntimeException('ขาด CLKLOG_TOKEN'),\n            10,\n        );\n    }\n}",
+      "step3Title": "3. ส่งเหตุการณ์พฤติกรรม",
+      "step3Body": "track() ใส่เหตุการณ์เข้าคิวและส่งอัตโนมัติเมื่อครบจำนวนต่อชุด ส่วน time ใช้เวลาที่เป็นมิลลิวินาที",
+      "step3Code1Label": "track และการเข้าคิว",
+      "step3Code1": "public function track(string $distinctId, string $event, array $properties = []): void\n{\n    $this->enqueue($this->withIdentity([\n        'type'        => 'track',\n        'event'       => $event,\n        'distinct_id' => $distinctId,\n        'time'        => (int) (microtime(true) * 1000), // มิลลิวินาที\n        'properties'  => (object) $properties,\n    ]));\n}\n\n$cli = ClkLogClient::fromEnv();\n$cli->track('u_1001', 'Purchase', ['order_id' => 'O20260915001', 'amount' => 99.5]);",
+      "step4Title": "4. คุณสมบัติผู้ใช้และการเชื่อมโยงตอนเข้าสู่ระบบ",
+      "step4Body": "profileSet() เขียนคุณสมบัติผู้ใช้ (เขียนทับ) ส่วน login() ส่งเหตุการณ์ track_signup เพื่อรวม ID ไม่ระบุตัวตนกับ ID ที่เข้าสู่ระบบ หลังจากนั้นทุกเหตุการณ์จะแนบ identities.user_key อัตโนมัติ",
+      "step4Code1Label": "profileSet / login",
+      "step4Code1": "public function profileSet(string $distinctId, array $properties): void\n{\n    $this->enqueue($this->withIdentity([\n        'type'        => 'user_set',\n        'distinct_id' => $distinctId,\n        'time'        => (int) (microtime(true) * 1000),\n        'properties'  => (object) $properties,\n    ]));\n}\n\npublic function login(string $loginId, string $anonymousId): void\n{\n    $this->loginId = $loginId;\n    $this->enqueue([\n        'type'        => 'track_signup',\n        'event'       => '$SignUp',\n        'distinct_id' => $loginId,\n        'identities'  => ['user_key' => $loginId],\n        'properties'  => ['$track_signup_original_id' => $anonymousId],\n        'time'        => (int) (microtime(true) * 1000),\n    ]);\n}\n\n$cli->profileSet('u_1001', ['vip_level' => 3, 'register_channel' => 'app_store']);\n$cli->login('user_9527', 'u_1001');",
+      "step5Title": "5. ส่งเป็นชุดและการลองใหม่เมื่อล้มเหลว",
+      "step5Body": "flush() แปลงคิวเป็น JSON ทำ Base64 และ URL encode แล้วส่งเป็นฟอร์ม หากล้มเหลวจะลองใหม่ 3 ครั้งแบบถอยกลับ และควร flush อีกครั้งก่อนโปรเซสสิ้นสุด",
+      "step5Code1Label": "flush",
+      "step5Code1": "public function flush(): void\n{\n    if ($this->queue === []) {\n        return;\n    }\n    $payload = base64_encode(json_encode($this->queue, JSON_UNESCAPED_UNICODE));\n\n    for ($attempt = 1; $attempt <= 3; $attempt++) {\n        $ch = curl_init($this->endpoint);\n        curl_setopt_array($ch, [\n            CURLOPT_POST           => true,\n            CURLOPT_POSTFIELDS     => http_build_query([\n                'project' => $this->project,\n                'token'   => $this->token,\n                'data'    => $payload,\n            ]),\n            CURLOPT_HTTPHEADER     => ['Content-Type: application/x-www-form-urlencoded'],\n            CURLOPT_RETURNTRANSFER => true,\n            CURLOPT_TIMEOUT        => 10,\n        ]);\n        $body = curl_exec($ch);\n        $code = curl_getinfo($ch, CURLINFO_RESPONSE_CODE);\n        if ($code === 200) {\n            $this->queue = [];\n            return;\n        }\n        usleep($attempt * 500_000); // ถอยกลับ\n    }\n    throw new RuntimeException('upstream flush failed after 3 attempts');\n}",
+      "step5Note1": "http_build_query ทำ URL encode ให้แล้ว ไม่ต้อง urlencode ซ้ำอีก",
+      "step5Note2": "โปรเซสที่ทำงานตลอดเวลา (ผู้บริโภคคิว งานตามกำหนดเวลา) แนะนำให้ flush ให้ชัดเจนเมื่อจบแต่ละรอบ เพื่อไม่ให้เหตุการณ์ค้างในหน่วยความจำนาน",
+      "step6Title": "6. ตรวจสอบ",
+      "step6Body": "หลังรันส่งข้อมูลหนึ่งครั้ง ไปที่ “จัดการข้อมูล → Debug” แล้วคิวรีตามชื่อเหตุการณ์ ควรเห็นเหตุการณ์และคุณสมบัติที่เพิ่งส่ง โดยคาดว่าหน่วงภายในไม่กี่วินาที",
+      "faq1Q": "ตอบ 200 แต่ไม่มีข้อมูล",
+      "faq1A": "ตรวจสอบว่า data เป็นผลของ Base64 ที่ถูก encode ด้วย http_build_query อีกชั้นหรือไม่ และยืนยันว่า token กับ project อยู่ในโปรเจกต์เดียวกัน",
+      "faq2Q": "time ใช้หน่วยอะไร",
+      "faq2A": "มิลลิวินาที ใน PHP ใช้ (int)(microtime(true) * 1000)",
+      "faq3Q": "ข้อความภาษาจีนในเหตุการณ์กลายเป็นตัวอักษรเพี้ยน",
+      "faq3A": "ให้ใส่ JSON_UNESCAPED_UNICODE ตอน json_encode และตรวจสอบว่าสตริงเป็น UTF-8",
+      "faq4Q": "ส่งข้อมูลแบบซิงโครนัสในคำขอเว็บได้หรือไม่",
+      "faq4A": "ได้ แต่แนะนำให้เข้าคิวในเครื่อง (Redis หรือตารางฐานข้อมูล) แล้วให้งานเบื้องหลังส่งเป็นชุด เพื่อไม่ให้การตอบสนองของ API ช้าลง"
+    },
+    "go": {
+      "name": "Go",
+      "platform": "ฝั่งเซิร์ฟเวอร์ · Go 1.18+ (ใช้เฉพาะไลบรารีมาตรฐาน)",
+      "summary": "ส่งเหตุการณ์ธุรกิจจากบริการหลังบ้านที่รับโหลดสูง โดยไม่ต้องพึ่งพาไลบรารีภายนอก",
+      "step1Title": "1. เงื่อนไขเบื้องต้น",
+      "step1Body": "Go 1.18 ขึ้นไป ใช้เฉพาะไลบรารีมาตรฐาน (net/http, encoding/json, encoding/base64, net/url) ไม่ต้องนำเข้าโมดูล SDK ใด ๆ",
+      "step1Code1Label": "เริ่มต้นโมดูล",
+      "step2Title": "2. กำหนดเหตุการณ์และไคลเอนต์",
+      "step2Body": "โครงสร้าง Event สอดคล้องกับฟิลด์ของโปรโตคอล และ Identities รองรับส่วนขยายตัวตน user_key",
+      "step2Code1Label": "โครงสร้างและการสร้าง",
+      "step2Code1": "type Event struct {\n    Type       string         `json:\"type\"`                 // track / track_signup / user_set\n    Event      string         `json:\"event,omitempty\"`      // ชื่อเหตุการณ์ (track ต้องระบุ)\n    DistinctID string         `json:\"distinct_id\"`          // ID ผู้เข้าชม\n    Time       int64          `json:\"time\"`                 // เวลาที่เป็นมิลลิวินาที\n    Identities map[string]any `json:\"identities,omitempty\"` // {\"user_key\": ID ที่เข้าสู่ระบบ}\n    Properties map[string]any `json:\"properties,omitempty\"`\n}\n\ntype ClkLogClient struct {\n    Endpoint, Project, Token string\n    BatchSize                int\n    loginID                  string\n    queue                    []Event\n    http                     *http.Client\n}\n\nfunc NewClkLogClient(endpoint, project, token string) *ClkLogClient {\n    return &ClkLogClient{\n        Endpoint: endpoint, Project: project, Token: token, BatchSize: 10,\n        http: &http.Client{Timeout: 10 * time.Second},\n    }\n}",
+      "step3Title": "3. ส่งเหตุการณ์พฤติกรรม",
+      "step3Body": "Track จะเข้าคิวและ Flush อัตโนมัติเมื่อครบจำนวนต่อชุด และหลังเข้าสู่ระบบจะแนบ identities.user_key อัตโนมัติ",
+      "step3Code1Label": "Track",
+      "step3Code1": "func (c *ClkLogClient) Track(distinctID, event string, props map[string]any) error {\n    e := Event{\n        Type: \"track\", Event: event, DistinctID: distinctID,\n        Time: time.Now().UnixMilli(), Properties: props,\n    }\n    if c.loginID != \"\" {\n        e.Identities = map[string]any{\"user_key\": c.loginID}\n    }\n    c.queue = append(c.queue, e)\n    if len(c.queue) >= c.BatchSize {\n        return c.Flush()\n    }\n    return nil\n}\n\n// เรียกใช้\ncli.Track(\"u_1001\", \"Purchase\", map[string]any{\"order_id\": \"O20260915001\", \"amount\": 99.5})",
+      "step4Title": "4. การเชื่อมโยงตอนเข้าสู่ระบบและคุณสมบัติผู้ใช้",
+      "step4Body": "Login ส่งเหตุการณ์ track_signup เพื่อรวมตัวตน และ ProfileSet เขียนคุณสมบัติผู้ใช้แบบเขียนทับ",
+      "step4Code1Label": "Login / ProfileSet",
+      "step4Code1": "func (c *ClkLogClient) Login(loginID, anonymousID string) error {\n    c.loginID = loginID\n    c.queue = append(c.queue, Event{\n        Type: \"track_signup\", Event: \"$SignUp\", DistinctID: loginID,\n        Identities: map[string]any{\"user_key\": loginID},\n        Properties: map[string]any{\"$track_signup_original_id\": anonymousID},\n        Time:       time.Now().UnixMilli(),\n    })\n    if len(c.queue) >= c.BatchSize {\n        return c.Flush()\n    }\n    return nil\n}\n\nfunc (c *ClkLogClient) ProfileSet(distinctID string, props map[string]any) error {\n    e := Event{Type: \"user_set\", DistinctID: distinctID, Time: time.Now().UnixMilli(), Properties: props}\n    if c.loginID != \"\" {\n        e.Identities = map[string]any{\"user_key\": c.loginID}\n    }\n    c.queue = append(c.queue, e)\n    return nil\n}",
+      "step5Title": "5. ส่งเป็นชุดและการลองใหม่เมื่อล้มเหลว",
+      "step5Body": "Flush แปลงคิวเป็น JSON → Base64 → ฟอร์ม encode แล้วส่ง หากล้มเหลวลองใหม่ 3 ครั้ง โดยถอยกลับ 500ms × จำนวนครั้งในแต่ละครั้ง",
+      "step5Code1Label": "Flush",
+      "step5Code1": "func (c *ClkLogClient) Flush() error {\n    if len(c.queue) == 0 {\n        return nil\n    }\n    payload, err := json.Marshal(c.queue)\n    if err != nil {\n        return fmt.Errorf(\"marshal: %w\", err)\n    }\n    form := url.Values{}\n    form.Set(\"project\", c.Project)\n    form.Set(\"token\", c.Token)\n    form.Set(\"data\", base64.StdEncoding.EncodeToString(payload))\n\n    var lastErr error\n    for attempt := 1; attempt <= 3; attempt++ {\n        req, _ := http.NewRequest(http.MethodPost, c.Endpoint, bytes.NewBufferString(form.Encode()))\n        req.Header.Set(\"Content-Type\", \"application/x-www-form-urlencoded\")\n        resp, err := c.http.Do(req)\n        if err == nil && resp.StatusCode == http.StatusOK {\n            io.Copy(io.Discard, resp.Body)\n            resp.Body.Close()\n            c.queue = c.queue[:0]\n            return nil\n        }\n        if err == nil {\n            body, _ := io.ReadAll(resp.Body)\n            resp.Body.Close()\n            lastErr = fmt.Errorf(\"http %d: %s\", resp.StatusCode, string(body))\n        } else {\n            lastErr = err\n        }\n        time.Sleep(time.Duration(attempt) * 500 * time.Millisecond) // ถอยกลับ\n    }\n    return fmt.Errorf(\"flush failed after 3 attempts: %w\", lastErr)\n}",
+      "step5Note1": "เมื่อส่งข้อมูลพร้อมกันหลายทาง ให้ใส่ sync.Mutex ให้ queue หรือใช้ไคลเอนต์หนึ่งตัวต่อหนึ่ง goroutine",
+      "step5Note2": "เมื่อบริการปิดอย่างเรียบร้อย (signal → shutdown) ให้เรียก Flush หนึ่งครั้งเพื่อไม่ให้เหตุการณ์ชุดสุดท้ายหาย",
+      "step6Title": "6. ตรวจสอบ",
+      "step6Body": "หลังรันส่งข้อมูลหนึ่งครั้ง ไปที่ “จัดการข้อมูล → Debug” แล้วคิวรีตามชื่อเหตุการณ์ หรือดูในวิเคราะห์เหตุการณ์ว่าปริมาณเหตุการณ์นั้นเพิ่มขึ้นหรือไม่",
+      "faq1Q": "ตอบ 200 แต่ไม่มีข้อมูล",
+      "faq1A": "ยืนยันว่า data ในฟอร์มเป็นสตริง Base64 (url.Values ของ Go จะ encode อีกชั้น ซึ่งถูกต้องแล้ว) และยืนยันว่า project/token ตรงกัน",
+      "faq2Q": "time ใช้หน่วยอะไร",
+      "faq2A": "มิลลิวินาที ใน Go ใช้ time.Now().UnixMilli()",
+      "faq3Q": "หากในชุดมีเหตุการณ์ที่ฟิลด์ไม่ถูกต้องจะกระทบรายการอื่นหรือไม่",
+      "faq3A": "ไม่กระทบ ชุดจะถูกประมวลผลทีละรายการ และรายการที่ไม่ถูกต้องจะถูกข้าม",
+      "faq4Q": "ต้องจัดการเนื้อหาการตอบกลับหรือไม่",
+      "faq4A": "ไม่ต้องแยกวิเคราะห์ผลทางธุรกิจ ถือว่า HTTP 200 คือรับข้อมูลสำเร็จ และลองใหม่เฉพาะกรณีที่ไม่ใช่ 200"
+    },
+    "unity": {
+      "name": "Unity (C#)",
+      "platform": "ฝั่งไคลเอนต์ · Unity 2021+ / .NET Standard 2.1 (โค้ดชุดเดียวกันใช้กับคอนโซล .NET ได้)",
+      "summary": "การติดตามในเกมและไคลเอนต์ C#: การเชื่อมโยงตอนเข้าสู่ระบบ คุณสมบัติผู้ใช้ และการส่งเป็นชุด",
+      "step1Title": "1. เงื่อนไขเบื้องต้น",
+      "step1Body": "Unity 2021 ขึ้นไป (.NET Standard 2.1 มี HttpClient) การแปลงเป็น JSON: Unity 6 มี System.Text.Json ในตัว ส่วนเวอร์ชันเก่าใช้ Newtonsoft.Json หรือติดตั้ง System.Text.Json ผ่าน NuGetForUnity",
+      "step1Code1Label": "คำอธิบายการพึ่งพา (เลือกอย่างใดอย่างหนึ่งตามเวอร์ชัน Unity)",
+      "step1Code1": "// Unity 6 มีในตัว: ใช้ using System.Text.Json; ได้เลย\n// เวอร์ชันเก่า: ติดตั้ง com.unity.nuget.newtonsoft-json ผ่าน Package Manager แล้วเปลี่ยนไปใช้ JsonConvert.SerializeObject",
+      "step2Title": "2. เริ่มต้นไคลเอนต์",
+      "step2Body": "พารามิเตอร์สามตัว: ที่อยู่สำหรับส่งข้อมูล ชื่อโปรเจกต์ และโทเคนโปรเจกต์ โทเคนฝั่งไคลเอนต์แนะนำให้ส่งจากเซิร์ฟเวอร์ของคุณเอง (หรือส่งผ่านเซิร์ฟเวอร์) และอย่าเขียนตายตัวลงในแพ็กเกจ",
+      "step2Code1Label": "โครงสร้าง",
+      "step2Code1": "public sealed class ClkLogClient\n{\n    private readonly HttpClient _http;\n    private readonly string _endpoint, _project, _token;\n    private readonly int _batchSize;\n    private readonly List<Dictionary<string, object?>> _queue = new();\n    private string? _loginId;\n\n    public ClkLogClient(string endpoint, string project, string token, int batchSize = 10)\n    {\n        _endpoint = endpoint;\n        _project = project;\n        _token = token;\n        _batchSize = batchSize > 0 ? batchSize : 10;\n        _http = new HttpClient { Timeout = TimeSpan.FromSeconds(10) };\n    }\n}",
+      "step3Title": "3. ส่งเหตุการณ์พฤติกรรม",
+      "step3Body": "Track จะเข้าคิวและส่งอัตโนมัติเมื่อครบจำนวนต่อชุด ส่วน time ใช้เวลาที่เป็นมิลลิวินาที และหลังเข้าสู่ระบบเหตุการณ์จะแนบ identities.user_key อัตโนมัติ",
+      "step3Code1Label": "Track",
+      "step3Code1": "public void Track(string distinctId, string eventName, Dictionary<string, object?>? properties = null)\n{\n    var e = new Dictionary<string, object?>\n    {\n        [\"type\"] = \"track\",\n        [\"event\"] = eventName,\n        [\"distinct_id\"] = distinctId,\n        [\"time\"] = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds(), // มิลลิวินาที\n        [\"properties\"] = properties ?? new Dictionary<string, object?>(),\n    };\n    Enqueue(WithIdentity(e));\n}\n\n// เรียกใช้\nclient.Track(\"u_1001\", \"Purchase\", new() { [\"order_id\"] = \"O20260915001\", [\"amount\"] = 99.5 });",
+      "step4Title": "4. การเชื่อมโยงตอนเข้าสู่ระบบและคุณสมบัติผู้ใช้",
+      "step4Body": "Login ส่งเหตุการณ์ track_signup เพื่อเชื่อม ID ที่เข้าสู่ระบบกับ ID ไม่ระบุตัวตน หลังจากนั้นทุกเหตุการณ์จะแนบ user_key ส่วน ProfileSet เขียนคุณสมบัติผู้ใช้แบบเขียนทับ",
+      "step4Code1Label": "Login / ProfileSet",
+      "step4Code1": "public void Login(string loginId, string anonymousId)\n{\n    _loginId = loginId;\n    Enqueue(new Dictionary<string, object?>\n    {\n        [\"type\"] = \"track_signup\",\n        [\"event\"] = \"$SignUp\",\n        [\"distinct_id\"] = loginId,\n        [\"identities\"] = new Dictionary<string, object?> { [\"user_key\"] = loginId },\n        [\"properties\"] = new Dictionary<string, object?> { [\"$track_signup_original_id\"] = anonymousId },\n        [\"time\"] = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds(),\n    });\n}\n\nprivate Dictionary<string, object?> WithIdentity(Dictionary<string, object?> e)\n{\n    if (_loginId is not null)\n    {\n        e[\"identities\"] = new Dictionary<string, object?> { [\"user_key\"] = _loginId };\n    }\n    return e;\n}\n\npublic void ProfileSet(string distinctId, Dictionary<string, object?> properties)\n{\n    Enqueue(WithIdentity(new Dictionary<string, object?>\n    {\n        [\"type\"] = \"user_set\",\n        [\"distinct_id\"] = distinctId,\n        [\"time\"] = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds(),\n        [\"properties\"] = properties,\n    }));\n}",
+      "step5Title": "5. ส่งเป็นชุดและการลองใหม่",
+      "step5Body": "FlushAsync แปลงคิวเป็น JSON → Base64 → ฟอร์ม encode แล้ว POST หากล้มเหลวลองใหม่ 3 ครั้งแบบถอยกลับ ในเกมให้เรียกหนึ่งครั้งตอนเปลี่ยนฉาก สรุปผล และก่อนออก",
+      "step5Code1Label": "FlushAsync",
+      "step5Code1": "public async Task FlushAsync()\n{\n    if (_queue.Count == 0) return;\n    var json = JsonSerializer.Serialize(_queue);\n    var payload = Convert.ToBase64String(Encoding.UTF8.GetBytes(json));\n\n    for (var attempt = 1; attempt <= 3; attempt++)\n    {\n        try\n        {\n            using var content = new FormUrlEncodedContent(new Dictionary<string, string>\n            {\n                [\"project\"] = _project,\n                [\"token\"] = _token,\n                [\"data\"] = payload,\n            });\n            var res = await _http.PostAsync(_endpoint, content);\n            if (res.IsSuccessStatusCode)\n            {\n                _queue.Clear();\n                return;\n            }\n        }\n        catch (Exception) when (attempt < 3)\n        {\n            // เครือข่ายผิดพลาด ให้ลองใหม่แบบถอยกลับ\n        }\n        await Task.Delay(attempt * 500);\n    }\n    // ล้มเหลวทั้งสามครั้ง: เก็บคิวไว้ รอทริกเกอร์ครั้งถัดไป (บันทึกลงไฟล์ในเครื่องเพื่อความคงทนได้)\n}",
+      "step5Note1": "อย่ารอเครือข่ายแบบซิงโครนัสบนเมนเทิร์ดของ Unity: ใช้ async/await หรือเริ่ม Task ในคอรูทีน เพื่อไม่ให้เฟรมกระตุก",
+      "step5Note2": "หากต้องการความน่าเชื่อถือในเครือข่ายที่ไม่เสถียร ให้เขียนคิวลงไฟล์ใน Application.persistentDataPath แล้วส่งชดเชยเมื่อเปิดครั้งถัดไป",
+      "step6Title": "6. ตรวจสอบ",
+      "step6Body": "รันส่งข้อมูลหนึ่งครั้งในตัวแก้ไขหรือบนเครื่องจริง แล้วไปที่ “จัดการข้อมูล → Debug” คิวรีตามชื่อเหตุการณ์เพื่อดูข้อมูลล่าสุด (พร้อมคุณสมบัติและเวลาที่รับ) และยืนยันว่าเหตุการณ์ของผู้เล่นคนเดียวกันหลังเข้าสู่ระบบแนบ user_key แล้ว",
+      "faq1Q": "ตอบ 200 แต่บนแพลตฟอร์มไม่มีข้อมูล",
+      "faq1A": "สาเหตุที่พบบ่อยที่สุดคือไม่ได้ทำ Base64 (ส่ง JSON ตรง ๆ) หรือ token/project ไม่ตรงกัน ให้ตรวจสอบเนื้อหาฟิลด์ data ก่อนแล้วจึงตรวจเครือข่าย",
+      "faq2Q": "time ใช้หน่วยอะไร",
+      "faq2A": "มิลลิวินาที ใน C# ใช้ DateTimeOffset.UtcNow.ToUnixTimeMilliseconds()",
+      "faq3Q": "Unity แจ้งว่าขาด System.Text.Json",
+      "faq3A": "Unity 6 มีในตัว ส่วนเวอร์ชันเก่าให้ติดตั้ง com.unity.nuget.newtonsoft-json แล้วเปลี่ยนการแปลงเป็น JsonConvert.SerializeObject",
+      "faq4Q": "วาง token ไว้ฝั่งไคลเอนต์ปลอดภัยหรือไม่",
+      "faq4A": "ไม่แนะนำ แนะนำให้เซิร์ฟเวอร์ของคุณส่งแทน หรือใช้โทเคนแบบจำกัดสิทธิ์ที่อนุญาตเฉพาะการส่งข้อมูล และหมุนเวียนเป็นระยะ"
+    },
+    "javascript": {
+      "platform": "ฝั่งไคลเอนต์ · เบราว์เซอร์ H5 (เบราว์เซอร์สมัยใหม่ ไม่ต้องพึ่งพาภายนอก)",
+      "summary": "การติดตามบนเว็บ: เก็บการเข้าชมหน้าและการคลิก + ส่งคิวชดเชยก่อนปิดหน้า; ทดสอบจริงครบ 5 ขั้นของเหตุการณ์จนเข้าฐานข้อมูลบนเบราว์เซอร์จริงแล้ว",
+      "note1": "กับดัก: การส่งชดเชยตอนปิดหน้าต้องใช้ `navigator.sendBeacon` หรือ `fetch(..., {keepalive:true})` และต้องส่ง `URLSearchParams` — ถ้าส่งเป็นสตริงจะถูกมองเป็น text/plain ทำให้ receiver อ่าน `data` ไม่ได้",
+      "faq1Q": "ทำไมเหตุการณ์ตอนปิดหน้าจึงหาย",
+      "faq1A": "ให้ส่งชดเชยก่อนปิดหน้าด้วย `navigator.sendBeacon(new URLSearchParams(form))`; ถ้าโยนสตริงให้ sendBeacon ตรง ๆ จะส่งเป็น text/plain ทำให้ HTTP ตอบ 200 แต่ข้อมูลไม่เข้าฐานข้อมูล"
+    },
+    "miniprogram": {
+      "platform": "ฝั่งไคลเอนต์ · มินิโปรแกรม WeChat (ไลบรารีพื้นฐาน 2.x ไม่ต้องพึ่งพาภายนอก)",
+      "summary": "การติดตามในมินิโปรแกรม: ส่งด้วย `wx.request` + คิวแคชในเครื่อง + ส่งชดเชยด้วย `wx.onAppHide`; ทดสอบจริงระดับภาษาแล้ว (บนเครื่องจริงต้องนำเข้าใน developer tool)",
+      "note1": "กับดัก: `wx.getStorageSync` คืนสตริงว่างแทน null เมื่อไม่พบ key ชั้นปรับ storage ต้องปรับให้เป็นมาตรฐาน ไม่งั้น ID ไม่ระบุตัวตนจะกลายเป็นสตริงว่างและรวมผู้ใช้ไม่ได้",
+      "faq1Q": "ในมินิโปรแกรม data ของ request ควรส่งเป็นออบเจ็กต์หรือสตริง",
+      "faq1A": "ให้ส่งเป็นสตริง urlencoded ที่เข้ารหัสไว้ล่วงหน้าเสมอ และตั้ง `header[\"content-type\"]` อย่างชัดเจน: ไลบรารีพื้นฐานแต่ละรุ่นแปลงออบเจ็กต์ไม่เหมือนกัน การส่งสตริงจึงเสถียรที่สุด"
+    },
+    "reactNative": {
+      "platform": "ฝั่งไคลเอนต์ · React Native (JS/TS, Hermes)",
+      "summary": "การติดตามในแอป RN: ส่งด้วย `fetch` ส่วนกลาง + storage ที่ฉีดเข้าไป (AsyncStorage) + ส่งชดเชยเมื่อย้ายไปเบื้องหลัง; แกนการรับส่งและคิวทดสอบจริงแล้ว",
+      "note1": "กับดัก: Hermes ไม่มี `btoa` / `Buffer` / `TextEncoder` และ `URLSearchParams.toString()` ก็ใช้บน RN ไม่ได้ — ต้องเขียน base64 กับ urlencode เป็น JS ล้วนเอง",
+      "faq1Q": "บน RN เขียน base64 กับ urlencode อย่างไร",
+      "faq1A": "อย่าอาศัย `btoa` หรือ `Buffer` (Hermes ไม่มีทั้งคู่): เขียน base64 เอง แล้วใช้ `encodeURIComponent` เข้ารหัสเปอร์เซ็นต์ทีละช่วง ให้แน่ใจว่า `+` `/` `=` ถูกเข้ารหัสทั้งหมด"
+    },
+    "android": {
+      "platform": "ฝั่งไคลเอนต์ · Android เนทีฟ (Java / Kotlin รับส่งผ่าน HTTP)",
+      "summary": "แกนไคลเอนต์ติดตามบน Android: เก็บ ID อุปกรณ์แบบถาวร เซสชัน ชุด ถอยกลับลองใหม่ ส่งชดเชยเมื่อย้ายไปเบื้องหลัง; ทดสอบจริงครบ 5 ขั้นของเหตุการณ์บน JVM (Java 8) แล้ว แต่ยังไม่ได้แพ็ก APK เพื่อตรวจสอบ",
+      "note1": "กับดัก: `Base64.getMimeEncoder()` ตัดบรรทัดทุก 76 ตัวอักษร ต้องใช้ `getEncoder()`; `java.util.Base64` ต้องใช้ API 26+ เวอร์ชันต่ำกว่าต้องเปลี่ยนเป็น `android.util.Base64`",
+      "faq1Q": "บน Android ใช้การรับส่งอะไรในโปรดักชัน",
+      "faq1A": "เพียงเปลี่ยนการส่งฟอร์มเป็น OkHttp (`RequestBody.create(form, MediaType.parse(\"application/x-www-form-urlencoded\"))`) ตรรกะการเข้ารหัสและฟิลด์ระบุตัวตนไม่เปลี่ยนเลย และการเรียกใน Kotlin รูปแบบเดียวกัน"
+    },
+    "ios": {
+      "platform": "ฝั่งไคลเอนต์ · iOS เนทีฟ (Swift / Objective-C, URLSession)",
+      "summary": "แกนไคลเอนต์ติดตามบน iOS: เก็บ ID ไม่ระบุตัวตนใน UserDefaults ชุด ถอยกลับลองใหม่ ส่งชดเชยเมื่อเข้าเบื้องหลัง; ทดสอบจริงครบ 5 ขั้นของเหตุการณ์ด้วย Foundation URLSession ชุดเดียวกับ iOS แต่ยังไม่ได้แพ็กแอปเพื่อตรวจสอบ",
+      "note1": "กับดัก: `addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)` ไม่เข้ารหัส `+` `&` `=` ทำให้ `+` ใน base64 ถูกเซิร์ฟเวอร์ตีความเป็นช่องว่างจนข้อมูลเสีย — ต้องเข้ารหัสไบต์ UTF-8 ตาม RFC3986 เอง",
+      "faq1Q": "บน iOS เชื่อมเข้าแอปอย่างไร",
+      "faq1A": "เพิ่มคลาสไคลเอนต์เข้าโปรเจกต์ แล้วเรียก flush ใน `applicationDidEnterBackground` เพื่อส่งชดเชย; ระวัง `URLSessionConfiguration` ถูกคัดลอกตอนสร้าง session ถ้าจะแก้ timeout ต้องสร้าง session ใหม่"
+    },
+    "cocos2dX": {
+      "platform": "ฝั่งไคลเอนต์ · C++ (Cocos2d-x; ฝั่งเอนจินยังไม่ได้แพ็กเพื่อตรวจสอบ)",
+      "summary": "แกนการส่งข้อมูลด้วย C++ ในเอนจิน (JSON / base64 บรรทัดเดียว / POST ฟอร์ม / คิว) ทดสอบจริงแล้ว; ตอนเชื่อมต่อเพียงเปลี่ยนชั้นรับส่งเป็น HttpRequest ที่มีมาในเอนจิน",
+      "note1": "กับดัก: เปลี่ยน libcurl เป็น `cocos2d::network::HttpRequest` (อะซิงค์ + callback) ก็พอ แต่ base64 กับ urlencode ยังต้องทำเองให้เป็นบรรทัดเดียวและเข้ารหัสครบทุกตัวอักษร",
+      "faq1Q": "ทำไมในเอนจินไม่ใช้ libcurl ตรง ๆ",
+      "faq1A": "ใช้ได้แต่ไม่แนะนำ: HttpRequest ที่มีมาในเอนจินจะใช้สแต็กเครือข่ายของแพลตฟอร์มและจัดการ callback บนเมนเทิร์ด; โปรโตคอล การเข้ารหัส ชุด และฟิลด์ระบุตัวตนเหมือนกับโค้ดในหน้านี้ทุกประการ"
+    },
+    "java": {
+      "platform": "ฝั่งเซิร์ฟเวอร์ · Java (JDK 8+ ใช้เฉพาะไลบรารีมาตรฐาน)",
+      "summary": "ส่งเหตุการณ์อย่างคำสั่งซื้อ การชำระเงิน และการสมัครจากบริการธุรกิจ; JDK 8 ใช้ HttpURLConnection ส่วน JDK 11+ เปลี่ยนเป็น java.net.http ได้",
+      "note1": "กับดัก: `Base64.getMimeEncoder()` ตัดบรรทัด ต้องใช้ `getEncoder()`; base64 ที่ใส่ในฟอร์มยังต้อง urlencode อีกชั้น ไม่งั้น `+` จะถูกตีความเป็นช่องว่าง",
+      "faq1Q": "JDK 11+ เปลี่ยนเป็น HttpClient ได้ไหม",
+      "faq1A": "ได้: เปลี่ยนการส่งเป็น `HttpClient.newHttpClient().send(...)` ใช้ `BodyPublishers.ofString(form)` เป็น body และตั้ง Content-Type อย่างชัดเจน ตรรกะการเข้ารหัสและระบุตัวตนไม่เปลี่ยน"
+    },
+    "python": {
+      "platform": "ฝั่งเซิร์ฟเวอร์ · Python 3.7+ (เฉพาะไลบรารีมาตรฐาน)",
+      "summary": "ส่งเหตุการณ์ธุรกิจจากบริการแบ็กเอนด์หรือสคริปต์; ใช้แค่ `urllib` + `json` + `base64` ไม่ต้องพึ่งพาภายนอก",
+      "note1": "กับดัก: `data` ต้องผ่าน `urlencode` ก่อนจึงส่งเป็น body (เอา dict โยนให้ urlopen ตรง ๆ ไม่ได้); ตอนลองใหม่ต้องสร้างออบเจ็กต์ Request ใหม่",
+      "faq1Q": "ข้อความภาษาจีนในค่าคุณสมบัติจะเพี้ยนไหม",
+      "faq1A": "ใช้ `json.dumps(..., ensure_ascii=False).encode(\"utf-8\")` แล้วค่อย base64 ข้อความภาษาจีนจะผ่านไปตามเดิม ไม่ต้องแปลงรหัสซ้ำ"
+    },
+    "nodejs": {
+      "platform": "ฝั่งเซิร์ฟเวอร์ · Node.js 18+ (มี fetch ในตัว ไม่ต้องพึ่งพาภายนอก)",
+      "summary": "ส่งเหตุการณ์ธุรกิจจากแบ็กเอนด์ Node; ใช้ `fetch` ในตัว + `URLSearchParams` ไม่ต้องมี axios / undici",
+      "note1": "กับดัก: body ของ fetch ต้องเป็นอินสแตนซ์ `URLSearchParams` (จะแนบ Content-Type แบบ urlencoded ให้อัตโนมัติ) ถ้าส่งออบเจ็กต์ธรรมดาจะถูกแปลงเป็น JSON",
+      "faq1Q": "ควบคุม timeout อย่างไร",
+      "faq1A": "`fetch(url, { signal: AbortSignal.timeout(10000) })`; เมื่อล้มเหลวให้ลองใหม่แบบถอยกลับ 0.5s / 1s / 2s และล้างคิวในเครื่องเฉพาะเมื่อ HTTP 200"
+    },
+    "csharp": {
+      "platform": "ฝั่งเซิร์ฟเวอร์ · .NET 6+ / 8+ (HttpClient)",
+      "summary": "ส่งเหตุการณ์ธุรกิจจากแบ็กเอนด์ C#; `HttpClient` + `FormUrlEncodedContent` ใช้โปรโตคอลชุดเดียวกับไคลเอนต์ Unity",
+      "note1": "กับดัก: เมื่อรีโปเดียวมีทั้งไคลเอนต์ Unity และตัวอย่างฝั่งเซิร์ฟเวอร์ glob เริ่มต้นของโปรเจกต์สไตล์ SDK จะคอมไพล์ซอร์สในโฟลเดอร์ย่อยเข้าโปรเจกต์ทั้งสอง (CS8802 / CS0579) ต้องใช้ `Directory.Build.targets` ตัดออก (`.props` จะถูก Include เริ่มต้นเขียนทับ)",
+      "faq1Q": "จัดการ `$` ในสตริงอย่างไร",
+      "faq1A": "`$\"...\"` ของ C# เป็นสตริงอินเทอร์โพเลชัน: ตอนประกอบ JSON ให้ใส่ชื่อฟิลด์อย่าง `$SignUp` และ `$track_signup_original_id` ไว้ในสตริงธรรมดา หรือ escape เป็น `\\$` อย่างชัดเจน ไม่งั้นจะถูกตีความเป็นตัวแปร"
+    },
+    "ruby": {
+      "platform": "ฝั่งเซิร์ฟเวอร์ · Ruby 2.6+ (เฉพาะไลบรารีมาตรฐาน)",
+      "summary": "ส่งเหตุการณ์ธุรกิจจากเซิร์ฟเวอร์ Ruby; `net/http` + `json` + `base64` ไม่ต้องพึ่งพา gem",
+      "note1": "กับดัก: `Base64.encode64` แทรกขึ้นบรรทัดใหม่ทุก 60 ตัวอักษร (ต้องใช้ `strict_encode64`); `$SignUp` ในสตริงอัญประกาศคู่จะถูกตีความเป็นตัวแปรโกลบอลจนกลายเป็นสตริงว่าง ต้องใช้อัญประกาศเดี่ยว",
+      "faq1Q": "ทำไมชื่อเหตุการณ์ที่ส่งไปกลายเป็นค่าว่าง",
+      "faq1A": "อัญประกาศคู่ของ Ruby จะอินเทอร์โพเลตตัวแปรโกลบอลที่ขึ้นต้นด้วย `$` ดังนั้น `\"$SignUp\"` ได้สตริงว่าง ให้เขียนชื่อเหตุการณ์และ `$track_signup_original_id` ด้วยอัญประกาศเดี่ยวหรือ escape เป็น `\\$`"
+    },
+    "c": {
+      "platform": "ฝั่งเซิร์ฟเวอร์ · C11 (libcurl)",
+      "summary": "ส่งเหตุการณ์ธุรกิจจากบริการ C / C++: ประกอบ JSON เอง + เขียน base64 บรรทัดเดียวเอง + POST ฟอร์มด้วย libcurl",
+      "note1": "กับดัก: libcurl ต้องตั้ง callback สำหรับเขียน (ถ้าตั้งแค่ `CURLOPT_WRITEDATA` จะถูกมองเป็น FILE*); เขียน base64 เองและทำให้เป็นบรรทัดเดียว เข้ารหัสเปอร์เซ็นต์ทั้ง `+` `/` `=`",
+      "faq1Q": "คอมไพล์แล้วไม่เจอ curl.h",
+      "faq1A": "บน macOS ไฟล์หัวของ curl อยู่ใน SDK: `-I$(xcrun --show-sdk-path)/usr/include -L…/usr/lib -lcurl`; บน Linux ติดตั้ง `libcurl4-openssl-dev` ก็พอ"
+    },
+    "lua": {
+      "platform": "ฝั่งเซิร์ฟเวอร์ · Lua 5.4+ / 5.5 (luasocket + luasec)",
+      "summary": "ส่งเหตุการณ์ธุรกิจในสคริปต์ Lua และงาน OpenResty; สำหรับ OpenResty เพียงเปลี่ยนชั้นรับส่งเป็น resty.http ตรรกะโปรโตคอลไม่เปลี่ยน",
+      "note1": "กับดัก: luasec ไม่ตรวจใบรับรองโดยค่าเริ่มต้น ต้องตั้ง `verify=\"peer\"` อย่างชัดเจนและระบุ `cafile`; รองรับเฉพาะชื่อโปรโตคอลที่มีขีดล่าง (`tlsv1_2`) ถ้าเขียน `tlsv12` จะฟ้อง invalid protocol ทันที",
+      "faq1Q": "Lua ไม่มี os.setenv จะให้ค่าคอนฟิกอย่างไร",
+      "faq1A": "อ่านคอนฟิกเข้าไปในตารางในหน่วยความจำแล้วดึงค่า หรือให้ชั้นนอกส่งออกเป็นตัวแปรสภาพแวดล้อม; ใน OpenResty ส่งคอนฟิกผ่าน `ngx.var` หรือ `lua_shared_dict`"
+    },
+    "flutter": {
+      "platform": "ฝั่งไคลเอนต์ · Flutter 3.x / Dart 3.8+ (พึ่งพาแพ็กเกจ http)",
+      "summary": "การติดตามในแอป Flutter: เวอร์ชันเว็บสร้างเสร็จแล้วและกดครบสามขั้นบนเบราว์เซอร์จริงเพื่อยืนยันว่าข้อมูลเข้าฐานข้อมูล ส่วน iOS / Android ยังไม่ได้แพ็ก (เครื่องนี้ไม่มี SDK ที่เกี่ยวข้อง)",
+      "note1": "กับดัก: ฟังก์ชันเข้ารหัสที่มีมาให้ใน Dart ทั้งสองตัวใช้ตรง ๆ ไม่ได้ — `Uri.encodeFull` คง `+` `/` `=` ไว้เป็นอักขระสงวน ส่วน `Uri.encodeQueryComponent` กลับเข้ารหัสช่องว่างเป็น `+` (ชนกับ `+` ของ base64); ต้องเข้ารหัสตาม RFC3986 เอง และก่อนส่งต้องยืนยันว่าฟิลด์ `data` ไม่มี `+` / `=` ดิบ",
+      "faq1Q": "จะยืนยันได้อย่างไรว่าผลลัพธ์ Flutter Web เป็นตัวใหม่",
+      "faq1A": "dart2js แปลง literal ที่ไม่ใช่ ASCII เป็นรูปแบบหลบ `\\uXXXX` ดังนั้นการ grep ตัวอักษรไทยจะได้ 0 ผลเสมอ (อาจตีความผิดว่าเป็นไฟล์เก่า) ควรค้นในรูปแบบที่หลบแล้ว หรือเทียบขนาดและเวลาบิลด์ของ `main.dart.js`"
+    },
+    "batchImport": {
+      "platform": "อื่น ๆ · เครื่องมือบรรทัดคำสั่ง (Python 3 ไลบรารีมาตรฐานเท่านั้น)",
+      "summary": "นำเข้าบันทึกหรือ CSV ย้อนหลังเป็นเหตุการณ์แบบเป็นชุด (เติมข้อมูลคำสั่งซื้อ การชำระเงิน การสมัครที่มีอยู่แล้ว): รองรับการทดลองรัน การจำกัดอัตรา และการรันต่อจากจุดที่หยุด; ทดสอบจริงด้วย 120 แถว — เข้าฐานข้อมูล 120 แถว รันต่อแล้วไม่ส่งซ้ำและไม่ตกหล่นแถวใด",
+      "step1Title": "1. เตรียมไฟล์ย้อนหลัง",
+      "step1Body": "จัด CSV ตามข้อกำหนดคอลัมน์ด้านล่าง (หรือ JSONL บรรทัดละหนึ่งออบเจ็กต์เหตุการณ์) `time` ต้องเป็นเวลามิลลิวินาทีดั้งเดิมจึงจะคงเวลาย้อนหลังได้; เหตุการณ์ที่อยู่ในสถานะเข้าสู่ระบบให้ใส่ `user_key` และผูก ID ไม่ระบุตัวตนด้วยคอลัมน์ `original_id`",
+      "step1Code1Label": "ข้อกำหนดคอลัมน์ CSV และตัวอย่าง",
+      "step2Title": "2. ทดลองรันก่อน (ไม่ต่อเครือข่าย)",
+      "step2Body": "`--dry-run` ทำเพียงอ่าน ทำให้เป็นมาตรฐาน เข้ารหัส และตรวจขนาด ไม่ส่งเครือข่ายและไม่เขียนไฟล์ความคืบหน้า; ใช้เพื่อยืนยันว่าการจับคู่คอลัมน์ถูกต้อง และดูว่าแถวใดถูกข้ามเพราะเหตุใด",
+      "step2Code1Label": "คำสั่งทดลองรัน",
+      "step3Title": "3. รันจริงด้วยชุดเล็ก",
+      "step3Body": "เอา `--dry-run` ออกก็เป็นการส่งจริง แนะนำให้ใช้ `--limit` กับชุดเล็กก่อนเพื่อยืนยันเส้นทาง แล้วใช้ `--rate` จำกัดอัตราเพื่อป้องกันฝั่งรับ; เครื่องมือจะพิมพ์รหัสการรันครั้งนี้ (`backfill-<เวลา>`) และเขียนลง `properties.backfill_run_id` ของทุกเหตุการณ์ จึงตรวจสอบตามรอบการรันได้สะดวก",
+      "step3Code1Label": "คำสั่งนำเข้าข้อมูลย้อนหลังและพารามิเตอร์ที่ใช้บ่อย",
+      "step4Title": "4. รันต่อจากจุดที่หยุดไว้",
+      "step4Body": "ความคืบหน้าจะถูกเขียนไว้ที่ `<ไฟล์นำเข้า>.backfill-progress.json` หลังหยุดกลางคันให้เติม `--resume` เพื่อรันต่อ ชุดที่เสร็จแล้วจะไม่ถูกส่งซ้ำ; แถวที่ล้มเหลวจะถูกเขียนพร้อมหมายเลขบรรทัดลง `<ไฟล์นำเข้า>.failed.jsonl` แก้ไขเสร็จแล้วรันเฉพาะแถวเหล่านั้นได้",
+      "note1": "สำคัญ: เครื่องมือนี้**ไม่ตัดข้อมูลซ้ำ** — เหตุการณ์ย้อนหลังรายการเดียวกันที่ถูกนำเข้าเต็มรูปแบบสองครั้งจะเข้าฐานข้อมูลสองครั้ง โปรดใช้ `--resume` รันต่อเสมอ หรือตรวจสอบด้วย `--dry-run` / `--limit` ก่อน; เมื่อเนื้อหาหรือเวลาที่แก้ไขของไฟล์นำเข้าเปลี่ยนไป `--resume` จะปฏิเสธการทำงาน เว้นแต่ระบุ `--force-resume` อย่างชัดเจน",
+      "step5Title": "5. ตรวจสอบข้อมูลที่เข้าฐานข้อมูล",
+      "step5Body": "สรุปจำนวนแถวที่เข้าฐานข้อมูลและการกระจายของเหตุการณ์ตามรหัสการรัน แล้วเทียบกับจำนวนแถวที่ไฟล์ส่งไป ไปป์ไลน์ข้อมูลมีความหน่วง 1–3 นาที หากจำเป็นให้คิวรีซ้ำหลายครั้ง",
+      "step5Code1Label": "SQL ตรวจสอบ",
+      "faq1Q": "เวลาของเหตุการณ์ที่นำเข้าจะถูกแก้ไขหรือไม่",
+      "faq1A": "ไม่: เครื่องมือส่ง `time` ในไฟล์เข้าเหตุการณ์ตามเดิม (มิลลิวินาที) ฝั่งวิเคราะห์จะนับตามเวลาเหตุการณ์ **อย่า**แทนเวลาย้อนหลังด้วยเวลาปัจจุบัน ไม่อย่างนั้นแนวโน้มย้อนหลังจะไปกองรวมที่วันนำเข้า",
+      "faq2Q": "ถ้าไฟล์ใหญ่มาก (หลายแสนแถว) จะรันอย่างไร",
+      "faq2A": "รันเป็นรอบ ๆ: `--limit` กำหนดจำนวนต่อครั้ง `--rate` จำกัดอัตรา ใช้ร่วมกับ `--resume` เพื่อรันต่อจากจุดที่หยุด; ขีดจำกัด 50 เหตุการณ์ / 1 MB ต่อคำขอเครื่องมือจะตัดให้อัตโนมัติ ไม่ต้องแบ่งไฟล์เอง"
+    }
+  },
+  "planned": {
+    "android": {
+      "name": "Android",
+      "platform": "ฝั่งไคลเอนต์ · Java / Kotlin",
+      "summary": "การติดตามในแอป Android แบบเนทีฟ (แผนคือห่อด้วย OkHttp)"
+    },
+    "ios": {
+      "name": "iOS",
+      "platform": "ฝั่งไคลเอนต์ · Swift / Objective-C",
+      "summary": "การติดตามในแอป iOS แบบเนทีฟ (แผนคือห่อด้วย URLSession)"
+    },
+    "javascript": {
+      "name": "JavaScript / Web",
+      "platform": "ฝั่งไคลเอนต์ · เบราว์เซอร์ H5",
+      "summary": "การติดตามบนเว็บ เก็บการเข้าชมหน้าและการคลิกอัตโนมัติ"
+    },
+    "miniprogram": {
+      "name": "มินิโปรแกรม WeChat",
+      "platform": "ฝั่งไคลเอนต์ · มินิโปรแกรม / มินิเกม",
+      "summary": "การติดตามในมินิโปรแกรม (แผนคือปรับให้เข้ากับ wx.request และคิวแคชในเครื่อง)"
+    },
+    "flutter": {
+      "name": "Flutter",
+      "platform": "ฝั่งไคลเอนต์ · Dart",
+      "summary": "การติดตามในแอปข้ามแพลตฟอร์ม (แผนคือห่อด้วยแพ็กเกจ http)"
+    },
+    "reactNative": {
+      "name": "React Native",
+      "platform": "ฝั่งไคลเอนต์ · JS / TS",
+      "summary": "การติดตามในแอป RN (แผนคือใช้แกนเก็บข้อมูลของ JS ร่วมกัน)"
+    },
+    "cocos2dX": {
+      "name": "Cocos2d-x",
+      "platform": "ฝั่งไคลเอนต์ · C++ / Lua",
+      "summary": "การติดตามในเกม Cocos (แผนคือห่อด้วย HttpClient)"
+    },
+    "unreal": {
+      "name": "Unreal Engine",
+      "platform": "ฝั่งไคลเอนต์ · C++ / บลูปริ้นต์",
+      "summary": "การติดตามในเกม UE (แผนคือห่อด้วยโมดูล Http)"
+    },
+    "java": {
+      "name": "Java",
+      "platform": "ฝั่งเซิร์ฟเวอร์ · JDK 8+",
+      "summary": "การส่งข้อมูลจากหลังบ้าน Java (แผนคือห่อด้วย HttpClient)"
+    },
+    "python": {
+      "name": "Python",
+      "platform": "ฝั่งเซิร์ฟเวอร์ · Python 3.7+",
+      "summary": "การส่งข้อมูลจากหลังบ้าน Python (แผนคือห่อด้วย requests)"
+    },
+    "nodejs": {
+      "name": "Node.js",
+      "platform": "ฝั่งเซิร์ฟเวอร์ · Node 16+",
+      "summary": "การส่งข้อมูลจากหลังบ้าน Node (แผนคือห่อด้วย undici / fetch)"
+    },
+    "csharp": {
+      "name": "C#",
+      "platform": "ฝั่งเซิร์ฟเวอร์ · .NET 6+",
+      "summary": "การส่งข้อมูลจากเซิร์ฟเวอร์ C# (ปัจจุบันดูการใช้งานฝั่งไคลเอนต์ในเอกสาร Unity(C#) หรือใช้โปรโตคอล HTTP โดยตรงได้)"
+    },
+    "ruby": {
+      "name": "Ruby",
+      "platform": "ฝั่งเซิร์ฟเวอร์ · Ruby 2.6+",
+      "summary": "การส่งข้อมูลจากหลังบ้าน Ruby (แผนคือห่อด้วย Net::HTTP)"
+    },
+    "c": {
+      "name": "C",
+      "platform": "ฝั่งเซิร์ฟเวอร์ · C / C++",
+      "summary": "การส่งข้อมูลจากเซิร์ฟเวอร์ C/C++ (แผนคือห่อด้วย libcurl)"
+    },
+    "lua": {
+      "name": "Lua",
+      "platform": "ฝั่งเซิร์ฟเวอร์ · Lua 5.3+ / OpenResty",
+      "summary": "การส่งข้อมูลในสถานการณ์ Lua และ OpenResty"
+    },
+    "batchImport": {
+      "name": "นำเข้าข้อมูลย้อนหลังเป็นชุด (นำเข้าไฟล์)",
+      "platform": "อื่น ๆ · นำเข้าข้อมูลย้อนหลัง",
+      "summary": "นำเข้าบันทึกหรือ CSV ย้อนหลังเป็นเหตุการณ์เป็นชุด (แผนคือให้เครื่องมือบรรทัดคำสั่ง)"
+    }
+  },
+  "guideCommon": {
+    "step1Title": "1. เงื่อนไขเบื้องต้น",
+    "step1Body": "ยืนยันว่าพารามิเตอร์การเชื่อมต่อพร้อมแล้ว (ดูหัวหน้านี้): ที่อยู่สำหรับส่งข้อมูล ชื่อโปรเจกต์ และโทเคนโปรเจกต์ โปรโตคอลตายตัวคือ POST ฟอร์ม ฟิลด์ `data` = base64(อาร์เรย์ JSON) แล้ว urlencode — ถ้า POST JSON ดิบตรง ๆ จะได้ 200 แต่ข้อมูลถูกทิ้ง",
+    "step2Title": "2. เตรียมสภาพแวดล้อมรัน",
+    "step2Body": "เตรียมสภาพแวดล้อมรันของภาษานี้ตามคำสั่งด้านล่าง ส่วนการใช้งานที่ใช้เฉพาะไลบรารีมาตรฐานข้ามการติดตั้งการพึ่งพาได้",
+    "step2Code1Label": "สภาพแวดล้อมรัน",
+    "step3Title": "3. เริ่มต้นและส่งเหตุการณ์",
+    "step3Body": "การส่งข้อมูลขั้นต่ำที่ใช้งานได้ของภาษานี้: JSON ของเหตุการณ์ → ฟอร์ม base64 + urlencode → POST เวลาของเหตุการณ์ต้องเป็นหน่วยมิลลิวินาที; หลังเข้าสู่ระบบ `distinct_id` ยังเป็น ID ไม่ระบุตัวตนเสมอ ส่วน ID ที่เข้าสู่ระบบไปที่ `identities.user_key`",
+    "step3Code1Label": "โค้ดส่งข้อมูลหลัก (วิธีที่ทดสอบจริง)",
+    "step4Title": "4. การเชื่อมโยงตอนเข้าสู่ระบบและคุณสมบัติผู้ใช้",
+    "step4Body": "เมื่อเข้าสู่ระบบสำเร็จให้ส่ง `track_signup` หนึ่งรายการ (`properties.$track_signup_original_id` = ID ไม่ระบุตัวตน) เพื่อผูกตัวตน ส่วนคุณสมบัติผู้ใช้ใช้ `user_set`; หลังจากนั้นทุกเหตุการณ์แนบ `identities.user_key` ฝั่งวิเคราะห์จะรวมเป็นผู้ใช้คนเดียวกัน",
+    "step5Title": "5. ตรวจสอบว่าข้อมูลเข้าฐานข้อมูล",
+    "step5Body": "หลังกระตุ้นเหตุการณ์ ให้คิวรี `clklog.log_analysis` ตรวจสอบ 5 แถว: track ตอนไม่ระบุตัวตน / track_signup / user_set / track หลังเข้าสู่ระบบ ×2 ไปป์ไลน์ข้อมูลมีความหน่วง 1–3 นาที; HTTP 200 บอกแค่ว่ารูปแบบผ่านการแยกวิเคราะห์ ต้องตรวจฐานข้อมูลเพื่อยืนยัน",
+    "step5Code1Label": "SQL ตรวจสอบ (ClickHouse)",
+    "faq1Q": "ทำไมส่งข้อมูลได้ HTTP 200 แต่ในฐานข้อมูลไม่มีข้อมูล",
+    "faq1A": "`data` ต้องเป็นฟิลด์ฟอร์มที่บรรจุ base64(อาร์เรย์ JSON) แล้ว urlencode การ POST JSON ดิบตรง ๆ base64 ที่มีขึ้นบรรทัดใหม่ หรือ `+` ที่ยังไม่ได้เข้ารหัสเปอร์เซ็นต์ จะได้ 200 แต่ข้อมูลถูกทิ้งอย่างเงียบ ๆ",
+    "faq2Q": "เวลาของเหตุการณ์เพี้ยน หรือผู้ใช้ถูกแยกเป็นสองคนก่อนและหลังเข้าสู่ระบบ",
+    "faq2A": "เวลาต้องเป็นหน่วยมิลลิวินาที (ระดับวินาทีจะถูกคิดเป็นปี 1970); ID ที่เข้าสู่ระบบให้วางที่ `identities.user_key` ระดับบนสุด (ไม่ใช่ login_id) ส่วน ID ไม่ระบุตัวตนที่จะผูกให้วางที่ `properties.$track_signup_original_id` (ไม่ใช่ original_id) และ `distinct_id` ต้องคงเดิมหลังเข้าสู่ระบบ"
+  }
+}

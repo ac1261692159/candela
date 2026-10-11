@@ -1,0 +1,269 @@
+{
+  "kind": {
+    "event": "Métrique d'événement",
+    "retention": "Métrique de rétention"
+  },
+  "list": {
+    "title": "Métriques",
+    "create": "Créer une métrique",
+    "kindEvent": "Événement",
+    "kindRetention": "Rétention",
+    "intro": "Les métriques d'événement se créent directement via «\u00a0Créer une métrique\u00a0» ou s'enregistrent depuis un résultat d'analyse d'événements (la définition complète configurée est reprise)\u00a0; les métriques de rétention se créent toujours depuis un résultat d'analyse de rétention. Une métrique peut porter sa propre période d'interrogation et son propre choix de valeur\u00a0; les règles d'alerte suivent par défaut la plage temporelle de la métrique (elles peuvent la remplacer dans la règle, voir Exploitation → Alertes → Créer une alerte de métrique). Cliquez sur un nom affiché pour voir la définition complète\u00a0; la modification et la suppression (avec confirmation) se font dans le panneau de détail. Le nom et le type de la métrique ne sont pas modifiables (l'identifiant reste stable, les références et les liaisons d'alerte existantes ne sont pas affectées).",
+    "column": {
+      "displayName": "Nom affiché",
+      "name": "Nom de la métrique",
+      "kind": "Type",
+      "definition": "Définition",
+      "remark": "Remarque"
+    }
+  },
+  "label": {
+    "subject": "Sujet d'analyse",
+    "event": "Événement",
+    "analysis": "Méthode de calcul",
+    "percentile": "Centile",
+    "prop": "Propriété",
+    "transform": "Transformation de valeur",
+    "decimals": "Décimales",
+    "valuePick": "Choix de valeur",
+    "timeRange": "Période d'interrogation",
+    "conditionGroup": "Groupe de conditions",
+    "filters": "Conditions de filtre",
+    "displayName": "Nom affiché",
+    "metricName": "Nom de la métrique",
+    "metricNameReadonly": "Nom de la métrique (non modifiable)",
+    "kindReadonly": "Type (non modifiable)",
+    "type": "Type",
+    "format": "Format",
+    "definition": "Définition",
+    "definitionPick": "Définition de la métrique",
+    "startEvent": "Événement de départ",
+    "retainEvent": "Événement de retour",
+    "period": "Cycle",
+    "measure": "Mesure",
+    "cohort": "Cohorte",
+    "cohortRange": "Plage de cohorte",
+    "granularity": "Granularité",
+    "remarkOptional": "Remarque (facultative)"
+  },
+  "format": {
+    "number": "Nombre",
+    "percent": "Pourcentage"
+  },
+  "measure": {
+    "rate": "Taux de rétention",
+    "count": "Nombre d'utilisateurs retenus"
+  },
+  "cohort": {
+    "all": "Tous les utilisateurs",
+    "firstDay": "Utilisateurs au premier déclenchement"
+  },
+  "granularity": {
+    "day": "Par jour",
+    "week": "Par semaine",
+    "month": "Par mois"
+  },
+  "period": {
+    "day": "{{n}} jour(s)",
+    "day_one": "{{n}} jour",
+    "day_other": "{{n}} jours",
+    "week": "{{n}} semaine(s)",
+    "week_one": "{{n}} semaine",
+    "week_other": "{{n}} semaines",
+    "month": "{{n}} mois"
+  },
+  "value": {
+    "notNeeded": "(inutile)",
+    "none": "(aucune)"
+  },
+  "filters": {
+    "count": "{{total}} condition(s)",
+    "count_one": "{{total}} condition",
+    "count_other": "{{total}} conditions"
+  },
+  "valuePick": {
+    "sum": "Cumul",
+    "avg": "Moyenne journalière",
+    "max": "Maximum",
+    "min": "Minimum",
+    "lastDay": "Dernier jour",
+    "firstDay": "Premier jour",
+    "uniqTotal": "Total dédupliqué",
+    "weighted": "Moyenne pondérée",
+    "auto": "Automatique (selon la méthode de calcul)",
+    "autoShort": "Valeur automatique",
+    "extra": "Vide = automatique (recommandé selon la méthode de calcul), cohérent avec les définitions d'alerte existantes",
+    "label": {
+      "sum": "Cumul",
+      "avg": "Moyenne journalière",
+      "max": "Maximum",
+      "min": "Minimum",
+      "weighted": "Moyenne pondérée",
+      "lastDay": "Dernier jour",
+      "firstDay": "Premier jour",
+      "uniqTotal": "Total dédupliqué"
+    },
+    "hint": {
+      "sum": "Somme des valeurs quotidiennes de la fenêtre\u00a0; les jours sans données comptent pour 0",
+      "avg": "Somme des valeurs quotidiennes ÷ nombre de jours de la fenêtre\u00a0; les jours sans données comptent pour 0",
+      "max": "Valeur maximale des jours disposant de données dans la fenêtre",
+      "min": "Valeur minimale des jours disposant de données dans la fenêtre",
+      "weighted": "Pondération par le dénominateur (seule forme correcte pour les moyennes par utilisateur)",
+      "lastDay": "Valeur du jour le plus récent disposant de données dans la fenêtre (souvent «\u00a0aujourd'hui jusqu'à présent\u00a0»)",
+      "firstDay": "Valeur du jour le plus ancien disposant de données dans la fenêtre",
+      "uniqTotal": "Évalué sur toute la période au lieu d'une somme quotidienne (seule forme correcte pour les comptages distincts)"
+    },
+    "note": {
+      "sum": "Somme des valeurs quotidiennes de la fenêtre\u00a0; les jours sans données comptent pour 0",
+      "avg": "Somme des valeurs quotidiennes ÷ nombre de jours de la fenêtre\u00a0; les jours sans données comptent pour 0",
+      "max": "Valeur maximale des jours disposant de données dans la fenêtre (aucune donnée → cycle ignoré)",
+      "min": "Valeur minimale des jours disposant de données dans la fenêtre (aucune donnée → cycle ignoré)",
+      "weighted": "Pondération par le dénominateur (seul choix correct pour les comptages et les valeurs par utilisateur), évalué sur toute la période",
+      "lastDay": "Valeur du jour le plus récent disposant de données dans la fenêtre (souvent utilisé pour «\u00a0aujourd'hui jusqu'à présent\u00a0»)",
+      "firstDay": "Valeur du jour le plus ancien disposant de données dans la fenêtre",
+      "uniqTotal": "Évalué sur toute la période au lieu d'une somme quotidienne (seul choix correct pour les comptages distincts et les utilisateurs déclenchés)"
+    },
+    "warning": {
+      "nonAdditivePickedAdditive": "Cette méthode de calcul n'est pas additive par jour. Choisissez plutôt «\u00a0Total dédupliqué\u00a0» ou «\u00a0Moyenne pondérée\u00a0», sinon le résultat sera surestimé.",
+      "additivePickedOverall": "Cette méthode de calcul est additive\u00a0: «\u00a0Cumul\u00a0» ou «\u00a0Moyenne journalière\u00a0» est plus lisible\u00a0; le total dédupliqué n'a de sens que pour les comptages distincts et les valeurs par utilisateur."
+    }
+  },
+  "window": {
+    "fixed": "Dates fixes",
+    "today": "Aujourd'hui",
+    "yesterday": "Hier",
+    "recentN": "{{n}} dernier(s) jour(s) (aujourd'hui inclus)",
+    "recentN_one": "{{n}} dernier jour (aujourd'hui inclus)",
+    "recentN_other": "{{n}} derniers jours (aujourd'hui inclus)",
+    "pastN": "Depuis {{n}} jour(s) (aujourd'hui exclu)",
+    "pastN_one": "Depuis {{n}} jour (aujourd'hui exclu)",
+    "pastN_other": "Depuis {{n}} jours (aujourd'hui exclu)",
+    "thisWeek": "Cette semaine",
+    "lastWeek": "La semaine dernière",
+    "thisMonth": "Ce mois-ci",
+    "lastMonth": "Le mois dernier",
+    "customOffsets": "Plage glissante J-{{from}} ~ J-{{to}}",
+    "fromDateToToday": "D'une date choisie à aujourd'hui",
+    "fromDateToYesterday": "D'une date choisie à hier",
+    "lastNDays": "{{n}} dernier(s) jour(s)",
+    "lastNDays_one": "{{n}} dernier jour",
+    "lastNDays_other": "{{n}} derniers jours",
+    "cohortWindow": "Cohorte {{window}}",
+    "followAlert": "Suit la fenêtre d'alerte"
+  },
+  "summary": {
+    "event": "Événement {{event}} · Calcul {{analysis}}{{prop}}{{window}}{{pick}}",
+    "propSegment": " · {{prop}}",
+    "windowSegment": " · {{window}}",
+    "pickSegment": " · {{pick}}",
+    "retention": "Rétention {{start}} → {{retain}} · {{period}} · {{measure}}",
+    "periodDays": "{{n}} jour(s)",
+    "periodDays_one": "{{n}} jour",
+    "periodDays_other": "{{n}} jours",
+    "noEvent": "(aucun événement spécifié)",
+    "measureCount": "Nombre d'utilisateurs"
+  },
+  "timeRange": {
+    "extra": "Lorsqu'une métrique porte sa propre plage temporelle, les règles d'alerte la suivent par défaut\u00a0; seules les plages relatives sont prises en charge (pour une évaluation quotidienne), 90 jours au maximum",
+    "followAlert": "Suivre plutôt la fenêtre d'alerte"
+  },
+  "conditionGroup": {
+    "extra": "Attributs d'événement / propriétés utilisateur / cohortes / étiquettes\u00a0; même sémantique que le groupe de conditions de l'analyse d'événements"
+  },
+  "prop": {
+    "groupEvent": "Attributs d'événement",
+    "groupUser": "Propriétés utilisateur",
+    "eventPlaceholder": "Sélectionner une propriété",
+    "eventDisabledPlaceholder": "Cette méthode n'a pas besoin de propriété",
+    "tooltip": "Obligatoire lorsque la méthode de calcul requiert une propriété\u00a0; le type de la propriété détermine les méthodes disponibles",
+    "eventWithType": "{{name}} ({{type}})",
+    "userWithType": "{{name}} (utilisateur · {{type}})",
+    "userOnly": "{{name}} (utilisateur)"
+  },
+  "event": {
+    "searchPlaceholder": "Rechercher ou sélectionner un événement",
+    "optionWithName": "{{key}} ({{name}})",
+    "staleOption": "{{event}} (absent de la liste des événements, valeur conservée)"
+  },
+  "transform": {
+    "tooltip": "Les opérations arithmétiques sont appliquées d'abord, puis le nombre de décimales est conservé (comme dans l'analyse d'événements)",
+    "valuePlaceholder": "Opérande (facultatif)"
+  },
+  "decimals": {
+    "placeholder": "Facultatif, 0-6"
+  },
+  "trial": {
+    "run": "Essai",
+    "hint": "Évalue une fois la définition actuelle sur des données réelles (même implémentation que l'évaluation des alertes), sans rien enregistrer",
+    "failed": "Échec de l'essai",
+    "result": "Valeur actuelle {{value}} · {{window}} ({{start}} ~ {{end}}) · {{pick}}{{auto}}",
+    "autoSuffix": " (auto)",
+    "note": "{{note}}\u00a0; durée {{ms}} ms"
+  },
+  "validation": {
+    "eventRequired": "Sélectionnez un événement",
+    "analysisRequired": "Sélectionnez une méthode de calcul",
+    "displayNameRequired": "Saisissez un nom affiché",
+    "metricNameRequired": "Saisissez un nom de métrique",
+    "metricNamePattern": "Commence par une lettre minuscule, uniquement des lettres minuscules, des chiffres et des traits de soulignement, 80 caractères au maximum",
+    "metricNamePatternShort": "Format non conforme",
+    "metricRequired": "Sélectionnez une métrique",
+    "periodRequired": "Sélectionnez un cycle",
+    "periodFilled": "Saisissez un cycle",
+    "startEventRequired": "Sélectionnez l'événement de départ",
+    "retainEventRequired": "Sélectionnez l'événement de retour"
+  },
+  "create": {
+    "title": "Créer une métrique d'événement",
+    "displayNamePlaceholder": "ex.\u00a0: montant moyen des commandes par jour sur 7 jours",
+    "metricNamePlaceholder": "ex.\u00a0: order_amount_daily_avg_7d",
+    "metricNameExtra": "Clé d'actif unique, non modifiable après la création\u00a0; les analyses et les alertes la référencent par ce nom",
+    "definitionHint": "Définition (même profondeur que l'analyse d'événements\u00a0; lancez un essai avant d'enregistrer)"
+  },
+  "modal": {
+    "title": "Créer une métrique",
+    "metricNameExtra": "Commence par une lettre minuscule, peut contenir des lettres minuscules, des chiffres et des traits de soulignement, 80 caractères au maximum",
+    "metricFallback": "Métrique",
+    "summaryEvent": "{{event}} · {{metric}}",
+    "summaryEventEmpty": "Configurez d'abord une métrique d'événement et lancez une requête",
+    "summaryRetention": "Départ {{start}} → Retour {{end}}",
+    "summaryRetentionEmpty": "Lancez d'abord une requête de rétention",
+    "summaryNote": ". La plage temporelle est celle de la requête et n'est pas enregistrée dans la métrique."
+  },
+  "apply": {
+    "trigger": "Ajouter depuis une métrique",
+    "ok": "Appliquer",
+    "placeholder": "Sélectionner une métrique enregistrée",
+    "empty": "Aucune métrique enregistrée de ce type"
+  },
+  "detail": {
+    "title": "Détail de la métrique",
+    "titleNamed": "Détail de la métrique · {{name}}",
+    "meta": "Créé par {{owner}} · créé le {{created}} · mis à jour le {{updated}}",
+    "readonlyNote": "Le nom de la métrique est la clé d'actif unique et le type détermine le modèle de définition\u00a0; les modifier casserait les références d'analyse et d'alerte existantes, ils sont donc en lecture seule.",
+    "saving": "Enregistrement",
+    "createCard": "Créer une carte de tableau de bord",
+    "cardName": "{{name}} (carte de métrique)",
+    "alertTitle": "À propos des définitions",
+    "alertBody": "Une métrique peut porter sa propre période d'interrogation et son propre choix de valeur\u00a0; si la période d'interrogation n'est pas définie, les alertes sont évaluées sur la fenêtre de la règle (comportement existant). Lorsqu'une métrique est appliquée à une analyse, la page d'analyse utilise sa propre plage temporelle. Modifier la définition d'une métrique référencée par des règles d'alerte modifie aussi la condition d'alerte (Exploitation → Alertes → Politiques).",
+    "retentionFiltersTitle": "Conditions de filtre des métriques de rétention",
+    "retentionFiltersBody": "Les conditions de filtre attachées aux événements de départ et de retour sont conservées avec les événements\u00a0; la plage de cohorte et le cycle se règlent directement ici.",
+    "cohortRangeTooltip": "Plage temporelle des cohortes matures pour la rétention\u00a0; si elle n'est pas définie, elle est déduite du cycle (≥ cycle + 1 jour, 180 jours au maximum)",
+    "deriveFromCycle": "Déduire du cycle",
+    "derivedFromCycle": "Déduit du cycle",
+    "cohortRangeDerived": "Déduit du cycle ({{days}} jours)"
+  },
+  "message": {
+    "deleted": "Supprimé",
+    "updated": "Métrique mise à jour",
+    "created": "Métrique créée",
+    "cardCreated": "Carte «\u00a0{{name}}\u00a0» créée, ajoutez-la à un tableau de bord depuis l'atelier des tableaux de bord",
+    "noEventMetric": "Aucune métrique d'événement à enregistrer",
+    "queryRetentionFirst": "Lancez d'abord une requête de rétention"
+  },
+  "confirm": {
+    "deleteTitle": "Supprimer la métrique «\u00a0{{name}}\u00a0»\u00a0?",
+    "deleteEditing": "La métrique sera supprimée et les modifications non enregistrées seront perdues. Les analyses et les alertes qui la référencent cesseront de fonctionner.",
+    "deleteContent": "Les analyses et les alertes qui la référencent cesseront de fonctionner\u00a0; la suppression est irréversible."
+  }
+}

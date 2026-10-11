@@ -1,0 +1,18 @@
+{
+  "name": "@clklog/deepseek-harness-web-profile",
+  "version": "1.0.0",
+  "private": true,
+  "license": "AGPL-3.0-only",
+  "dependencies": {
+    "@clklog/analytics-harness-tools": "1.0.0"
+  },
+  "dsh": {
+    "profile": {
+      "bundles": [
+        "@deepseek-ai/dsh-base",
+        "@deepseek-ai/dsh-web-app"
+      ],
+      "patchReload": "startup"
+    }
+  }
+}

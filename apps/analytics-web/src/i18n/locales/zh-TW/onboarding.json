@@ -1,0 +1,421 @@
+{
+  "page": {
+    "paramsTitle": "接入參數",
+    "projectName": "專案名稱",
+    "reportEndpoint": "上報地址",
+    "projectToken": "專案 token",
+    "tokenHint": "向專案管理員索取（出於安全不在頁面展示）；請透過環境變數或服務端配置注入",
+    "prereqTitle": "接入前必讀",
+    "prereqLead": "上報方式統一為 POST +",
+    "prereqTail": "，三個表單欄位如下；完整規範見倉庫《資料上報規範與流程.md》。",
+    "descColumn": "說明",
+    "pitfall": "最常見的坑：receiver 只接受 base64 + urlencode 後的資料。直接 POST 原始 JSON body 會被解析成「data 為空」，HTTP 仍返回 200 但資料無聲遺失。",
+    "curlLabel": "最小請求（curl）",
+    "curlTokenPlaceholder": "<專案 token>",
+    "curlDataPlaceholder": "<base64(JSON 陣列)>",
+    "plannedTitle": "{{name}}：暫未開發",
+    "gotIt": "知道了",
+    "plannedBody": "該 SDK 尚未適配 ClkLog 上報協定，暫不提供接入文件與範例。",
+    "plannedHint": "可以先用「其他接入方式 → HTTP / RESTful API」按協定自行接入（任何語言都適用），或聯絡平台維護同學說明需要的 SDK，我們會按需求排期適配。",
+    "copied": "{{label}}已複製"
+  },
+  "drawer": {
+    "title": "{{name}} 接入文件",
+    "titleFallback": "接入文件",
+    "faqTitle": "常見問題（{{count}}）",
+    "downloadDemo": "下載示範專案（zip）",
+    "downloadDemoHint": "包內含 {{contents}} 與執行說明（README）；不含任何憑證。"
+  },
+  "code": {
+    "copied": "程式碼已複製",
+    "copyFailed": "複製失敗，請手動選擇"
+  },
+  "group": {
+    "client": "客戶端 SDK",
+    "server": "服務端 SDK",
+    "other": "其他接入方式"
+  },
+  "groupHint": {
+    "client": "App / 網頁 / 小程式 / 遊戲引擎裡的埋點採集",
+    "server": "後端服務裡上報業務事件（訂單、支付、註冊等）",
+    "other": "不依賴特定語言：直接用 HTTP 協定接入，或批次回填歷史資料"
+  },
+  "status": {
+    "ready": "已實測",
+    "planned": "暫未開發",
+    "partial": "語言級已實測"
+  },
+  "protocol": {
+    "project": "專案名（= 下方「專案名稱」，不是專案顯示名）",
+    "token": "專案權杖，向專案管理員索取；不要寫進前端程式碼或倉庫",
+    "data": "事件陣列：JSON 陣列 → Base64 → URL 編碼（單條事件也必須包成陣列）"
+  },
+  "encodingSample": "原始事件陣列（單條也要陣列）\n[{\"type\":\"track\",\"event\":\"PageView\",\"distinct_id\":\"u_1001\",\"time\":1785228036000,\"properties\":{\"channel\":\"app_store\"}}]\n   ↓ JSON.stringify + Base64\nW3sidHlwZSI6InRyYWNrIiwiZXZlbnQiOiJQYWdlVmlldyIsImRpc3RpbmN0X2lkIjoidV8xMDAxIiwidGltZSI6MTc4NTIyODAzNjAwMCwicHJvcGVydGllcyI6eyJjaGFubmVsIjoiYXBwX3N0b3JlIn19XQ==\n   ↓ URL 編碼後放進表單欄位 data\ndata=W3sidHlwZSI6InRyYWNrIiwiZXZlbnQiOiJQYWdlVmlldyIsImRpc3RpbmN0X2lkIjoidV8xMDAxIiwidGltZSI6MTc4NTIyODAzNjAwMCwicHJvcGVydGllcyI6eyJjaGFubmVsIjoiYXBwX3N0b3JlIn19XQ%3D%3D",
+  "guide": {
+    "http": {
+      "name": "HTTP / RESTful API",
+      "platform": "通用協定 · 任何語言可用",
+      "summary": "所有 SDK 最終都走這條協定；沒有對應 SDK 的語言可直接按此接入",
+      "step1Title": "1. 請求方式與地址",
+      "step1Body": "POST 到上報地址，Content-Type 使用 application/x-www-form-urlencoded，三個表單欄位即協定三要素。GET 也支援，但事件內容會進 URL，不推薦。",
+      "step1Code1Label": "最小請求（curl）",
+      "step1Code1": "curl -X POST '<上報地址>' \\\n  -H 'Content-Type: application/x-www-form-urlencoded' \\\n  --data-urlencode 'project=<專案名稱>' \\\n  --data-urlencode 'token=<專案 token>' \\\n  --data-urlencode 'data=<base64(JSON 陣列)>'",
+      "step1Note1": "HTTP 200 只表示格式解析通過，業務校驗與入庫是非同步的；判斷成功不要依賴回應內容。",
+      "step1Note2": "地址必須帶 /receiver 字首（閘道器按此字首轉發到 receiver）。",
+      "step2Title": "2. 事件報文結構",
+      "step2Body": "data 裡的每個元素是一條事件物件。欄位含義：type（track 行為事件 / user_set 使用者屬性 / track_signup 登入關聯）、event（事件名，track 必填）、distinct_id（訪客 ID，全程穩定）、time（毫秒時間戳）、identities（身分擴充）、properties（自訂屬性，$ 字首為預設屬性）。",
+      "step2Code1Label": "一條行為事件",
+      "step3Title": "3. 編碼要求（最常見的坑）",
+      "step3Body": "把事件陣列序列化成 JSON 字串後做 Base64，再整體 URL 編碼放進 data 欄位。直接 POST 原始 JSON body 會被解析成「data 為空」：HTTP 仍然返回 200，但資料無聲遺失。",
+      "step3Code1Label": "編碼鏈路",
+      "step3Note1": "單條事件也必須包成陣列（[{...}]）。",
+      "step3Note2": "Base64 結果裡的 + / = 必須經過 URL 編碼，否則會被表單解析破壞。",
+      "step4Title": "4. 使用者身分與登入關聯",
+      "step4Body": "匿名階段用裝置或訪客識別碼作為 distinct_id；使用者登入後上報一條 track_signup，把登入 ID 寫進 identities.user_key、把原匿名 ID 寫進 properties.$track_signup_original_id，之後所有事件都自動攜帶 identities.user_key，平台即可把同一人的前後行為合併。",
+      "step4Code1Label": "登入關聯事件",
+      "step5Title": "5. 批次與重試",
+      "step5Body": "把多條事件放進同一個陣列一次傳送（建議每批 10~50 條），批次內單條異常不影響其他條。失敗重試 3 次、退避 500ms×次數即可；持續失敗時把資料落本地佇列稍後重發，避免丟事件。",
+      "step6Title": "6. 驗證上報結果",
+      "step6Body": "上報後到「資料管理 → Debug」按事件名查詢最近上報（可看到屬性明細與接收時間）；也可在事件分析裡選該事件看是否有資料。常見延遲在秒級，Flink 聚合指標會有分鐘級滯後。",
+      "faq1Q": "介面返回 200，但平台上查不到資料？",
+      "faq1A": "先確認 data 是「Base64 + URL 編碼」後的內容（直接發 JSON 會 200 但 data 為空），再確認 project 與 token 匹配、事件名沒有空格或大小寫錯誤。",
+      "faq2Q": "time 用秒還是毫秒？",
+      "faq2A": "毫秒（13 位）。傳秒（10 位）會被解析到 1970 年；不傳時會以服務端接收時間為準。",
+      "faq3Q": "單條事件可以直接發 JSON 物件嗎？",
+      "faq3A": "不可以，data 解碼後必須是陣列，單條事件寫成 [{...}]。",
+      "faq4Q": "token 放前端安全嗎？",
+      "faq4A": "不建議。上報權杖可寫入資料，客戶端請走服務端轉發，或使用僅允許上報的受限權杖。"
+    },
+    "php": {
+      "name": "PHP",
+      "platform": "服務端 · PHP 7.4+（需 curl 擴充套件）",
+      "summary": "在業務程式碼裡上報訂單、支付、註冊等事件",
+      "step1Title": "1. 前置條件",
+      "step1Body": "PHP 7.4 及以上，啟用 curl 擴充套件（php -m | grep curl）。無第三方依賴。",
+      "step1Code1Label": "檢查環境",
+      "step2Title": "2. 初始化客戶端",
+      "step2Body": "三個參數：上報地址、專案名、專案 token。token 從環境變數讀取，不要寫進程式碼。",
+      "step2Code1Label": "構造與配置",
+      "step2Code1": "final class ClkLogClient\n{\n    private array $queue = [];\n    private ?string $loginId = null; // 登入後自動攜帶到 identities.user_key\n\n    public function __construct(\n        private readonly string $endpoint,\n        private readonly string $project,\n        private readonly string $token,\n        private readonly int $batchSize = 10,\n    ) {}\n\n    public static function fromEnv(): self\n    {\n        return new self(\n            getenv('CLKLOG_ENDPOINT') ?: '<上報地址>',\n            getenv('CLKLOG_PROJECT') ?: '<專案名稱>',\n            getenv('CLKLOG_TOKEN') ?: throw new RuntimeException('缺少 CLKLOG_TOKEN'),\n            10,\n        );\n    }\n}",
+      "step3Title": "3. 上報行為事件",
+      "step3Body": "track() 把事件放入佇列，達到批次條數自動傳送；time 用毫秒時間戳。",
+      "step3Code1Label": "track 與入隊",
+      "step3Code1": "public function track(string $distinctId, string $event, array $properties = []): void\n{\n    $this->enqueue($this->withIdentity([\n        'type'        => 'track',\n        'event'       => $event,\n        'distinct_id' => $distinctId,\n        'time'        => (int) (microtime(true) * 1000), // 毫秒\n        'properties'  => (object) $properties,\n    ]));\n}\n\n$cli = ClkLogClient::fromEnv();\n$cli->track('u_1001', 'Purchase', ['order_id' => 'O20260915001', 'amount' => 99.5]);",
+      "step4Title": "4. 使用者屬性與登入關聯",
+      "step4Body": "profileSet() 寫使用者屬性（覆蓋寫）；login() 上報 track_signup 完成匿名 ID 與登入 ID 的合併，之後所有事件自動帶 identities.user_key。",
+      "step4Code1Label": "profileSet / login",
+      "step4Code1": "public function profileSet(string $distinctId, array $properties): void\n{\n    $this->enqueue($this->withIdentity([\n        'type'        => 'user_set',\n        'distinct_id' => $distinctId,\n        'time'        => (int) (microtime(true) * 1000),\n        'properties'  => (object) $properties,\n    ]));\n}\n\npublic function login(string $loginId, string $anonymousId): void\n{\n    $this->loginId = $loginId;\n    $this->enqueue([\n        'type'        => 'track_signup',\n        'event'       => '$SignUp',\n        'distinct_id' => $loginId,\n        'identities'  => ['user_key' => $loginId],\n        'properties'  => ['$track_signup_original_id' => $anonymousId],\n        'time'        => (int) (microtime(true) * 1000),\n    ]);\n}\n\n$cli->profileSet('u_1001', ['vip_level' => 3, 'register_channel' => 'app_store']);\n$cli->login('user_9527', 'u_1001');",
+      "step5Title": "5. 批次傳送與失敗重試",
+      "step5Body": "flush() 把佇列序列化成 JSON、Base64、URL 編碼後表單送出；失敗重試 3 次並退避。行程退出前再 flush 一次做為保險。",
+      "step5Code1Label": "flush",
+      "step5Code1": "public function flush(): void\n{\n    if ($this->queue === []) {\n        return;\n    }\n    $payload = base64_encode(json_encode($this->queue, JSON_UNESCAPED_UNICODE));\n\n    for ($attempt = 1; $attempt <= 3; $attempt++) {\n        $ch = curl_init($this->endpoint);\n        curl_setopt_array($ch, [\n            CURLOPT_POST           => true,\n            CURLOPT_POSTFIELDS     => http_build_query([\n                'project' => $this->project,\n                'token'   => $this->token,\n                'data'    => $payload,\n            ]),\n            CURLOPT_HTTPHEADER     => ['Content-Type: application/x-www-form-urlencoded'],\n            CURLOPT_RETURNTRANSFER => true,\n            CURLOPT_TIMEOUT        => 10,\n        ]);\n        $body = curl_exec($ch);\n        $code = curl_getinfo($ch, CURLINFO_RESPONSE_CODE);\n        if ($code === 200) {\n            $this->queue = [];\n            return;\n        }\n        usleep($attempt * 500_000); // 退避\n    }\n    throw new RuntimeException('upstream flush failed after 3 attempts');\n}",
+      "step5Note1": "http_build_query 已完成 URL 編碼，不要再手工 urlencode 一次。",
+      "step5Note2": "常駐行程（佇列消費者、排程任務）建議在每輪結束顯式 flush，避免事件長時間滯留記憶體。",
+      "step6Title": "6. 驗證",
+      "step6Body": "執行一次上報後，到「資料管理 → Debug」按事件名查詢，應能看到剛才的事件與屬性；預期延遲數秒內。",
+      "faq1Q": "返回 200 但沒有資料？",
+      "faq1A": "檢查 data 是否為 Base64 後再被 http_build_query 編碼的結果；確認 token 與 project 屬於同一專案。",
+      "faq2Q": "time 用什麼單位？",
+      "faq2A": "毫秒。PHP 裡用 (int)(microtime(true) * 1000)。",
+      "faq3Q": "事件裡的中文變亂碼？",
+      "faq3A": "json_encode 時加 JSON_UNESCAPED_UNICODE，並確保字串是 UTF-8。",
+      "faq4Q": "能在 Web 請求裡同步上報嗎？",
+      "faq4A": "可以，但建議入本地佇列（Redis / 資料庫表）由背景任務批次傳送，避免拖慢介面回應。"
+    },
+    "go": {
+      "name": "Go",
+      "platform": "服務端 · Go 1.18+（僅標準庫）",
+      "summary": "高並行後端服務裡上報業務事件，無第三方依賴",
+      "step1Title": "1. 前置條件",
+      "step1Body": "Go 1.18 及以上，只用標準庫（net/http、encoding/json、encoding/base64、net/url），不需要引入任何 SDK 模組。",
+      "step1Code1Label": "初始化模組",
+      "step2Title": "2. 定義事件與客戶端",
+      "step2Body": "Event 結構體對應協定欄位；Identities 承載 user_key 身分擴充。",
+      "step2Code1Label": "結構體與構造",
+      "step2Code1": "type Event struct {\n    Type       string         `json:\"type\"`                 // track / track_signup / user_set\n    Event      string         `json:\"event,omitempty\"`      // 事件名（track 必填）\n    DistinctID string         `json:\"distinct_id\"`          // 訪客 ID\n    Time       int64          `json:\"time\"`                 // 毫秒時間戳\n    Identities map[string]any `json:\"identities,omitempty\"` // {\"user_key\": 登入 ID}\n    Properties map[string]any `json:\"properties,omitempty\"`\n}\n\ntype ClkLogClient struct {\n    Endpoint, Project, Token string\n    BatchSize                int\n    loginID                  string\n    queue                    []Event\n    http                     *http.Client\n}\n\nfunc NewClkLogClient(endpoint, project, token string) *ClkLogClient {\n    return &ClkLogClient{\n        Endpoint: endpoint, Project: project, Token: token, BatchSize: 10,\n        http: &http.Client{Timeout: 10 * time.Second},\n    }\n}",
+      "step3Title": "3. 上報行為事件",
+      "step3Body": "Track 入隊，達到批次條數自動 Flush；登入後自動攜帶 identities.user_key。",
+      "step3Code1Label": "Track",
+      "step3Code1": "func (c *ClkLogClient) Track(distinctID, event string, props map[string]any) error {\n    e := Event{\n        Type: \"track\", Event: event, DistinctID: distinctID,\n        Time: time.Now().UnixMilli(), Properties: props,\n    }\n    if c.loginID != \"\" {\n        e.Identities = map[string]any{\"user_key\": c.loginID}\n    }\n    c.queue = append(c.queue, e)\n    if len(c.queue) >= c.BatchSize {\n        return c.Flush()\n    }\n    return nil\n}\n\n// 呼叫\ncli.Track(\"u_1001\", \"Purchase\", map[string]any{\"order_id\": \"O20260915001\", \"amount\": 99.5})",
+      "step4Title": "4. 登入關聯與使用者屬性",
+      "step4Body": "Login 上報 track_signup 完成身分合併；ProfileSet 覆蓋式寫使用者屬性。",
+      "step4Code1Label": "Login / ProfileSet",
+      "step4Code1": "func (c *ClkLogClient) Login(loginID, anonymousID string) error {\n    c.loginID = loginID\n    c.queue = append(c.queue, Event{\n        Type: \"track_signup\", Event: \"$SignUp\", DistinctID: loginID,\n        Identities: map[string]any{\"user_key\": loginID},\n        Properties: map[string]any{\"$track_signup_original_id\": anonymousID},\n        Time:       time.Now().UnixMilli(),\n    })\n    if len(c.queue) >= c.BatchSize {\n        return c.Flush()\n    }\n    return nil\n}\n\nfunc (c *ClkLogClient) ProfileSet(distinctID string, props map[string]any) error {\n    e := Event{Type: \"user_set\", DistinctID: distinctID, Time: time.Now().UnixMilli(), Properties: props}\n    if c.loginID != \"\" {\n        e.Identities = map[string]any{\"user_key\": c.loginID}\n    }\n    c.queue = append(c.queue, e)\n    return nil\n}",
+      "step5Title": "5. 批次傳送與失敗重試",
+      "step5Body": "Flush 把佇列 JSON 序列化 → Base64 → 表單編碼後傳送；失敗重試 3 次，每次退避 500ms×次數。",
+      "step5Code1Label": "Flush",
+      "step5Code1": "func (c *ClkLogClient) Flush() error {\n    if len(c.queue) == 0 {\n        return nil\n    }\n    payload, err := json.Marshal(c.queue)\n    if err != nil {\n        return fmt.Errorf(\"marshal: %w\", err)\n    }\n    form := url.Values{}\n    form.Set(\"project\", c.Project)\n    form.Set(\"token\", c.Token)\n    form.Set(\"data\", base64.StdEncoding.EncodeToString(payload))\n\n    var lastErr error\n    for attempt := 1; attempt <= 3; attempt++ {\n        req, _ := http.NewRequest(http.MethodPost, c.Endpoint, bytes.NewBufferString(form.Encode()))\n        req.Header.Set(\"Content-Type\", \"application/x-www-form-urlencoded\")\n        resp, err := c.http.Do(req)\n        if err == nil && resp.StatusCode == http.StatusOK {\n            io.Copy(io.Discard, resp.Body)\n            resp.Body.Close()\n            c.queue = c.queue[:0]\n            return nil\n        }\n        if err == nil {\n            body, _ := io.ReadAll(resp.Body)\n            resp.Body.Close()\n            lastErr = fmt.Errorf(\"http %d: %s\", resp.StatusCode, string(body))\n        } else {\n            lastErr = err\n        }\n        time.Sleep(time.Duration(attempt) * 500 * time.Millisecond) // 退避\n    }\n    return fmt.Errorf(\"flush failed after 3 attempts: %w\", lastErr)\n}",
+      "step5Note1": "並行上報時給 queue 加 sync.Mutex，或每協程一個客戶端例項。",
+      "step5Note2": "服務優雅退出（signal → shutdown）時呼叫一次 Flush，避免丟最後一批事件。",
+      "step6Title": "6. 驗證",
+      "step6Body": "執行一次上報後，到「資料管理 → Debug」按事件名查詢；也可用平台的事件分析看該事件量是否增長。",
+      "faq1Q": "返回 200 但沒有資料？",
+      "faq1A": "確認 form 裡的 data 是 Base64 字串（Go 的 url.Values 會再編碼一次，這是正確的）；確認 project/token 匹配。",
+      "faq2Q": "time 用什麼單位？",
+      "faq2A": "毫秒，Go 裡用 time.Now().UnixMilli()。",
+      "faq3Q": "批次裡有一條事件欄位非法會影響其他條嗎？",
+      "faq3A": "不會，批次按條處理，非法條被跳過。",
+      "faq4Q": "需要處理回應嗎？",
+      "faq4A": "不需要解析業務結果，HTTP 200 即視為接收成功；非 200 才重試。"
+    },
+    "unity": {
+      "name": "Unity (C#)",
+      "platform": "客戶端 · Unity 2021+ / .NET Standard 2.1（同一份程式碼也可用於 .NET 主控台）",
+      "summary": "遊戲與 C# 客戶端埋點：登入關聯、使用者屬性、批次上報",
+      "step1Title": "1. 前置條件",
+      "step1Body": "Unity 2021 及以上（.NET Standard 2.1，含 HttpClient）。JSON 序列化：Unity 6 內建 System.Text.Json；更早版本可用 Newtonsoft.Json，或透過 NuGetForUnity 安裝 System.Text.Json。",
+      "step1Code1Label": "依賴說明（按 Unity 版本二選一）",
+      "step1Code1": "// Unity 6 內建：直接 using System.Text.Json;\n// 舊版本：Package Manager 安裝 com.unity.nuget.newtonsoft-json，改用 JsonConvert.SerializeObject",
+      "step2Title": "2. 初始化客戶端",
+      "step2Body": "三個參數：上報地址、專案名、專案 token。客戶端 token 建議由自家服務端下發（或走服務端轉發上報），不要硬編碼進包體。",
+      "step2Code1Label": "構造",
+      "step2Code1": "public sealed class ClkLogClient\n{\n    private readonly HttpClient _http;\n    private readonly string _endpoint, _project, _token;\n    private readonly int _batchSize;\n    private readonly List<Dictionary<string, object?>> _queue = new();\n    private string? _loginId;\n\n    public ClkLogClient(string endpoint, string project, string token, int batchSize = 10)\n    {\n        _endpoint = endpoint;\n        _project = project;\n        _token = token;\n        _batchSize = batchSize > 0 ? batchSize : 10;\n        _http = new HttpClient { Timeout = TimeSpan.FromSeconds(10) };\n    }\n}",
+      "step3Title": "3. 上報行為事件",
+      "step3Body": "Track 入隊，達到批次條數自動傳送；time 用毫秒時間戳。登入後事件自動攜帶 identities.user_key。",
+      "step3Code1Label": "Track",
+      "step3Code1": "public void Track(string distinctId, string eventName, Dictionary<string, object?>? properties = null)\n{\n    var e = new Dictionary<string, object?>\n    {\n        [\"type\"] = \"track\",\n        [\"event\"] = eventName,\n        [\"distinct_id\"] = distinctId,\n        [\"time\"] = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds(), // 毫秒\n        [\"properties\"] = properties ?? new Dictionary<string, object?>(),\n    };\n    Enqueue(WithIdentity(e));\n}\n\n// 呼叫\nclient.Track(\"u_1001\", \"Purchase\", new() { [\"order_id\"] = \"O20260915001\", [\"amount\"] = 99.5 });",
+      "step4Title": "4. 登入關聯與使用者屬性",
+      "step4Body": "Login 上報 track_signup，把登入 ID 與匿名 ID 關聯；之後所有事件都帶 user_key。ProfileSet 覆蓋式寫使用者屬性。",
+      "step4Code1Label": "Login / ProfileSet",
+      "step4Code1": "public void Login(string loginId, string anonymousId)\n{\n    _loginId = loginId;\n    Enqueue(new Dictionary<string, object?>\n    {\n        [\"type\"] = \"track_signup\",\n        [\"event\"] = \"$SignUp\",\n        [\"distinct_id\"] = loginId,\n        [\"identities\"] = new Dictionary<string, object?> { [\"user_key\"] = loginId },\n        [\"properties\"] = new Dictionary<string, object?> { [\"$track_signup_original_id\"] = anonymousId },\n        [\"time\"] = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds(),\n    });\n}\n\nprivate Dictionary<string, object?> WithIdentity(Dictionary<string, object?> e)\n{\n    if (_loginId is not null)\n    {\n        e[\"identities\"] = new Dictionary<string, object?> { [\"user_key\"] = _loginId };\n    }\n    return e;\n}\n\npublic void ProfileSet(string distinctId, Dictionary<string, object?> properties)\n{\n    Enqueue(WithIdentity(new Dictionary<string, object?>\n    {\n        [\"type\"] = \"user_set\",\n        [\"distinct_id\"] = distinctId,\n        [\"time\"] = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds(),\n        [\"properties\"] = properties,\n    }));\n}",
+      "step5Title": "5. 批次傳送與重試",
+      "step5Body": "FlushAsync 把佇列序列化 → Base64 → 表單編碼後 POST；失敗重試 3 次並退避。遊戲裡在切場景、結算、退出前呼叫一次。",
+      "step5Code1Label": "FlushAsync",
+      "step5Code1": "public async Task FlushAsync()\n{\n    if (_queue.Count == 0) return;\n    var json = JsonSerializer.Serialize(_queue);\n    var payload = Convert.ToBase64String(Encoding.UTF8.GetBytes(json));\n\n    for (var attempt = 1; attempt <= 3; attempt++)\n    {\n        try\n        {\n            using var content = new FormUrlEncodedContent(new Dictionary<string, string>\n            {\n                [\"project\"] = _project,\n                [\"token\"] = _token,\n                [\"data\"] = payload,\n            });\n            var res = await _http.PostAsync(_endpoint, content);\n            if (res.IsSuccessStatusCode)\n            {\n                _queue.Clear();\n                return;\n            }\n        }\n        catch (Exception) when (attempt < 3)\n        {\n            // 網路異常按退避重試\n        }\n        await Task.Delay(attempt * 500);\n    }\n    // 三次都失敗：保留佇列，等下次觸發（可另存本地檔案做持久化）\n}",
+      "step5Note1": "Unity 主執行緒不要同步等待網路：用 async/await 或在協程裡啟動 Task，避免卡幀。",
+      "step5Note2": "需要弱網可靠性時，把佇列寫進 Application.persistentDataPath 的檔案，下次啟動補發。",
+      "step6Title": "6. 驗證",
+      "step6Body": "在編輯器或真機跑一次上報，到「資料管理 → Debug」按事件名查詢最近上報（含屬性與接收時間）；確認登入後的同一 player 事件帶上了 user_key。",
+      "faq1Q": "返回 200 但平台上沒有資料？",
+      "faq1A": "最常見原因是沒做 Base64（直接發了 JSON）或 token/project 不匹配；先確認 data 欄位內容再排查網路。",
+      "faq2Q": "time 用什麼單位？",
+      "faq2A": "毫秒，C# 用 DateTimeOffset.UtcNow.ToUnixTimeMilliseconds()。",
+      "faq3Q": "Unity 報缺少 System.Text.Json？",
+      "faq3A": "Unity 6 內建；更早版本裝 com.unity.nuget.newtonsoft-json 並把序列化換成 JsonConvert.SerializeObject。",
+      "faq4Q": "客戶端直接放 token 安全嗎？",
+      "faq4A": "不建議。建議自家服務端代理上報，或用僅允許上報的受限權杖，並定期輪換。"
+    },
+    "javascript": {
+      "platform": "客戶端 · 瀏覽器 H5（現代瀏覽器，零依賴）",
+      "summary": "網頁埋點：頁面瀏覽與點選採集 + 卸載前補發佇列；已在真實瀏覽器裡實測 5 步事件鏈入庫。",
+      "note1": "踩坑：頁面卸載補發必須用 `navigator.sendBeacon` 或 `fetch(..., {keepalive:true})`，且要傳 `URLSearchParams` —— 傳字串會被當成 text/plain，receiver 解析不到 `data`。",
+      "faq1Q": "頁面關閉時的事件為什麼會丟？",
+      "faq1A": "卸載前用 `navigator.sendBeacon(new URLSearchParams(form))` 補發；直接把字串交給 sendBeacon 會以 text/plain 發出，HTTP 200 但不入庫。"
+    },
+    "miniprogram": {
+      "platform": "客戶端 · 微信小程式（基礎庫 2.x，零依賴）",
+      "summary": "小程式內埋點：`wx.request` 上報 + 本地快取佇列 + `wx.onAppHide` 補發；語言級實現已實測（真機需在開發者工具中引入）。",
+      "note1": "踩坑：`wx.getStorageSync` 取不到 key 時返回空字串而不是 null，storage 適配層要正規化，否則匿名 ID 會變成空字串、使用者合併不上。",
+      "faq1Q": "小程式裡 request 的 data 要傳物件還是字串？",
+      "faq1A": "統一傳預編碼好的 urlencoded 字串，並顯式設定 `header[\"content-type\"]`：不同基礎庫對物件的序列化行為不一致，傳字串最穩。"
+    },
+    "reactNative": {
+      "platform": "客戶端 · React Native（JS/TS，Hermes）",
+      "summary": "RN 應用埋點：全域 `fetch` 上報 + 注入式 storage（AsyncStorage）+ 切後台補發；傳輸與佇列核心已實測。",
+      "note1": "踩坑：Hermes 沒有 `btoa` / `Buffer` / `TextEncoder`，`URLSearchParams.toString()` 在 RN 上也不可用 —— base64 與 urlencode 要用自帶的純 JS 實現。",
+      "faq1Q": "RN 裡 base64 和 urlencode 怎麼寫？",
+      "faq1A": "不要依賴 `btoa` 或 `Buffer`（Hermes 都沒有）：自行實現 base64，並用 `encodeURIComponent` 逐段百分號編碼，確保 `+` `/` `=` 都被編碼。"
+    },
+    "android": {
+      "platform": "客戶端 · Android 原生（Java / Kotlin，HTTP 傳輸）",
+      "summary": "Android 埋點客戶端核心：裝置 ID 持久化、工作階段、批次、退避重試、退後台補發；已在 JVM（Java 8）實測 5 步事件鏈，APK 未打包驗證。",
+      "note1": "踩坑：`Base64.getMimeEncoder()` 會按 76 字元折行，必須用 `getEncoder()`；`java.util.Base64` 需要 API 26+，更低版本改用 `android.util.Base64`。",
+      "faq1Q": "Android 上生產環境用什麼傳輸？",
+      "faq1A": "把表單提交換成 OkHttp 即可（`RequestBody.create(form, MediaType.parse(\"application/x-www-form-urlencoded\"))`），編碼與身分欄位邏輯完全不變；Kotlin 呼叫形狀相同。"
+    },
+    "ios": {
+      "platform": "客戶端 · iOS 原生（Swift / Objective-C，URLSession）",
+      "summary": "iOS 埋點客戶端核心：匿名 ID 存 UserDefaults、批次、退避重試、進後台補發；用與 iOS 同一套 Foundation URLSession 實測 5 步事件鏈，App 打包未驗證。",
+      "note1": "踩坑：`addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)` 不會編碼 `+` `&` `=`，base64 裡的 `+` 會被服務端解成空格導致資料損壞 —— 必須自己按 RFC3986 編碼 UTF-8 位元組。",
+      "faq1Q": "iOS 上怎麼接進 App？",
+      "faq1A": "把客戶端類別加入專案，在 `applicationDidEnterBackground` 裡呼叫 flush 補發；注意 `URLSessionConfiguration` 在建立 session 時會被複製，改逾時要重建 session。"
+    },
+    "cocos2dX": {
+      "platform": "客戶端 · C++（Cocos2d-x；引擎側未打包驗證）",
+      "summary": "引擎內的 C++ 上報核心（JSON / 單行 base64 / 表單 POST / 佇列）已實測；接入時只需把傳輸層換成引擎自帶的 HttpRequest。",
+      "note1": "踩坑：把 libcurl 換成 `cocos2d::network::HttpRequest`（非同步 + 回呼）即可，但 base64 與 urlencode 仍須自己保證單行與全字元編碼。",
+      "faq1Q": "為什麼引擎裡不直接用 libcurl？",
+      "faq1A": "能用但不推薦：引擎自帶 HttpRequest 會複用平台網路堆疊並處理主執行緒回呼；協定、編碼、批次與身分欄位與本頁片段完全一致。"
+    },
+    "java": {
+      "platform": "服務端 · Java（JDK 8+，僅標準庫）",
+      "summary": "業務服務裡上報訂單、支付、註冊等事件；JDK 8 用 HttpURLConnection，JDK 11+ 可換成 java.net.http。",
+      "note1": "踩坑：`Base64.getMimeEncoder()` 會折行，必須用 `getEncoder()`；base64 放進表單還要再 urlencode，否則 `+` 會被解成空格。",
+      "faq1Q": "JDK 11+ 能換成 HttpClient 嗎？",
+      "faq1A": "可以：把提交換成 `HttpClient.newHttpClient().send(...)`，body 用 `BodyPublishers.ofString(form)` 並顯式設定 Content-Type，編碼與身分邏輯不變。"
+    },
+    "python": {
+      "platform": "服務端 · Python 3.7+（僅標準庫）",
+      "summary": "後端服務或指令碼上報業務事件；`urllib` + `json` + `base64` 即可，無第三方依賴。",
+      "note1": "踩坑：`data` 必須 `urlencode` 後再作為 body 傳送（不能直接把 dict 交給 urlopen）；重試時要重建 Request 物件。",
+      "faq1Q": "屬性值裡的中文會亂碼嗎？",
+      "faq1A": "用 `json.dumps(..., ensure_ascii=False).encode(\"utf-8\")` 再 base64，中文原樣透傳，不要再做額外轉碼。"
+    },
+    "nodejs": {
+      "platform": "服務端 · Node.js 18+（內建 fetch，零依賴）",
+      "summary": "Node 後端上報業務事件；用內建 `fetch` + `URLSearchParams`，不需要 axios / undici 等依賴。",
+      "note1": "踩坑：fetch 的 body 要給 `URLSearchParams` 實例（會自動帶 urlencoded 的 Content-Type），傳普通物件會被序列化成 JSON。",
+      "faq1Q": "逾時怎麼控制？",
+      "faq1A": "`fetch(url, { signal: AbortSignal.timeout(10000) })`；失敗按 0.5s / 1s / 2s 退避重試，只有 HTTP 200 才清本地佇列。"
+    },
+    "csharp": {
+      "platform": "服務端 · .NET 6+ / 8+（HttpClient）",
+      "summary": "C# 後端上報業務事件；`HttpClient` + `FormUrlEncodedContent`，與 Unity 客戶端共用同一套協定口徑。",
+      "note1": "踩坑：同一倉庫裡既有 Unity 客戶端又有服務端範例時，SDK 風格工程的預設萬用字元會把子目錄原始碼編進兩個工程（CS8802 / CS0579），要用 `Directory.Build.targets` 排除（`.props` 會被預設 Include 覆蓋）。",
+      "faq1Q": "字串裡的 `$` 怎麼處理？",
+      "faq1A": "C# 的 `$\"...\"` 是插值字串：拼 JSON 時把 `$SignUp`、`$track_signup_original_id` 這類欄位名放在普通字串裡，或顯式轉義 `\\$`，否則會被當變數解析。"
+    },
+    "ruby": {
+      "platform": "服務端 · Ruby 2.6+（僅標準庫）",
+      "summary": "Ruby 服務端上報業務事件；`net/http` + `json` + `base64`，無 gem 依賴。",
+      "note1": "踩坑：`Base64.encode64` 每 60 字元插入換行（必須用 `strict_encode64`）；雙引號字串裡的 `$SignUp` 會被當成全域變數插值成空字串，要用單引號。",
+      "faq1Q": "為什麼事件名送過去變成空的？",
+      "faq1A": "Ruby 雙引號會插值 `$` 開頭的全域變數，`\"$SignUp\"` 會得到空字串。事件名與 `$track_signup_original_id` 請用單引號或轉義 `\\$`。"
+    },
+    "c": {
+      "platform": "服務端 · C11（libcurl）",
+      "summary": "C / C++ 服務端上報業務事件：手工拼 JSON + 自行實現單行 base64 + libcurl 表單 POST。",
+      "note1": "踩坑：libcurl 必須設定寫入回呼（只設 `CURLOPT_WRITEDATA` 會被當成 FILE*）；base64 自行實現並保證單行，`+` `/` `=` 全部百分號編碼。",
+      "faq1Q": "編譯時找不到 curl.h？",
+      "faq1A": "macOS 的 curl 標頭檔在 SDK 裡：`-I$(xcrun --show-sdk-path)/usr/include -L…/usr/lib -lcurl`；Linux 裝 `libcurl4-openssl-dev` 即可。"
+    },
+    "lua": {
+      "platform": "服務端 · Lua 5.4+ / 5.5（luasocket + luasec）",
+      "summary": "Lua 指令碼與 OpenResty 場景上報業務事件；OpenResty 只需把傳輸層換成 resty.http，協定邏輯不變。",
+      "note1": "踩坑：luasec 預設不驗證憑證，要顯式 `verify=\"peer\"` 並給 `cafile`；它只認帶底線的協定名（`tlsv1_2`），寫成 `tlsv12` 會直接報 invalid protocol。",
+      "faq1Q": "Lua 沒有 os.setenv，設定怎麼給？",
+      "faq1A": "把設定讀進記憶體表再取值，或由外層匯出環境變數；OpenResty 裡用 `ngx.var` 或 `lua_shared_dict` 傳設定。"
+    },
+    "flutter": {
+      "platform": "客戶端 · Flutter 3.x / Dart 3.8+（依賴 http 套件）",
+      "summary": "Flutter 應用埋點：Web 端已建置並在真實瀏覽器裡點完三步驗證入庫；iOS / Android 未打包（本機無對應 SDK）。",
+      "note1": "踩坑：Dart 的兩個內建編碼函式都不能直接用 —— `Uri.encodeFull` 把 `+` `/` `=` 當保留字元原樣保留，`Uri.encodeQueryComponent` 又把空格編成 `+`（與 base64 的 `+` 撞車）；必須自己按 RFC3986 編碼，並在提交前斷言 `data` 段無裸 `+` / `=`。",
+      "faq1Q": "Flutter Web 的產物怎麼確認是新的？",
+      "faq1A": "dart2js 會把非 ASCII 字面量轉義成 `\\uXXXX`，直接 grep 中文永遠 0 命中（容易誤判成舊產物）；要搜轉義形式，或比對 `main.dart.js` 的大小與建置時間。"
+    },
+    "batchImport": {
+      "platform": "其他 · 命令列工具（Python 3，僅標準庫）",
+      "summary": "把歷史日誌 / CSV 批次回填成事件（存量訂單、支付、註冊等資料回填）：支援試跑、限速與斷點續跑；已用 120 行實測——入庫 120 行，續跑無重發、無丟行。",
+      "step1Title": "1. 準備歷史檔案",
+      "step1Body": "按下面的欄位規範整理 CSV（或每行一個事件物件的 JSONL）。`time` 用原始毫秒時間戳才能還原歷史時刻；登入態事件帶上 `user_key`，綁定匿名 ID 用 `original_id` 欄位。",
+      "step1Code1Label": "CSV 欄位規範與範例",
+      "step2Title": "2. 先試跑（不連網）",
+      "step2Body": "`--dry-run` 只做讀取、正規化、編碼與容量校驗，不發網路也不寫進度檔；用它先確認欄位對應對不對、哪些行被跳過及原因。",
+      "step2Code1Label": "試跑命令",
+      "step3Title": "3. 小批次真跑",
+      "step3Body": "去掉 `--dry-run` 就是真實上報。建議先 `--limit` 小批次確認鏈路，再用 `--rate` 限速保護接收端；工具會印出本次 run 標識（`backfill-<時間>`）並寫進每個事件的 `properties.backfill_run_id`，便於按 run 核對。",
+      "step3Code1Label": "回填命令與常用參數",
+      "step4Title": "4. 斷點續跑",
+      "step4Body": "進度寫在 `<輸入檔>.backfill-progress.json`，中斷後加 `--resume` 繼續，已完成的批次不會重發；失敗行連同行號寫到 `<輸入檔>.failed.jsonl`，修好後可單獨重跑。",
+      "note1": "重要：本工具**不做去重** —— 同一條歷史事件被完整回填兩次就會入庫兩次。請始終配合 `--resume` 續跑，或先用 `--dry-run` / `--limit` 驗證；輸入檔內容或修改時間變動時 `--resume` 會拒絕執行，除非明確加上 `--force-resume`。",
+      "step5Title": "5. 核對入庫",
+      "step5Body": "按 run 標識統計入庫行數與事件分布，與檔案的發送條數對齊。資料鏈路有 1–3 分鐘延遲，必要時多查幾次。",
+      "step5Code1Label": "核對 SQL",
+      "faq1Q": "回填的事件時間會被改掉嗎？",
+      "faq1A": "不會：工具把檔案裡的 `time` 原樣送進事件（毫秒），分析端按事件時間統計。**不要**用目前時間替換歷史時間，否則歷史趨勢會全部擠到回填當天。",
+      "faq2Q": "檔案很大（幾十萬行）怎麼跑？",
+      "faq2A": "分批跑：`--limit` 控制單次條數、`--rate` 限速，配合 `--resume` 斷點續跑；單批 50 條 / 1MB 的上限由工具自動切分，不需要手工拆檔。"
+    }
+  },
+  "planned": {
+    "android": {
+      "name": "Android",
+      "platform": "客戶端 · Java / Kotlin",
+      "summary": "Android 原生 App 埋點（計劃基於 OkHttp 封裝）"
+    },
+    "ios": {
+      "name": "iOS",
+      "platform": "客戶端 · Swift / Objective-C",
+      "summary": "iOS 原生 App 埋點（計劃基於 URLSession 封裝）"
+    },
+    "javascript": {
+      "name": "JavaScript / Web",
+      "platform": "客戶端 · 瀏覽器 H5",
+      "summary": "網頁埋點，自動採集頁面瀏覽與點選"
+    },
+    "miniprogram": {
+      "name": "微信小程式",
+      "platform": "客戶端 · 小程式 / 小遊戲",
+      "summary": "小程式內埋點（計劃適配 wx.request 與本地快取佇列）"
+    },
+    "flutter": {
+      "name": "Flutter",
+      "platform": "客戶端 · Dart",
+      "summary": "跨端 App 埋點（計劃基於 http 包封裝）"
+    },
+    "reactNative": {
+      "name": "React Native",
+      "platform": "客戶端 · JS / TS",
+      "summary": "RN 應用埋點（計劃複用 JS 採集核心）"
+    },
+    "cocos2dX": {
+      "name": "Cocos2d-x",
+      "platform": "客戶端 · C++ / Lua",
+      "summary": "Cocos 遊戲埋點（計劃基於 HttpClient 封裝）"
+    },
+    "unreal": {
+      "name": "Unreal Engine",
+      "platform": "客戶端 · C++ / 藍圖",
+      "summary": "UE 遊戲埋點（計劃基於 Http 模組封裝）"
+    },
+    "java": {
+      "name": "Java",
+      "platform": "服務端 · JDK 8+",
+      "summary": "Java 後端上報（計劃基於 HttpClient 封裝）"
+    },
+    "python": {
+      "name": "Python",
+      "platform": "服務端 · Python 3.7+",
+      "summary": "Python 後端上報（計劃基於 requests 封裝）"
+    },
+    "nodejs": {
+      "name": "Node.js",
+      "platform": "服務端 · Node 16+",
+      "summary": "Node 後端上報（計劃基於 undici / fetch 封裝）"
+    },
+    "csharp": {
+      "name": "C#",
+      "platform": "服務端 · .NET 6+",
+      "summary": "服務端 C# 上報（當前可參考 Unity(C#) 文件裡的客戶端實現，或直接用 HTTP 協定）"
+    },
+    "ruby": {
+      "name": "Ruby",
+      "platform": "服務端 · Ruby 2.6+",
+      "summary": "Ruby 後端上報（計劃基於 Net::HTTP 封裝）"
+    },
+    "c": {
+      "name": "C",
+      "platform": "服務端 · C / C++",
+      "summary": "C/C++ 服務上報（計劃基於 libcurl 封裝）"
+    },
+    "lua": {
+      "name": "Lua",
+      "platform": "服務端 · Lua 5.3+ / OpenResty",
+      "summary": "Lua 與 OpenResty 場景上報"
+    },
+    "batchImport": {
+      "name": "批次回填（檔案匯入）",
+      "platform": "其他 · 歷史資料匯入",
+      "summary": "把歷史日誌/CSV 批次回填成事件（計劃提供命令列工具）"
+    }
+  },
+  "guideCommon": {
+    "step1Title": "1. 前置條件",
+    "step1Body": "確認接入參數已就緒（見本頁頂部）：上報地址、專案名、專案 token。協定固定為表單 POST，`data` 欄位 = base64(JSON 陣列) 再 urlencode —— 直接 POST 原始 JSON 會返回 200 但資料被丟棄。",
+    "step2Title": "2. 準備執行環境",
+    "step2Body": "按下面命令準備該語言的執行環境；只用標準庫的實現可以跳過依賴安裝。",
+    "step2Code1Label": "執行環境",
+    "step3Title": "3. 初始化並上報事件",
+    "step3Body": "該語言的最小可用上報實現：事件 JSON → base64 + urlencode 表單 → POST。事件時間必須是毫秒時間戳；登入後 `distinct_id` 始終是匿名 ID，登入 ID 走 `identities.user_key`。",
+    "step3Code1Label": "上報核心程式碼（實測寫法）",
+    "step4Title": "4. 登入關聯與使用者屬性",
+    "step4Body": "登入成功後上報一條 `track_signup`（`properties.$track_signup_original_id` = 匿名 ID）完成身分綁定，使用者屬性用 `user_set`；之後所有事件帶 `identities.user_key`，分析端就會合併到同一使用者。",
+    "step5Title": "5. 驗證入庫",
+    "step5Body": "觸發事件後查 `clklog.log_analysis` 核對 5 行：匿名 track / track_signup / user_set / 登入後 track ×2。資料鏈路有 1–3 分鐘延遲；HTTP 200 只代表格式解析通過，必須查庫確認。",
+    "step5Code1Label": "驗證 SQL（ClickHouse）",
+    "faq1Q": "為什麼上報返回 HTTP 200，庫裡卻沒有資料？",
+    "faq1A": "`data` 必須是 base64(JSON 陣列) 再 urlencode 的表單欄位。直接 POST 原始 JSON、base64 裡帶換行、或 `+` 未做百分號編碼，都會返回 200 但資料被無聲丟棄。",
+    "faq2Q": "事件時間錯亂、或登入前後被拆成兩個使用者？",
+    "faq2A": "時間必須是毫秒時間戳（秒級會被算成 1970 年）；登入 ID 放頂層 `identities.user_key`（不是 login_id），綁定匿名 ID 放 `properties.$track_signup_original_id`（不是 original_id），且登入後 `distinct_id` 保持不變。"
+  }
+}

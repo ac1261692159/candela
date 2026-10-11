@@ -1,0 +1,255 @@
+{
+  "kind": {
+    "event": "事件指标",
+    "retention": "留存指标"
+  },
+  "list": {
+    "title": "指标",
+    "create": "新建指标",
+    "kindEvent": "事件",
+    "kindRetention": "留存",
+    "intro": "事件指标可直接「新建指标」，或从事件分析结果里保存（会带上当前配置的完整口径）；留存指标仍在留存分析结果里创建。指标可自带**查询时间**与**取值选择**，告警规则默认跟随指标的时间范围（也可在规则里覆盖，详见运维 → 监控告警 → 新建指标告警）。点击显示名查看完整口径；编辑、删除（二次确认）都在详情抽屉里，指标名与类型不可改（标识不变，不影响已有引用与告警绑定）。",
+    "column": {
+      "displayName": "显示名",
+      "name": "指标名",
+      "kind": "类型",
+      "definition": "口径",
+      "remark": "备注"
+    }
+  },
+  "label": {
+    "subject": "分析主体",
+    "event": "事件",
+    "analysis": "计算方法",
+    "percentile": "分位数",
+    "prop": "属性",
+    "transform": "数值变换",
+    "decimals": "保留小数位",
+    "valuePick": "取值选择",
+    "timeRange": "查询时间",
+    "conditionGroup": "条件组",
+    "filters": "筛选条件",
+    "displayName": "显示名",
+    "metricName": "指标名",
+    "metricNameReadonly": "指标名（不可改）",
+    "kindReadonly": "类型（不可改）",
+    "type": "类型",
+    "format": "格式",
+    "definition": "口径",
+    "definitionPick": "指标口径",
+    "startEvent": "初始事件",
+    "retainEvent": "回访事件",
+    "period": "周期",
+    "measure": "口径",
+    "cohort": "队列",
+    "cohortRange": "队列范围",
+    "granularity": "粒度",
+    "remarkOptional": "备注（选填）"
+  },
+  "format": {
+    "number": "数字",
+    "percent": "百分比"
+  },
+  "measure": {
+    "rate": "留存率",
+    "count": "留存人数"
+  },
+  "cohort": {
+    "all": "全部用户",
+    "firstDay": "首次触发用户"
+  },
+  "granularity": {
+    "day": "按日",
+    "week": "按周",
+    "month": "按月"
+  },
+  "period": {
+    "day": "{{n}}日",
+    "week": "{{n}}周",
+    "month": "{{n}}月"
+  },
+  "value": {
+    "notNeeded": "（不需要）",
+    "none": "（无）"
+  },
+  "filters": {
+    "count": "{{total}} 条"
+  },
+  "valuePick": {
+    "sum": "累计",
+    "avg": "日均",
+    "max": "最大值",
+    "min": "最小值",
+    "lastDay": "最新一天",
+    "firstDay": "首日",
+    "uniqTotal": "整段去重合计",
+    "weighted": "加权平均",
+    "auto": "自动（按计算方法）",
+    "autoShort": "自动取值",
+    "extra": "不选 = 自动（按计算方法推荐），与现有告警口径一致",
+    "label": {
+      "sum": "累计",
+      "avg": "日均",
+      "max": "最大值",
+      "min": "最小值",
+      "weighted": "加权平均",
+      "lastDay": "最新一天",
+      "firstDay": "首日",
+      "uniqTotal": "整段去重合计"
+    },
+    "hint": {
+      "sum": "窗口内各日值相加；没有数据的日子按 0 计",
+      "avg": "各日值之和 ÷ 窗口天数；没有数据的日子按 0 计",
+      "max": "窗口内有数据的日子的最大值",
+      "min": "窗口内有数据的日子的最小值",
+      "weighted": "按分母加权（人均类唯一正确）",
+      "lastDay": "窗口内最近一个有数据的日子的值（常用「今天到目前为止」）",
+      "firstDay": "窗口内最早一个有数据的日子的值",
+      "uniqTotal": "整段时间整体求值，不按日相加（去重数唯一正确）"
+    },
+    "note": {
+      "sum": "窗口内各日值相加；没有数据的日子按 0 计",
+      "avg": "各日值之和 ÷ 窗口天数；没有数据的日子按 0 计",
+      "max": "窗口内有数据的日子的最大值（完全无数据 → 本轮跳过）",
+      "min": "窗口内有数据的日子的最小值（完全无数据 → 本轮跳过）",
+      "weighted": "按分母加权（人均次数/人均值唯一正确的取值），用整段时间整体求值",
+      "lastDay": "窗口内最近一个有数据的日子的值（常用于「今天到目前为止」）",
+      "firstDay": "窗口内最早一个有数据的日子的值",
+      "uniqTotal": "用整段时间整体求值，不按日相加（去重数/触发用户数唯一正确的取值）"
+    },
+    "warning": {
+      "nonAdditivePickedAdditive": "当前计算方法不可按日相加，建议改选「整段去重合计」或「加权平均」，否则结果会偏高",
+      "additivePickedOverall": "当前计算方法可相加，用「累计/日均」更直观；整段去重合计只对去重/人均类有意义"
+    }
+  },
+  "window": {
+    "fixed": "固定日期",
+    "today": "今天",
+    "yesterday": "昨天",
+    "recentN": "近 {{n}} 天（含今天）",
+    "pastN": "过去 {{n}} 天（不含今天）",
+    "thisWeek": "本周",
+    "lastWeek": "上周",
+    "thisMonth": "本月",
+    "lastMonth": "上月",
+    "customOffsets": "动态区间 D-{{from}} ~ D-{{to}}",
+    "fromDateToToday": "从指定日到今天",
+    "fromDateToYesterday": "从指定日到昨天",
+    "lastNDays": "近 {{n}} 天",
+    "cohortWindow": "队列 {{window}}",
+    "followAlert": "跟随告警窗口"
+  },
+  "summary": {
+    "event": "事件 {{event}} · 计算 {{analysis}}{{prop}}{{window}}{{pick}}",
+    "propSegment": " · {{prop}}",
+    "windowSegment": " · {{window}}",
+    "pickSegment": " · {{pick}}",
+    "retention": "留存 {{start}} → {{retain}} · {{period}} · {{measure}}",
+    "periodDays": "{{n}} 天",
+    "noEvent": "(未指定事件)",
+    "measureCount": "人数"
+  },
+  "timeRange": {
+    "extra": "指标自带时间范围后，告警规则默认跟随；只支持相对范围（每天可循环求值），最长 90 天",
+    "followAlert": "改为跟随告警窗口"
+  },
+  "conditionGroup": {
+    "extra": "事件属性 / 用户属性 / 分群 / 标签；与事件分析的条件组同语义"
+  },
+  "prop": {
+    "groupEvent": "事件属性",
+    "groupUser": "用户属性",
+    "eventPlaceholder": "选择属性",
+    "eventDisabledPlaceholder": "当前方法不需要属性",
+    "tooltip": "计算方法需要属性时必填；属性类型决定可选的计算方法",
+    "eventWithType": "{{name}}（{{type}}）",
+    "userWithType": "{{name}}（用户·{{type}}）",
+    "userOnly": "{{name}}（用户）"
+  },
+  "event": {
+    "searchPlaceholder": "搜索或选择事件",
+    "optionWithName": "{{key}}（{{name}}）",
+    "staleOption": "{{event}}（未在事件列表中，保持原值）"
+  },
+  "transform": {
+    "tooltip": "先做四则运算，再保留小数位（与事件分析一致）",
+    "valuePlaceholder": "运算数（可选）"
+  },
+  "decimals": {
+    "placeholder": "可选 0-6"
+  },
+  "trial": {
+    "run": "试算",
+    "hint": "按当前口径真实求值一次（与告警判断同一实现），不会保存",
+    "failed": "试算失败",
+    "result": "当前值 {{value}}　·　{{window}}（{{start}} ~ {{end}}）·　{{pick}}{{auto}}",
+    "autoSuffix": "（自动）",
+    "note": "{{note}}；耗时 {{ms}}ms"
+  },
+  "validation": {
+    "eventRequired": "请选择事件",
+    "analysisRequired": "请选择计算方法",
+    "displayNameRequired": "请输入显示名",
+    "metricNameRequired": "请输入指标名",
+    "metricNamePattern": "小写字母开头，仅小写字母/数字/下划线，最长 80",
+    "metricNamePatternShort": "格式不符合规则",
+    "metricRequired": "请选择指标",
+    "periodRequired": "请选择周期",
+    "periodFilled": "请填写周期",
+    "startEventRequired": "请选择初始事件",
+    "retainEventRequired": "请选择回访事件"
+  },
+  "create": {
+    "title": "新建事件指标",
+    "displayNamePlaceholder": "如：近 7 天日均下单金额",
+    "metricNamePlaceholder": "如：order_amount_daily_avg_7d",
+    "metricNameExtra": "资产唯一键，创建后不可修改；分析与告警按它引用",
+    "definitionHint": "口径（与事件分析同深度；保存前建议先「试算」）"
+  },
+  "modal": {
+    "title": "创建指标",
+    "metricNameExtra": "小写字母开头，可含小写字母/数字/下划线，不超过 80 字",
+    "metricFallback": "指标",
+    "summaryEvent": "{{event}} · {{metric}}",
+    "summaryEventEmpty": "请先配置一条事件指标并查询",
+    "summaryRetention": "初始 {{start}} → 回访 {{end}}",
+    "summaryRetentionEmpty": "请先完成留存查询",
+    "summaryNote": "。时间范围以查询时为准，不写入指标。"
+  },
+  "apply": {
+    "trigger": "从指标添加",
+    "ok": "套用",
+    "placeholder": "选择已保存的指标",
+    "empty": "还没有该类型的指标"
+  },
+  "detail": {
+    "title": "指标详情",
+    "titleNamed": "指标详情 · {{name}}",
+    "meta": "创建人 {{owner}} · 创建 {{created}} · 更新 {{updated}}",
+    "readonlyNote": "指标名是资产唯一键、类型决定口径模型，改动会打断已有的分析与告警引用，因此只读。",
+    "saving": "保存中",
+    "createCard": "创建看板卡片",
+    "cardName": "{{name}}（指标卡）",
+    "alertTitle": "口径说明",
+    "alertBody": "指标自带查询时间与取值选择；未设置查询时间时，告警按规则窗口求值（现有行为）。套用到分析时，分析页以自己的时间范围为准。指标被告警规则引用时，改口径会同时改变告警判定条件（运维 → 监控告警 → 策略）。",
+    "retentionFiltersTitle": "留存指标的筛选条件",
+    "retentionFiltersBody": "初始/回访事件自带的筛选条件随事件保留；队列范围与周期可直接在此调整。",
+    "cohortRangeTooltip": "留存的成熟队列时间范围；不设置时按周期自动推导（≥ 周期+1 天，最长 180 天）",
+    "deriveFromCycle": "改为按周期推导",
+    "derivedFromCycle": "按周期推导",
+    "cohortRangeDerived": "按周期推导（{{days}} 天）"
+  },
+  "message": {
+    "deleted": "已删除",
+    "updated": "指标已更新",
+    "created": "已创建指标",
+    "cardCreated": "已创建卡片「{{name}}」，可在看板工作室里添加到看板",
+    "noEventMetric": "没有可保存的事件指标",
+    "queryRetentionFirst": "请先查询留存"
+  },
+  "confirm": {
+    "deleteTitle": "删除指标「{{name}}」？",
+    "deleteEditing": "将删除该指标，未保存的修改会一并丢失。引用它的分析与告警会失效。",
+    "deleteContent": "引用它的分析与告警会失效，删除后无法恢复。"
+  }
+}

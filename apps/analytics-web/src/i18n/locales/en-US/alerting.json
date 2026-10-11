@@ -1,0 +1,542 @@
+{
+  "tab": {
+    "overview": "Overview",
+    "rules": "Rules",
+    "history": "History",
+    "mute": "Mutes",
+    "notifications": "Notifications",
+    "templates": "Templates",
+    "channels": "Channels",
+    "contacts": "Contacts",
+    "audits": "Change log"
+  },
+  "workbench": {
+    "title": "Alerting",
+    "firing": "{{count}} alert(s) currently firing",
+    "noContact": "No enabled contacts, so alerts will not be delivered",
+    "noContactHint": "Add contacts on the Contacts tab and keep them enabled; rules without bound contacts are sent to all enabled contacts.",
+    "brokenRules": "{{count}} rule(s) currently invalid",
+    "brokenRulesHint": "{{names}}: the bound metric was deleted or evaluation failed repeatedly, so these rules will not fire (see the Health column on the Rules tab).",
+    "notifyFail24h": "{{count}} notification failure(s) in the last 24 hours",
+    "notifyFail24hHint": "Recorded only after three failed retries; check the reason on the Notifications tab."
+  },
+  "overview": {
+    "firedToday": "Fired today",
+    "unresolved": "Unresolved",
+    "notifyFailToday": "Failed notifications today",
+    "firingEmpty": "No alerts are firing",
+    "topRules": "Rules that fired most today",
+    "topRulesEmpty": "Nothing fired today",
+    "fireCount": "Fires"
+  },
+  "status": {
+    "firing": "Firing",
+    "normal": "Normal",
+    "resolved": "Resolved"
+  },
+  "severity": {
+    "label": "Severity",
+    "alertLevel": "Alert severity",
+    "critical": "Critical",
+    "warning": "Warning",
+    "info": "Info"
+  },
+  "kind": {
+    "fire": "Alert fired",
+    "resolve": "Alert resolved"
+  },
+  "rule": {
+    "label": "Rule",
+    "createMetric": "New metric alert",
+    "editTitle": "Edit trigger condition",
+    "editTitleNamed": "Edit trigger condition · {{name}}",
+    "saving": "Saving",
+    "editorHint": "Checks run every 60 seconds. Window × sustained periods = consecutive breaches before an alert fires. Built-in rules cannot be deleted.",
+    "editorMetricHint": "Metric values are evaluated in real time through the same query path as the workbench.",
+    "targetMetric": "Metric",
+    "target": "Target",
+    "metricTag": "Managed metric",
+    "comparator": "Comparison",
+    "threshold": "Threshold",
+    "statWindow": "Statistics window",
+    "statWindowHint": "Event analysis filters by day (stat_date), so the window is measured in days, not minutes; Today counts the current day so far",
+    "windowMinutesLabel": "Data point granularity",
+    "windowMinutesOption": "{{minutes}} min",
+    "windowTimes": "{{window}} × {{times}}",
+    "windowMinutesTimes": "{{minutes}} min × {{times}}",
+    "windowDays": "{{days}} day(s)",
+    "forWindows": "Sustained for",
+    "forWindowsHint": "Number of consecutive breaches required to fire (one check every 60 seconds)",
+    "timesSuffix": "times",
+    "repeatInterval": "Repeat notification interval while firing (minutes)",
+    "notifyOnResolve": "Notify on resolve",
+    "timeSourceHint": "Follow metric = use the metric's own query window; Custom = use the statistics window below",
+    "timeSourceHintMetric": "Follows the metric's query window by default; you can also set a dedicated window for this rule",
+    "timeFromMetric": "Follow metric",
+    "timeFromMetricWith": "Follow metric ({{window}})",
+    "timeFromRule": "Custom window",
+    "timeFromRuleNoWindow": "Custom window (this metric has no query window)",
+    "name": "Rule name",
+    "defaultName": "{{metric}} alert",
+    "created": "Metric alert created",
+    "metricSource": "Alerts watch metrics saved under Data management → Metrics",
+    "metricSourceHint": "Checks run every 60 seconds and fire only after the configured number of consecutive breaches. Windows are measured in days (today / last N days), and metric values are evaluated in real time through the same query path as the workbench, without relying on cached cards.",
+    "probe": "Test value",
+    "probeFailedPrefix": "Probe failed",
+    "probeFailed": "Probe failed: {{error}}",
+    "probeResult": "Current value: {{value}} ({{window}}{{pick}}, took {{ms}}ms)",
+    "probePick": " · {{pick}}",
+    "editCondition": "Edit condition",
+    "muteQuick": "Quick mute",
+    "allContacts": "All enabled contacts",
+    "checkInterval": "Checks every 60 seconds",
+    "source": {
+      "metric": "Metric: {{name}}",
+      "builtin": "Built-in"
+    },
+    "column": {
+      "health": "Health",
+      "condition": "Condition",
+      "window": "Window / Duration",
+      "currentValue": "Current"
+    },
+    "health": {
+      "metricMissing": "Metric deleted",
+      "evalFailed": "Evaluation failed",
+      "noContact": "No contacts"
+    }
+  },
+  "event": {
+    "filterLabel": "Event status",
+    "firedAt": "Fired at",
+    "value": "Value at fire",
+    "lastSeen": "Last seen"
+  },
+  "notification": {
+    "time": "Time",
+    "kindFire": "Fired",
+    "kindRepeat": "Repeated",
+    "kindResolve": "Resolved",
+    "result": "Result",
+    "error": "Error"
+  },
+  "contact": {
+    "label": "Contact",
+    "hint": "Fill in the fields for the selected channel. A bot webhook is a credential in itself, while credential-based channels (email / SMS / Telegram / WhatsApp) need platform credentials on the Channels page. A rule can bind multiple contacts (sent to several channels at once); rules with no bound contacts are sent to all enabled contacts.",
+    "updated": "Contact updated",
+    "editTitle": "Edit contact",
+    "editTitleNamed": "Edit contact · {{name}}",
+    "maskedHint": "Addresses and secrets are masked in the list, so they are not filled back: leave a field blank to keep the current value, or enter a new value to overwrite it.",
+    "webhookUrl": "Webhook URL",
+    "webhookRequired": "Enter the webhook URL",
+    "address": "Address",
+    "addressLabel": "Destination address",
+    "addressEmail": "Email address",
+    "addressChatId": "chat_id (e.g. -1001234567890)",
+    "addressWhatsapp": "Number (E.164, e.g. 8613800138000)",
+    "addressSms": "Phone number (e.g. +8613800138000)",
+    "secret": "Secret",
+    "secretOptional": "Secret (optional)",
+    "secretHint": "Signing secret for Feishu / DingTalk; leave blank if the bot has no signature verification",
+    "smsProvider": "SMS provider",
+    "smsProviderHint": "Leave blank to use the platform default enabled provider",
+    "disableHint": "Disabled contacts receive nothing",
+    "bodyTemplateHint": "Body template. Same placeholders as alert templates, plus {{text}} and {{textJson}}",
+    "bodyTemplatePlaceholder": "Body template (optional, defaults to {\"text\":\"{{textJson}}\"})",
+    "alertContacts": "Alert contacts",
+    "multiHint": "Multiple selections allowed; a firing rule notifies every bound contact, and no selection means all enabled contacts",
+    "multiExtra": "Multiple selections allowed (sent to several channels at once); none selected = all enabled contacts",
+    "noneSelected": "None selected = all enabled contacts",
+    "disabledName": "{{name}} (disabled)",
+    "locale": "Language",
+    "localeDefault": "Platform default",
+    "localeHint": "Notifications are rendered in the recipient's language; leave empty to use the platform default",
+    "timezone": "Time zone",
+    "timezoneHint": "Fire/resolve times in notifications render in this time zone; empty follows project/platform",
+    "timezoneDefault": "Follow project/platform"
+  },
+  "channel": {
+    "label": "Channel",
+    "feishu": "Feishu",
+    "dingtalk": "DingTalk",
+    "wecom": "WeCom",
+    "webhook": "Generic Webhook",
+    "email": "Email",
+    "sms": "SMS",
+    "telegram": "Telegram",
+    "whatsapp": "WhatsApp",
+    "configMissing": "Not configured: {{names}}",
+    "unavailable": "This channel is currently unavailable",
+    "pageHint": {
+      "title": "These are credential-based channels",
+      "body": "Bot webhooks (Feishu / DingTalk / WeCom / generic Webhook) are credentials themselves and are configured under Contacts; this page configures SMTP, SMS providers, Telegram and WhatsApp. Secrets are write-only, and Send test verifies connectivity after saving."
+    },
+    "envOnly": "From env",
+    "notEnabled": "Not enabled",
+    "pausedTag": "Paused",
+    "muted": "This channel is paused",
+    "mutedOn": "{{channel}} paused",
+    "mutedOff": "{{channel}} resumed",
+    "platformFallbackTag": "Platform email channel",
+    "platformFallbackNote": "Emails are sent with the SMTP account from Settings → User management → Email channel; no need to fill it in here.",
+    "secretTag": "Secret {{hint}}",
+    "secretTitle": "Credentials (write-only)",
+    "secretTitleConfigured": "Credentials (write-only, {{hint}} configured)",
+    "pageNote": "DingTalk / WeCom / Telegram rate-limit their official APIs at 20 messages per minute; the platform queues and merges per channel automatically. SMS signatures and templates for mainland China must be approved in the provider console first, and AWS SNS has no mainland region and requires registration to send to Chinese numbers.",
+    "enableFirst": "Expand {{channel}}, fill in and save its configuration, then enable it",
+    "enabled": "{{channel}} enabled",
+    "disabled": "{{channel}} disabled",
+    "saved": "{{channel}} configuration saved",
+    "sendTest": "Send test",
+    "testSmtp": "Test recipient email",
+    "testChatId": "Test chat_id",
+    "testPhone": "Test phone number",
+    "testTarget": "Test target (not saved)",
+    "testOk": "Test passed",
+    "testFail": "Test failed",
+    "testError": "{{detail}}: {{error}}",
+    "lastModified": "Last modified by {{user}}"
+  },
+  "channelGroup": {
+    "chat": "Bots & IM",
+    "email": "Email",
+    "sms": "SMS"
+  },
+  "channelConfig": {
+    "helpTitle": "How to configure {{channel}}",
+    "muteLabel": "Pause delivery",
+    "muteHint": "Pausing keeps the settings and secrets but stops this channel from delivering any alert (the platform email fallback is blocked too). Send test still works for verifying credentials.",
+    "smtp": {
+      "label": "Email (SMTP)",
+      "hint": "Use a dedicated sending account with an app password; after saving, Send test verifies connectivity before sending a real message.",
+      "field": {
+        "host": "SMTP server",
+        "port": "Port",
+        "secure": "SSL/TLS (usually on for 465)",
+        "user": "Username",
+        "from": "From",
+        "fromPlaceholder": "Candela Alerts <alerts@example.com>",
+        "pass": "Password / app password"
+      },
+      "help": "1. Prepare: use a dedicated sending mailbox, enable SMTP in the provider console and generate an **app password** — most providers refuse to send with your login password.\n2. Fill in: host + port (465 with SSL/TLS on; 587 with STARTTLS). The From address must match the SMTP user, otherwise the provider rejects the mail.\n3. Verify: Send test checks connectivity first and then really sends one mail; failures show the provider's raw error (auth failed / From mismatch / rate limited). Configure it once and reuse it platform-wide: save the same account under Settings → User management → Email channel and alerting falls back to it."
+    },
+    "telegram": {
+      "label": "Telegram",
+      "hint": "Create a bot with @BotFather to get a token; on the contact side only chat_id is needed. Mainland China requires a proxy egress; point api_base at a self-hosted Bot API service if needed.",
+      "help": "1. Prepare: search @BotFather in Telegram → send /newbot (the username must end with \"bot\") → paste the returned token into \"Bot Token\" below and save; then **open the bot in your own Telegram and tap START** — a bot cannot start a chat, and skipping this makes the send test fail with chat not found.\n2. Fill in: the contact chat_id is the numeric ID @userinfobot replies with (your user ID in a private chat); to send to a group, add the bot to the group first and turn off privacy mode with /setprivacy in BotFather, otherwise it will not see group messages.\n3. Verify: Send test really sends one message and shows Telegram's raw error on failure (e.g. chat not found); if the server cannot reach Telegram, point \"API address\" at a self-hosted Bot API server — leave it empty for the official api.telegram.org.",
+      "field": {
+        "apiBase": "API base URL (optional, defaults to the official one)",
+        "botToken": "Bot Token"
+      }
+    },
+    "whatsapp": {
+      "label": "WhatsApp (Cloud API)",
+      "hint": "Requires Meta Business verification, a registered number and an approved template; alerts are business-initiated, so outside the messaging window only template messages can be sent, and the template must contain 1-4 variables (rule / current value / condition / project).",
+      "field": {
+        "phoneNumberId": "Phone Number ID",
+        "templateName": "Template name",
+        "templateLang": "Template language",
+        "paramCount": "Template variable count (1-4)",
+        "apiVersion": "Graph API version",
+        "accessToken": "System User Token"
+      },
+      "help": "1. Prepare: a verified Meta Business account and a registered WhatsApp Business number; get the Phone Number ID from the Meta console.\n2. Fill in: Phone Number ID, template name, template language (e.g. zh_CN) and parameter count (1–4). Alerts are business-initiated: free-form text only works within 24h of the recipient's last message, otherwise a pre-approved template is required.\n3. Verify: contact numbers use E.164 without \"+\"; Send test sends one message with sample variables and shows Meta's raw error code on failure (template not approved / parameter mismatch / number not in the test list)."
+    },
+    "smsAliyun": {
+      "label": "Alibaba Cloud SMS",
+      "hint": "The signature and template must be approved in the Alibaba Cloud console first; the template needs one variable to receive the summary (e.g. ${content}).",
+      "field": {
+        "signName": "Signature name",
+        "templateCode": "Template code",
+        "endpoint": "Endpoint (optional)",
+        "accessKeyId": "AccessKey ID",
+        "accessKeySecret": "AccessKey Secret"
+      },
+      "help": "1. Prepare: activate Aliyun SMS and get both the **signature and the template approved**; create a RAM AccessKey limited to SMS permissions.\n2. Fill in: AccessKey ID / Secret, signature name, template CODE (like SMS_xxxxxxx) and region. The message body is constrained by the template; the platform sends a one-line summary.\n3. Verify: recipient numbers use E.164 (e.g. 8613800138000); Send test failures show Aliyun's raw error code (signature not approved / parameter mismatch / insufficient balance) — look the code up in Aliyun docs."
+    },
+    "smsTencent": {
+      "label": "Tencent Cloud SMS",
+      "hint": "Requires a console app (SmsSdkAppId) plus an approved signature and template; the template needs one variable to receive the summary.",
+      "field": {
+        "sdkAppId": "SmsSdkAppId",
+        "signName": "Signature name",
+        "templateId": "Template ID",
+        "region": "Region",
+        "secretId": "SecretId",
+        "secretKey": "SecretKey"
+      },
+      "help": "1. Prepare: activate Tencent Cloud SMS and create a **signature** plus a **body template**, then wait for approval; a least-privilege sub-account key is recommended.\n2. Fill in: SDK AppID, SecretId / SecretKey, signature content, template ID and region (e.g. ap-guangzhou). The platform sends a one-line summary.\n3. Verify: Send test failures show Tencent's raw error code (signature or template not approved / parameter count mismatch / insufficient balance) — look the code up in Tencent docs."
+    },
+    "smsAws": {
+      "label": "AWS SNS",
+      "hint": "SNS SMS has no cn-* regions (cannot send from mainland China); sending to Chinese numbers requires AWS Support registration; the default sandbox only sends to verified numbers.",
+      "field": {
+        "region": "Region",
+        "accessKeyId": "AccessKey ID",
+        "secretAccessKey": "Secret Access Key"
+      },
+      "help": "1. Prepare: enable SNS in your AWS account. SNS **starts in the sandbox**: add the recipient number to the sandbox allowlist or request production access. Note SNS has no cn-* region — sending to Chinese numbers needs a separate request.\n2. Fill in: AccessKey / Secret, region (e.g. ap-southeast-1) and Sender ID (required in some regions).\n3. Verify: Send test failures show SNS's raw error (sandbox not opened / unsupported region / insufficient permissions / number not verified)."
+    },
+    "smsTwilio": {
+      "label": "Twilio",
+      "hint": "Overseas / disaster-recovery channel with no region restrictions; the From number must be verified or purchased on Twilio.",
+      "field": {
+        "fromNumber": "From number (E.164)",
+        "accountSid": "Account SID",
+        "authToken": "Auth Token"
+      },
+      "help": "1. Prepare: buy or request a sending number (Sender) in your Twilio account; trial accounts can only send to verified numbers.\n2. Fill in: Account SID, Auth Token and From number (E.164 with \"+\").\n3. Verify: Send test failures show the Twilio error code and description (destination not supported by the number / recipient not verified / insufficient balance)."
+    }
+  },
+  "template": {
+    "kindFire": "Alert fired",
+    "kindResolve": "Alert resolved",
+    "channelChat": "Chat / Webhook",
+    "saved": "Template saved",
+    "reset": "Default template restored",
+    "hint": {
+      "title": "Notification content is defined by templates",
+      "lead": "Templates are configured per event type × channel group (chat covers chat bots / IM / Webhook / WhatsApp) and apply to every rule in this project. Placeholders are written in double curly braces and are replaced with actual values when a notification is sent; conditions such as",
+      "tail": "are supported. SMS bodies are whitespace-collapsed and truncated to 40 characters."
+    },
+    "isDefault": "Default template",
+    "customized": "Customized · {{user}}",
+    "subject": "Email subject",
+    "body": "Notification body",
+    "variables": "Placeholders (click to insert at the cursor)",
+    "varTooltip": "{{label}} (e.g. {{sample}})",
+    "refreshPreview": "Refresh preview",
+    "preview": "Preview",
+    "sampleHint": "Sample data · nothing is sent",
+    "previewFailed": "Preview failed",
+    "previewSubject": "Subject",
+    "smsNote": "Sending collapses whitespace and truncates to 40 characters; currently {{count}} characters.",
+    "rendering": "Rendering…",
+    "previewEmpty": "Edit the content on the left and this preview refreshes automatically."
+  },
+  "mute": {
+    "scope": "Scope",
+    "allRules": "All rules",
+    "duration": "Quick duration",
+    "pickDuration": "Pick a duration",
+    "orRange": "Or a time range",
+    "reason": "Reason",
+    "reasonPlaceholder": "Optional",
+    "add": "Add mute",
+    "added": "Mute added",
+    "needDuration": "Choose a quick duration or a custom time range",
+    "presetHours": "{{count}} hour(s)",
+    "presetDays": "{{count}} day(s)",
+    "muted": "Muted for {{duration}}",
+    "start": "Start",
+    "end": "End",
+    "release": "Unmute"
+  },
+  "retention": {
+    "title": "Data retention",
+    "hint": "The three scopes are configured separately; leave a value blank for permanent retention. Cleanup runs daily (checked every 6 hours) and writes a change log entry. Deleting alert history also removes the notifications it produced.",
+    "scope": "Scope",
+    "days": "Retention days",
+    "keepForever": "Blank = forever",
+    "current": "Current",
+    "forever": "Kept forever",
+    "daysValue": "{{days}} day(s)",
+    "saved": "Retention policy saved",
+    "scopeLabel": {
+      "events": "Alert history",
+      "notifications": "Notification records",
+      "audits": "Change log"
+    }
+  },
+  "audit": {
+    "hint": "Changes to rules, contacts and mutes are all recorded (visible to super admins only); contact addresses are stored masked.",
+    "empty": "No change records",
+    "column": {
+      "time": "Time",
+      "operator": "Operator",
+      "action": "Action",
+      "target": "Target",
+      "detail": "Change"
+    },
+    "change": "{{field}}: {{from}} → {{to}}",
+    "fieldEntry": "{{field}}={{value}}",
+    "noChange": "(no changes)",
+    "valueOn": "On",
+    "valueOff": "Off",
+    "field": {
+      "code": "Rule code",
+      "comparator": "Comparator",
+      "windowMinutes": "Granularity (minutes)",
+      "windowDays": "Window (days)",
+      "forWindows": "Sustained windows",
+      "repeatMinutes": "Repeat interval (minutes)",
+      "notifyOnResolve": "Notify on resolve",
+      "metricName": "Metric name",
+      "bodyLength": "Template length",
+      "deleted": "Rows deleted",
+      "wasDefault": "Was default",
+      "enabledContacts": "Enabled contacts"
+    },
+    "action": {
+      "ruleUpdate": "Rule updated",
+      "ruleCreate": "Rule created",
+      "ruleDelete": "Rule deleted",
+      "contactCreate": "Contact created",
+      "contactDelete": "Contact deleted",
+      "contactDefault": "Set as default contact (legacy)",
+      "muteCreate": "Mute created",
+      "muteDelete": "Mute removed",
+      "contactUpdate": "Contact updated",
+      "retentionUpdate": "Retention policy updated",
+      "retentionCleanup": "Cleanup by retention policy",
+      "templateUpdate": "Notification template updated",
+      "templateReset": "Default template restored"
+    }
+  },
+  "field": {
+    "enabled": "Enabled",
+    "enabledAria": "Enable {{name}}",
+    "switchOn": "On",
+    "switchOff": "Off",
+    "booleanOn": "On",
+    "booleanOff": "Off",
+    "unit": "Unit",
+    "unitPlaceholder": "e.g. times / users",
+    "keepBlank": "Leave blank to keep the current value",
+    "keepCurrent": "Leave blank to keep the current value ({{value}})",
+    "keepSavedValue": "Leave blank to keep the saved value",
+    "keepSavedAddress": "Leave blank to keep the saved address",
+    "keepSavedSecret": "Leave blank to keep the saved secret"
+  },
+  "metric": {
+    "label": "Metric",
+    "project": "Project",
+    "select": "Select a metric",
+    "noneInProject": "No metrics in this project; create one under Data management → Metrics first",
+    "option": "{{name}} ({{kind}})",
+    "optionDisabled": "{{name}} ({{kind}} · {{reason}})",
+    "unavailable": "Unavailable"
+  },
+  "validate": {
+    "required": "Enter {{field}}",
+    "select": "Select {{field}}"
+  },
+  "separator": {
+    "list": ", ",
+    "pair": "; ",
+    "entry": ", ",
+    "slash": " / "
+  },
+  "window": {
+    "last2Days": "Last 2 days"
+  },
+  "templateVar": {
+    "ruleName": "Rule name",
+    "ruleCode": "Rule code",
+    "level": "Severity (code)",
+    "levelFmt": "Severity (label)",
+    "status": "Status (label)",
+    "statusCode": "Status code (fire/repeat/resolve)",
+    "value": "Current value (with unit)",
+    "valueRaw": "Current value (raw number)",
+    "unit": "Unit",
+    "comparator": "Comparator (code)",
+    "comparatorFmt": "Comparator (label)",
+    "threshold": "Threshold (with unit)",
+    "metricName": "Metric name",
+    "metricKind": "Metric type",
+    "windowDays": "Window days",
+    "windowFmt": "Window (label)",
+    "project": "Project name",
+    "time": "Fired / resolved at",
+    "detectInterval": "Check interval",
+    "contactName": "Contact"
+  },
+  "ruleHealth": {
+    "ok": "Normal",
+    "metricMissing": "Metric deleted",
+    "evalFailed": "Evaluation failed",
+    "noContact": "No contacts",
+    "detailNoMetric": "The rule is not bound to a metric",
+    "detailMetricDeleted": "Metric {{metricId}} was deleted",
+    "detailEvalFailed": "Evaluation failed for {{times}} consecutive checks: {{message}}",
+    "detailNoContact": "No contacts: the rule has no bound contacts and the system has no enabled contacts"
+  },
+  "unit": {
+    "times": "times",
+    "rows": "items",
+    "pieces": "items",
+    "percent": "%"
+  },
+  "error": {
+    "rule": {
+      "notFound": "Alert rule not found: {{code}}",
+      "noFields": "No fields to update",
+      "builtinNotDeletable": "Built-in rules cannot be deleted",
+      "metricMissing": "Metric not found. Create one under Data management → Metrics first",
+      "metricLimit": "At most {{max}} metric alerts are allowed"
+    },
+    "contact": {
+      "idInvalid": "Invalid contact_id",
+      "notFound": "Contact not found",
+      "localeInvalid": "Unsupported language: {{locale}}",
+      "timezoneInvalid": "Invalid time zone (must be an IANA name such as Asia/Shanghai)"
+    },
+    "channel": {
+      "unsupported": "Unsupported channel type: {{kind}}",
+      "unavailable": "Channel {{channel}} is currently unavailable",
+      "unknown": "Unknown channel: {{channel}}"
+    },
+    "channelConfig": {
+      "unsupported": "Unsupported channel config: {{channel}}",
+      "masterKeyMissing": "Missing master key: set the {{env}} environment variable (32-byte base64) to encrypt and store channel credentials"
+    },
+    "template": {
+      "syntaxError": "Template syntax error: {{error}}",
+      "subjectSyntaxError": "Email subject syntax error: {{error}}",
+      "kindInvalid": "Invalid alert kind (fire / resolve)",
+      "channelInvalid": "Invalid channel group (chat / email / sms)"
+    },
+    "mute": {
+      "notFound": "Mute not found",
+      "windowInvalid": "Invalid mute window"
+    },
+    "retention": {
+      "scopeInvalid": "Unsupported retention scope: {{scope}}",
+      "daysInvalid": "Retention days must be an integer between 1 and {{max}}; leave empty to keep data forever"
+    },
+    "metric": {
+      "notFound": "Metric not found"
+    },
+    "validate": {
+      "failed": "Validation failed",
+      "required": "Enter \"{{field}}\"",
+      "number": "\"{{field}}\" must be a number",
+      "portRange": "Port must be between 1 and 65535",
+      "paramCount": "Template variables must be between 1 and 4",
+      "apiBaseHttp": "The API base must start with http(s)://",
+      "fromFormat": "Invalid sender format (use name <mail@example.com>)",
+      "webhookRequired": "Enter the webhook URL",
+      "webhookHttps": "The webhook URL must start with https://",
+      "webhookHttp": "The webhook URL must start with http(s)://",
+      "feishuWebhook": "This does not look like a Feishu bot webhook (expected https://open.feishu.cn/open-apis/bot/v2/hook/…)",
+      "dingtalkWebhook": "This does not look like a DingTalk bot webhook (expected https://oapi.dingtalk.com/robot/send?access_token=…)",
+      "dingtalkSecret": "The signing secret is too short (the SEC… value generated by the DingTalk console)",
+      "wecomWebhook": "This does not look like a WeCom group bot webhook (expected https://qyapi.weixin.qq.com/cgi-bin/webhook/send?key=…)",
+      "telegramChatIdRequired": "Enter the chat_id (a group or private chat ID; you can get it from @userinfobot)",
+      "telegramChatIdFormat": "chat_id must be numeric (group IDs start with -100)",
+      "emailRequired": "Enter the recipient email address",
+      "emailFormat": "Invalid email address",
+      "smsRequired": "Enter the recipient phone number",
+      "smsFormat": "Invalid phone number (include the country code, e.g. +8613800138000)",
+      "smsProvider": "Invalid SMS provider (available: {{allowed}})",
+      "whatsappRequired": "Enter the recipient number (E.164, e.g. 8613800138000)",
+      "whatsappFormat": "Invalid number length (E.164 without +, 8-15 digits)",
+      "headersJson": "Custom headers must be valid JSON (e.g. {\"Authorization\":\"Bearer xxx\"})",
+      "bodyTemplate": "Body template syntax error: {{error}}"
+    },
+    "ops": {
+      "forbidden": "Only platform super admins can access the ops console"
+    }
+  }
+}

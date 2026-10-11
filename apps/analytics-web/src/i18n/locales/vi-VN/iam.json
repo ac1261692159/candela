@@ -1,0 +1,290 @@
+{
+  "role": {
+    "analysisAdmin": "Quản trị viên phân tích",
+    "analyst": "Chuyên viên phân tích",
+    "member": "Thành viên thường",
+    "external": "Người ngoài",
+    "projectOwner": "Chủ sở hữu dự án"
+  },
+  "label": {
+    "role": "Vai trò",
+    "user": "Người dùng"
+  },
+  "message": {
+    "created": "Đã tạo",
+    "minLength": "Ít nhất 6 ký tự"
+  },
+  "dataPolicy": {
+    "title": "Chính sách quyền dữ liệu",
+    "column": "Quyền dữ liệu",
+    "unrestricted": "Không giới hạn",
+    "create": "Tạo chính sách",
+    "reference": "Tham chiếu",
+    "referenceCount": "Thành viên {{members}} / nhóm {{groups}}",
+    "deleteConfirm": "Xóa chính sách?",
+    "definition": "JSON định nghĩa (có thể để trống, mặc định hiển thị tất cả)",
+    "detail": "Chi tiết chính sách",
+    "scopeEvents": "Sự kiện được xem",
+    "scopeEventProperties": "Thuộc tính sự kiện được xem",
+    "scopeUserProperties": "Thuộc tính người dùng được xem",
+    "scopeRowFilter": "Bộ lọc hàng",
+    "scopeAll": "Không giới hạn",
+    "scopeNone": "Không có (ẩn tất cả)",
+    "rowFilterNone": "Không có",
+    "rowFilterAnd": "và",
+    "rowFilterItem": "{{prop}} {{op}} {{value}}"
+  },
+  "members": {
+    "title": "Quản lý thành viên",
+    "add": "Thêm thành viên",
+    "added": "Đã thêm",
+    "removeConfirm": "Gỡ khỏi dự án?",
+    "remove": "Gỡ bỏ",
+    "seed": "Tạo thành viên demo",
+    "seedSuccess": "Đã tạo analyst1 / member1 / external1 và thêm vào nhóm thành viên tương ứng",
+    "seedHint": "Sẽ tạo ba tài khoản demo trong dự án hiện tại và thêm vào «Nhóm chuyên viên phân tích / Nhóm thành viên thường / Nhóm người ngoài». Tài khoản trùng tên đã tồn tại sẽ không bị đổi mật khẩu.",
+    "demoPassword": "Mật khẩu tài khoản demo"
+  },
+  "subjectGrant": {
+    "action": "Quyền bảng điều khiển",
+    "title": "Quyền bảng điều khiển · {{name}}",
+    "hint": "Tích để cấp quyền xem. Cấp quyền cho thư mục áp dụng cho mọi bảng điều khiển bên trong, kể cả tạo sau này. Mục có quyền chỉnh sửa ở đây chỉ đọc.",
+    "searchPlaceholder": "Tìm thư mục hoặc bảng điều khiển",
+    "folders": "Thư mục",
+    "dashboards": "Bảng điều khiển",
+    "ungrouped": "Chưa phân nhóm",
+    "editable": "Được chỉnh sửa",
+    "saved": "Đã lưu quyền",
+    "empty": "Không có thư mục hoặc bảng điều khiển để cấp quyền"
+  },
+  "groups": {
+    "title": "Nhóm thành viên",
+    "create": "Tạo nhóm",
+    "createTitle": "Tạo nhóm thành viên",
+    "memberCount": "Số người",
+    "members": "Thành viên",
+    "membersTitle": "Thành viên nhóm · {{name}}",
+    "membersUpdated": "Đã cập nhật thành viên nhóm",
+    "membersHint": "Chỉ có thể thêm người đã là thành viên của dự án này. Nhóm không thể gán chủ sở hữu.",
+    "membersEmpty": "Chưa có thành viên"
+  },
+  "roles": {
+    "title": "Quản lý vai trò",
+    "ownerNotice": "Mỗi dự án có tối đa 1 chủ sở hữu, chỉ quản trị viên nền tảng được chỉ định. Quản trị viên phân tích không thể sửa định nghĩa này.",
+    "preset": "Có sẵn",
+    "adjusted": "Đã điều chỉnh",
+    "editDefinition": "Chỉnh sửa định nghĩa vai trò",
+    "saveSuccess": "Đã lưu định nghĩa quản trị viên phân tích",
+    "readonlyHint": "Vai trò có sẵn không thể tùy chỉnh. Chỉ chủ sở hữu dự án mới sửa được định nghĩa quản trị viên phân tích.",
+    "feature": "Chức năng",
+    "op": "Quyền thao tác",
+    "detail": "Chi tiết chức năng",
+    "granted": "Được cấp"
+  },
+  "apiKeys": {
+    "title": "Quản lý API Key",
+    "create": "Tạo API Key",
+    "hintLead": "Dùng cho công cụ AI / tự động hóa bên ngoài truy cập qua",
+    "hintTail": "để truy vấn chỉ đọc ClickHouse. Nhấp «Tạo API Key» để sinh ngay (tự đặt tên, phạm vi dự án mặc định là clklogapp, không hết hạn). Chuỗi Key chỉ hiển thị một lần khi tạo, hãy lưu giữ cẩn thận.",
+    "projectScope": "Phạm vi dự án",
+    "active": "Đang hiệu lực",
+    "revoked": "Đã thu hồi",
+    "expiresAt": "Thời gian hết hạn",
+    "lastUsedAt": "Dùng gần nhất",
+    "revokeConfirm": "Xác nhận thu hồi Key này? Sau khi thu hồi sẽ mất hiệu lực ngay",
+    "revoke": "Thu hồi",
+    "deleteConfirm": "Xác nhận xóa Key này? Thao tác này không thể khôi phục",
+    "created": "Đã tạo API Key",
+    "revokedMsg": "Đã thu hồi",
+    "deleted": "Đã xóa",
+    "copied": "Đã sao chép vào clipboard",
+    "createSuccess": "Tạo API Key thành công",
+    "plaintextWarning": "Key này chỉ hiển thị một lần, sau khi đóng không thể xem lại chuỗi gốc, hãy lưu ngay.",
+    "saved": "Tôi đã lưu"
+  },
+  "projectSettings": {
+    "title": "Cài đặt dự án",
+    "createProject": "Tạo dự án",
+    "createAccount": "Tạo tài khoản đăng nhập",
+    "ownerNotice": "Mỗi dự án có đúng một chủ sở hữu. Chỉ quản trị viên nền tảng mới tạo dự án và chỉ định/thay thế chủ sở hữu; chủ sở hữu cũ sẽ hạ xuống quản trị viên phân tích. Tạo dự án chỉ ghi nhận tên không gian phân tích, không tạo database trong ClickHouse.",
+    "projectName": "Tên dự án",
+    "displayName": "Tên hiển thị",
+    "currentOwner": "Chủ sở hữu hiện tại",
+    "projectOwner": "Chủ sở hữu dự án",
+    "unassigned": "Chưa chỉ định",
+    "assign": "Chỉ định / Thay thế",
+    "selectUser": "Chọn người dùng",
+    "userOption": "{{name}} ({{username}})",
+    "ownerUpdated": "Đã cập nhật chủ sở hữu thành {{name}}",
+    "projectCreated": "Đã tạo dự án",
+    "nameHint": "Bắt đầu bằng chữ thường, chỉ gồm chữ thường, số và dấu gạch dưới, 2–63 ký tự. project_name khi gửi từ SDK phải khớp với giá trị này.",
+    "nameRequired": "Vui lòng nhập tên dự án",
+    "nameInvalid": "Định dạng không đúng yêu cầu",
+    "namePlaceholder": "ví dụ: game_ios",
+    "displayNamePlaceholder": "Tên để hiển thị, có thể giống tên dự án",
+    "ownerRequired": "Vui lòng chỉ định chủ sở hữu",
+    "accountCreated": "Đã tạo tài khoản, có thể thêm vào dự án trong Quản lý thành viên",
+    "accountHint": "Chỉ tạo danh tính đăng nhập, không tự động trở thành thành viên của dự án nào. Để thêm người vào dự án, vào «Quản lý thành viên».",
+    "username": "Tên đăng nhập",
+    "password": "Mật khẩu"
+  },
+  "error": {
+    "loadFailed": "Tải không thành công. Vui lòng thử lại.",
+    "grant": {
+      "subjectRequired": "Thiếu subject_id",
+      "assetsMustBeArray": "asset_ids phải là mảng",
+      "subjectTypeInvalid": "subject_type phải là user hoặc group"
+    },
+    "asset": {
+      "folderNotFound": "Thư mục không tồn tại",
+      "dashboardNotFound": "Bảng điều khiển không tồn tại: {{id}}",
+      "cardNotFound": "Thẻ không tồn tại: {{id}}",
+      "cohortNotFound": "Nhóm người dùng không tồn tại",
+      "tagNotFound": "Thẻ không tồn tại",
+      "viewGrantDashboardOnly": "Quyền xem chỉ áp dụng cho bảng điều khiển và thư mục",
+      "editGrantAnalystOnly": "Chỉ có thể cấp quyền chỉnh sửa cho chuyên viên phân tích của dự án này",
+      "editGrantAnalystGroupOnly": "Chỉ có thể cấp quyền chỉnh sửa cho nhóm thành viên có vai trò chuyên viên phân tích",
+      "withdrawGrantBeforeLock": "Hãy thu hồi quyền chỉnh sửa trước khi khóa",
+      "unlockBeforeGrant": "Hãy mở khóa trước khi cấp quyền"
+    },
+    "forbidden": "Không có quyền truy cập tài nguyên này",
+    "dataScope": {
+      "invalidProp": "Tên thuộc tính người dùng không hợp lệ",
+      "unsupportedOperator": "Lọc theo dòng của quyền dữ liệu chưa hỗ trợ toán tử: {{op}}",
+      "eventForbidden": "Không có quyền truy vấn sự kiện: {{event}}",
+      "propertyForbidden": "Không có quyền sử dụng thuộc tính: {{property}}"
+    },
+    "project": {
+      "fieldsRequired": "name và owner_user_id là bắt buộc",
+      "nameInvalid": "Tên dự án phải bắt đầu bằng chữ thường, chỉ gồm chữ thường, số và dấu gạch dưới, độ dài 2–63",
+      "exists": "Dự án đã tồn tại",
+      "timezoneInvalid": "Múi giờ không hợp lệ (phải là tên IANA, ví dụ Asia/Shanghai)"
+    },
+    "demo": {
+      "passwordTooShort": "Mật khẩu tài khoản demo phải có ít nhất 6 ký tự"
+    },
+    "role": {
+      "grantsMustBeArray": "grants phải là mảng",
+      "invalid": "Vai trò không hợp lệ"
+    },
+    "member": {
+      "notMember": "Không phải thành viên của dự án này",
+      "ownerAssignForbidden": "Không thể chỉ định chủ sở hữu qua quản lý thành viên",
+      "notFound": "Thành viên không tồn tại",
+      "ownerRoleForbidden": "Không thể thay đổi vai trò dự án của chủ sở hữu",
+      "promoteToOwnerForbidden": "Không thể chuyển thành viên thành chủ sở hữu",
+      "removeOwnerForbidden": "Không thể gỡ chủ sở hữu dự án",
+      "expiryOwnerForbidden": "Owner của dự án không thể đặt thời hạn",
+      "expiryInvalid": "Thời hạn không hợp lệ"
+    },
+    "user": {
+      "unavailable": "Người dùng không khả dụng",
+      "notFound": "Người dùng không tồn tại"
+    },
+    "group": {
+      "bindingForbidden": "Nhóm thành viên không thể gán chủ sở hữu hoặc vai trò không hợp lệ",
+      "notFound": "Nhóm thành viên không tồn tại",
+      "ownerForbidden": "Nhóm thành viên không thể gán chủ sở hữu",
+      "memberRequired": "Người dùng phải đã là thành viên dự án"
+    },
+    "dataPolicy": {
+      "notFound": "Chính sách không tồn tại",
+      "inUse": "Vẫn đang được thành viên hoặc nhóm tham chiếu"
+    },
+    "invite": {
+      "emailInvalid": "Định dạng email không hợp lệ",
+      "alreadyMember": "Tài khoản của email này đã là thành viên dự án",
+      "notFound": "Không tìm thấy lời mời hoặc đã kết thúc",
+      "emailMismatch": "Email của tài khoản đang đăng nhập không khớp với lời mời"
+    }
+  },
+  "permission": {
+    "feature": {
+      "projectAccess": "Quản lý quyền dự án",
+      "dataPolicy": "Quyền dữ liệu",
+      "opsAccount": "Vận hành · Tài khoản",
+      "opsProjectSettings": "Vận hành · Cài đặt dự án",
+      "opsApiKey": "Vận hành · API Key",
+      "opsAiWorkspace": "Vận hành · AI Workspace",
+      "opsRuntime": "Vận hành · Quản trị vận hành khác",
+      "subject": "Chủ thể phân tích",
+      "cohort": "Quản lý nhóm người dùng",
+      "tag": "Quản lý thẻ người dùng",
+      "meta": "Tracking / Siêu dữ liệu",
+      "modelUsage": "Sử dụng mô hình",
+      "dashboard": "Sử dụng bảng điều khiển",
+      "metric": "Quản lý chỉ số",
+      "timeline": "Dòng thời gian người dùng"
+    },
+    "op": {
+      "view": "Xem",
+      "edit": "Chỉnh sửa",
+      "manage": "Quản lý",
+      "use": "Sử dụng chức năng"
+    },
+    "detail": {
+      "iamMemberView": "Xem thành viên, nhóm thành viên, mô tả vai trò và chính sách quyền dữ liệu của dự án này",
+      "iamMemberEdit": "Thêm/gỡ thành viên và nhóm; gán vai trò không phải chủ sở hữu",
+      "iamRoleEditAdmin": "Sửa định nghĩa cấp quyền «Quản trị viên phân tích» của dự án này",
+      "iamDataPolicyManage": "Tạo, sửa, xóa chính sách và gán cho thành viên hoặc nhóm",
+      "opsUserManage": "Tạo, vô hiệu hóa, kích hoạt tài khoản đăng nhập",
+      "opsOwnerAssign": "Tạo dự án phân tích; chỉ định hoặc thay thế chủ sở hữu duy nhất của dự án",
+      "opsApikeyManage": "Xem, tạo, thu hồi Key",
+      "opsAiWorkspaceManage": "Mẫu và đồng bộ",
+      "opsRuntimeAccess": "Giữ chỗ, phiên bản này chưa có trang tương ứng",
+      "subjectView": "Chuyển đổi chủ thể đã có trong phần phân tích",
+      "subjectEdit": "Xem và chỉnh sửa chủ thể phân tích của dự án này",
+      "cohortView": "Xem danh sách nhóm người dùng và bản xem trước thành viên",
+      "cohortEditOwn": "Thêm, sửa, xóa nhóm người dùng của chính mình",
+      "cohortEditOthers": "Sửa, xóa nhóm người dùng của người khác",
+      "tagView": "Xem danh sách thẻ và bản xem trước thành viên",
+      "tagEditOwn": "Thêm, sửa, xóa thẻ của chính mình",
+      "tagEditOthers": "Sửa, xóa thẻ của người khác",
+      "metaView": "Xem sự kiện, thuộc tính, đối tượng ảo, chỉ số, Debug, chất lượng dữ liệu",
+      "metaPickerView": "Đọc sự kiện, thuộc tính và trường bảng chiều đã bật cho bộ chọn trong phân tích (chỉ đọc)",
+      "metaEdit": "Chỉnh sửa định nghĩa, xác nhận/ẩn, Debug",
+      "modelQuery": "Truy vấn sự kiện / phễu / giữ chân",
+      "modelSql": "SQL tùy chỉnh",
+      "modelCardSave": "Lưu thẻ",
+      "modelExport": "Xuất dữ liệu truy vấn hoặc bảng điều khiển đã hiển thị",
+      "dashboardView": "Xem bảng điều khiển có quyền truy cập và cài đặt",
+      "dashboardViewAll": "Xem toàn bộ bảng điều khiển của dự án này",
+      "dashboardEdit": "Tạo bảng điều khiển mới; thử chỉnh sửa (kết quả cuối cùng theo AssetPolicy)",
+      "dashboardFilter": "Tạm thời điều chỉnh bộ lọc bảng điều khiển",
+      "dashboardFolderManage": "Tạo/đổi tên/xóa thư mục",
+      "assetLock": "Khóa/mở khóa thư mục, bảng điều khiển, thẻ phân tích, nhóm người dùng, thẻ người dùng",
+      "assetGrant": "Cấp hoặc thu hồi quyền chỉnh sửa và quyền xem ngoài cho bảng điều khiển/thẻ/thư mục",
+      "metricView": "Xem chỉ số đã lưu",
+      "metricEditOwn": "Tạo, sửa, xóa chỉ số của chính mình",
+      "metricEditOthers": "Sửa, xóa chỉ số của người khác",
+      "timelineView": "Xem tất cả sự kiện của một người dùng trong khoảng thời gian đã chọn"
+    }
+  },
+  "invite": {
+    "userOrEmailHint": "Có thể chọn tài khoản có sẵn hoặc nhập email đầy đủ để mời người chưa đăng ký.",
+    "userOrEmailPlaceholder": "Chọn tài khoản hoặc nhập email",
+    "addedDirect": "Email đã có tài khoản; đã thêm thẳng vào dự án",
+    "sent": "Đã gửi email mời",
+    "emailInvalid": "Chọn tài khoản hoặc nhập địa chỉ email đầy đủ",
+    "pendingTitle": "Lời mời đang chờ",
+    "colEmail": "Email",
+    "colInviter": "Người mời",
+    "colExpires": "Hết hạn",
+    "revoke": "Thu hồi",
+    "revokeConfirm": "Thu hồi lời mời này? Liên kết sẽ không còn hoạt động."
+  },
+  "member": {
+    "colExpiry": "Hạn dùng",
+    "expiryPermanent": "Vĩnh viễn",
+    "expiryInDays": "Hết hạn sau {{days}} ngày",
+    "expiredTag": "Đã hết hạn",
+    "renew": "Gia hạn",
+    "renewTitle": "Đặt thời hạn mới",
+    "renewed": "Đã gia hạn",
+    "expiryLabel": "Hạn thành viên (không bắt buộc)",
+    "expiryHint": "Sau khi hết hạn, vai trò trực tiếp trong dự án chấm dứt (vai trò nhóm giữ nguyên); để trống = vĩnh viễn."
+  },
+  "audit": {
+    "title": "Kiểm toán thao tác dự án"
+  }
+}

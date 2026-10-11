@@ -1,0 +1,544 @@
+.analysis-workbench {
+  display: grid;
+  gap: 16px;
+  align-items: stretch;
+  height: 100%;
+  min-height: 0;
+  min-width: 0;
+  flex: 1;
+}
+
+/* split（宽屏）填满 Content 可用高度，使底部计算条贴合视口底部，
+   避免 min-height 估算（100vh-168px）与真实可用高度（约 100vh-96px）不符留下空白 */
+.analysis-workbench--split {
+  grid-template-columns: 280px minmax(0, 1fr);
+  height: 100%;
+}
+
+.analysis-workbench--stack {
+  grid-template-columns: minmax(0, 1fr);
+  height: 100%;
+  min-height: 0;
+}
+
+.analysis-workbench__rail,
+.analysis-workbench__result {
+  min-width: 0;
+}
+
+/* 分析编辑器 rail：flex 列布局，编辑器计算条钉在 rail 底部，内容区独立滚动 */
+.analysis-workbench--split .analysis-workbench__rail {
+  min-width: 280px;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  padding-right: 2px;
+}
+
+.analysis-workbench--stack .analysis-workbench__rail {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  max-height: min(42vh, 420px);
+  padding-right: 2px;
+}
+
+.analysis-workbench--split .analysis-workbench__result {
+  overflow: auto;
+  min-height: 0;
+}
+
+.analysis-workbench--stack .analysis-workbench__result {
+  overflow: auto;
+  max-height: none;
+  min-height: 280px;
+}
+
+.analysis-step {
+  border: 0;
+  border-radius: 8px;
+  background: #fff;
+  padding: 10px 4px;
+  margin-bottom: 4px;
+}
+
+/* 空区块淡显（神策风）：无内容的筛选/分组整块变灰，➕ 仍可点 */
+.analysis-step.is-empty .analysis-step__head,
+.analysis-step.is-empty .analysis-step__head .analysis-step__title {
+  opacity: 0.4;
+}
+
+/* 编辑器：内容区独立滚动，计算条被推到滚动区底部（内容不足时）并 sticky 常驻（内容超长时） */
+.analysis-editor {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.analysis-editor__body {
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+  overflow-x: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+/* flex 列布局下禁止内容被压缩，超出时由 body 自身滚动 */
+.analysis-editor__body > * {
+  flex-shrink: 0;
+}
+
+/* 「近似计算 + 计算」：
+   - 内容不足一屏：margin-top:auto 将其推到滚动区底部
+   - 内容超出一屏：sticky 常驻在可视区底部，始终可见 */
+.analysis-editor__bottom-actions {
+  margin-top: auto;
+  position: sticky;
+  bottom: 0;
+  z-index: 2;
+  display: flex;
+  /* 280px 配置轨里「近似计算」标签 + 计算按钮在长语言下（俄 «Приближённый расчёт»、德
+     «Näherungsberechnung»）已接近满宽：允许换行，让按钮整块落到第二行，而不是把标签挤成窄条 */
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  row-gap: 8px;
+  padding: 12px 4px;
+  background: #fff;
+  border-top: 1px solid #f0f0f0;
+}
+
+.analysis-step.is-dragging {
+  opacity: 0.55;
+  outline: 2px dashed #1e40af;
+}
+
+.analysis-step.is-dragging .analysis-step__head,
+.analysis-step.is-dragging .analysis-step__head .analysis-step__title {
+  color: #1e40af;
+  cursor: grabbing;
+}
+
+.analysis-step__head {
+  user-select: none;
+}
+
+.analysis-step__head {
+  touch-action: none;
+}
+
+.analysis-editor__footer .approx-hint,
+.analysis-editor__bottom-actions .approx-hint {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 13px;
+  color: #595959;
+  cursor: not-allowed;
+}
+
+.analysis-editor__footer .approx-hint--enabled,
+.analysis-editor__bottom-actions .approx-hint--enabled {
+  cursor: pointer;
+  color: #262626;
+}
+
+.analysis-editor__footer .approx-hint .approx-i,
+.analysis-editor__bottom-actions .approx-hint .approx-i {
+  display: inline-flex;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  border: 1px solid #bfbfbf;
+  color: #8c8c8c;
+  font-size: 10px;
+  align-items: center;
+  justify-content: center;
+}
+
+.analysis-step__head {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.analysis-step:has(> :not(.analysis-step__head)) .analysis-step__head {
+  margin-bottom: 8px;
+}
+
+.analysis-step__toggle {
+  flex: 0 0 22px;
+  width: 22px;
+  height: 22px;
+  border: 0;
+  padding: 0;
+  background: transparent;
+  color: #475569;
+  cursor: pointer;
+  display: grid;
+  place-items: center;
+}
+
+.analysis-step__toggle:hover,
+.analysis-step__toggle:focus-visible {
+  color: #1e40af;
+}
+
+.analysis-step__num {
+  flex: 0 0 22px;
+  width: 22px;
+  height: 22px;
+  border-radius: 6px;
+  background: #1e40af;
+  color: #fff;
+  font-size: 12px;
+  font-weight: 600;
+  display: grid;
+  place-items: center;
+  line-height: 1;
+}
+
+.analysis-step__title {
+  font-size: 13px;
+  font-weight: 600;
+  color: #0f172a;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  border: 0;
+  padding: 0;
+  background: transparent;
+  text-align: left;
+  min-width: 0;
+  cursor: default;
+}
+
+button.analysis-step__title {
+  cursor: pointer;
+}
+
+/* 指标卡片的「点击标题改名」按钮（与漏斗 titleEditable 一致）。
+   去掉原生 button 样式，与纯文本标题视觉一致，hover 时给个微弱的可达性提示。 */
+button.analysis-peer__title {
+  cursor: pointer;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  text-align: left;
+  width: 100%;
+  min-width: 0;
+  font: inherit;
+  color: inherit;
+}
+button.analysis-peer__title:hover {
+  background: rgba(15, 23, 42, 0.04);
+  border-radius: 4px;
+}
+button.analysis-peer__title:focus-visible {
+  outline: 2px solid #1e40af;
+  outline-offset: 2px;
+}
+
+button.analysis-step__title:hover,
+button.analysis-step__title:focus-visible {
+  color: #1e40af;
+}
+
+.analysis-step__extra {
+  margin-left: auto;
+  flex-shrink: 0;
+  white-space: nowrap;
+}
+
+.funnel-step-order {
+  display: inline-flex;
+  align-items: center;
+  gap: 0;
+}
+
+.funnel-step-actions {
+  display: flex;
+  flex-wrap: nowrap;
+  gap: 8px;
+  margin-top: 8px;
+}
+
+.funnel-step-actions .ant-btn {
+  flex: 1;
+  min-width: max-content;
+  white-space: nowrap;
+}
+
+.analysis-peer {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 10px 32px 10px 10px;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  background: #f8fafc;
+}
+
+.analysis-peer:hover {
+  border-color: #cbd5e1;
+}
+
+.analysis-peer--indexed {
+  padding-top: 10px;
+}
+
+.analysis-peer__head {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-width: 0;
+  padding-right: 4px;
+}
+
+/* 卡片右上角的操作组是绝对定位叠在标题行上的（指标卡 3-4 个 28px 图标按钮）。
+   卡片只预留了 32px 右内边距，按钮一多就会盖住标题文字——而标题这时已经触发省略号，
+   被盖住的「…」让用户看不出还有内容可看（长语言标题更长，撞上的概率更高，G.29「截断必须可读」）。
+   按实际按钮个数把标题行让出来，让省略号停在按钮左边。 */
+.analysis-peer:has(.analysis-peer__action:nth-of-type(3)) .analysis-peer__head {
+  padding-right: 58px;
+}
+
+.analysis-peer:has(.analysis-peer__action:nth-of-type(4)) .analysis-peer__head {
+  padding-right: 86px;
+}
+
+.analysis-peer__num {
+  flex: 0 0 18px;
+  width: 18px;
+  height: 18px;
+  border-radius: 4px;
+  background: #1e40af;
+  color: #fff;
+  font-size: 11px;
+  font-weight: 600;
+  display: grid;
+  place-items: center;
+  line-height: 1;
+  margin-bottom: 0;
+}
+
+.analysis-peer__head .analysis-peer__title,
+.analysis-peer__head .ant-input {
+  flex: 1 1 auto;
+  width: auto;
+  min-width: 0;
+}
+
+/* 隐藏指标：仍参与计算（供公式引用），视觉降弱 */
+.analysis-peer--hidden {
+  opacity: 0.55;
+  background: repeating-linear-gradient(135deg, transparent, transparent 8px, rgba(0, 0, 0, 0.02) 8px, rgba(0, 0, 0, 0.02) 16px);
+}
+
+.analysis-peer__actions {
+  position: absolute;
+  top: 6px;
+  right: 6px;
+  display: flex;
+  align-items: center;
+  gap: 0;
+}
+
+.analysis-peer__action {
+  color: rgba(0, 0, 0, 0.45);
+}
+
+.analysis-peer__action:hover {
+  color: rgba(0, 0, 0, 0.88);
+}
+
+/* 删除按钮并入 __actions 容器，不再单独绝对定位 */
+
+/* Σ 公式：窄配置轨里必须纵向，避免 DAU/DNU 被挤成 DAI/DN。
+   子公式递归为缩进虚线框，深度由组件 MAX_DEPTH 限制。 */
+.formula-expr {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  min-width: 0;
+}
+
+.formula-expr__operand {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  min-width: 0;
+}
+
+.formula-expr__label {
+  font-size: 11px;
+  line-height: 1.2;
+  color: #64748b;
+}
+
+.formula-expr__op,
+.formula-expr__op.ant-select {
+  width: 100%;
+}
+
+.formula-slots {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 6px;
+  min-width: 0;
+}
+
+.formula-slots__op {
+  width: 100%;
+  min-width: 0;
+}
+
+.formula-slots--nested {
+  margin-top: 2px;
+  padding: 6px;
+  border: 1px dashed #cbd5e1;
+  border-radius: 6px;
+  background: #fff;
+}
+
+.formula-slot {
+  width: 100%;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+/* Σ 徽章：派生公式标识（区别于事件指标序号徽章） */
+.analysis-peer__num--sigma {
+  background: #64748b;
+}
+
+.chrome-chip-group,
+.analysis-time-shortcuts .ant-radio-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+}
+
+.chrome-chip-group .ant-radio-button-wrapper,
+.analysis-time-shortcuts .ant-radio-button-wrapper {
+  white-space: nowrap;
+}
+
+.funnel-view-settings {
+  /* 332px 是按中文/英文按钮宽度定的；结果设置弹层本身 maxWidth 380，
+     窄视口（<380px）里 332px 会把弹层顶出屏幕。改成软上限：宽屏保持 332px，窄屏随视口收缩。 */
+  width: min(332px, calc(100vw - 48px));
+}
+
+.funnel-view-settings__label {
+  display: block;
+  margin: 12px 0 8px;
+  /* 标签允许换行：德 «Staffelung nach der Konversionsrate für den nächsten Schritt» 单行 ~370px，
+     nowrap 会直接溢出 332px 的弹层（这里不做截断，宁可变两行） */
+  white-space: normal;
+}
+
+.funnel-view-settings__label:first-child {
+  margin-top: 0;
+}
+
+.funnel-view-settings__hint {
+  display: block;
+  margin-bottom: 8px;
+  font-size: 12px;
+  line-height: 1.5;
+}
+
+.funnel-view-settings-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 8px;
+}
+
+.funnel-view-settings-row .ant-input-number {
+  width: 96px;
+}
+
+.funnel-view-settings-row__text {
+  white-space: nowrap;
+  color: #595959;
+}
+
+.funnel-view-settings-row__eq {
+  white-space: nowrap;
+  font-size: 12px;
+}
+
+.funnel-table .ant-table-cell,
+.funnel-table .ant-table-thead > tr > th {
+  white-space: nowrap;
+}
+
+.chrome-ellipsis {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  min-width: 0;
+}
+
+/* 结果卡片标题：antd 的 .ant-card-head-title 固定单行 + 省略号，长语言（俄 «Результат запроса»、
+   德 «Abfrageergebnis»）叠加缓存/耗时徽标后会拦腰截断且没有 title 可悬停。
+   这里放开为可换行，让徽标整块落到第二行，而不是把标题切一半。 */
+.analysis-result-card .ant-card-head-title {
+  white-space: normal;
+}
+
+.filter-logic-join {
+  display: flex;
+  justify-content: center;
+  padding: 2px 0 4px;
+}
+
+.filter-group-nest {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 10px;
+  border: 1px dashed #cbd5e1;
+  border-radius: 8px;
+  background: #fff;
+}
+
+.filter-group-nest--indexed {
+  padding-top: 12px;
+}
+
+.filter-group-nest__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  font-size: 12px;
+  font-weight: 600;
+  color: #475569;
+  /* 这里是「条件组」+ 删除按钮的标题行：229px 窄轨里长语言标题要能换行，
+     删除按钮不缩（调用方已给 flexShrink: 0），不再靠 nowrap 把两者挤在一行。 */
+  white-space: normal;
+}
+
+.cohort-sentence {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+}
+
+.cohort-sentence > * {
+  flex: 0 0 auto;
+  white-space: nowrap;
+}

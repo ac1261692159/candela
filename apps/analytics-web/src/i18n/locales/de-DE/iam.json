@@ -1,0 +1,290 @@
+{
+  "role": {
+    "analysisAdmin": "Analyse-Administrator",
+    "analyst": "Analyst",
+    "member": "Standardmitglied",
+    "external": "Externer Benutzer",
+    "projectOwner": "Projekt-Owner"
+  },
+  "label": {
+    "role": "Rolle",
+    "user": "Benutzer"
+  },
+  "message": {
+    "created": "Erstellt",
+    "minLength": "Mindestens 6 Zeichen"
+  },
+  "dataPolicy": {
+    "title": "Datenberechtigungs-Richtlinie",
+    "column": "Datenberechtigung",
+    "unrestricted": "Uneingeschränkt",
+    "create": "Neue Richtlinie",
+    "reference": "Referenzen",
+    "referenceCount": "Mitglieder {{members}} / Gruppen {{groups}}",
+    "deleteConfirm": "Richtlinie löschen?",
+    "definition": "Definition (JSON, optional; Standard: alles sichtbar)",
+    "detail": "Richtliniendetails",
+    "scopeEvents": "Sichtbare Ereignisse",
+    "scopeEventProperties": "Sichtbare Ereigniseigenschaften",
+    "scopeUserProperties": "Sichtbare Benutzereigenschaften",
+    "scopeRowFilter": "Zeilenfilter",
+    "scopeAll": "Uneingeschränkt",
+    "scopeNone": "Keine (alle ausgeblendet)",
+    "rowFilterNone": "Keine",
+    "rowFilterAnd": "und",
+    "rowFilterItem": "{{prop}} {{op}} {{value}}"
+  },
+  "members": {
+    "title": "Mitgliederverwaltung",
+    "add": "Mitglied hinzufügen",
+    "added": "Hinzugefügt",
+    "removeConfirm": "Aus dem Projekt entfernen?",
+    "remove": "Entfernen",
+    "seed": "Demo-Mitglieder anlegen",
+    "seedSuccess": "analyst1 / member1 / external1 wurden erstellt und den passenden Mitgliedergruppen hinzugefügt",
+    "seedHint": "Erstellt im aktuellen Projekt drei Demo-Konten und fügt sie den Gruppen „Analysten / Standardmitglieder / Externe Benutzer“ hinzu. Vorhandene Konten mit gleichem Namen behalten ihr Passwort.",
+    "demoPassword": "Passwort der Demo-Konten"
+  },
+  "subjectGrant": {
+    "action": "Dashboard-Zugriff",
+    "title": "Dashboard-Zugriff · {{name}}",
+    "hint": "Anhaken vergibt Ansichtsrechte. Eine Freigabe für einen Ordner gilt für alle enthaltenen Dashboards, auch für später erstellte. Assets mit Bearbeitungsrecht sind hier schreibgeschützt.",
+    "searchPlaceholder": "Ordner oder Dashboards suchen",
+    "folders": "Ordner",
+    "dashboards": "Dashboards",
+    "ungrouped": "Ohne Ordner",
+    "editable": "Bearbeiten",
+    "saved": "Zugriff gespeichert",
+    "empty": "Keine Ordner oder Dashboards zum Freigeben"
+  },
+  "groups": {
+    "title": "Mitgliedergruppen",
+    "create": "Neue Gruppe",
+    "createTitle": "Neue Mitgliedergruppe",
+    "memberCount": "Anzahl",
+    "members": "Mitglieder",
+    "membersTitle": "Gruppenmitglieder · {{name}}",
+    "membersUpdated": "Gruppenmitglieder aktualisiert",
+    "membersHint": "Es können nur Personen hinzugefügt werden, die bereits Projektmitglied sind. Gruppen können nicht an einen Owner gebunden werden.",
+    "membersEmpty": "Noch keine Mitglieder"
+  },
+  "roles": {
+    "title": "Rollenverwaltung",
+    "ownerNotice": "Pro Projekt höchstens ein Owner, nur vom Super-Administrator festgelegt. Analyse-Administratoren können diese Definition nicht ändern.",
+    "preset": "Vordefiniert",
+    "adjusted": "Angepasst",
+    "editDefinition": "Rollendefinition bearbeiten",
+    "saveSuccess": "Definition des Analyse-Administrators gespeichert",
+    "readonlyHint": "Vordefinierte Rollen lassen sich nicht anpassen. Die Definition des Analyse-Administrators kann nur der Projekt-Owner ändern.",
+    "feature": "Funktion",
+    "op": "Berechtigung",
+    "detail": "Funktionsdetails",
+    "granted": "Vorhanden"
+  },
+  "apiKeys": {
+    "title": "API-Key-Verwaltung",
+    "create": "Neuen API Key erstellen",
+    "hintLead": "Für externe AI- und Automatisierungstools – über",
+    "hintTail": "nur lesende ClickHouse-Abfragen. Mit „Neuen API Key erstellen“ wird der Key automatisch erzeugt (Name, Projektgrenze standardmäßig clklogapp, kein Ablaufdatum). Der Klartext wird nur einmal bei der Erzeugung angezeigt – bitte sicher aufbewahren.",
+    "projectScope": "Projektgrenze",
+    "active": "Aktiv",
+    "revoked": "Widerrufen",
+    "expiresAt": "Ablaufdatum",
+    "lastUsedAt": "Zuletzt verwendet",
+    "revokeConfirm": "Diesen Key widerrufen? Er wird sofort ungültig",
+    "revoke": "Widerrufen",
+    "deleteConfirm": "Diesen Key löschen? Dieser Vorgang kann nicht rückgängig gemacht werden",
+    "created": "API Key erstellt",
+    "revokedMsg": "Widerrufen",
+    "deleted": "Gelöscht",
+    "copied": "In die Zwischenablage kopiert",
+    "createSuccess": "API Key erfolgreich erstellt",
+    "plaintextWarning": "Dieser Key wird nur einmal angezeigt. Nach dem Schließen ist der Klartext nicht mehr sichtbar – bitte sofort speichern.",
+    "saved": "Habe ich gespeichert"
+  },
+  "projectSettings": {
+    "title": "Projekteinstellungen",
+    "createProject": "Neues Projekt",
+    "createAccount": "Neues Anmeldekonto",
+    "ownerNotice": "Jedes Projekt hat genau einen Owner. Ein neues Projekt anzulegen und den Owner zuzuweisen oder zu ersetzen, ist nur dem Super-Administrator möglich; der bisherige Owner wird zum Analyse-Administrator herabgestuft. Ein neues Projekt registriert nur den Analyse-Namensraum, ohne Datenbank in ClickHouse anzulegen.",
+    "projectName": "Projektname",
+    "displayName": "Anzeigename",
+    "currentOwner": "Aktueller Owner",
+    "projectOwner": "Projekt-Owner",
+    "unassigned": "Nicht zugewiesen",
+    "assign": "Zuweisen / ersetzen",
+    "selectUser": "Benutzer auswählen",
+    "userOption": "{{name}} ({{username}})",
+    "ownerUpdated": "Owner für {{name}} aktualisiert",
+    "projectCreated": "Projekt erstellt",
+    "nameHint": "Beginnt mit einem Kleinbuchstaben; nur Kleinbuchstaben, Ziffern und Unterstriche, 2–63 Zeichen. Der project_name der SDK-Übermittlung muss damit übereinstimmen.",
+    "nameRequired": "Bitte Projektnamen eingeben",
+    "nameInvalid": "Format entspricht nicht den Anforderungen",
+    "namePlaceholder": "z. B. game_ios",
+    "displayNamePlaceholder": "Name für die Anzeige, kann mit dem Projektnamen identisch sein",
+    "ownerRequired": "Bitte Owner festlegen",
+    "accountCreated": "Konto erstellt; es kann in der Mitgliederverwaltung zum Projekt hinzugefügt werden",
+    "accountHint": "Es wird nur eine Anmeldeidentität erstellt; sie wird nicht automatisch Mitglied eines Projekts. Personen fügen Sie über „Mitglieder“ hinzu.",
+    "username": "Benutzername",
+    "password": "Passwort"
+  },
+  "error": {
+    "loadFailed": "Laden fehlgeschlagen. Bitte erneut versuchen.",
+    "grant": {
+      "subjectRequired": "subject_id fehlt",
+      "assetsMustBeArray": "asset_ids muss ein Array sein",
+      "subjectTypeInvalid": "subject_type muss user oder group sein"
+    },
+    "asset": {
+      "folderNotFound": "Ordner existiert nicht",
+      "dashboardNotFound": "Dashboard existiert nicht: {{id}}",
+      "cardNotFound": "Karte existiert nicht: {{id}}",
+      "cohortNotFound": "Kohorte existiert nicht",
+      "tagNotFound": "Tag existiert nicht",
+      "viewGrantDashboardOnly": "Ansichtsrechte gelten nur für Dashboards und Ordner",
+      "editGrantAnalystOnly": "Bearbeitungsrechte können nur an Analysten dieses Projekts erteilt werden",
+      "editGrantAnalystGroupOnly": "Bearbeitungsrechte können nur an Mitgliedergruppen mit der Rolle Analyst erteilt werden",
+      "withdrawGrantBeforeLock": "Erst Bearbeitungsrechte zurückziehen, dann sperren",
+      "unlockBeforeGrant": "Erst entsperren, dann Rechte erteilen"
+    },
+    "forbidden": "Kein Zugriff auf diese Ressource",
+    "dataScope": {
+      "invalidProp": "Ungültiger Benutzereigenschaftsname",
+      "unsupportedOperator": "Die Zeilenfilterung der Datenberechtigung unterstützt derzeit keinen Operator: {{op}}",
+      "eventForbidden": "Keine Berechtigung für Ereignis: {{event}}",
+      "propertyForbidden": "Keine Berechtigung für Eigenschaft: {{property}}"
+    },
+    "project": {
+      "fieldsRequired": "name und owner_user_id sind Pflichtfelder",
+      "nameInvalid": "Der Projektname muss mit einem Kleinbuchstaben beginnen und darf nur Kleinbuchstaben, Ziffern und Unterstriche enthalten (Länge 2–63)",
+      "exists": "Projekt existiert bereits",
+      "timezoneInvalid": "Ungültige Zeitzone (IANA-Name erforderlich, z. B. Asia/Shanghai)"
+    },
+    "demo": {
+      "passwordTooShort": "Das Passwort für Demo-Konten muss mindestens 6 Zeichen haben"
+    },
+    "role": {
+      "grantsMustBeArray": "grants muss ein Array sein",
+      "invalid": "Ungültige Rolle"
+    },
+    "member": {
+      "notMember": "Kein Mitglied dieses Projekts",
+      "ownerAssignForbidden": "Der Owner kann nicht über die Mitgliederverwaltung festgelegt werden",
+      "notFound": "Mitglied existiert nicht",
+      "ownerRoleForbidden": "Die Projektrolle des Owners kann nicht geändert werden",
+      "promoteToOwnerForbidden": "Ein Mitglied kann nicht in einen Owner geändert werden",
+      "removeOwnerForbidden": "Der Projekt-Owner kann nicht entfernt werden",
+      "expiryOwnerForbidden": "Für einen Projekt-Owner kann kein Ablaufdatum gesetzt werden",
+      "expiryInvalid": "Ablaufzeitpunkt ist ungültig"
+    },
+    "user": {
+      "unavailable": "Benutzer nicht verfügbar",
+      "notFound": "Benutzer existiert nicht"
+    },
+    "group": {
+      "bindingForbidden": "Mitgliedergruppen können nicht an einen Owner oder eine ungültige Rolle gebunden werden",
+      "notFound": "Mitgliedergruppe existiert nicht",
+      "ownerForbidden": "Mitgliedergruppen können nicht an einen Owner gebunden werden",
+      "memberRequired": "Der Benutzer muss bereits Projektmitglied sein"
+    },
+    "dataPolicy": {
+      "notFound": "Richtlinie existiert nicht",
+      "inUse": "Wird noch von Mitgliedern oder Gruppen referenziert"
+    },
+    "invite": {
+      "emailInvalid": "Ungültiges E-Mail-Format",
+      "alreadyMember": "Das Konto dieser E-Mail ist bereits Projektmitglied",
+      "notFound": "Einladung nicht gefunden oder bereits beendet",
+      "emailMismatch": "Die E-Mail des angemeldeten Kontos passt nicht zur Einladung"
+    }
+  },
+  "permission": {
+    "feature": {
+      "projectAccess": "Projektberechtigungen",
+      "dataPolicy": "Datenberechtigungen",
+      "opsAccount": "Betrieb · Konto",
+      "opsProjectSettings": "Betrieb · Projekteinstellungen",
+      "opsApiKey": "Betrieb · API Key",
+      "opsAiWorkspace": "Betrieb · AI Workspace",
+      "opsRuntime": "Betrieb · Weitere Betriebsverwaltung",
+      "subject": "Analyse-Subjekt",
+      "cohort": "Kohortenverwaltung",
+      "tag": "Benutzer-Tag-Verwaltung",
+      "meta": "Tracking-Plan / Metadaten",
+      "modelUsage": "Modellnutzung",
+      "dashboard": "Dashboard-Nutzung",
+      "metric": "Metrikverwaltung",
+      "timeline": "Nutzer-Zeitachse"
+    },
+    "op": {
+      "view": "Anzeigen",
+      "edit": "Bearbeiten",
+      "manage": "Verwalten",
+      "use": "Funktionsnutzung"
+    },
+    "detail": {
+      "iamMemberView": "Mitglieder, Mitgliedergruppen, Rollenbeschreibungen und Datenberechtigungs-Richtlinien dieses Projekts anzeigen",
+      "iamMemberEdit": "Mitglieder und Gruppen hinzufügen/entfernen; Rollen außer der des Owners zuweisen",
+      "iamRoleEditAdmin": "Berechtigungsdefinition des Analyse-Administrators für dieses Projekt bearbeiten",
+      "iamDataPolicyManage": "Richtlinien erstellen, bearbeiten und löschen sowie Mitgliedern oder Gruppen zuweisen",
+      "opsUserManage": "Anmeldekonten erstellen, deaktivieren und aktivieren",
+      "opsOwnerAssign": "Analyseprojekte anlegen; den einzigen Owner des Projekts zuweisen oder ersetzen",
+      "opsApikeyManage": "Keys anzeigen, erstellen und widerrufen",
+      "opsAiWorkspaceManage": "Vorlagen und Synchronisierung",
+      "opsRuntimeAccess": "Platzhalter, in dieser Version ohne Route",
+      "subjectView": "In der Analyse zwischen vorhandenen Subjekten wechseln",
+      "subjectEdit": "Analyse-Subjekte dieses Projekts anzeigen und bearbeiten",
+      "cohortView": "Kohortenliste und Mitgliedervorschau anzeigen",
+      "cohortEditOwn": "Eigene Kohorten anlegen, bearbeiten und löschen",
+      "cohortEditOthers": "Kohorten anderer Benutzer bearbeiten und löschen",
+      "tagView": "Tag-Liste und Mitgliedervorschau anzeigen",
+      "tagEditOwn": "Eigene Tags anlegen, bearbeiten und löschen",
+      "tagEditOthers": "Tags anderer Benutzer bearbeiten und löschen",
+      "metaView": "Ereignisse, Eigenschaften, virtuelle Objekte, Metriken, Debug und Datenqualität anzeigen",
+      "metaPickerView": "Aktivierte Ereignisse, Eigenschaften und Dimensionsfelder für Analyse-Auswahlen lesen (schreibgeschützt)",
+      "metaEdit": "Definitionen bearbeiten, bestätigen/ausblenden, Debug",
+      "modelQuery": "Ereignis- / Funnel- / Retention-Abfragen",
+      "modelSql": "Benutzerdefiniertes SQL",
+      "modelCardSave": "Karten speichern",
+      "modelExport": "Dargestellte Abfrage- oder Dashboard-Daten exportieren",
+      "dashboardView": "Zugängliche Dashboards und deren Einstellungen anzeigen",
+      "dashboardViewAll": "Alle Dashboards dieses Projekts anzeigen",
+      "dashboardEdit": "Dashboards erstellen; Bearbeitung versuchen (maßgeblich ist AssetPolicy)",
+      "dashboardFilter": "Dashboard-Filter vorübergehend anpassen",
+      "dashboardFolderManage": "Ordner erstellen/umbenennen/löschen",
+      "assetLock": "Ordner, Dashboards, Karten, Kohorten und Tags sperren/entsperren",
+      "assetGrant": "Bearbeitungsrechte und externe Ansicht für Dashboards/Karten/Ordner erteilen oder zurückziehen",
+      "metricView": "Gespeicherte Metriken anzeigen",
+      "metricEditOwn": "Eigene Metriken anlegen, bearbeiten und löschen",
+      "metricEditOthers": "Metriken anderer Benutzer bearbeiten und löschen",
+      "timelineView": "Alle Ereignisse eines Nutzers im gewählten Zeitraum anzeigen"
+    }
+  },
+  "invite": {
+    "userOrEmailHint": "Bestehendes Konto wählen oder vollständige E-Mail eingeben, um jemanden Neuen einzuladen.",
+    "userOrEmailPlaceholder": "Konto wählen oder E-Mail eingeben",
+    "addedDirect": "Für diese E-Mail existiert ein Konto; direkt zum Projekt hinzugefügt",
+    "sent": "Einladungs-E-Mail gesendet",
+    "emailInvalid": "Konto wählen oder vollständige E-Mail-Adresse eingeben",
+    "pendingTitle": "Ausstehende Einladungen",
+    "colEmail": "E-Mail",
+    "colInviter": "Eingeladen von",
+    "colExpires": "Ablauf",
+    "revoke": "Widerrufen",
+    "revokeConfirm": "Diese Einladung widerrufen? Der Link funktioniert dann nicht mehr."
+  },
+  "member": {
+    "colExpiry": "Ablauf",
+    "expiryPermanent": "Unbegrenzt",
+    "expiryInDays": "Läuft in {{days}} Tagen ab",
+    "expiredTag": "Abgelaufen",
+    "renew": "Verlängern",
+    "renewTitle": "Neuen Ablaufzeitpunkt setzen",
+    "renewed": "Verlängert",
+    "expiryLabel": "Mitgliedschaftsablauf (optional)",
+    "expiryHint": "Nach Ablauf endet die direkte Projektrolle (Gruppenrollen bleiben); leer = unbegrenzt."
+  },
+  "audit": {
+    "title": "Projekt-Audit"
+  }
+}

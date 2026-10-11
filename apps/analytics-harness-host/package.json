@@ -1,0 +1,17 @@
+{
+  "name": "@clklog/analytics-harness-host",
+  "version": "1.0.0",
+  "private": true,
+  "license": "AGPL-3.0-only",
+  "type": "module",
+  "engines": {
+    "node": ">=24 <25"
+  },
+  "scripts": {
+    "test": "node --test plugins/analytics-tools/index.test.mjs workspace-registry.test.mjs"
+  },
+  "dependencies": {
+    "@deepseek-ai/dsh": "0.1.2-alpha.3",
+    "@deepseek-ai/dsh-tools": "0.1.2-alpha.3"
+  }
+}

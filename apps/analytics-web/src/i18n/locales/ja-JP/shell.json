@@ -1,0 +1,58 @@
+{
+  "document": {
+    "title": "Candela 分析プラットフォーム"
+  },
+  "menu": {
+    "report": "レポート",
+    "dashboards": "ダッシュボード",
+    "cards": "分析カード",
+    "analysis": "分析",
+    "event": "イベント分析",
+    "funnel": "ファネル分析",
+    "retention": "リテンション分析",
+    "sql": "カスタム SQL",
+    "user": "ユーザー",
+    "cohorts": "コホート",
+    "tags": "ユーザータグ",
+    "subjects": "分析主体",
+    "meta": "トラッキング管理",
+    "events": "メタイベント",
+    "virtualProperties": "仮想プロパティ",
+    "eventAttributes": "イベントプロパティ",
+    "userProperties": "ユーザープロパティ",
+    "virtualEvents": "仮想イベント",
+    "data": "データ管理",
+    "onboarding": "導入ガイド",
+    "metrics": "指標",
+    "debug": "Debug",
+    "quality": "データ品質",
+    "datatables": "データテーブル",
+    "iam": "プロジェクト権限",
+    "members": "メンバー管理",
+    "groups": "メンバーグループ",
+    "roles": "ロール管理",
+    "dataPolicies": "データポリシー",
+    "ops": "運用",
+    "slowQueries": "スロークエリ",
+    "serverStatus": "サーバー状態",
+    "alerts": "監視アラート",
+    "dataManagement": "データ運用",
+    "settings": "設定",
+    "profile": "個人設定",
+    "projectOwners": "プロジェクト設定",
+    "apiKeys": "API Key 管理",
+    "aiWorkspace": "AI Workspace",
+    "logout": "ログアウト",
+    "users": "ユーザー管理",
+    "userTimeline": "ユーザー行動シーケンス"
+  },
+  "header": {
+    "collapseMenu": "メニューを折りたたむ",
+    "expandMenu": "メニューを展開",
+    "openMenu": "メニューを開く",
+    "menu": "メニュー"
+  },
+  "drawer": {
+    "title": "Candela 分析"
+  }
+}

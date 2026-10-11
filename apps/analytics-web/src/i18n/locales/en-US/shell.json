@@ -1,0 +1,58 @@
+{
+  "document": {
+    "title": "Candela Analytics"
+  },
+  "menu": {
+    "report": "Reports",
+    "dashboards": "Dashboards",
+    "cards": "Saved cards",
+    "analysis": "Analysis",
+    "event": "Event analysis",
+    "funnel": "Funnel analysis",
+    "retention": "Retention analysis",
+    "sql": "Custom SQL",
+    "user": "Users",
+    "cohorts": "Cohorts",
+    "tags": "User tags",
+    "subjects": "Analysis subjects",
+    "meta": "Tracking",
+    "events": "Events",
+    "virtualProperties": "Virtual properties",
+    "eventAttributes": "Event attributes",
+    "userProperties": "User properties",
+    "virtualEvents": "Virtual events",
+    "data": "Data management",
+    "onboarding": "Integration guide",
+    "metrics": "Metrics",
+    "debug": "Debug",
+    "quality": "Data quality",
+    "datatables": "Data tables",
+    "iam": "Project access",
+    "members": "Members",
+    "groups": "Member groups",
+    "roles": "Roles",
+    "dataPolicies": "Data policies",
+    "ops": "Operations",
+    "slowQueries": "Slow queries",
+    "serverStatus": "Server status",
+    "alerts": "Alerting",
+    "dataManagement": "Data operations",
+    "settings": "Settings",
+    "profile": "Profile",
+    "projectOwners": "Project settings",
+    "apiKeys": "API keys",
+    "aiWorkspace": "AI Workspace",
+    "logout": "Sign out",
+    "users": "User management",
+    "userTimeline": "User timeline"
+  },
+  "header": {
+    "collapseMenu": "Collapse menu",
+    "expandMenu": "Expand menu",
+    "openMenu": "Open menu",
+    "menu": "Menu"
+  },
+  "drawer": {
+    "title": "Candela Analytics"
+  }
+}

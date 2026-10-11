@@ -1,0 +1,58 @@
+{
+  "document": {
+    "title": "Plataforma de análisis Candela"
+  },
+  "menu": {
+    "report": "Informes",
+    "dashboards": "Paneles",
+    "cards": "Tarjetas de análisis",
+    "analysis": "Análisis",
+    "event": "Análisis de eventos",
+    "funnel": "Análisis de embudos",
+    "retention": "Análisis de retención",
+    "sql": "SQL personalizado",
+    "user": "Usuarios",
+    "cohorts": "Cohortes de usuarios",
+    "tags": "Etiquetas de usuario",
+    "subjects": "Sujetos de análisis",
+    "meta": "Plan de seguimiento",
+    "events": "Eventos",
+    "virtualProperties": "Propiedades virtuales",
+    "eventAttributes": "Atributos de evento",
+    "userProperties": "Propiedades de usuario",
+    "virtualEvents": "Eventos virtuales",
+    "data": "Gestión de datos",
+    "onboarding": "Guía de integración",
+    "metrics": "Métricas",
+    "debug": "Debug",
+    "quality": "Calidad de datos",
+    "datatables": "Tablas de datos",
+    "iam": "Permisos del proyecto",
+    "members": "Miembros",
+    "groups": "Grupos de miembros",
+    "roles": "Roles",
+    "dataPolicies": "Permisos de datos",
+    "ops": "Operación",
+    "slowQueries": "Consultas lentas",
+    "serverStatus": "Estado del servidor",
+    "alerts": "Alertas",
+    "dataManagement": "Operación de datos",
+    "settings": "Ajustes",
+    "profile": "Ajustes personales",
+    "projectOwners": "Ajustes del proyecto",
+    "apiKeys": "Gestión de API Key",
+    "aiWorkspace": "AI Workspace",
+    "logout": "Cerrar sesión",
+    "users": "Gestión de usuarios",
+    "userTimeline": "Línea temporal del usuario"
+  },
+  "header": {
+    "collapseMenu": "Contraer menú",
+    "expandMenu": "Expandir menú",
+    "openMenu": "Abrir menú",
+    "menu": "Menú"
+  },
+  "drawer": {
+    "title": "Análisis de Candela"
+  }
+}

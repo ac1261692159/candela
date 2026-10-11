@@ -1,0 +1,554 @@
+{
+  "tab": {
+    "overview": "Visão geral",
+    "rules": "Políticas",
+    "history": "Histórico",
+    "mute": "Silenciados",
+    "notifications": "Registro de notificações",
+    "templates": "Modelos de notificação",
+    "channels": "Configuração de canais",
+    "contacts": "Contatos",
+    "audits": "Registro de alterações"
+  },
+  "workbench": {
+    "title": "Alertas",
+    "firing": "No momento há {{count}} alerta(s) disparado(s)",
+    "firing_one": "No momento há {{count}} alerta disparado",
+    "firing_other": "No momento há {{count}} alertas disparados",
+    "noContact": "Não há contatos ativados; os alertas não serão enviados",
+    "noContactHint": "Adicione contatos na aba “Contatos” e mantenha-os ativados; quando uma regra não tem contatos vinculados, o envio vai para todos os contatos ativados.",
+    "brokenRules": "{{count}} regra(s) inválida(s) no momento",
+    "brokenRules_one": "{{count}} regra inválida no momento",
+    "brokenRules_other": "{{count}} regras inválidas no momento",
+    "brokenRulesHint": "{{names}}: a métrica vinculada foi excluída ou a avaliação falhou várias rodadas seguidas; essas regras não disparam (veja a coluna de saúde na aba “Políticas”).",
+    "notifyFail24h": "Nas últimas 24 horas houve {{count}} falha(s) na entrega de notificações",
+    "notifyFail24h_one": "Nas últimas 24 horas houve {{count}} falha na entrega de notificações",
+    "notifyFail24h_other": "Nas últimas 24 horas houve {{count}} falhas na entrega de notificações",
+    "notifyFail24hHint": "Só é registrado se também falhar após três tentativas; veja o motivo da falha na aba “Registro de notificações”."
+  },
+  "overview": {
+    "firedToday": "Disparados hoje",
+    "unresolved": "Não recuperados",
+    "notifyFailToday": "Falhas de notificação hoje",
+    "firingEmpty": "Nenhum alerta disparado no momento",
+    "topRules": "Regras que mais dispararam hoje",
+    "topRulesEmpty": "Ainda não houve disparos hoje",
+    "fireCount": "Número de disparos"
+  },
+  "status": {
+    "firing": "Disparado",
+    "normal": "Normal",
+    "resolved": "Recuperado"
+  },
+  "severity": {
+    "label": "Nível",
+    "alertLevel": "Nível do alerta",
+    "critical": "Crítico",
+    "warning": "Aviso",
+    "info": "Informativo"
+  },
+  "kind": {
+    "fire": "Disparo do alerta",
+    "resolve": "Recuperação do alerta"
+  },
+  "rule": {
+    "label": "Regra",
+    "createMetric": "Criar alerta de métrica",
+    "editTitle": "Editar a condição de disparo",
+    "editTitleNamed": "Editar a condição de disparo · {{name}}",
+    "saving": "Salvando",
+    "editorHint": "O ciclo de detecção é fixo em 60 segundos. Janela × persistência da anomalia = número de cruzamentos consecutivos para disparar. Regras internas não podem ser excluídas.",
+    "editorMetricHint": "O valor da métrica é avaliado em tempo real pela mesma cadeia de consulta do painel de trabalho.",
+    "targetMetric": "Métrica observada",
+    "target": "Objeto observado",
+    "metricTag": "Métrica de gerenciamento de dados",
+    "comparator": "Comparação",
+    "threshold": "Limite",
+    "statWindow": "Janela estatística",
+    "statWindowHint": "A análise de eventos filtra por dia (stat_date), então a janela é em dias, não em minutos; “Hoje” é o valor acumulado do dia",
+    "windowMinutesLabel": "Granularidade do ponto de dados",
+    "windowMinutesOption": "Estatística de {{minutes}} minutos",
+    "windowTimes": "{{window}} × {{times}} vezes",
+    "windowMinutesTimes": "{{minutes}} minutos × {{times}}",
+    "windowDays": "{{days}} dias",
+    "forWindows": "Persistência da anomalia",
+    "forWindowsHint": "Quantas detecções consecutivas fora do limite para disparar (uma a cada 60 segundos)",
+    "timesSuffix": "vezes",
+    "repeatInterval": "Intervalo de notificação repetida durante o disparo (minutos)",
+    "notifyOnResolve": "Notificar na recuperação",
+    "timeSourceHint": "Seguir a métrica = usar o tempo de consulta próprio da métrica; definido por esta regra = usar a janela estatística abaixo",
+    "timeSourceHintMetric": "Se a métrica tem tempo de consulta próprio, ele é seguido por padrão; esta regra também pode definir a própria janela",
+    "timeFromMetric": "Seguir a métrica",
+    "timeFromMetricWith": "Seguir a métrica ({{window}})",
+    "timeFromRule": "Definido por esta regra",
+    "timeFromRuleNoWindow": "Definido por esta regra (a métrica não tem tempo de consulta)",
+    "name": "Nome da regra",
+    "defaultName": "Alerta de {{metric}}",
+    "created": "Alerta de métrica criado",
+    "metricSource": "O objeto do alerta é uma métrica salva em “Gerenciamento de dados → Métricas”",
+    "metricSourceHint": "Ciclo de detecção de 60 segundos; o disparo ocorre ao atingir “Persistência da anomalia” cruzamentos consecutivos. A janela é calculada em dias (hoje / últimos N dias) e o valor da métrica é avaliado em tempo real pela mesma cadeia de consulta do painel de trabalho, sem depender do cache de cartões.",
+    "probe": "Testar valor",
+    "probeFailedPrefix": "Falha ao obter o valor",
+    "probeFailed": "Falha ao obter o valor: {{error}}",
+    "probeResult": "Valor atual: {{value}} ({{window}}{{pick}}, {{ms}} ms)",
+    "probePick": " · {{pick}}",
+    "editCondition": "Editar condição",
+    "muteQuick": "Silenciar rapidamente",
+    "allContacts": "Todos os contatos ativados",
+    "checkInterval": "Detecção a cada 60 segundos",
+    "source": {
+      "metric": "Métrica: {{name}}",
+      "builtin": "Operação"
+    },
+    "column": {
+      "health": "Saúde",
+      "condition": "Condição",
+      "window": "Janela / persistência",
+      "currentValue": "Valor atual"
+    },
+    "health": {
+      "metricMissing": "Métrica excluída",
+      "evalFailed": "Falha na avaliação",
+      "noContact": "Sem contatos"
+    }
+  },
+  "event": {
+    "filterLabel": "Status do evento",
+    "firedAt": "Hora do disparo",
+    "value": "Valor no disparo",
+    "lastSeen": "Última observação"
+  },
+  "notification": {
+    "time": "Hora",
+    "kindFire": "Disparo",
+    "kindRepeat": "Repetição",
+    "kindResolve": "Recuperação",
+    "result": "Resultado",
+    "error": "Erro"
+  },
+  "contact": {
+    "label": "Contato",
+    "hint": "Escolha o canal e preencha conforme as instruções; o webhook de um bot de grupo já é a credencial, enquanto os canais com credencial própria (e-mail / SMS / Telegram / WhatsApp) exigem configurar antes as credenciais de plataforma na página “Configuração de canais”. Uma regra pode vincular **vários** contatos (envio simultâneo por vários canais); quando não vincula contatos, o alerta vai para **todos os contatos ativados**.",
+    "updated": "Contato atualizado",
+    "editTitle": "Editar contato",
+    "editTitleNamed": "Editar contato · {{name}}",
+    "maskedHint": "O endereço e a chave aparecem mascarados na lista, por isso **não são preenchidos**: se ficarem vazios, o valor atual é mantido, e só são sobrescritos quando você digita um valor novo.",
+    "webhookUrl": "Endereço do Webhook",
+    "webhookRequired": "Preencha o endereço do Webhook",
+    "address": "Endereço",
+    "addressLabel": "Endereço de recebimento",
+    "addressEmail": "E-mail",
+    "addressChatId": "chat_id (ex.: -1001234567890)",
+    "addressWhatsapp": "Número (E.164, ex.: 8613800138000)",
+    "addressSms": "Telefone (ex.: +8613800138000)",
+    "secret": "Chave",
+    "secretOptional": "Chave (opcional)",
+    "secretHint": "Chave de assinatura do Feishu/DingTalk; deixe vazio se o bot não tiver verificação de assinatura",
+    "smsProvider": "Provedor de SMS",
+    "smsProviderHint": "Se ficar vazio, usa o provedor ativado padrão da plataforma",
+    "disableHint": "Se desativado, não é entregue",
+    "bodyTemplateHint": "Modelo do body; os marcadores são os mesmos dos modelos de alerta, além de {{text}} e {{textJson}}",
+    "bodyTemplatePlaceholder": "Modelo do body (opcional; padrão {\"text\":\"{{textJson}}\"})",
+    "alertContacts": "Contatos do alerta",
+    "multiHint": "Seleção múltipla; ao disparar a regra o envio vai para todos os contatos vinculados e, sem seleção, para todos os contatos ativados",
+    "multiExtra": "Seleção múltipla (envio simultâneo por vários canais); sem seleção = para todos os contatos ativados",
+    "noneSelected": "Sem seleção = todos os contatos ativados",
+    "disabledName": "{{name}} (desativado)",
+    "locale": "Idioma",
+    "localeDefault": "Padrão da plataforma",
+    "localeHint": "A notificação é renderizada no idioma do destinatário; se ficar vazio, usa o idioma padrão da plataforma",
+    "timezone": "Fuso horário",
+    "timezoneHint": "As horas de disparo e recuperação da notificação são renderizadas neste fuso; vazio = fuso do projeto/plataforma",
+    "timezoneDefault": "Seguir projeto/plataforma"
+  },
+  "channel": {
+    "label": "Canal",
+    "feishu": "Feishu",
+    "dingtalk": "DingTalk",
+    "wecom": "WeCom",
+    "webhook": "Webhook genérico",
+    "email": "E-mail",
+    "sms": "SMS",
+    "telegram": "Telegram",
+    "whatsapp": "WhatsApp",
+    "configMissing": "Não configurado: {{names}}",
+    "unavailable": "Este canal está indisponível no momento",
+    "pageHint": {
+      "title": "Aqui são configurados os canais “de credencial”",
+      "body": "O webhook de um bot de grupo (Feishu / DingTalk / WeCom / Webhook genérico) já é a credencial, então é preenchido na página “Contatos”; nesta página ficam SMTP, provedores de SMS, Telegram e WhatsApp. As chaves são somente escrita e nunca leitura; depois de salvar, use “Enviar teste” para verificar a conectividade."
+    },
+    "envOnly": "Variável de ambiente",
+    "notEnabled": "Não ativado",
+    "pausedTag": "Em pausa",
+    "muted": "Este canal está em pausa",
+    "mutedOn": "{{channel}} em pausa",
+    "mutedOff": "{{channel}} retomado",
+    "platformFallbackTag": "Canal de e-mail da plataforma",
+    "platformFallbackNote": "Os e-mails são enviados com a conta SMTP de “Configurações → Usuários → Canal de e-mail”; não é preciso preencher novamente aqui.",
+    "secretTag": "Chave {{hint}}",
+    "secretTitle": "Credenciais (somente escrita)",
+    "secretTitleConfigured": "Credenciais (somente escrita; configuradas {{hint}})",
+    "pageNote": "Observação: os limites oficiais de DingTalk / WeCom / Telegram são de 20 mensagens por minuto e a plataforma já enfileira e agrupa automaticamente por canal. A assinatura e o modelo dos SMS da China precisam ser registrados e aprovados no console do provedor; o AWS SNS não tem regiões da China continental e, para enviar a números chineses, é preciso registrá-los.",
+    "enableFirst": "Expanda primeiro “{{channel}}”, preencha e salve a configuração, e depois ative",
+    "enabled": "{{channel}} ativado",
+    "disabled": "{{channel}} desativado",
+    "saved": "Configuração de {{channel}} salva",
+    "sendTest": "Enviar teste",
+    "testSmtp": "E-mail de teste",
+    "testChatId": "chat_id de teste",
+    "testPhone": "Número de teste",
+    "testTarget": "Destino de teste (não é gravado no banco)",
+    "testOk": "Teste aprovado",
+    "testFail": "Teste falhou",
+    "testError": "{{detail}}: {{error}}",
+    "lastModified": "Última alteração {{user}}"
+  },
+  "channelGroup": {
+    "chat": "Bots de grupo e IM",
+    "email": "E-mail",
+    "sms": "SMS"
+  },
+  "channelConfig": {
+    "helpTitle": "Como configurar {{channel}}",
+    "muteLabel": "Pausar o envio",
+    "muteHint": "A pausa mantém a configuração e os segredos, mas este canal não entrega nenhum alerta (o fallback de e-mail da plataforma também é bloqueado). \"Enviar teste\" continua disponível para validar as credenciais.",
+    "smtp": {
+      "label": "E-mail (SMTP)",
+      "hint": "Recomenda-se uma conta de envio dedicada com senha de aplicativo; ao clicar em “Enviar teste”, a conectividade é verificada antes do envio real.",
+      "field": {
+        "host": "Servidor SMTP",
+        "port": "Porta",
+        "secure": "SSL/TLS (normalmente ativado na 465)",
+        "user": "Nome de usuário",
+        "from": "Remetente",
+        "fromPlaceholder": "Candela Alertas <alerts@example.com>",
+        "pass": "Senha / senha de aplicativo"
+      },
+      "help": "1. Preparação: use uma caixa de envio dedicada, ative o SMTP no painel do provedor e gere uma **senha de aplicativo** — a maioria não aceita enviar com a senha de login.\n2. Preencher: host + porta (465 com SSL/TLS ligado; 587 com STARTTLS). O remetente precisa ser igual ao usuário SMTP, senão o provedor recusa a mensagem.\n3. Verificar: \"Enviar teste\" valida a conexão e envia uma mensagem de verdade; em caso de falha aparece o erro bruto do provedor (autenticação falhou / remetente diferente / limite de envio). Configure uma vez e vale para toda a plataforma: salve a mesma conta em \"Configurações → Usuários → Canal de e-mail\" que os alertas passam a usá-la como reserva."
+    },
+    "telegram": {
+      "label": "Telegram",
+      "hint": "Crie um bot com o @BotFather para obter o Token; no contato só se preenche o chat_id. Na China continental é preciso proxy de saída; é possível apontar api_base para o seu próprio serviço Bot API.",
+      "help": "1. Preparação: procure @BotFather no Telegram → envie /newbot (o usuário precisa terminar em \"bot\") → cole o token em \"Bot Token\" e salve; depois **abra o bot no seu próprio Telegram e toque em START** — um bot não pode iniciar a conversa, e sem isso o teste falha com chat not found.\n2. Preencher: o chat_id do contato é o ID numérico que o @userinfobot responde (seu ID de usuário em conversa privada); para um grupo, adicione o bot ao grupo antes e desligue o modo de privacidade com /setprivacy no BotFather, senão ele não vê as mensagens.\n3. Verificar: \"Enviar teste\" envia mesmo uma mensagem e mostra o erro bruto do Telegram em caso de falha (ex. chat not found); se o servidor não alcançar o Telegram, aponte \"Endereço da API\" para um servidor Bot API próprio (vazio = api.telegram.org oficial).",
+      "field": {
+        "apiBase": "Endereço da API (opcional; padrão oficial)",
+        "botToken": "Bot Token"
+      }
+    },
+    "whatsapp": {
+      "label": "WhatsApp (Cloud API)",
+      "hint": "Exige verificação do Meta Business, registro do número e aprovação de modelos; os alertas são business-initiated, então fora da janela só é possível enviar mensagens de modelo, e o modelo precisa ter de 1 a 4 variáveis (regra / valor atual / condição / projeto).",
+      "field": {
+        "phoneNumberId": "Phone Number ID",
+        "templateName": "Nome do modelo",
+        "templateLang": "Idioma do modelo",
+        "paramCount": "Quantidade de variáveis do modelo (1-4)",
+        "apiVersion": "Versão da Graph API",
+        "accessToken": "System User Token"
+      },
+      "help": "1. Preparação: conta Meta Business verificada e um número WhatsApp Business registrado; pegue o Phone Number ID no painel da Meta.\n2. Preencher: Phone Number ID, nome do modelo, idioma do modelo (ex. zh_CN) e quantidade de parâmetros (1–4). Os alertas são iniciados pela empresa: texto livre só dentro de 24 h após a última mensagem do destinatário; fora disso é preciso um modelo aprovado.\n3. Verificar: números de contato em E.164 sem \"+\"; \"Enviar teste\" manda uma mensagem com variáveis de exemplo e, em caso de falha, mostra o código bruto da Meta (modelo não aprovado / parâmetros incorretos / número fora da lista de teste)."
+    },
+    "smsAliyun": {
+      "label": "SMS da Alibaba Cloud",
+      "hint": "A assinatura e o modelo precisam ser registrados e aprovados antes no console da Alibaba Cloud; o modelo precisa de uma variável que receba o resumo (exemplo ${content}).",
+      "field": {
+        "signName": "Nome da assinatura",
+        "templateCode": "Código do modelo",
+        "endpoint": "Endpoint (opcional)",
+        "accessKeyId": "AccessKey ID",
+        "accessKeySecret": "AccessKey Secret"
+      },
+      "help": "1. Preparação: ative o Aliyun SMS e obtenha **aprovação da assinatura e do modelo**; uma AccessKey de RAM só com permissão de SMS basta.\n2. Preencher: AccessKey ID / Secret, nome da assinatura, CODE do modelo (tipo SMS_xxxxxxx) e região. O texto depende do modelo; a plataforma envia um resumo de uma linha.\n3. Verificar: números em E.164 (ex. 8613800138000); em caso de falha aparece o código bruto da Aliyun (assinatura não aprovada / parâmetro incorreto / saldo insuficiente), consultável na documentação."
+    },
+    "smsTencent": {
+      "label": "SMS da Tencent Cloud",
+      "hint": "Exige um aplicativo no console (SmsSdkAppId) e assinatura e modelo aprovados; o modelo precisa de uma variável que receba o resumo.",
+      "field": {
+        "sdkAppId": "SmsSdkAppId",
+        "signName": "Nome da assinatura",
+        "templateId": "ID do modelo",
+        "region": "Região",
+        "secretId": "SecretId",
+        "secretKey": "SecretKey"
+      },
+      "help": "1. Preparação: ative o Tencent Cloud SMS, crie uma **assinatura** e um **modelo de texto** e aguarde a aprovação; prefira uma chave de subconta com permissão mínima.\n2. Preencher: SDK AppID, SecretId / SecretKey, conteúdo da assinatura, ID do modelo e região (ex. ap-guangzhou). A plataforma envia um resumo de uma linha.\n3. Verificar: em caso de falha aparece o código bruto da Tencent (assinatura ou modelo não aprovado / quantidade de parâmetros incorreta / saldo insuficiente)."
+    },
+    "smsAws": {
+      "label": "AWS SNS",
+      "hint": "O SMS do SNS não tem regiões cn-* (não envia para a China continental); para enviar a números chineses é preciso registrá-los no AWS Support; o sandbox só envia para números verificados.",
+      "field": {
+        "region": "Region",
+        "accessKeyId": "AccessKey ID",
+        "secretAccessKey": "Secret Access Key"
+      },
+      "help": "1. Preparação: ative o SNS na sua conta AWS. O SNS **começa em sandbox**: inclua o número destinatário na lista de permissões ou peça acesso de produção. Atenção: o SNS não tem regiões cn-*; enviar para números chineses exige solicitação à parte.\n2. Preencher: AccessKey / Secret, região (ex. ap-southeast-1) e Sender ID (obrigatório em algumas regiões).\n3. Verificar: em caso de falha aparece o erro bruto do SNS (sandbox fechado / região não suportada / permissões insuficientes / número não verificado)."
+    },
+    "smsTwilio": {
+      "label": "Twilio",
+      "hint": "Canal internacional e de contingência, sem restrição de região; o número From precisa ser verificado ou comprado na Twilio.",
+      "field": {
+        "fromNumber": "Número From (E.164)",
+        "accountSid": "Account SID",
+        "authToken": "Auth Token"
+      },
+      "help": "1. Preparação: compre ou solicite um número de envio (Sender) na conta Twilio; contas de teste só enviam para números verificados.\n2. Preencher: Account SID, Auth Token e número From (E.164 com \"+\").\n3. Verificar: em caso de falha aparece o código do Twilio com a descrição (número incompatível com o destino / destinatário não verificado / saldo insuficiente)."
+    }
+  },
+  "template": {
+    "kindFire": "Disparo do alerta",
+    "kindResolve": "Recuperação do alerta",
+    "channelChat": "Chat de grupo / Webhook",
+    "saved": "Modelo salvo",
+    "reset": "Modelo padrão restaurado",
+    "hint": {
+      "title": "O conteúdo da notificação é definido pelo modelo",
+      "lead": "Os modelos são configurados por “tipo de evento × grupo de canais” (chat cobre bots de grupo, IM, Webhook e WhatsApp) e valem para todas as regras deste projeto. Os marcadores são escritos entre chaves duplas e substituídos pelo valor real no envio; há suporte a",
+      "tail": "condições. O SMS tem os espaços compactados e é truncado em 40 caracteres na renderização."
+    },
+    "isDefault": "Modelo padrão",
+    "customized": "Personalizado · {{user}}",
+    "subject": "Assunto do e-mail",
+    "body": "Conteúdo da notificação",
+    "variables": "Marcadores (clique para inserir no cursor)",
+    "varTooltip": "{{label}} (exemplo: {{sample}})",
+    "refreshPreview": "Atualizar prévia",
+    "preview": "Prévia",
+    "sampleHint": "Dados de exemplo · nada é enviado",
+    "previewFailed": "Falha na prévia",
+    "previewSubject": "Assunto",
+    "smsNote": "O envio real compacta os espaços e trunca em 40 caracteres; atualmente {{count}} caractere(s).",
+    "smsNote_one": "O envio real compacta os espaços e trunca em 40 caracteres; atualmente {{count}} caractere.",
+    "smsNote_other": "O envio real compacta os espaços e trunca em 40 caracteres; atualmente {{count}} caracteres.",
+    "rendering": "Renderizando…",
+    "previewEmpty": "Depois de editar o conteúdo à esquerda, a prévia é atualizada automaticamente aqui."
+  },
+  "mute": {
+    "scope": "Escopo",
+    "allRules": "Todas as regras",
+    "duration": "Duração rápida",
+    "pickDuration": "Escolher duração",
+    "orRange": "Ou período",
+    "reason": "Motivo",
+    "reasonPlaceholder": "Opcional",
+    "add": "Adicionar silenciamento",
+    "added": "Silenciamento adicionado",
+    "needDuration": "Escolha uma duração rápida ou um período personalizado",
+    "presetHours": "{{count}} hora(s)",
+    "presetHours_one": "{{count}} hora",
+    "presetHours_other": "{{count}} horas",
+    "presetDays": "{{count}} dia(s)",
+    "presetDays_one": "{{count}} dia",
+    "presetDays_other": "{{count}} dias",
+    "muted": "Silenciado {{duration}}",
+    "start": "Início",
+    "end": "Fim",
+    "release": "Liberar"
+  },
+  "retention": {
+    "title": "Política de retenção de dados",
+    "hint": "Os três escopos são configurados separadamente; deixar vazio significa **manter para sempre**. A limpeza roda diariamente (verificação a cada 6 horas) e as exclusões entram no registro de alterações. Excluir o “Histórico de alertas” também remove os registros de notificação correspondentes.",
+    "scope": "Escopo",
+    "days": "Dias de retenção",
+    "keepForever": "Vazio = para sempre",
+    "current": "Atual",
+    "forever": "Manter para sempre",
+    "daysValue": "{{days}} dias",
+    "saved": "Política de retenção salva",
+    "scopeLabel": {
+      "events": "Histórico de alertas",
+      "notifications": "Registro de notificações",
+      "audits": "Registro de alterações"
+    }
+  },
+  "audit": {
+    "hint": "Alterações em regras, contatos e silenciamentos ficam registradas (somente o superadministrador pode consultar); dos endereços de contato só é registrado o valor mascarado.",
+    "empty": "Ainda não há registros de alterações",
+    "column": {
+      "time": "Hora",
+      "operator": "Operador",
+      "action": "Ação",
+      "target": "Objeto",
+      "detail": "Conteúdo da alteração"
+    },
+    "change": "{{field}}: {{from}} → {{to}}",
+    "fieldEntry": "{{field}}={{value}}",
+    "noChange": "(sem alteração)",
+    "valueOn": "Ligado",
+    "valueOff": "Desligado",
+    "field": {
+      "code": "Código da regra",
+      "comparator": "Operador de comparação",
+      "windowMinutes": "Granularidade (minutos)",
+      "windowDays": "Janela (dias)",
+      "forWindows": "Janela de persistência",
+      "repeatMinutes": "Intervalo de repetição (minutos)",
+      "notifyOnResolve": "Notificação na recuperação",
+      "metricName": "Nome da métrica",
+      "bodyLength": "Comprimento do modelo",
+      "deleted": "Itens excluídos",
+      "wasDefault": "Antes era padrão",
+      "enabledContacts": "Contatos ativados"
+    },
+    "action": {
+      "ruleUpdate": "Alterar regra",
+      "ruleCreate": "Criar regra",
+      "ruleDelete": "Excluir regra",
+      "contactCreate": "Criar contato",
+      "contactDelete": "Excluir contato",
+      "contactDefault": "Definir como contato padrão (histórico)",
+      "muteCreate": "Criar silenciamento",
+      "muteDelete": "Liberar silenciamento",
+      "contactUpdate": "Alterar contato",
+      "retentionUpdate": "Alterar a política de retenção",
+      "retentionCleanup": "Limpar conforme a política de retenção",
+      "templateUpdate": "Alterar o modelo de notificação",
+      "templateReset": "Restaurar o modelo padrão"
+    }
+  },
+  "field": {
+    "enabled": "Ativar",
+    "enabledAria": "Ativar {{name}}",
+    "switchOn": "Ativar",
+    "switchOff": "Desativar",
+    "booleanOn": "Ligado",
+    "booleanOff": "Desligado",
+    "unit": "Unidade",
+    "unitPlaceholder": "ex.: vezes / pessoas",
+    "keepBlank": "Deixe vazio para não alterar",
+    "keepCurrent": "Vazio para não alterar (atual: {{value}})",
+    "keepSavedValue": "Deixe vazio para não alterar o valor salvo",
+    "keepSavedAddress": "Deixe vazio para não alterar o endereço salvo",
+    "keepSavedSecret": "Deixe vazio para não alterar a chave salva"
+  },
+  "metric": {
+    "label": "Métrica",
+    "project": "Projeto",
+    "select": "Selecionar métrica",
+    "noneInProject": "Este projeto ainda não tem métricas; crie uma em “Gerenciamento de dados → Métricas”",
+    "option": "{{name}} ({{kind}})",
+    "optionDisabled": "{{name}} ({{kind}} · {{reason}})",
+    "unavailable": "Indisponível"
+  },
+  "validate": {
+    "required": "Preencha {{field}}",
+    "select": "Selecione {{field}}"
+  },
+  "separator": {
+    "list": ", ",
+    "pair": "; ",
+    "entry": ", ",
+    "slash": " / "
+  },
+  "window": {
+    "last2Days": "Últimos 2 dias"
+  },
+  "templateVar": {
+    "ruleName": "Nome da regra",
+    "ruleCode": "Código da regra",
+    "level": "Nível (inglês)",
+    "levelFmt": "Nível (traduzido)",
+    "status": "Status (traduzido)",
+    "statusCode": "Código de status (fire/repeat/resolve)",
+    "value": "Valor atual (com unidade)",
+    "valueRaw": "Valor atual (número bruto)",
+    "unit": "Unidade",
+    "comparator": "Operador (inglês)",
+    "comparatorFmt": "Operador (traduzido)",
+    "threshold": "Limite (com unidade)",
+    "metricName": "Nome da métrica",
+    "metricKind": "Tipo de métrica",
+    "windowDays": "Dias da janela",
+    "windowFmt": "Janela (traduzida)",
+    "project": "Nome do projeto",
+    "time": "Hora de disparo ou recuperação",
+    "detectInterval": "Ciclo de detecção",
+    "contactName": "Contato"
+  },
+  "ruleHealth": {
+    "ok": "Normal",
+    "metricMissing": "Métrica excluída",
+    "evalFailed": "Falha na avaliação",
+    "noContact": "Sem contatos",
+    "detailNoMetric": "A regra não tem métrica vinculada",
+    "detailMetricDeleted": "A métrica {{metricId}} foi excluída",
+    "detailEvalFailed": "Falhas de avaliação em {{times}} rodadas consecutivas: {{message}}",
+    "detailNoContact": "Sem contatos: a regra não tem contatos vinculados e não há contatos ativados no sistema"
+  },
+  "unit": {
+    "times": "vezes",
+    "rows": "registros",
+    "pieces": "itens",
+    "percent": "%"
+  },
+  "error": {
+    "rule": {
+      "notFound": "A regra não existe: {{code}}",
+      "noFields": "Não há campos a atualizar",
+      "builtinNotDeletable": "Regras internas não podem ser excluídas",
+      "metricMissing": "A métrica não existe (crie primeiro em “Gerenciamento de dados → Métricas”)",
+      "metricLimit": "No máximo {{max}} alertas de métrica"
+    },
+    "contact": {
+      "idInvalid": "contact_id inválido",
+      "notFound": "O contato não existe",
+      "localeInvalid": "Idioma não aceito: {{locale}}",
+      "timezoneInvalid": "Fuso horário inválido (deve ser um nome IANA, ex.: Asia/Shanghai)"
+    },
+    "channel": {
+      "unsupported": "Tipo de canal não aceito: {{kind}}",
+      "unavailable": "O canal {{channel}} está indisponível no momento",
+      "unknown": "Canal desconhecido: {{channel}}"
+    },
+    "channelConfig": {
+      "unsupported": "Configuração de canal não aceita: {{channel}}",
+      "masterKeyMissing": "Chave mestra ausente: defina a variável de ambiente {{env}} (base64 de 32 bytes) para cifrar e salvar as credenciais dos canais"
+    },
+    "template": {
+      "syntaxError": "Erro de sintaxe do modelo: {{error}}",
+      "subjectSyntaxError": "Erro de sintaxe do assunto do e-mail: {{error}}",
+      "kindInvalid": "Tipo de evento inválido (fire / resolve)",
+      "channelInvalid": "Canal inválido (chat / email / sms)"
+    },
+    "mute": {
+      "notFound": "O silenciamento não existe",
+      "windowInvalid": "O período de silenciamento é inválido"
+    },
+    "retention": {
+      "scopeInvalid": "Escopo de retenção não aceito: {{scope}}",
+      "daysInvalid": "Os dias de retenção devem ser um inteiro de 1 a {{max}}; em branco significa manter para sempre"
+    },
+    "metric": {
+      "notFound": "A métrica não existe"
+    },
+    "validate": {
+      "failed": "Validação não aprovada",
+      "required": "Preencha “{{field}}”",
+      "number": "“{{field}}” deve ser um número",
+      "portRange": "A porta deve estar entre 1 e 65535",
+      "paramCount": "A quantidade de variáveis do modelo deve ser de 1 a 4",
+      "apiBaseHttp": "O endereço da API deve começar com http(s)://",
+      "fromFormat": "O formato do remetente está incorreto (pode usar name <mail@example.com>)",
+      "webhookRequired": "Preencha o endereço do Webhook",
+      "webhookHttps": "O endereço do Webhook deve começar com https://",
+      "webhookHttp": "O endereço do Webhook deve começar com http(s)://",
+      "feishuWebhook": "Não parece um webhook de bot do Feishu (deveria ser como https://open.feishu.cn/open-apis/bot/v2/hook/…)",
+      "dingtalkWebhook": "Não parece um webhook de bot do DingTalk (deveria ser como https://oapi.dingtalk.com/robot/send?access_token=…)",
+      "dingtalkSecret": "A chave de assinatura é curta demais (as geradas no console do DingTalk começam com SEC…)",
+      "wecomWebhook": "Não parece um webhook de bot de grupo do WeCom (deveria ser como https://qyapi.weixin.qq.com/cgi-bin/webhook/send?key=…)",
+      "telegramChatIdRequired": "Preencha o chat_id (ID da conversa de grupo ou privada; pode obtê-lo com o @userinfobot)",
+      "telegramChatIdFormat": "O chat_id deve ser numérico (IDs de grupo começam com -100)",
+      "emailRequired": "Preencha o e-mail de destino",
+      "emailFormat": "O formato do e-mail está incorreto",
+      "smsRequired": "Preencha o telefone de destino",
+      "smsFormat": "O formato do telefone está incorreto (recomenda-se incluir o código do país, ex.: +8613800138000)",
+      "smsProvider": "Provedor de SMS inválido (opções: {{allowed}})",
+      "whatsappRequired": "Preencha o número de destino (E.164, ex.: 8613800138000)",
+      "whatsappFormat": "A quantidade de dígitos está incorreta (E.164 sem +, de 8 a 15 dígitos)",
+      "headersJson": "Os cabeçalhos personalizados devem ser um JSON válido (ex.: {\"Authorization\":\"Bearer xxx\"})",
+      "bodyTemplate": "Erro de sintaxe do modelo do body: {{error}}"
+    },
+    "ops": {
+      "forbidden": "Apenas o superadministrador da plataforma pode acessar o painel de operação"
+    }
+  }
+}

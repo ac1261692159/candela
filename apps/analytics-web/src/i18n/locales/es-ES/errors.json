@@ -1,0 +1,45 @@
+{
+  "serviceUnavailable": "El servicio de análisis no está disponible temporalmente. Vuelva a intentarlo más tarde; si el problema persiste, contacte con el administrador.",
+  "dataUnavailable": "El servicio de consulta de datos no está disponible temporalmente. Vuelva a intentarlo más tarde; si el problema persiste, contacte con el administrador.",
+  "requestTimeout": "Se agotó el tiempo de espera. Reduzca el rango de la consulta o vuelva a intentarlo más tarde.",
+  "genericUnavailable": "El servicio no está disponible temporalmente. Vuelva a intentarlo más tarde; si el problema persiste, contacte con el administrador.",
+  "requestFailed": "Error en la solicitud",
+  "status401": "La sesión ha caducado. Inicie sesión de nuevo",
+  "status403": "No tiene permiso para realizar esta operación",
+  "status404": "El recurso solicitado no existe",
+  "status429": "Demasiadas solicitudes. Vuelva a intentarlo más tarde",
+  "unknown": "Error desconocido",
+  "queryFailed": "Error en la consulta",
+  "validation": {
+    "selectTimeRange": "Seleccione un rango de tiempo",
+    "atLeastOneMetric": "Configure al menos una métrica",
+    "tooManyMetrics": "Máximo {{max}} métricas",
+    "atLeastOneEventMetric": "Configure al menos una métrica de evento",
+    "metricEventRequired": "Seleccione un evento para cada métrica",
+    "perCapitaNeedsNumber": "El valor por usuario requiere una propiedad numérica",
+    "minuteSpanTooLong": "La consulta por minuto no puede abarcar más de 1 día",
+    "funnelMinSteps": "El embudo requiere al menos {{min}} pasos",
+    "funnelMaxSteps": "El embudo admite como máximo {{max}} pasos",
+    "startEventRequired": "Seleccione el evento inicial",
+    "returnEventRequired": "Seleccione el evento de retorno",
+    "retentionPeriodRequired": "Seleccione al menos un periodo de retención"
+  },
+  "apiKey": {
+    "missing": "Falta la API Key (envíela mediante X-API-Key o Authorization: Bearer)"
+  },
+  "rbac": {
+    "forbidden": "No tiene acceso a este recurso"
+  },
+  "attribute": {
+    "datatableUserUnsupported": "Las dimensiones de tabla de datos aún no admiten propiedades de usuario",
+    "datatableInVirtualExpression": "Las propiedades de tabla de datos no se pueden usar en expresiones de propiedades virtuales",
+    "datatableStale": "La tabla de datos de la que depende la propiedad {{prop}} ya no es válida",
+    "datatableMultiple": "La propiedad {{prop}} está vinculada a varias tablas de datos"
+  },
+  "analysis": {
+    "timeRange": {
+      "timezoneInvalid": "Zona horaria no válida (debe ser un nombre de zona horaria IANA, p. ej. Asia/Shanghai)"
+    }
+  },
+  "status413": "El contenido es demasiado grande. Reduzca el número de filas e inténtelo de nuevo"
+}

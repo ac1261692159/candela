@@ -1,0 +1,89 @@
+Candela
+Copyright (C) 2026 huzhengkun
+
+本产品采用 GNU Affero General Public License v3.0（AGPL-3.0）授权，全文见本目录 LICENSE。
+SPDX 标识符：AGPL-3.0-only（仅第 3 版，不含后续版本）。各 apps/*/package.json 的
+license 字段与此一致。
+
+版权归自然人 huzhengkun。模型辅助编写不改变许可：提交到本仓库的改动
+视为同意按 AGPL-3.0-only 授权。
+
+本产品包含来自第三方项目的材料。按 AGPL-3.0 第 5 条要求，现将来源与改动声明如下。
+
+================================================================================
+1. 上游：ClkLog 社区版
+================================================================================
+
+  项目名称：ClkLog
+  上游源码：https://github.com/clklog/clklog
+  部署包  ：https://github.com/clklog/clklog-deploy
+  上游许可证：GNU Affero General Public License v3.0（AGPL-3.0）
+  上游版权：Copyright (C) ClkLog
+
+本仓库编排上游发行的容器镜像（默认 registry.cn-shanghai.aliyuncs.com/clklog/*；
+海外网络可能拉不到，需要代理或自备镜像），并包含自上游官方部署包复制或改编的配置。
+这些文件仍受 AGPL-3.0 约束，其版权归上游作者所有。
+
+因为仓库里有这些 AGPL 材料，本项目不能改成 MIT / Apache 等宽松许可证。
+
+--------------------------------------------------------------------------------
+1.1 复制自上游官方部署包的文件（verbatim，未作修改）
+--------------------------------------------------------------------------------
+
+  deploy-assets/clklog-community/gateway/full/default.conf
+  deploy-assets/clklog-community/gateway/simple/default.conf
+  deploy-assets/clklog-community/init/mysql_clklog.sql
+  deploy-assets/clklog-community/manage/city-eng-chs-map.txt
+  deploy-assets/clklog-community/manage/country-eng-chs-map.txt
+  deploy-assets/clklog-community/manage/project-setting.json
+  deploy-assets/clklog-community/processing/project-setting.json
+  deploy-assets/clklog-community/redis/redis.conf
+  deploy-assets/clklog-community/ui/config.js
+  deploy-assets/clklog-community/clickhouse/config.d/default-config.xml
+
+  说明：上述文件中出现的简体中文内容（如城市/国家中英对照表、SQL 注释）系上游原文。
+
+--------------------------------------------------------------------------------
+1.2 复制自上游并已修改的文件（AGPL-3.0 §5(a) 改动声明）
+--------------------------------------------------------------------------------
+
+  (1) deploy-assets/clklog-community/processing/config.properties
+      改动日期：2026-07 至 2026-09
+      改动内容：连接地址与凭据改为占位符（如 clickhouse.password=<CK密码>），
+                由部署脚本在目标机注入，避免真实凭据入库。
+
+  (2) deploy-assets/clklog-community/clickhouse/users.d/default-password.xml
+      改动日期：2026-09，公开前再次修改（2026-10）
+      改动内容：保留 sa_ro profile（readonly=2 及 constraints）与 sa_readonly
+                的 grants / allow_databases 形态。口令哈希已删除。
+                运行中的口令只由部署脚本在目标机生成：
+                scripts/standalone-test-env/deploy-middleware.sh
+                scripts/standalone-test-env/candela/init-db-clickhouse.sh
+                不要把本文件挂进正在运行的 ClickHouse。
+
+================================================================================
+2. 本仓库自有部分
+================================================================================
+
+除上述 1.1–1.2 列出的上游材料外，本仓库其余内容（apps/ 下的分析平台服务：
+analytics-server、analytics-web、analytics-ingestor、analytics-harness-host、
+analytics-harness-broker，以及 scripts/、docs/ 下的自研产物）为本项目独立实现，
+同样以 AGPL-3.0 授权。
+
+本仓库不修改上游 ClkLog 官方容器镜像，不 fork 上游 processing / receiver 源码，
+不 ALTER 上游 ClickHouse 表；分析域能力以旁路扩展方式实现
+（独立数据库 clklog_sa、独立 Kafka 消费组）。
+
+================================================================================
+3. 第三方组件
+================================================================================
+
+  运行时依赖：本仓库各 Node.js 应用的依赖均取自公共 npm 仓库，
+  其许可证以各包自带声明为准。可用 scripts/license-check.mjs 核对与 AGPL-3.0 的兼容性。
+
+================================================================================
+4. AGPL-3.0 第 13 条提示
+================================================================================
+
+AGPL-3.0 §13 要求：若通过网络向用户提供本软件的服务，须向这些用户提供
+获取对应源码的机会。以本仓库对外提供网络服务者，应自行履行该项义务。

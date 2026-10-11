@@ -1,0 +1,226 @@
+/* 侧栏在文档流内时：底栏折叠钮始终可见；折叠后子菜单弹出到 body，不能被裁切。 */
+.shell-sider.ant-layout-sider,
+.shell-sider .ant-layout-sider-children {
+  overflow: visible;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.shell-sider {
+  --ant-menu-item-padding-inline: 8px;
+  --ant-menu-icon-margin-inline-end: 8px;
+}
+
+.shell-sider .ant-menu-inline-collapsed,
+.shell-sider-menu.ant-menu-inline-collapsed {
+  width: var(--shell-sider-collapsed, 48px) !important;
+}
+
+/*
+ * 折叠态：点击区域填满图标列，图标在该区域内双向居中。
+ * 同时覆盖 antd 扣除外边距后的宽度，避免背景与图标使用不同中心；
+ * 隐藏的标题退出布局，避免行盒基线和图标行高把图标推向底边。
+ */
+.shell-sider .ant-menu-inline-collapsed.ant-menu-root > .ant-menu-item,
+.shell-sider .ant-menu-inline-collapsed.ant-menu-root > .ant-menu-submenu > .ant-menu-submenu-title {
+  margin-inline: 0;
+  width: 100%;
+  padding-inline: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.shell-sider .ant-menu-inline-collapsed.ant-menu-root > .ant-menu-item > .ant-menu-item-icon,
+.shell-sider .ant-menu-inline-collapsed.ant-menu-root > .ant-menu-submenu > .ant-menu-submenu-title > .ant-menu-item-icon {
+  margin-inline: 0;
+  line-height: 1;
+  flex: none;
+}
+
+.shell-sider .ant-menu-inline-collapsed.ant-menu-root > .ant-menu-item > .ant-menu-title-content,
+.shell-sider .ant-menu-inline-collapsed.ant-menu-root > .ant-menu-submenu > .ant-menu-submenu-title > .ant-menu-title-content {
+  position: absolute;
+  width: 0;
+  margin-inline: 0;
+}
+
+.shell-sider .ant-menu-light.ant-menu-root {
+  border-inline-end: none;
+}
+
+/* 折叠态：图标列不被外层 flex 压缩（宽度不足会把图标挤偏） */
+.shell-sider.ant-layout-sider-collapsed {
+  flex: 0 0 var(--shell-sider-collapsed, 48px);
+  min-width: var(--shell-sider-collapsed, 48px);
+}
+
+.shell-sider .ant-menu-item,
+.shell-sider .ant-menu-submenu-title {
+  white-space: nowrap;
+}
+
+/*
+ * 子菜单标题：给右侧折叠箭头留位。
+ * antd 的箭头是绝对定位：inset-inline-end: 16px + 宽 10px → 占右侧 [16, 26]px；
+ * 而标题默认 padding-inline-end 只有 16px，内容盒一直伸到箭头下面，
+ * 长语言标签（俄 Управление данными / 德 Datenverwaltung）就会压到箭头上（生产实测）。
+ * 这里把内容盒收到 28px，箭头左侧留 2px 空气。
+ */
+.shell-sider .ant-menu-submenu-title {
+  padding-inline-end: 28px;
+}
+
+.shell-sider .ant-menu-title-content {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.shell-sider__brand {
+  flex-shrink: 0;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.shell-sider__menu {
+  flex: 1;
+  min-height: 0;
+  overflow-x: hidden;
+  overflow-y: auto;
+  /* 不画滚动条：占位滚动条会挤掉折叠列的 48px 宽度，把图标挤偏 */
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.shell-sider__menu::-webkit-scrollbar {
+  width: 0;
+  height: 0;
+  display: none;
+}
+
+/* 悬停展开：包裹层承接 mouseleave；鼠标整体移出菜单后所有板块收回折叠态 */
+.shell-sider-menu-hover {
+  display: flex;
+  flex-direction: column;
+  min-height: 100%;
+}
+
+/* 板块标题铺满标题内容区；悬停命中由菜单容器代理到整行 .ant-menu-submenu-title */
+.shell-sider-menu-label {
+  display: block;
+  /* 长语言（俄/德/越/泰）标签超出侧栏宽度时给**省略号**而不是切一半；
+     配合 label 上的 title，悬停仍能看到全称。 */
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* 弹出层在 body 上：贴在 48px 图标栏外侧，透明垫承接悬停，避免盖住选中底 */
+.ant-menu-submenu-popup.shell-sider-menu {
+  padding-inline-start: 8px;
+}
+
+.shell-sider__fold {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  border-top: 1px solid #f0f0f0;
+  padding: 4px;
+}
+
+.shell-sider__fold .ant-btn {
+  width: 100%;
+  height: 36px;
+}
+
+html, body, #root {
+  height: 100%;
+  margin: 0;
+  overflow: hidden;
+}
+
+/* 内容槽填满；最外层不画滚动条（滚轮仍可滚动长列表/看板） */
+.shell-page {
+  flex: 1;
+  min-height: 0;
+  min-width: 0;
+  overflow: auto;
+  display: flex;
+  flex-direction: column;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.shell-page::-webkit-scrollbar {
+  width: 0;
+  height: 0;
+  display: none;
+}
+
+.shell-page > * {
+  min-width: 0;
+}
+
+.dashboard-page {
+  height: 100%;
+  min-height: 0;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.dashboard-page__body {
+  flex: 1;
+  min-height: 0;
+  overflow: auto;
+  padding: 10px;
+  background: #f0f2f5;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.dashboard-page__body::-webkit-scrollbar {
+  width: 0;
+  height: 0;
+  display: none;
+}
+
+/* 折叠态 brand：单字母 C + 下拉标，点击展开侧栏 */
+.shell-sider__brand-toggle {
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  font: inherit;
+  font-weight: 700;
+  display: inline-flex;
+  align-items: center;
+  gap: 2px;
+  color: inherit;
+  padding: 2px 4px;
+  border-radius: 6px;
+}
+
+.shell-sider__brand-toggle:hover {
+  background: rgba(0, 0, 0, 0.04);
+}
+
+.shell-sider-project {
+  padding: 4px 0;
+}
+
+.shell-overlay-header.ant-layout-header {
+  padding: 0 16px;
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+  height: 48px;
+  line-height: 48px;
+}

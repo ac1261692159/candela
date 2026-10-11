@@ -1,0 +1,542 @@
+{
+  "tab": {
+    "overview": "개요",
+    "rules": "정책",
+    "history": "이력",
+    "mute": "음소거",
+    "notifications": "알림 기록",
+    "templates": "알림 템플릿",
+    "channels": "채널 설정",
+    "contacts": "연락처",
+    "audits": "변경 기록"
+  },
+  "workbench": {
+    "title": "모니터링 알림",
+    "firing": "현재 {{count}}건의 알림이 발생 중입니다",
+    "noContact": "사용 중인 연락처가 없어 알림이 발송되지 않습니다",
+    "noContactHint": "'연락처' 탭에서 연락처를 추가하고 사용 상태로 유지하세요. 규칙에 연락처를 지정하지 않으면 모든 사용 중 연락처로 발송됩니다.",
+    "brokenRules": "{{count}}개 규칙이 현재 유효하지 않습니다",
+    "brokenRulesHint": "{{names}}: 연결된 지표가 삭제되었거나 여러 회차 연속 값 계산에 실패해 해당 규칙은 발생하지 않습니다(자세한 내용은 '정책' 탭의 상태 열 참고).",
+    "notifyFail24h": "최근 24시간 동안 알림 전송에 {{count}}건 실패했습니다",
+    "notifyFail24hHint": "3회 재시도 후에도 실패한 경우에만 기록되며 '알림 기록' 탭에서 실패 원인을 확인할 수 있습니다."
+  },
+  "overview": {
+    "firedToday": "오늘 발생",
+    "unresolved": "미복구",
+    "notifyFailToday": "오늘 알림 실패",
+    "firingEmpty": "현재 발생 중인 알림이 없습니다",
+    "topRules": "오늘 가장 많이 발생한 규칙",
+    "topRulesEmpty": "오늘 발생 없음",
+    "fireCount": "발생 횟수"
+  },
+  "status": {
+    "firing": "발생 중",
+    "normal": "정상",
+    "resolved": "복구됨"
+  },
+  "severity": {
+    "label": "심각도",
+    "alertLevel": "알림 심각도",
+    "critical": "긴급",
+    "warning": "경고",
+    "info": "안내"
+  },
+  "kind": {
+    "fire": "알림 발생",
+    "resolve": "알림 복구"
+  },
+  "rule": {
+    "label": "규칙",
+    "createMetric": "지표 알림 새로 만들기",
+    "editTitle": "발생 조건 수정",
+    "editTitleNamed": "발생 조건 수정 · {{name}}",
+    "saving": "저장 중",
+    "editorHint": "감지 주기는 60초로 고정입니다. 윈도우 × 이상 지속 = 연속으로 기준을 벗어난 횟수에 도달해야 알림이 발생합니다. 기본 제공 규칙은 삭제할 수 없습니다.",
+    "editorMetricHint": "지표 값은 워크벤치와 같은 조회 경로로 실시간 계산됩니다.",
+    "targetMetric": "관측 지표",
+    "target": "관측 대상",
+    "metricTag": "데이터 관리 지표",
+    "comparator": "비교 관계",
+    "threshold": "임계값",
+    "statWindow": "통계 윈도우",
+    "statWindowHint": "이벤트 분석은 일 단위(stat_date)로 필터링하므로 윈도우가 분이 아니라 일입니다. '오늘'은 당일 누적 값입니다",
+    "windowMinutesLabel": "데이터 포인트 통계 세분성",
+    "windowMinutesOption": "{{minutes}}분 통계",
+    "windowTimes": "{{window}} × {{times}}회",
+    "windowMinutesTimes": "{{minutes}}분 × {{times}}",
+    "windowDays": "{{days}}일",
+    "forWindows": "이상 지속",
+    "forWindowsHint": "연속 몇 번 감지에서 기준을 벗어나야 발생하는지(간격 60초)",
+    "timesSuffix": "회",
+    "repeatInterval": "발생 중 반복 알림 간격(분)",
+    "notifyOnResolve": "복구 시 알림",
+    "timeSourceHint": "지표 따르기 = 지표 자체의 조회 시간 사용, 이 규칙에서 지정 = 아래 통계 윈도우 사용",
+    "timeSourceHintMetric": "지표에 조회 시간이 있으면 기본적으로 지표를 따르며 이 규칙에서 별도 윈도우를 지정할 수도 있습니다",
+    "timeFromMetric": "지표 따르기",
+    "timeFromMetricWith": "지표 따르기({{window}})",
+    "timeFromRule": "이 규칙에서 지정",
+    "timeFromRuleNoWindow": "이 규칙에서 지정(해당 지표에 조회 시간이 없음)",
+    "name": "규칙 이름",
+    "defaultName": "{{metric}} 알림",
+    "created": "지표 알림이 생성되었습니다",
+    "metricSource": "알림 대상은 '데이터 관리 → 지표'에 저장된 지표입니다",
+    "metricSourceHint": "감지 주기는 60초이며 연속으로 기준을 벗어난 횟수가 '이상 지속'에 도달해야 발생합니다. 윈도우는 일 단위(오늘 / 최근 N일)로 계산되며 지표 값은 워크벤치와 같은 조회 경로로 실시간 계산되고 카드 캐시에 의존하지 않습니다.",
+    "probe": "값 테스트",
+    "probeFailedPrefix": "값 조회 실패",
+    "probeFailed": "값 조회 실패: {{error}}",
+    "probeResult": "현재 값: {{value}}({{window}}{{pick}}, 소요 {{ms}}ms)",
+    "probePick": " · {{pick}}",
+    "editCondition": "조건 편집",
+    "muteQuick": "빠른 음소거",
+    "allContacts": "모든 사용 중 연락처",
+    "checkInterval": "60초마다 감지",
+    "source": {
+      "metric": "지표: {{name}}",
+      "builtin": "운영"
+    },
+    "column": {
+      "health": "상태",
+      "condition": "조건",
+      "window": "윈도우 / 지속",
+      "currentValue": "현재 값"
+    },
+    "health": {
+      "metricMissing": "지표 삭제됨",
+      "evalFailed": "값 계산 실패",
+      "noContact": "연락처 없음"
+    }
+  },
+  "event": {
+    "filterLabel": "이벤트 상태",
+    "firedAt": "발생 시간",
+    "value": "발생 시 값",
+    "lastSeen": "최근 관측"
+  },
+  "notification": {
+    "time": "시간",
+    "kindFire": "발생",
+    "kindRepeat": "반복",
+    "kindResolve": "복구",
+    "result": "결과",
+    "error": "오류"
+  },
+  "contact": {
+    "label": "연락처",
+    "hint": "채널을 선택한 후 안내에 따라 입력하세요. 그룹 봇의 webhook 자체가 자격 증명이며 자격 증명 채널(이메일/문자/Telegram/WhatsApp)은 먼저 '채널 설정' 페이지에서 플랫폼 자격 증명을 입력합니다. 규칙에는 **여러** 연락처를 지정할 수 있고(여러 채널로 동시 전송) 규칙에 연락처를 지정하지 않으면 **모든 사용 중 연락처**로 알림이 발송됩니다.",
+    "updated": "연락처가 업데이트되었습니다",
+    "editTitle": "연락처 편집",
+    "editTitleNamed": "연락처 편집 · {{name}}",
+    "maskedHint": "주소와 키는 목록에서 마스킹되므로 **다시 채우지 않습니다**. 비워 두면 기존 값이 유지되고 새 값을 입력할 때만 덮어씁니다.",
+    "webhookUrl": "Webhook 주소",
+    "webhookRequired": "Webhook 주소를 입력해 주세요",
+    "address": "주소",
+    "addressLabel": "수신 주소",
+    "addressEmail": "이메일",
+    "addressChatId": "chat_id(예: -1001234567890)",
+    "addressWhatsapp": "번호(E.164, 예: 8613800138000)",
+    "addressSms": "휴대폰 번호(예: +8613800138000)",
+    "secret": "키",
+    "secretOptional": "키(선택)",
+    "secretHint": "Feishu/DingTalk 서명 키. 봇에서 서명 검증을 쓰지 않으면 비워 두세요",
+    "smsProvider": "문자 공급자",
+    "smsProviderHint": "비워 두면 플랫폼 기본 사용 중 공급자를 사용합니다",
+    "disableHint": "비활성화하면 전송하지 않습니다",
+    "bodyTemplateHint": "body 템플릿, 자리 표시자는 알림 템플릿과 같으며 {{text}}와 {{textJson}}이 추가로 있습니다",
+    "bodyTemplatePlaceholder": "body 템플릿(선택, 기본 {\"text\":\"{{textJson}}\"})",
+    "alertContacts": "알림 연락처",
+    "multiHint": "여러 개를 선택할 수 있으며 규칙이 발생하면 지정한 모든 연락처로 전송합니다. 선택하지 않으면 모든 사용 중 연락처로 전송합니다",
+    "multiExtra": "다중 선택 가능(여러 채널 동시 전송). 선택하지 않으면 모든 사용 중 연락처로 전송",
+    "noneSelected": "선택하지 않음 = 모든 사용 중 연락처",
+    "disabledName": "{{name}}(비활성화됨)",
+    "locale": "언어",
+    "localeDefault": "플랫폼 기본",
+    "localeHint": "알림은 수신자 언어로 렌더링되며 비워 두면 플랫폼 기본 언어를 사용합니다",
+    "timezone": "시간대",
+    "timezoneHint": "알림의 발생/복구 시간을 이 시간대로 렌더링하며 비워 두면 프로젝트/플랫폼 시간대를 따릅니다",
+    "timezoneDefault": "프로젝트/플랫폼 따르기"
+  },
+  "channel": {
+    "label": "채널",
+    "feishu": "Feishu",
+    "dingtalk": "DingTalk",
+    "wecom": "WeCom",
+    "webhook": "범용 Webhook",
+    "email": "이메일",
+    "sms": "문자",
+    "telegram": "Telegram",
+    "whatsapp": "WhatsApp",
+    "configMissing": "미설정: {{names}}",
+    "unavailable": "이 채널은 현재 사용할 수 없습니다",
+    "pageHint": {
+      "title": "이곳에서는 '자격 증명' 채널을 설정합니다",
+      "body": "그룹 봇(Feishu / DingTalk / WeCom / 범용 Webhook)의 webhook은 그 자체가 자격 증명이므로 '연락처' 페이지에서 입력하세요. 이 페이지에서는 SMTP, 문자 공급자, Telegram, WhatsApp을 설정합니다. 키는 저장만 되고 다시 읽을 수 없으며 저장 후 '테스트 발송'으로 연결을 확인할 수 있습니다."
+    },
+    "envOnly": "환경 변수",
+    "notEnabled": "비활성화됨",
+    "pausedTag": "일시중지",
+    "muted": "이 채널은 전송이 일시중지되었습니다",
+    "mutedOn": "{{channel}} 전송을 일시중지했습니다",
+    "mutedOff": "{{channel}} 전송을 재개했습니다",
+    "platformFallbackTag": "플랫폼 메일 채널",
+    "platformFallbackNote": "메일은 '설정 → 사용자 관리 → 메일 채널'의 SMTP 계정으로 발송됩니다. 여기에 다시 입력할 필요가 없습니다.",
+    "secretTag": "키 {{hint}}",
+    "secretTitle": "자격 증명(저장만 가능)",
+    "secretTitleConfigured": "자격 증명(저장만 가능, 설정됨 {{hint}})",
+    "pageNote": "안내: DingTalk / WeCom / Telegram의 공식 속도 제한은 모두 분당 20건이며 플랫폼이 채널별로 자동 대기열 처리와 병합을 수행합니다. 중국 내 문자 서명과 템플릿은 공급자 콘솔에서 사전 심사를 받아야 하고 AWS SNS에는 중국 리전이 없어 중국 번호 발송에는 사전 신고가 필요합니다.",
+    "enableFirst": "먼저 '{{channel}}'을 펼쳐 설정을 입력하고 저장한 후 활성화하세요",
+    "enabled": "{{channel}} 사용 중",
+    "disabled": "{{channel}} 비활성화됨",
+    "saved": "{{channel}} 설정이 저장되었습니다",
+    "sendTest": "테스트 발송",
+    "testSmtp": "테스트 수신 이메일",
+    "testChatId": "테스트 chat_id",
+    "testPhone": "테스트 수신 번호",
+    "testTarget": "테스트 대상(저장되지 않음)",
+    "testOk": "테스트 통과",
+    "testFail": "테스트 실패",
+    "testError": "{{detail}}: {{error}}",
+    "lastModified": "마지막 수정 {{user}}"
+  },
+  "channelGroup": {
+    "chat": "그룹 봇과 IM",
+    "email": "이메일",
+    "sms": "문자"
+  },
+  "channelConfig": {
+    "helpTitle": "{{channel}} 설정 방법",
+    "muteLabel": "전송 일시중지",
+    "muteHint": "일시중지해도 설정과 시크릿은 유지되지만 이 채널은 어떤 알림도 전송하지 않습니다(플랫폼 메일 대체 경로도 차단됩니다). \"전송 테스트\"는 자격 증명 확인용으로 계속 사용할 수 있습니다.",
+    "smtp": {
+      "label": "이메일(SMTP)",
+      "hint": "전용 발신 계정 + 인증 코드를 권장합니다. 저장 후 '테스트 발송'은 연결성 검사를 먼저 하고 실제 한 통을 발송합니다.",
+      "field": {
+        "host": "SMTP 서버",
+        "port": "포트",
+        "secure": "SSL/TLS(465는 보통 사용)",
+        "user": "사용자 이름",
+        "from": "발신자",
+        "fromPlaceholder": "Candela 알림 <alerts@example.com>",
+        "pass": "비밀번호 / 인증 코드"
+      },
+      "help": "1. 준비: 전용 발신 메일함을 만들고 서비스 콘솔에서 SMTP를 켠 뒤 **앱 비밀번호**를 발급하세요. 대부분의 서비스는 로그인 비밀번호로 발송하는 것을 거부합니다.\n2. 입력: 호스트 + 포트(465는 SSL/TLS 켜기, 587은 STARTTLS). \"보낸 사람\"은 SMTP 사용자 이름과 같아야 하며, 다르면 서비스가 거부합니다.\n3. 검증: \"전송 테스트\"는 연결을 확인한 뒤 실제로 한 통을 보냅니다. 실패하면 서비스의 원시 오류(인증 실패 / 보낸 사람 불일치 / 속도 제한)가 표시됩니다. 한 번만 설정하면 전사에서 재사용됩니다. \"설정 → 사용자 관리 → 메일 채널\"에 같은 계정을 저장하면 알림이 자동으로 그쪽으로 대체됩니다."
+    },
+    "telegram": {
+      "label": "Telegram",
+      "hint": "@BotFather로 봇을 만들고 Token을 발급받으세요. 연락처 쪽에는 chat_id만 입력합니다. 중국 본토에서는 프록시 출구가 필요하며 api_base를 자체 Bot API 서비스로 지정할 수 있습니다.",
+      "help": "1. 준비: Telegram에서 @BotFather를 검색 → /newbot 전송(사용자 이름은 bot으로 끝나야 함) → 반환된 Token을 아래 \"Bot Token\"에 입력하고 저장합니다. 이어서 **자신의 Telegram에서 이 봇을 열고 START를 누르세요** — 봇은 먼저 대화를 시작할 수 없고, 이 단계를 건너뛰면 전송 테스트가 chat not found로 실패합니다.\n2. 입력: 연락처의 chat_id에는 @userinfobot이 알려주는 숫자 ID(개인 채팅에서는 본인 사용자 ID)를 넣습니다. 그룹으로 보내려면 먼저 봇을 그룹에 추가하고 BotFather에서 /setprivacy로 프라이버시 모드를 해제하세요. 해제하지 않으면 그룹 메시지를 받지 못합니다.\n3. 검증: \"전송 테스트\"는 실제로 한 건을 보내고, 실패하면 Telegram 원시 오류(예: chat not found)를 표시합니다. 서버에서 Telegram에 접속할 수 없으면 \"API 주소\"를 자체 Bot API 서버로 지정하세요(비워 두면 공식 api.telegram.org).",
+      "field": {
+        "apiBase": "API 주소(비워 둘 수 있으며 기본은 공식)",
+        "botToken": "Bot Token"
+      }
+    },
+    "whatsapp": {
+      "label": "WhatsApp(Cloud API)",
+      "hint": "Meta Business 인증 + 번호 등록 + 템플릿 심사가 필요합니다. 알림은 business-initiated에 해당해 윈도우 밖에서는 템플릿 메시지만 보낼 수 있고 템플릿에는 변수 1~4개(규칙/현재 값/조건/프로젝트)가 필요합니다.",
+      "field": {
+        "phoneNumberId": "Phone Number ID",
+        "templateName": "템플릿 이름",
+        "templateLang": "템플릿 언어",
+        "paramCount": "템플릿 변수 개수(1~4)",
+        "apiVersion": "Graph API 버전",
+        "accessToken": "System User Token"
+      },
+      "help": "1. 준비: Meta Business 계정 검증을 마치고 등록된 WhatsApp Business 번호를 준비하세요. Meta 콘솔에서 Phone Number ID를 확인합니다.\n2. 입력: Phone Number ID, 템플릿 이름, 템플릿 언어(예: zh_CN), 매개변수 개수(1~4). 알림은 \"비즈니스 발신\" 메시지입니다. 수신자가 24시간 내에 답장한 경우에만 자유 텍스트를 보낼 수 있고, 그 외에는 승인된 템플릿만 가능합니다.\n3. 검증: 연락처 번호는 E.164(\"+\" 없이). \"전송 테스트\"는 예시 변수와 함께 한 건을 보내고, 실패하면 Meta 원시 오류 코드(템플릿 미승인 / 매개변수 불일치 / 번호가 테스트 목록에 없음)를 표시합니다."
+    },
+    "smsAliyun": {
+      "label": "알리바바 클라우드 문자",
+      "hint": "서명과 템플릿은 알리바바 클라우드 콘솔에서 사전 심사를 통과해야 합니다. 템플릿에는 요약을 받을 변수 하나가 필요합니다(예: ${content}).",
+      "field": {
+        "signName": "서명 이름",
+        "templateCode": "템플릿 Code",
+        "endpoint": "엔드포인트(비워 둘 수 있음)",
+        "accessKeyId": "AccessKey ID",
+        "accessKeySecret": "AccessKey Secret"
+      },
+      "help": "1. 준비: Alibaba Cloud SMS를 개통하고 **서명과 템플릿을 모두 신청·승인**받으세요. SMS 권한만 가진 RAM AccessKey를 권장합니다.\n2. 입력: AccessKey ID / Secret, 서명 이름, 템플릿 CODE(SMS_xxxxxxx 형식), 리전. 본문은 템플릿 제약을 받으며 플랫폼은 한 줄 요약만 보냅니다.\n3. 검증: 수신 번호는 E.164(예: 8613800138000). \"전송 테스트\" 실패 시 Alibaba Cloud 원시 오류 코드(서명 미승인 / 매개변수 불일치 / 잔액 부족)가 표시됩니다. 코드는 공식 문서에서 확인하세요."
+    },
+    "smsTencent": {
+      "label": "텐센트 클라우드 문자",
+      "hint": "콘솔 애플리케이션(SmsSdkAppId) + 심사를 통과한 서명과 템플릿이 필요합니다. 템플릿에는 요약을 받을 변수 하나가 필요합니다.",
+      "field": {
+        "sdkAppId": "SmsSdkAppId",
+        "signName": "서명 이름",
+        "templateId": "템플릿 ID",
+        "region": "리전",
+        "secretId": "SecretId",
+        "secretKey": "SecretKey"
+      },
+      "help": "1. 준비: Tencent Cloud SMS를 개통하고 **서명**과 **본문 템플릿**을 만들어 승인을 기다립니다. 최소 권한 서브 계정 키를 권장합니다.\n2. 입력: SDK AppID, SecretId / SecretKey, 서명 내용, 템플릿 ID, 리전(예: ap-guangzhou). 플랫폼은 한 줄 요약만 보냅니다.\n3. 검증: \"전송 테스트\" 실패 시 Tencent Cloud 원시 오류 코드(서명 또는 템플릿 미승인 / 매개변수 개수 불일치 / 잔액 부족)가 표시됩니다."
+    },
+    "smsAws": {
+      "label": "AWS SNS",
+      "hint": "SNS 문자에는 cn-* 리전이 없어 중국 본토로는 발송할 수 없습니다. 중국 번호로 보내려면 AWS Support에 사전 신고해야 하며 기본 샌드박스에서는 검증된 번호로만 발송할 수 있습니다.",
+      "field": {
+        "region": "Region",
+        "accessKeyId": "AccessKey ID",
+        "secretAccessKey": "Secret Access Key"
+      },
+      "help": "1. 준비: AWS 계정에서 SNS를 활성화합니다. SNS는 **기본이 샌드박스**이므로 수신 번호를 허용 목록에 추가하거나 프로덕션 승격을 신청하세요. SNS에는 cn-* 리전이 없어 중국 번호 발송은 별도 신청이 필요합니다.\n2. 입력: AccessKey / Secret, 리전(예: ap-southeast-1), Sender ID(일부 리전 필수).\n3. 검증: \"전송 테스트\" 실패 시 SNS 원시 오류(샌드박스 미개방 / 지원하지 않는 리전 / 권한 부족 / 번호 미검증)가 표시됩니다."
+    },
+    "smsTwilio": {
+      "label": "Twilio",
+      "hint": "해외/재해 복구 채널로 리전 제한이 없습니다. From 번호는 Twilio 쪽에서 검증하거나 구매해야 합니다.",
+      "field": {
+        "fromNumber": "From 번호(E.164)",
+        "accountSid": "Account SID",
+        "authToken": "Auth Token"
+      },
+      "help": "1. 준비: Twilio 계정에서 발신 번호(Sender)를 구매하거나 신청합니다. 체험 계정은 검증된 번호로만 발송할 수 있습니다.\n2. 입력: Account SID, Auth Token, From 번호(E.164, \"+\" 포함).\n3. 검증: \"전송 테스트\" 실패 시 Twilio 오류 코드와 설명(번호가 해당 목적지를 지원하지 않음 / 수신 번호 미검증 / 잔액 부족)이 표시됩니다."
+    }
+  },
+  "template": {
+    "kindFire": "알림 발생",
+    "kindResolve": "알림 복구",
+    "channelChat": "그룹 채팅 / Webhook",
+    "saved": "템플릿이 저장되었습니다",
+    "reset": "기본 템플릿으로 복원되었습니다",
+    "hint": {
+      "title": "알림 내용은 템플릿으로 결정됩니다",
+      "lead": "템플릿은 '이벤트 유형 × 채널 그룹' 단위로 설정하며(chat은 그룹 봇/IM/Webhook/WhatsApp 포함) 이 프로젝트의 모든 규칙에 적용됩니다. 자리 표시자는 이중 중괄호로 작성하고 알림 발송 시 실제 값으로 치환됩니다. 지원:",
+      "tail": "조건입니다. 문자는 렌더링 후 공백을 압축하고 40자에서 자릅니다."
+    },
+    "isDefault": "기본 템플릿",
+    "customized": "사용자 정의됨 · {{user}}",
+    "subject": "이메일 제목",
+    "body": "알림 내용",
+    "variables": "자리 표시자(클릭하면 커서 위치에 삽입)",
+    "varTooltip": "{{label}}(예: {{sample}})",
+    "refreshPreview": "미리보기 새로고침",
+    "preview": "미리보기",
+    "sampleHint": "예시 데이터 · 발송되지 않습니다",
+    "previewFailed": "미리보기 실패",
+    "previewSubject": "제목",
+    "smsNote": "실제 발송 시 공백을 압축하고 40자로 자릅니다. 현재 {{count}}자입니다.",
+    "rendering": "렌더링 중…",
+    "previewEmpty": "왼쪽 내용을 편집하면 여기 미리보기가 자동으로 갱신됩니다."
+  },
+  "mute": {
+    "scope": "범위",
+    "allRules": "모든 규칙",
+    "duration": "빠른 기간",
+    "pickDuration": "기간 선택",
+    "orRange": "또는 시간대",
+    "reason": "사유",
+    "reasonPlaceholder": "선택 사항",
+    "add": "음소거 추가",
+    "added": "음소거를 추가했습니다",
+    "needDuration": "빠른 기간을 선택하거나 사용자 정의 시간대를 지정해 주세요",
+    "presetHours": "{{count}}시간",
+    "presetDays": "{{count}}일",
+    "muted": "{{duration}} 동안 음소거됨",
+    "start": "시작",
+    "end": "종료",
+    "release": "해제"
+  },
+  "retention": {
+    "title": "데이터 보존 정책",
+    "hint": "세 범위를 각각 설정할 수 있으며 비워 두면 **영구 보존**입니다. 정리는 일 단위로 실행되며(6시간마다 확인) 삭제 작업은 변경 기록에 남습니다. '알림 이력'을 삭제하면 해당 알림 기록도 함께 삭제됩니다.",
+    "scope": "범위",
+    "days": "보존 일수",
+    "keepForever": "비워 둠 = 영구",
+    "current": "현재",
+    "forever": "영구 보존",
+    "daysValue": "{{days}}일",
+    "saved": "보존 정책이 저장되었습니다",
+    "scopeLabel": {
+      "events": "알림 이력",
+      "notifications": "알림 기록",
+      "audits": "변경 기록"
+    }
+  },
+  "audit": {
+    "hint": "규칙, 연락처, 음소거 변경은 모두 기록되며(슈퍼 관리자만 조회 가능) 연락처 주소는 마스킹된 값만 기록합니다.",
+    "empty": "변경 기록 없음",
+    "column": {
+      "time": "시간",
+      "operator": "작업자",
+      "action": "동작",
+      "target": "대상",
+      "detail": "변경 내용"
+    },
+    "change": "{{field}}: {{from}} → {{to}}",
+    "fieldEntry": "{{field}}={{value}}",
+    "noChange": "(변경 없음)",
+    "valueOn": "켜짐",
+    "valueOff": "꺼짐",
+    "field": {
+      "code": "규칙 코드",
+      "comparator": "비교 연산자",
+      "windowMinutes": "세분성(분)",
+      "windowDays": "윈도우(일)",
+      "forWindows": "지속 윈도우",
+      "repeatMinutes": "반복 간격(분)",
+      "notifyOnResolve": "복구 알림",
+      "metricName": "지표 이름",
+      "bodyLength": "템플릿 길이",
+      "deleted": "삭제 건수",
+      "wasDefault": "기존 기본값",
+      "enabledContacts": "사용 중 연락처"
+    },
+    "action": {
+      "ruleUpdate": "규칙 수정",
+      "ruleCreate": "규칙 생성",
+      "ruleDelete": "규칙 삭제",
+      "contactCreate": "연락처 생성",
+      "contactDelete": "연락처 삭제",
+      "contactDefault": "기본 연락처로 설정(이력)",
+      "muteCreate": "음소거 생성",
+      "muteDelete": "음소거 해제",
+      "contactUpdate": "연락처 수정",
+      "retentionUpdate": "보존 정책 수정",
+      "retentionCleanup": "보존 정책에 따른 정리",
+      "templateUpdate": "알림 템플릿 수정",
+      "templateReset": "기본 템플릿 복원"
+    }
+  },
+  "field": {
+    "enabled": "사용",
+    "enabledAria": "{{name}} 사용",
+    "switchOn": "사용",
+    "switchOff": "사용 안 함",
+    "booleanOn": "켜짐",
+    "booleanOff": "꺼짐",
+    "unit": "단위",
+    "unitPlaceholder": "예: 회 / 명",
+    "keepBlank": "비워 두면 수정하지 않음",
+    "keepCurrent": "비워 두면 수정하지 않음(현재 {{value}})",
+    "keepSavedValue": "비워 두면 저장된 값을 수정하지 않음",
+    "keepSavedAddress": "비워 두면 저장된 주소를 수정하지 않음",
+    "keepSavedSecret": "비워 두면 저장된 키를 수정하지 않음"
+  },
+  "metric": {
+    "label": "지표",
+    "project": "프로젝트",
+    "select": "지표 선택",
+    "noneInProject": "이 프로젝트에 지표가 없습니다. 먼저 '데이터 관리 → 지표'에서 만들어 주세요",
+    "option": "{{name}}({{kind}})",
+    "optionDisabled": "{{name}}({{kind}} · {{reason}})",
+    "unavailable": "사용 불가"
+  },
+  "validate": {
+    "required": "{{field}} 항목을 입력해 주세요",
+    "select": "{{field}} 항목을 선택해 주세요"
+  },
+  "separator": {
+    "list": ", ",
+    "pair": "; ",
+    "entry": ", ",
+    "slash": " / "
+  },
+  "window": {
+    "last2Days": "최근 2일"
+  },
+  "templateVar": {
+    "ruleName": "규칙 이름",
+    "ruleCode": "규칙 코드",
+    "level": "심각도(영문)",
+    "levelFmt": "심각도(한국어)",
+    "status": "상태(한국어)",
+    "statusCode": "상태 코드(fire/repeat/resolve)",
+    "value": "현재 값(단위 포함)",
+    "valueRaw": "현재 값(원래 숫자)",
+    "unit": "단위",
+    "comparator": "비교 연산자(영문)",
+    "comparatorFmt": "비교 연산자(한국어)",
+    "threshold": "임계값(단위 포함)",
+    "metricName": "지표 이름",
+    "metricKind": "지표 유형",
+    "windowDays": "윈도우 일수",
+    "windowFmt": "윈도우(한국어)",
+    "project": "프로젝트 이름",
+    "time": "발생/복구 시간",
+    "detectInterval": "감지 주기",
+    "contactName": "연락처"
+  },
+  "ruleHealth": {
+    "ok": "정상",
+    "metricMissing": "지표 삭제됨",
+    "evalFailed": "값 계산 실패",
+    "noContact": "연락처 없음",
+    "detailNoMetric": "규칙에 지표가 연결되어 있지 않습니다",
+    "detailMetricDeleted": "지표 {{metricId}}가 삭제되었습니다",
+    "detailEvalFailed": "연속 {{times}}회 값 계산 실패: {{message}}",
+    "detailNoContact": "연락처 없음: 규칙에 연락처가 지정되지 않았고 시스템에 사용 중인 연락처가 없습니다"
+  },
+  "unit": {
+    "times": "회",
+    "rows": "건",
+    "pieces": "개",
+    "percent": "%"
+  },
+  "error": {
+    "rule": {
+      "notFound": "규칙이 없습니다: {{code}}",
+      "noFields": "업데이트할 필드가 없습니다",
+      "builtinNotDeletable": "기본 제공 규칙은 삭제할 수 없습니다",
+      "metricMissing": "지표가 없습니다('데이터 관리 → 지표'에서 먼저 만들어 주세요)",
+      "metricLimit": "지표 알림은 최대 {{max}}건입니다"
+    },
+    "contact": {
+      "idInvalid": "contact_id가 올바르지 않습니다",
+      "notFound": "연락처가 없습니다",
+      "localeInvalid": "지원하지 않는 언어: {{locale}}",
+      "timezoneInvalid": "올바르지 않은 시간대입니다(IANA 이름이어야 합니다. 예: Asia/Shanghai)"
+    },
+    "channel": {
+      "unsupported": "지원하지 않는 채널 유형: {{kind}}",
+      "unavailable": "채널 {{channel}}은 현재 사용할 수 없습니다",
+      "unknown": "알 수 없는 채널: {{channel}}"
+    },
+    "channelConfig": {
+      "unsupported": "지원하지 않는 채널 설정: {{channel}}",
+      "masterKeyMissing": "마스터 키가 없습니다: 채널 자격 증명을 암호화해 저장할 환경 변수 {{env}}(32바이트 base64)를 설정하세요"
+    },
+    "template": {
+      "syntaxError": "템플릿 문법 오류: {{error}}",
+      "subjectSyntaxError": "이메일 제목 문법 오류: {{error}}",
+      "kindInvalid": "이벤트 유형이 올바르지 않습니다(fire / resolve)",
+      "channelInvalid": "채널이 올바르지 않습니다(chat / email / sms)"
+    },
+    "mute": {
+      "notFound": "음소거가 없습니다",
+      "windowInvalid": "음소거 시간이 올바르지 않습니다"
+    },
+    "retention": {
+      "scopeInvalid": "지원하지 않는 보존 범위: {{scope}}",
+      "daysInvalid": "보존 일수는 1~{{max}} 사이의 정수여야 하며 비워 두면 영구 보존입니다"
+    },
+    "metric": {
+      "notFound": "지표가 없습니다"
+    },
+    "validate": {
+      "failed": "검증을 통과하지 못했습니다",
+      "required": "'{{field}}' 값을 입력해 주세요",
+      "number": "'{{field}}'는 숫자여야 합니다",
+      "portRange": "포트 범위는 1~65535여야 합니다",
+      "paramCount": "템플릿 변수 개수는 1~4여야 합니다",
+      "apiBaseHttp": "API 주소는 http(s)://로 시작해야 합니다",
+      "fromFormat": "발신자 형식이 올바르지 않습니다(name <mail@example.com> 형식도 가능)",
+      "webhookRequired": "Webhook 주소를 입력해 주세요",
+      "webhookHttps": "Webhook 주소는 https://로 시작해야 합니다",
+      "webhookHttp": "Webhook 주소는 http(s)://로 시작해야 합니다",
+      "feishuWebhook": "Feishu 봇 webhook이 아닌 것 같습니다(https://open.feishu.cn/open-apis/bot/v2/hook/… 형식이어야 합니다)",
+      "dingtalkWebhook": "DingTalk 봇 webhook이 아닌 것 같습니다(https://oapi.dingtalk.com/robot/send?access_token=… 형식이어야 합니다)",
+      "dingtalkSecret": "서명 키가 너무 짧습니다(DingTalk 콘솔에서 생성한 SEC… 형식)",
+      "wecomWebhook": "WeCom 그룹 봇 webhook이 아닌 것 같습니다(https://qyapi.weixin.qq.com/cgi-bin/webhook/send?key=… 형식이어야 합니다)",
+      "telegramChatIdRequired": "chat_id를 입력하세요(그룹 또는 1:1 대화의 세션 ID, @userinfobot으로 확인 가능)",
+      "telegramChatIdFormat": "chat_id는 숫자여야 합니다(그룹 ID는 -100으로 시작)",
+      "emailRequired": "수신 이메일을 입력하세요",
+      "emailFormat": "이메일 형식이 올바르지 않습니다",
+      "smsRequired": "수신 휴대폰 번호를 입력하세요",
+      "smsFormat": "휴대폰 번호 형식이 올바르지 않습니다(국가 코드 포함 권장, 예: +8613800138000)",
+      "smsProvider": "문자 공급자가 올바르지 않습니다(선택 가능: {{allowed}})",
+      "whatsappRequired": "수신 번호를 입력하세요(E.164, 예: 8613800138000)",
+      "whatsappFormat": "번호 자릿수가 올바르지 않습니다(E.164는 + 없이 8~15자리)",
+      "headersJson": "사용자 정의 요청 헤더는 올바른 JSON이어야 합니다(예: {\"Authorization\":\"Bearer xxx\"})",
+      "bodyTemplate": "body 템플릿 문법 오류: {{error}}"
+    },
+    "ops": {
+      "forbidden": "운영 패널은 플랫폼 슈퍼 관리자만 접근할 수 있습니다"
+    }
+  }
+}

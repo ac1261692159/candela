@@ -1,0 +1,194 @@
+{
+  "updatedAt": "2026-10-10",
+  "totals": {
+    "ui": 1509,
+    "jsx": 0,
+    "total": 1509,
+    "files": 168
+  },
+  "dirs": {
+    "apps/analytics-server/src": {
+      "ui": 1,
+      "jsx": 0,
+      "files": 1
+    },
+    "apps/analytics-server/src/common/guards": {
+      "ui": 1,
+      "jsx": 0,
+      "files": 1
+    },
+    "apps/analytics-server/src/common/utils": {
+      "ui": 1,
+      "jsx": 0,
+      "files": 1
+    },
+    "apps/analytics-server/src/config": {
+      "ui": 35,
+      "jsx": 0,
+      "files": 2
+    },
+    "apps/analytics-server/src/i18n": {
+      "ui": 2,
+      "jsx": 0,
+      "files": 1
+    },
+    "apps/analytics-server/src/modules/ai-assistant": {
+      "ui": 107,
+      "jsx": 0,
+      "files": 8
+    },
+    "apps/analytics-server/src/modules/ai-assistant/workspace": {
+      "ui": 93,
+      "jsx": 0,
+      "files": 5
+    },
+    "apps/analytics-server/src/modules/ai-query": {
+      "ui": 14,
+      "jsx": 0,
+      "files": 2
+    },
+    "apps/analytics-server/src/modules/alerting": {
+      "ui": 140,
+      "jsx": 0,
+      "files": 12
+    },
+    "apps/analytics-server/src/modules/alerting/channels": {
+      "ui": 87,
+      "jsx": 0,
+      "files": 6
+    },
+    "apps/analytics-server/src/modules/alerting/channels/senders": {
+      "ui": 20,
+      "jsx": 0,
+      "files": 6
+    },
+    "apps/analytics-server/src/modules/auth": {
+      "ui": 65,
+      "jsx": 0,
+      "files": 8
+    },
+    "apps/analytics-server/src/modules/cohort": {
+      "ui": 66,
+      "jsx": 0,
+      "files": 7
+    },
+    "apps/analytics-server/src/modules/cohort/dto": {
+      "ui": 2,
+      "jsx": 0,
+      "files": 1
+    },
+    "apps/analytics-server/src/modules/datatable": {
+      "ui": 36,
+      "jsx": 0,
+      "files": 4
+    },
+    "apps/analytics-server/src/modules/iam": {
+      "ui": 181,
+      "jsx": 0,
+      "files": 7
+    },
+    "apps/analytics-server/src/modules/ingestor": {
+      "ui": 19,
+      "jsx": 0,
+      "files": 7
+    },
+    "apps/analytics-server/src/modules/meta": {
+      "ui": 55,
+      "jsx": 0,
+      "files": 12
+    },
+    "apps/analytics-server/src/modules/meta/dto": {
+      "ui": 2,
+      "jsx": 0,
+      "files": 2
+    },
+    "apps/analytics-server/src/modules/ops": {
+      "ui": 87,
+      "jsx": 0,
+      "files": 13
+    },
+    "apps/analytics-server/src/modules/query": {
+      "ui": 181,
+      "jsx": 0,
+      "files": 17
+    },
+    "apps/analytics-server/src/modules/query-budget": {
+      "ui": 2,
+      "jsx": 0,
+      "files": 1
+    },
+    "apps/analytics-server/src/modules/query-job": {
+      "ui": 6,
+      "jsx": 0,
+      "files": 1
+    },
+    "apps/analytics-server/src/modules/relation": {
+      "ui": 4,
+      "jsx": 0,
+      "files": 2
+    },
+    "apps/analytics-server/src/modules/report": {
+      "ui": 140,
+      "jsx": 0,
+      "files": 11
+    },
+    "apps/analytics-server/src/modules/shared": {
+      "ui": 42,
+      "jsx": 0,
+      "files": 6
+    },
+    "apps/analytics-server/src/modules/subject": {
+      "ui": 17,
+      "jsx": 0,
+      "files": 3
+    },
+    "apps/analytics-server/src/modules/subject/dto": {
+      "ui": 1,
+      "jsx": 0,
+      "files": 1
+    },
+    "apps/analytics-server/src/modules/tag": {
+      "ui": 29,
+      "jsx": 0,
+      "files": 5
+    },
+    "apps/analytics-server/src/modules/tag/dto": {
+      "ui": 1,
+      "jsx": 0,
+      "files": 1
+    },
+    "apps/analytics-server/src/modules/time": {
+      "ui": 12,
+      "jsx": 0,
+      "files": 3
+    },
+    "apps/analytics-server/src/modules/timeline": {
+      "ui": 7,
+      "jsx": 0,
+      "files": 3
+    },
+    "apps/analytics-server/src/modules/timeline/dto": {
+      "ui": 3,
+      "jsx": 0,
+      "files": 1
+    },
+    "apps/analytics-server/src/scripts": {
+      "ui": 37,
+      "jsx": 0,
+      "files": 6
+    },
+    "apps/analytics-web/src/features/visualization": {
+      "ui": 13,
+      "jsx": 0,
+      "files": 1
+    }
+  },
+  "tests": {
+    "files": 166,
+    "ui": 2110,
+    "jsx": 4
+  },
+  "server_throws": {},
+  "server_throws_total": 0,
+  "note": "只允许下降。上升需 --force 并在提交说明写原因。"
+}

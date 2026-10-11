@@ -1,0 +1,115 @@
+{
+  "alert": {
+    "level": {
+      "critical": "Crítico",
+      "warning": "Aviso",
+      "info": "Informativo"
+    },
+    "status": {
+      "fire": "Disparado",
+      "repeat": "Contínuo",
+      "resolve": "Recuperado"
+    },
+    "kind": {
+      "retention": "Métrica de retenção",
+      "event": "Métrica de evento",
+      "builtin": "Métrica interna"
+    },
+    "window": {
+      "today": "Hoje",
+      "lastDays": "Últimos {{days}} dias",
+      "minutes": "Janela de {{minutes}} minutos",
+      "cohort": "Coorte {{label}}"
+    },
+    "varSample": {
+      "ruleName": "Volume de envio de hoje muito baixo",
+      "ruleCode": "metric_ab12cd34",
+      "level": "critical",
+      "levelFmt": "Crítico",
+      "status": "Disparado",
+      "statusCode": "fire",
+      "value": "1.204 vezes",
+      "valueRaw": "1204",
+      "unit": "vezes",
+      "comparator": "gt",
+      "comparatorFmt": "maior que",
+      "threshold": "1.000 vezes",
+      "metricName": "Envios de hoje",
+      "metricKind": "Métrica de evento",
+      "windowDays": "1",
+      "windowFmt": "Hoje",
+      "project": "clklogapp",
+      "time": "2026-09-15 21:03:11",
+      "detectInterval": "60s",
+      "contactName": "Grupo de operações"
+    },
+    "channelName": {
+      "feishu_webhook": "Feishu",
+      "dingtalk": "DingTalk",
+      "wecom": "WeCom",
+      "telegram": "Telegram",
+      "webhook": "Webhook genérico",
+      "email": "E-mail",
+      "sms": "SMS",
+      "whatsapp": "WhatsApp"
+    },
+    "channelTest": {
+      "text": "[TESTE] Verificação de conectividade do canal de alertas do Candela\nCanal: {{channel}}\nHora: {{time}}",
+      "subject": "Teste do canal de alertas do Candela ({{channel}})",
+      "ruleName": "Teste de conectividade do canal",
+      "detailTargetInvalid": "O destino não passou na validação",
+      "detailSendFailed": "Falha na entrega (o erro é a resposta original do fornecedor)",
+      "detailSent": "Mensagem de teste enviada"
+    }
+  },
+  "units": {
+    "times": "vezes",
+    "items": "registros",
+    "users": "usuários",
+    "sec": "s",
+    "ms": "ms",
+    "min": "min",
+    "h": "h",
+    "days": "dias",
+    "percent": "%"
+  },
+  "mail": {
+    "reset": {
+      "subject": "[Candela] Redefinição de senha",
+      "body": "Olá,\n\nUse o link abaixo para redefinir sua senha (válido por {{minutes}} minutos, uso único):\n{{link}}\n\nSe você não solicitou, ignore este e-mail.\n\nCandela Analytics"
+    },
+    "setup": {
+      "subject": "[Candela] Configure a senha da sua conta",
+      "body": "Olá,\n\nUm administrador criou uma conta no Candela Analytics para você. Defina sua senha por este link (válido por {{hours}} horas, uso único):\n{{link}}\n\nDepois você já pode entrar.\n\nCandela Analytics"
+    },
+    "invite": {
+      "subject": "[Candela] Convite para o projeto {{project}}",
+      "body": "Olá,\n\n{{inviter}} convidou você para o projeto {{project}} do Candela Analytics com o papel {{role}}.\n\nSiga este link para se cadastrar e entrar (válido por {{days}} dias):\n{{link}}\n\nSe você não esperava este convite, ignore este e-mail.\n\nCandela Analytics"
+    },
+    "inviteNotify": {
+      "subject": "[Candela] Você foi adicionado ao projeto {{project}}",
+      "body": "Olá,\n\n{{inviter}} adicionou você ao projeto {{project}} do Candela Analytics com o papel {{role}}.\n\nEntre com sua conta existente para acessar.\n\nCandela Analytics"
+    },
+    "roles": {
+      "analyst": "analista",
+      "member": "membro comum",
+      "external": "externo"
+    },
+    "test": {
+      "subject": "[Candela] Teste do canal de e-mail",
+      "body": "Este é um e-mail de teste do Candela Analytics.\n\nSe você o recebeu, as configurações SMTP estão ativas: e-mails de redefinição, configuração e convites estão prontos.\n\nCandela Analytics"
+    }
+  },
+  "reconcile": {
+    "notify": {
+      "dayAlertSubject": "[Candela] Conferência {{date}}: desvio acima do limite (limite {{threshold}}%)",
+      "failedSubject": "[Candela] Falha na conferência de {{date}}",
+      "lineProject": "Projeto: {{project}}",
+      "lineRange": "Intervalo: {{from}} ~ {{to}}",
+      "lineThreshold": "Limite: {{threshold}}%; dias em anomalia: {{days}}",
+      "lineDay": "{{date}}: sa {{sa}} / raw {{raw}} ({{deviation}}%)",
+      "lineReport": "Relatório: {{path}}",
+      "lineReason": "Motivo: {{reason}}"
+    }
+  }
+}

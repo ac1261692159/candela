@@ -1,0 +1,290 @@
+{
+  "role": {
+    "analysisAdmin": "分析管理員",
+    "analyst": "分析師",
+    "member": "一般成員",
+    "external": "外部人員",
+    "projectOwner": "專案擁有者"
+  },
+  "label": {
+    "role": "角色",
+    "user": "使用者"
+  },
+  "message": {
+    "created": "已建立",
+    "minLength": "至少 6 位"
+  },
+  "dataPolicy": {
+    "title": "資料權限策略",
+    "column": "資料權限",
+    "unrestricted": "不限制",
+    "create": "新增策略",
+    "reference": "引用",
+    "referenceCount": "成員 {{members}} / 組 {{groups}}",
+    "deleteConfirm": "刪除策略？",
+    "definition": "定義 JSON（可空，預設全可見）",
+    "detail": "策略明細",
+    "scopeEvents": "可見事件",
+    "scopeEventProperties": "可見事件屬性",
+    "scopeUserProperties": "可見使用者屬性",
+    "scopeRowFilter": "資料列篩選條件",
+    "scopeAll": "不限制",
+    "scopeNone": "無（全部不可見）",
+    "rowFilterNone": "無",
+    "rowFilterAnd": "且",
+    "rowFilterItem": "{{prop}} {{op}} {{value}}"
+  },
+  "members": {
+    "title": "成員管理",
+    "add": "新增成員",
+    "added": "已新增",
+    "removeConfirm": "移出專案？",
+    "remove": "移除",
+    "seed": "填充演示成員",
+    "seedSuccess": "已建立 analyst1 / member1 / external1，並加入對應成員群組",
+    "seedHint": "會在當前專案建立三個演示帳號並加入「分析師群組 / 一般成員群組 / 外部人員群組」。已存在的同名帳號不會改密。",
+    "demoPassword": "演示帳號密碼"
+  },
+  "subjectGrant": {
+    "action": "看板授權",
+    "title": "看板授權 · {{name}}",
+    "hint": "勾選即授予「可檢視」。給資料夾授權會涵蓋其內全部看板（含之後新建的）；被授「可編輯」的資產在此為唯讀。",
+    "searchPlaceholder": "搜尋資料夾或看板",
+    "folders": "資料夾",
+    "dashboards": "看板",
+    "ungrouped": "未分組",
+    "editable": "可編輯",
+    "saved": "授權已儲存",
+    "empty": "沒有可授權的資料夾或看板"
+  },
+  "groups": {
+    "title": "成員群組",
+    "create": "新增組",
+    "createTitle": "新增成員群組",
+    "memberCount": "人數",
+    "members": "成員",
+    "membersTitle": "組成員 · {{name}}",
+    "membersUpdated": "已更新組成員",
+    "membersHint": "只能加入已經是本專案成員的人。組不能綁定擁有者。",
+    "membersEmpty": "尚無組員"
+  },
+  "roles": {
+    "title": "角色管理",
+    "ownerNotice": "每專案最多 1 位擁有者，僅超管指定。分析管理員不能改這條定義。",
+    "preset": "預設",
+    "adjusted": "已調整",
+    "editDefinition": "編輯角色定義",
+    "saveSuccess": "已儲存分析管理員定義",
+    "readonlyHint": "預設角色不可自訂。分析管理員的定義僅專案擁有者可改。",
+    "feature": "功能",
+    "op": "操作權限",
+    "detail": "功能明細",
+    "granted": "擁有"
+  },
+  "apiKeys": {
+    "title": "API Key 管理",
+    "create": "新增 API Key",
+    "hintLead": "用於外部 AI / 自動化工具透過",
+    "hintTail": "只讀查詢 ClickHouse。點選「新增 API Key」一鍵生成（自動命名、專案邊界預設 clklogapp、永不過期）。Key 明文僅在生成時展示一次，請妥善儲存。",
+    "projectScope": "專案邊界",
+    "active": "生效中",
+    "revoked": "已撤銷",
+    "expiresAt": "過期時間",
+    "lastUsedAt": "最近使用",
+    "revokeConfirm": "確定撤銷該 Key？撤銷後立即失效",
+    "revoke": "撤銷",
+    "deleteConfirm": "確定刪除該 Key？此操作不可恢復",
+    "created": "API Key 已生成",
+    "revokedMsg": "已撤銷",
+    "deleted": "已刪除",
+    "copied": "已複製到剪貼簿",
+    "createSuccess": "API Key 生成成功",
+    "plaintextWarning": "此 Key 僅展示一次，關閉後無法再次檢視明文，請立即儲存。",
+    "saved": "我已儲存"
+  },
+  "projectSettings": {
+    "title": "專案設定",
+    "createProject": "新增專案",
+    "createAccount": "新增登入帳號",
+    "ownerNotice": "每個專案恰好一位擁有者。新增專案與指定/替換擁有者僅超管可做；原擁有者會降為分析管理員。新增專案只登記分析空間名，不會在 ClickHouse 建庫。",
+    "projectName": "專案名",
+    "displayName": "顯示名",
+    "currentOwner": "當前擁有者",
+    "projectOwner": "專案擁有者",
+    "unassigned": "未指定",
+    "assign": "指定 / 替換",
+    "selectUser": "選擇使用者",
+    "userOption": "{{name}}（{{username}}）",
+    "ownerUpdated": "已更新 {{name}} 的擁有者",
+    "projectCreated": "專案已建立",
+    "nameHint": "小寫字母開頭，僅小寫字母、數字、底線，2～63 位。上報 SDK 的 project_name 須與此一致。",
+    "nameRequired": "請輸入專案名",
+    "nameInvalid": "格式不符合要求",
+    "namePlaceholder": "例如 game_ios",
+    "displayNamePlaceholder": "給人看的名稱，可與專案名相同",
+    "ownerRequired": "請指定擁有者",
+    "accountCreated": "帳號已建立，可在成員管理裡加入專案",
+    "accountHint": "只建立登入身分，不會自動成為任何專案的成員。把人加進專案請到「成員管理」。",
+    "username": "使用者名稱",
+    "password": "密碼"
+  },
+  "error": {
+    "loadFailed": "載入失敗，請重試",
+    "grant": {
+      "subjectRequired": "缺少 subject_id",
+      "assetsMustBeArray": "asset_ids 必須是陣列",
+      "subjectTypeInvalid": "subject_type 必須是 user 或 group"
+    },
+    "asset": {
+      "folderNotFound": "資料夾不存在",
+      "dashboardNotFound": "看板不存在: {{id}}",
+      "cardNotFound": "卡片不存在: {{id}}",
+      "cohortNotFound": "分群不存在",
+      "tagNotFound": "標籤不存在",
+      "viewGrantDashboardOnly": "僅看板與資料夾可授予檢視",
+      "editGrantAnalystOnly": "編輯授權只能授給本專案分析師",
+      "editGrantAnalystGroupOnly": "編輯授權只能授給角色為分析師的成員群組",
+      "withdrawGrantBeforeLock": "先撤回編輯授權再鎖定",
+      "unlockBeforeGrant": "先解鎖再授權"
+    },
+    "forbidden": "無權存取該資源",
+    "dataScope": {
+      "invalidProp": "非法使用者屬性名",
+      "unsupportedOperator": "資料權限列過濾暫不支援運算子: {{op}}",
+      "eventForbidden": "無權查詢事件: {{event}}",
+      "propertyForbidden": "無權使用屬性: {{property}}"
+    },
+    "project": {
+      "fieldsRequired": "name 與 owner_user_id 必填",
+      "nameInvalid": "專案名須為小寫字母開頭，僅含小寫字母、數字、底線，長度 2～63",
+      "exists": "專案已存在",
+      "timezoneInvalid": "不合法的時區（須為 IANA 名，如 Asia/Shanghai）"
+    },
+    "demo": {
+      "passwordTooShort": "演示帳號密碼至少 6 位"
+    },
+    "role": {
+      "grantsMustBeArray": "grants 必須是陣列",
+      "invalid": "非法角色"
+    },
+    "member": {
+      "notMember": "不是該專案成員",
+      "ownerAssignForbidden": "不能透過成員管理指定擁有者",
+      "notFound": "成員不存在",
+      "ownerRoleForbidden": "不能改擁有者的專案角色",
+      "promoteToOwnerForbidden": "不能把成員改成擁有者",
+      "removeOwnerForbidden": "不能移除專案擁有者",
+      "expiryOwnerForbidden": "專案 owner 不能設置有效期",
+      "expiryInvalid": "有效期不是合法時間"
+    },
+    "user": {
+      "unavailable": "使用者不可用",
+      "notFound": "使用者不存在"
+    },
+    "group": {
+      "bindingForbidden": "成員群組不能綁定擁有者或非法角色",
+      "notFound": "成員群組不存在",
+      "ownerForbidden": "成員群組不能綁定擁有者",
+      "memberRequired": "使用者必須已是專案成員"
+    },
+    "dataPolicy": {
+      "notFound": "策略不存在",
+      "inUse": "仍被成員或組引用"
+    },
+    "invite": {
+      "emailInvalid": "郵箱格式不正確",
+      "alreadyMember": "該郵箱對應帳號已是本專案成員",
+      "notFound": "邀請不存在或已結束",
+      "emailMismatch": "當前登入帳號的郵箱與邀請不匹配"
+    }
+  },
+  "permission": {
+    "feature": {
+      "projectAccess": "專案權限管理",
+      "dataPolicy": "資料權限",
+      "opsAccount": "運維 · 帳號",
+      "opsProjectSettings": "運維 · 專案設定",
+      "opsApiKey": "運維 · API Key",
+      "opsAiWorkspace": "運維 · AI Workspace",
+      "opsRuntime": "運維 · 後續運維管理",
+      "subject": "分析主體",
+      "cohort": "使用者分群管理",
+      "tag": "使用者標籤管理",
+      "meta": "埋點 / 中繼資料",
+      "modelUsage": "模型使用",
+      "dashboard": "看板使用",
+      "metric": "指標管理",
+      "timeline": "使用者行為序列"
+    },
+    "op": {
+      "view": "檢視",
+      "edit": "編輯",
+      "manage": "管理",
+      "use": "功能使用"
+    },
+    "detail": {
+      "iamMemberView": "檢視本專案成員、成員群組、角色說明、資料權限策略",
+      "iamMemberEdit": "新增/移除成員與組；分配非擁有者角色",
+      "iamRoleEditAdmin": "編輯本專案「分析管理員」授權定義",
+      "iamDataPolicyManage": "新增、編輯、刪除策略並賦給成員或組",
+      "opsUserManage": "新增、停用、啟用登入帳號",
+      "opsOwnerAssign": "新增分析專案；指定或替換專案唯一擁有者",
+      "opsApikeyManage": "檢視、建立、撤銷 Key",
+      "opsAiWorkspaceManage": "範本與同步",
+      "opsRuntimeAccess": "佔位，本期無路由",
+      "subjectView": "在分析中切換已有主體",
+      "subjectEdit": "檢視並編輯本專案分析主體",
+      "cohortView": "檢視分群清單與成員預覽",
+      "cohortEditOwn": "新增、編輯、刪除自己的分群",
+      "cohortEditOthers": "編輯、刪除他人的分群",
+      "tagView": "檢視標籤清單與成員預覽",
+      "tagEditOwn": "新增、編輯、刪除自己的標籤",
+      "tagEditOthers": "編輯、刪除他人的標籤",
+      "metaView": "檢視事件、屬性、虛擬物件、指標、Debug、資料品質",
+      "metaPickerView": "分析選擇器讀取已啟用的事件、屬性與維度表欄位（唯讀）",
+      "metaEdit": "編輯定義、確認/隱藏、Debug",
+      "modelQuery": "事件 / 漏斗 / 留存查詢",
+      "modelSql": "自訂 SQL",
+      "modelCardSave": "儲存卡片",
+      "modelExport": "匯出已呈現的查詢或看板資料",
+      "dashboardView": "檢視可存取看板及設定",
+      "dashboardViewAll": "檢視本專案全部看板",
+      "dashboardEdit": "新增看板；嘗試編輯（最終以 AssetPolicy 為準）",
+      "dashboardFilter": "臨時調整看板篩選",
+      "dashboardFolderManage": "新增/重新命名/刪除資料夾",
+      "assetLock": "鎖定/解鎖資料夾、看板、卡片、分群、標籤",
+      "assetGrant": "授予或撤回看板/卡片/資料夾的編輯權與外部檢視",
+      "metricView": "檢視已儲存指標",
+      "metricEditOwn": "新增、編輯、刪除自己的指標",
+      "metricEditOthers": "編輯、刪除他人的指標",
+      "timelineView": "依使用者查看其指定時間範圍內的全部上報事件"
+    }
+  },
+  "invite": {
+    "userOrEmailHint": "可選擇已有帳號；也可直接輸入完整郵箱邀請未註冊的人。",
+    "userOrEmailPlaceholder": "選擇帳號或輸入郵箱",
+    "addedDirect": "該郵箱已有帳號，已直接加入專案",
+    "sent": "邀請郵件已發送",
+    "emailInvalid": "請輸入已有帳號或完整郵箱地址",
+    "pendingTitle": "待接受邀請",
+    "colEmail": "郵箱",
+    "colInviter": "邀請人",
+    "colExpires": "過期時間",
+    "revoke": "撤銷",
+    "revokeConfirm": "撤銷該邀請？對方將無法再透過連結加入。"
+  },
+  "member": {
+    "colExpiry": "有效期",
+    "expiryPermanent": "永久",
+    "expiryInDays": "{{days}} 天後到期",
+    "expiredTag": "已到期",
+    "renew": "續約",
+    "renewTitle": "設置新的到期時間",
+    "renewed": "已續約",
+    "expiryLabel": "成員有效期（選填）",
+    "expiryHint": "到期後失去本專案直接角色（組內角色不受影響）；留空為永久。"
+  },
+  "audit": {
+    "title": "專案操作稽核"
+  }
+}

@@ -1,0 +1,492 @@
+{
+  "range": {
+    "last1Hour": "Last 1 hour",
+    "last6Hours": "Last 6 hours",
+    "last24Hours": "Last 24 hours",
+    "last3Days": "Last 3 days",
+    "last90Days": "Last 90 days",
+    "last180Days": "Last 180 days"
+  },
+  "message": {
+    "executeFailed": "Execution failed",
+    "updateFailed": "Failed to update",
+    "setFailed": "Failed to apply"
+  },
+  "slowQuery": {
+    "title": "Slow queries",
+    "minDuration": "Min duration",
+    "status": "Execution status",
+    "generatedAt": "Generated at {{time}}",
+    "fromCache": " (cache hit; refreshing in the background)",
+    "empty": "No queries longer than {{ms}} ms in the current time range",
+    "expandSql": "Expand SQL",
+    "collapseSql": "Collapse SQL",
+    "column": {
+      "time": "Time",
+      "duration": "Duration",
+      "readRows": "Rows read",
+      "readBytes": "Bytes read",
+      "memory": "Memory",
+      "user": "Account"
+    },
+    "retentionNote": "Data comes from the ClickHouse query log (system.query_log) and is kept for about the last {{days}} days."
+  },
+  "serverStatus": {
+    "title": "Server status",
+    "appVersion": "App version",
+    "uptime": "Up {{value}}",
+    "uptimeDays": "{{days}}d {{hours}}h",
+    "uptimeHours": "{{hours}}h {{minutes}}m",
+    "uptimeMinutes": "{{minutes}}m",
+    "hostMemory": "Host memory",
+    "cpuLoad1m": "CPU load (1 minute)",
+    "loadDetail": "5 min {{load5}} · 15 min {{load15}} · {{cores}} cores",
+    "diskPath": "Disk {{path}}",
+    "diskUsed": "Used {{used}} / {{total}}",
+    "unavailable": "N/A",
+    "readFailed": "Failed to read",
+    "dependencies": "Dependencies and data pipeline",
+    "connected": "Connected · v{{version}}",
+    "unreachable": "Unreachable",
+    "unreachableError": "Unreachable: {{error}}",
+    "eventRowsLabel": "Event rows (sa_events)",
+    "eventRowsCount": "{{rows}} rows · {{size}}",
+    "lastWrite": "Last write to data pipeline",
+    "maybeStalled": " (possibly stalled)",
+    "justNow": "Just now",
+    "minutesAgo": "{{minutes}} min ago",
+    "processMemory": "Process memory (heap / RSS)",
+    "diskDetail": "Disk details"
+  },
+  "diskTrend": {
+    "title": "Disk usage forecast",
+    "pathWholeDisk": "Whole disk /data",
+    "pathReceiver": "receiver log directory",
+    "noSamples": "No samples yet",
+    "accumulating": "Collecting samples: {{count}}/3 so far; forecasting starts at 3 samples (one sample per hour)",
+    "flat": "No clear growth trend; no forecast for now",
+    "forecast": "At the recent growth rate, the disk is expected to fill up on {{date}}, {{days}} days from now",
+    "seriesUsed": "Used space",
+    "seriesPredicted": "Forecast (dashed)",
+    "seriesTotal": "Disk total",
+    "totalMark": "Total",
+    "tooltipValue": "{{size}} ({{gb}} GB)",
+    "hint": "No forecast line is drawn when there are too few samples (to avoid misleading results). Method: linear extrapolation only while usage is rising, at most 30 days; the Y axis runs from 0 to total disk size."
+  },
+  "logCleanup": {
+    "title": "Log directory management",
+    "hint": "Expired .log files are cleaned up automatically every hour (raw payloads are text mirrors of ClickHouse data and are safe to delete)",
+    "column": {
+      "path": "Directory",
+      "current": "Current usage",
+      "lastRun": "Last auto cleanup",
+      "retainDays": "Retention (days)",
+      "autoClean": "Auto cleanup"
+    },
+    "currentUsage": "{{count}} files · {{size}}",
+    "notRunYet": "Not yet run",
+    "lastRun": "{{time}} (deleted {{count}} / {{size}})",
+    "cleanNow": "Clean now",
+    "confirmTitle": "Confirm log cleanup",
+    "confirmOk": "Run cleanup",
+    "confirmMessage": "This deletes .log files past the retention period under {{path}}: about {{count}} files / {{size}}",
+    "confirmDescription": "These files are text mirrors of data already ingested; deleting them does not affect any feature. Today's active logs are not deleted.",
+    "auditHint": "This action is recorded in the cleanup audit log. Retention days can be adjusted in the table above.",
+    "deletedFiles": "Deleted {{count}} files, freed {{size}}",
+    "retentionUpdated": "Retention updated to {{days}} days"
+  },
+  "dataMgmt": {
+    "readonlyNotice": "This page covers overview / trend / data health / cleanup preview and execution / TTL and retention policy. Cleanup and TTL are actions: they require double confirmation and a passing pre-cleanup reconciliation, and they write an audit entry plus a cleaned-range registration. Future-timestamp junk (devices with skewed clocks) is detected and reported only — never deleted automatically.",
+    "loadingOverview": "Loading storage overview...",
+    "statTables": "Tables inventoried",
+    "statRows": "Total rows",
+    "statCompressed": "Total compressed size",
+    "rowsTenThousand": "{{value}}×10K",
+    "rowsHundredMillion": "{{value}}×100M",
+    "overview": "Storage overview",
+    "column": {
+      "table": "Table",
+      "rows": "Rows",
+      "compressed": "Compressed",
+      "raw": "Raw",
+      "partitions": "Partitions",
+      "lastWrite": "Last write",
+      "time": "Time",
+      "action": "Action",
+      "targetTable": "Target table",
+      "detail": "Details",
+      "operator": "Operator"
+    },
+    "trend": "Table storage trend (hourly samples)",
+    "ttlDays": "{{days}} days",
+    "trendAccumulating": "Collecting samples: {{count}} points so far (one sample per hour; a trend line appears in about an hour)",
+    "compressedBytes": "{{name}} compressed bytes",
+    "health": "Data health (reconciliation snapshot)",
+    "gotoQuality": "Go to the data quality page for a manual reconciliation",
+    "lastReconcile": "Last reconciliation",
+    "reconcileRange": "Reconciliation range",
+    "reconcileStatus": "Reconciliation status",
+    "hasAlert": "Alerts",
+    "normal": "Normal",
+    "alertDays": "Days with alerts",
+    "dupCrcRows": "Duplicate CRC rows (approx.)",
+    "noSnapshot": "No snapshot yet: run a reconciliation on the data quality page to generate one",
+    "preview": "Cleanup preview (DROP PARTITION candidates)",
+    "selectTable": "Select a table",
+    "previewPrefix": "Preview data older than",
+    "previewSuffix": "days (monthly partitions)",
+    "previewRun": "Preview",
+    "previewImpact": "Affects {{count}} monthly partitions: {{rows}} rows / frees about {{size}} (up to {{cutoff}})",
+    "previewNone": "No partitions match (up to {{cutoff}})",
+    "previewWarning": "DROP PARTITION cannot be undone; review the preview list before executing.",
+    "previewFailed": "Preview failed: {{error}}",
+    "executeCleanup": "Run cleanup (drop these {{count}} partitions)",
+    "deletedPartitions": "Deleted {{count}} partitions",
+    "ttl": "TTL settings (automatic lifecycle)",
+    "ttlHint": "TTL only changes the table definition and takes effect immediately (historical data is not rewritten); expired data is removed gradually during ClickHouse background merges, so disk space is not freed immediately. See the TTL column in the storage overview above for the current inventory.",
+    "ttlSet": "Set TTL",
+    "ttlTitle": "Set TTL (gradual background cleanup of expired data)",
+    "ttlTarget": "Target table:",
+    "ttlRetain": ", retain",
+    "ttlRetainSuffix": " days (expired data is removed gradually during background ClickHouse merges)",
+    "ttlNoteBefore": "Only the table definition changes; historical data is not rewritten (materialize_ttl_after_modify is explicitly disabled): expired data is removed gradually during later merges, ",
+    "ttlNoteBold": "disk space is not freed immediately",
+    "ttlNoteAfter": ". To free space right away, use \"Cleanup preview → Drop partitions\".",
+    "ttlSetDone": "TTL set to {{days}} days (applies gradually in the background)",
+    "confirmTypeHint": "Type the target table name to confirm:",
+    "audit": "Cleanup audit (last 10)",
+    "noActions": "No cleanup actions",
+    "actionDropPartition": "Drop partitions",
+    "actionSetTtl": "Set TTL",
+    "statusDone": "Done",
+    "statusPartial": "Partially done",
+    "confirmDropTitle": "⚠️ Confirm partition drop (cannot be undone)",
+    "confirmDropOk": "Drop partitions",
+    "dropWarning": "This permanently deletes {{count}} monthly partitions from {{table}} (about {{rows}} rows). This cannot be undone.",
+    "executeDone": "Done: {{count}}",
+    "executeDonePartial": "Done: {{count}}, failed: {{failed}} (stops at the first failure; re-run the preview and retry)",
+    "snapshotStaleWarn": "Not updated for {{hours}} h",
+    "snapshotStaleError": "Not updated for {{hours}} h (needs attention)",
+    "preflight": {
+      "blocked": "Pre-cleanup reconciliation not satisfied ({{reason}}): run a reconciliation covering that date first",
+      "ok": "Pre-cleanup reconciliation satisfied (covers {{date}})",
+      "hint": "Requirement: a passing snapshot no older than {{max}} h that covers {{date}}; run one from the data quality page",
+      "reason": {
+        "noSnapshot": "no snapshot yet",
+        "notCovered": "snapshot does not cover that date",
+        "snapshotFailed": "latest snapshot had alerts",
+        "snapshotStale": "snapshot is stale"
+      }
+    }
+  },
+  "error": {
+    "admin": {
+      "forbidden": "Only platform super admins can access the ops console"
+    },
+    "trend": {
+      "hoursInvalid": "hours must be a number"
+    },
+    "cleanup": {
+      "previewParamsRequired": "table and older_than_days are required",
+      "executeParamsRequired": "table / partitions / confirmed_table are required",
+      "tooManyPartitions": "At most {{max}} partitions per request (run in batches to smooth IO peaks)"
+    },
+    "ttl": {
+      "paramsRequired": "table / days / confirmed_table are required"
+    },
+    "mutation": {
+      "tableRequired": "table is required"
+    },
+    "dataMgmt": {
+      "tableNotInventoried": "Table is not in the inventory scope (allowed: {{allowed}})",
+      "tableNameInvalid": "Table name must be in db.table format",
+      "tableConfirmMismatch": "Table name confirmation mismatch: input \"{{confirmed}}\" does not match the target \"{{table}}\"",
+      "noExecutablePartition": "No partition can be dropped (all rejected: {{rejected}})",
+      "ttlTimeColumnMissing": "No TTL time column is registered for this table (allowed: {{allowed}})",
+      "ttlDaysInvalid": "TTL days must be an integer between 1 and 3650",
+      "ttlSetFailed": "Failed to set TTL: {{message}}",
+      "preflight": "A passing reconciliation covering {{required_to}} is required before cleanup; snapshot state: {{reason}}"
+    },
+    "logCleanup": {
+      "retainDaysInvalid": "Retention days must be an integer between 1 and 365",
+      "pathNotAllowed": "Directory is not on the cleanup allowlist: {{path}}",
+      "pathRequired": "path is required"
+    },
+    "reconcile": {
+      "forbidden": "Only platform super admins can change reconciliation settings",
+      "runAtInvalid": "Run time must be in HH:mm format (platform timezone)",
+      "thresholdInvalid": "Deviation threshold must be a percentage between 0 and 100",
+      "staleOrderInvalid": "The stale (red) threshold must be greater than the warn (yellow) threshold",
+      "staleHoursInvalid": "Stale thresholds must be whole hours between 1 and 720"
+    },
+    "retention": {
+      "tableNotInventoried": "Table is outside the retention policy scope (allowed: {{allowed}})",
+      "keepDaysInvalid": "Retention days must be an integer between 1 and 3650",
+      "keepDaysRequired": "keep_days is required"
+    },
+    "dataDelete": {
+      "paramsRequired": "kind / table / project are required",
+      "executeParamsRequired": "kind / table / project / confirm_table / confirm_token are required",
+      "tableConfirmMismatch": "Table confirmation mismatch: entered \"{{confirmed}}\" ≠ target \"{{table}}\"",
+      "cleanupAccountMissing": "Cleanup account is not configured (CLICKHOUSE_CLEANUP_PASSWORD not injected); execution refused",
+      "rowsExceeded": "About {{rows}} rows would be affected, above the single-run limit of {{max}}; split by event or narrow the time range",
+      "tokenInvalid": "Confirmation token invalid or expired (condition or row count changed; run the preview again)",
+      "preflight": "A passing reconciliation covering {{required_to}} is required before deletion; snapshot state: {{reason}}",
+      "nothingToDelete": "The condition matched no rows; nothing to do",
+      "backupFailed": "Pre-delete backup failed; aborted (no data deleted): {{message}}",
+      "executeFailed": "Deletion failed: {{message}} (the backup table can be restored)",
+      "tableNotAllowed": "Table is not in the point-delete allowlist: {{table}}",
+      "communityRefused": "Community-edition tables cannot be deleted (red line 1): {{table}}",
+      "kindNotAllowed": "This table does not support that delete condition: {{kind}}",
+      "projectInvalid": "Invalid project name: {{project}}",
+      "eventInvalid": "Invalid event name: {{event}}",
+      "beforeRequired": "before is required (delete data with stat_date earlier than that day)",
+      "beforeInFuture": "before must not be later than today (use the future-timestamp condition for future data)",
+      "toInFuture": "to must not be later than today (use the future-timestamp condition for future data)",
+      "rangeInvalid": "from must not be later than to",
+      "dateInvalid": "{{field}} must be YYYY-MM-DD",
+      "mutationRunning": "{{table}} has a running mutation; wait for it to finish before deleting (IO protection)"
+    },
+    "metaReconcile": {
+      "windowTooWide": "Window of {{days}} days exceeds the ClickHouse estimate limit: reduce window_days (default 7), or use scripts/reconcile.sh for older history"
+    },
+    "projectRetire": {
+      "projectRequired": "project is required",
+      "notRegistered": "Project is not registered: {{project}} (check the spelling)",
+      "stillWriting": "{{rows}} rows were written in the last 24h: stop reporting for this project first",
+      "executeParamsRequired": "project / step / confirm_token are required"
+    }
+  },
+  "retention": {
+    "title": "Retention policy (expected × actual × trusted compare range)",
+    "hint": "Expected retention is registered by hand (defaults when unset: sa_events 540 days, community tables 180 days); actual retention comes from each table TTL.",
+    "trusted": "Trusted compare range: {{from}} ~ {{to}} (shorter of the two retention windows = {{days}} days)",
+    "trustedUnbounded": "Trusted compare range: neither side has a retention window, so the actual data range applies",
+    "trustedBoundBy": "Limited by the {{days}}-day retention of {{table}} (cleaning any table distorts the comparison for that period)",
+    "suspicious": "{{count}} suspicious date partitions (future partitions / historical junk older than the trusted range); reported only, never cleaned automatically",
+    "suspiciousKind": {
+      "future": "future partition",
+      "ancient": "historical junk"
+    },
+    "column": {
+      "table": "Table",
+      "expected": "Expected retention",
+      "actual": "Actual retention (TTL)",
+      "status": "Status"
+    },
+    "suggested": "(suggested)",
+    "actualUnset": "Not set (risk)",
+    "status": {
+      "ok": "On policy",
+      "unset": "Not set (risk)",
+      "deviates": "Off policy",
+      "disabled": "Policy disabled"
+    },
+    "register": "Register",
+    "dialogTitle": "Register expected retention: {{table}}",
+    "save": "Save",
+    "fieldKeepDays": "Retention days",
+    "fieldKeepDaysHint": "This records the target; what actually applies is the table TTL (use the TTL setting below to apply it)",
+    "fieldEnabled": "Policy enabled",
+    "fieldRemark": "Note"
+  },
+  "quality": {
+    "title": "Data quality / consistency reconciliation",
+    "runningHint": "Reconciling: a full day of counts takes about 20-40 seconds, please keep this page open…",
+    "idleHint": "Compares sa_events with log_analysis (defaults to yesterday, up to 3 days, about 30 seconds)",
+    "start": "Start reconciliation",
+    "cachedTag": "Cached result · last reconciled {{time}}",
+    "justFinishedTag": "Reconciled just now {{time}}",
+    "cachedHint": "This is the **latest snapshot** (daily totals, event-level diffs and cleaned ranges). Metadata discovery records are read live (latest 50). Click \"Start reconciliation\" for a fresh run.",
+    "emptyHint": "No reconciliation result yet: click Start reconciliation in the top-right corner to run the first pass (about 30 seconds). Afterwards this page shows cached results instantly.",
+    "reportEmpty": "No reconciliation data yet. Select a time range and click Start reconciliation.",
+    "normal": "Normal",
+    "abnormal": "Abnormal",
+    "pass": "Pass",
+    "column": {
+      "date": "Date",
+      "saRows": "sa_events rows",
+      "crcUniq": "Unique CRCs",
+      "rawRows": "log_analysis rows",
+      "deviation": "Deviation %",
+      "source": "Source",
+      "rows": "Rows",
+      "changeType": "Change type",
+      "prop": "Property",
+      "change": "Change",
+      "discoveredAt": "Discovered at",
+      "diff": "Diff (sa - raw)",
+      "skippedRange": "Cleaned range",
+      "skippedWhy": "Reason",
+      "skippedSource": "Action and time"
+    },
+    "change": {
+      "eventCreated": "New event",
+      "propertyCreated": "New property ({{value}})",
+      "userPropertyCreated": "New user property ({{value}})",
+      "userPropertyHidden": "User property hidden",
+      "userPropertyActive": "User property activated"
+    },
+    "alert": {
+      "title": "Data consistency issue detected",
+      "desc": "Deviation exceeded the threshold ({{threshold}}%) on {{days}}/{{total}} days, or {{dup}} rows have duplicate CRCs. Check whether the ingestor drops data or the definitions differ."
+    },
+    "ok": {
+      "title": "Data consistency is normal",
+      "desc": "Reconciliation deviation between {{from}} and {{to}} stays within the {{threshold}}% threshold, with no duplicate CRCs."
+    },
+    "stat": {
+      "days": "Days compared",
+      "daysSuffix": "day(s) / {{count}} abnormal",
+      "dupCrc": "Duplicate CRCs",
+      "rowsSuffix": "row(s)",
+      "crcUnique": "CRC uniqueness",
+      "skippedDays": "Cleaned days",
+      "outOfRetention": "Days beyond retention"
+    },
+    "scope": {
+      "range": "Reconciliation range",
+      "threshold": "Deviation threshold",
+      "total": "Total",
+      "trigger": "Triggered by",
+      "ignored": "Ignored events"
+    },
+    "table": {
+      "daily": "Daily totals reconciliation",
+      "events": "Event-level counts (sa_events vs log_analysis)",
+      "discovery": "Recent metadata changes",
+      "discoveryHint": "(auto-discovered new events / properties / property type changes, {{count}} in total)",
+      "diffs": "Top event-level diffs (sa - raw)",
+      "diffsHint": "({{count}} events differ; top 20 by absolute diff)",
+      "onlyInOne": "Present on one side only (other side is 0)",
+      "skipped": "Cleaned ranges (excluded from alerting)"
+    },
+    "skipped": "Skipped",
+    "skippedReason": {
+      "cleaned": "Cleaned up"
+    },
+    "ignored": {
+      "title": "{{count}} events excluded by the ignore list"
+    },
+    "trigger": {
+      "auto": "Scheduled",
+      "manual": "Manual",
+      "cli": "Ops script"
+    },
+    "stale": {
+      "warnTitle": "Reconciliation snapshot is getting old",
+      "errorTitle": "Reconciliation snapshot is stale",
+      "desc": "The last reconciliation ran at {{time}} ({{hours}} h ago, over the {{warn}} h threshold): the conclusion may no longer reflect reality — re-run it or check the scheduler."
+    },
+    "config": {
+      "button": "Reconcile settings",
+      "title": "Reconcile settings (off-peak schedule and threshold)",
+      "save": "Save",
+      "enabled": "Enable scheduled reconciliation",
+      "enabledOn": "Enabled",
+      "enabledOff": "Disabled",
+      "runAt": "Run time",
+      "runAtHint": "Platform timezone, HH:mm; runs on the next check tick (≤5 min) after that time",
+      "runAtInvalid": "Use the HH:mm format",
+      "threshold": "Deviation threshold (%)",
+      "thresholdHint": "A day is flagged when |deviation| exceeds this percentage; start around 3–5% until the calibers converge",
+      "ignoreEvents": "Ignored events",
+      "ignoreEventsHint": "One event name per line; isolate known caliber differences to avoid daily alerts",
+      "skipEmpty": "Filter empty events on both sides",
+      "skipEmptyHint": "Keep both sides symmetric: empty event rows are excluded from both",
+      "staleWarn": "Stale warn (h)",
+      "staleError": "Stale error (h)",
+      "updatedAt": "Settings updated"
+    },
+    "changeType": {
+      "eventCreated": "New event",
+      "propertyCreated": "New property",
+      "propertyTypeChanged": "Property type changed",
+      "userPropertyCreated": "New user property",
+      "userPropertyTypeChanged": "User property type changed",
+      "userPropertyHidden": "User property hidden",
+      "userPropertyActive": "User property activated"
+    },
+    "outOfRetention": "Beyond retention (not compared)",
+    "outOfRetentionShort": "Beyond retention",
+    "guide": {
+      "title": "What is this page for?",
+      "whatTitle": "Purpose",
+      "whatBody": "This is a side-path integrity check: it reconciles sa_events (written by our ingestor) against log_analysis (written by the community Flink job) day by day, to catch stalled consumption, silent data loss and duplicate writes. It is read-only and never touches business data; by default it checks yesterday automatically once a day at the off-peak time (03:30 platform timezone) and stores the result as a snapshot.",
+      "termsTitle": "Key terms",
+      "terms": {
+        "range": "Range: yesterday by default; up to 3 days manually (a single-node memory guard set after past OOM incidents).",
+        "threshold": "Threshold: a day is flagged only when |deviation| exceeds it; see the config row above (percent).",
+        "crc": "CRC uniqueness: approximate dedup within our side only; flagged when duplicate rows exceed 0.5% (the approximate algorithm has inherent error).",
+        "trusted": "Trusted range: comparable only within the shorter of the two retention windows; dates beyond it are marked \"beyond retention\" and excluded from anomalies.",
+        "skipped": "Cleaned ranges: periods removed on purpose via DROP PARTITION / TTL are marked \"cleaned\" and excluded from alerting.",
+        "stale": "Snapshot freshness: when the snapshot is stale (yellow/red) the conclusion no longer reflects reality — re-run reconciliation or check the scheduler.",
+        "events": "Top event diffs: events present on both sides with different counts, top 20 by absolute diff; \"only one side\" lists events where the other side is 0."
+      },
+      "howTitle": "How to read the result",
+      "how": {
+        "step1": "A sustained +1% to +2% daily deviation is a known structural caliber difference (the community side under-counts Android error/retry events — see the caliber whitepaper), not data loss.",
+        "step2": "Investigate immediately when: the deviation turns negative (we have fewer than the community side), an event count drops to zero, or a new event type suddenly appears in the diffs.",
+        "step3": "Days marked \"beyond retention\" or \"cleaned\" are not counted as anomalies; a failing CRC suggests duplicate writes on our side.",
+        "step4": "The 3-day manual limit is a deliberate memory guard; for longer spans use the off-peak wide-range job (scripts/reconcile.sh --type=range on the server)."
+      },
+      "whoTitle": "Who does what",
+      "who": {
+        "admin": "Platform super admin: change threshold/ignore list/stale windows via \"Reconcile settings\" (top right), and handle failure or staleness notifications.",
+        "oncall": "On-call: check \"Top event diffs\" first to tell a new event type from a whole event disappearing, then look at the daily totals trend on both sides.",
+        "analyst": "Analysts: this page is not for business analysis; check pipeline health under Ops → Data management → Data health."
+      },
+      "footnote": "Attribution findings and measurements: docs/product/research-clklog-reconcile-caliber-v1.md (repository)."
+    }
+  },
+  "dataCleanup": {
+    "unregisteredTitle": "Data ↔ metadata reconcile",
+    "refresh": "Refresh",
+    "unregisteredHint": "From {{from}}: {{data}} in data / {{meta}} registered; unregistered ones listed below",
+    "colEvent": "Event",
+    "colRows": "Rows",
+    "colRange": "Date range",
+    "colFuture": "Future dates",
+    "futureYes": "future",
+    "useEvent": "Clean by event",
+    "useFuture": "Clean future dates",
+    "ghostTitle": "{{count}} ghost registrations (in metadata, not in data)",
+    "deleteTitle": "Point deletion (ALTER DELETE)",
+    "deleteHint": "Preview first, then type the table name to confirm. Data is backed up and audited. Community tables cannot be deleted.",
+    "kind.event": "By event",
+    "kind.project": "By project",
+    "kind.before": "Before a date",
+    "kind.future": "Future timestamps",
+    "eventPlaceholder": "Event name (e.g. $SignUp)",
+    "beforePlaceholder": "Before date YYYY-MM-DD",
+    "preview": "Preview",
+    "previewResult": "About {{rows}} rows ({{from}} ~ {{to}})",
+    "backupHint": "Pre-cleanup reconciliation passed; backup will be written to {{backup}}",
+    "preflightBlocked": "Pre-cleanup reconciliation not satisfied ({{reason}}): run it on the Data quality page first",
+    "cleanupMissing": "Cleanup account not configured; point deletion unavailable",
+    "rowsExceeded": "Rows exceed the {{max}} per-run limit; split the job",
+    "confirmPlaceholder": "Type table name to confirm: {{table}}",
+    "execute": "Delete {{rows}} rows",
+    "done": "Deletion submitted (~{{rows}} rows)",
+    "doneDetail": "Backup {{backup}} | mutation {{mutation}}; deletion runs in background and the range is registered as cleaned",
+    "colAction": "Action",
+    "unregisteredFailed": "Failed to load unregistered events: {{message}}",
+    "window": "Window",
+    "windowDays": "{{days}} days"
+  },
+  "projectRetire": {
+    "title": "Project retirement preview",
+    "communityNote": "Community tables (clklog.log_analysis and 18 aggregates) have no project dimension, so they cannot be cleaned per project; use retention/TTL to reduce them over time",
+    "step": {
+      "stopWrites": "Stop reporting for this project first (disable its API key / stop the SDK) and confirm writes in the last 24h drop to zero",
+      "execution": "Run the retirement: delete per table on the sa side (DROP PARTITION for member tables, ALTER DELETE otherwise) plus table-by-table deletion in MySQL",
+      "backupAudit": "Rows to delete are exported to a backup file first, and the action is audited (action=project_retire)"
+    },
+    "result": {
+      "saDone": "sa side done ({{tables}} tables)",
+      "saPartial": "sa side partially done: a large table exceeded the per-run budget; run again to continue",
+      "mysqlDone": "MySQL side deleted {{rows}} rows"
+    },
+    "getToken": "Get confirm token"
+  }
+}

@@ -1,0 +1,255 @@
+{
+  "kind": {
+    "event": "Event metric",
+    "retention": "Retention metric"
+  },
+  "list": {
+    "title": "Metrics",
+    "create": "New metric",
+    "kindEvent": "Event",
+    "kindRetention": "Retention",
+    "intro": "Create event metrics directly with “New metric”, or save them from event analysis results (the full definition currently configured is included). Retention metrics are still created from retention analysis results. A metric can carry its own query time and value pick; alert rules follow the metric time range by default (they can override it in the rule — see Ops → Monitoring alerts → New metric alert). Click a display name to view the full definition; editing and deleting (with confirmation) both happen in the details drawer. The metric name and type cannot be changed (the identifier stays stable, so existing references and alert bindings are unaffected).",
+    "column": {
+      "displayName": "Display name",
+      "name": "Metric name",
+      "kind": "Type",
+      "definition": "Definition",
+      "remark": "Notes"
+    }
+  },
+  "label": {
+    "subject": "Analysis subject",
+    "event": "Event",
+    "analysis": "Calculation method",
+    "percentile": "Percentile",
+    "prop": "Property",
+    "transform": "Value transform",
+    "decimals": "Decimal places",
+    "valuePick": "Value pick",
+    "timeRange": "Query time",
+    "conditionGroup": "Condition group",
+    "filters": "Filter conditions",
+    "displayName": "Display name",
+    "metricName": "Metric name",
+    "metricNameReadonly": "Metric name (read-only)",
+    "kindReadonly": "Type (read-only)",
+    "type": "Type",
+    "format": "Format",
+    "definition": "Definition",
+    "definitionPick": "Metric definition",
+    "startEvent": "Start event",
+    "retainEvent": "Return event",
+    "period": "Cycle",
+    "measure": "Measure",
+    "cohort": "Cohort",
+    "cohortRange": "Cohort range",
+    "granularity": "Granularity",
+    "remarkOptional": "Notes (optional)"
+  },
+  "format": {
+    "number": "Number",
+    "percent": "Percent"
+  },
+  "measure": {
+    "rate": "Retention rate",
+    "count": "Retained users"
+  },
+  "cohort": {
+    "all": "All users",
+    "firstDay": "First-time users"
+  },
+  "granularity": {
+    "day": "Daily",
+    "week": "Weekly",
+    "month": "Monthly"
+  },
+  "period": {
+    "day": "{{n}} day(s)",
+    "week": "{{n}} week(s)",
+    "month": "{{n}} month(s)"
+  },
+  "value": {
+    "notNeeded": "(not needed)",
+    "none": "(none)"
+  },
+  "filters": {
+    "count": "{{total}} condition(s)"
+  },
+  "valuePick": {
+    "sum": "Cumulative",
+    "avg": "Daily average",
+    "max": "Maximum",
+    "min": "Minimum",
+    "lastDay": "Latest day",
+    "firstDay": "First day",
+    "uniqTotal": "Deduplicated total",
+    "weighted": "Weighted average",
+    "auto": "Automatic (by calculation method)",
+    "autoShort": "Automatic",
+    "extra": "Empty = automatic (recommended by the calculation method); consistent with existing alert definitions",
+    "label": {
+      "sum": "Cumulative",
+      "avg": "Daily average",
+      "max": "Maximum",
+      "min": "Minimum",
+      "weighted": "Weighted average",
+      "lastDay": "Latest day",
+      "firstDay": "First day",
+      "uniqTotal": "Deduplicated total"
+    },
+    "hint": {
+      "sum": "Sum of the daily values in the window; days without data count as 0",
+      "avg": "Sum of daily values divided by the number of days; days without data count as 0",
+      "max": "Largest daily value with data in the window",
+      "min": "Smallest daily value with data in the window",
+      "weighted": "Weighted by the denominator (the only correct form for per-user averages)",
+      "lastDay": "Value of the most recent day with data (often \"today so far\")",
+      "firstDay": "Value of the earliest day with data in the window",
+      "uniqTotal": "Evaluated over the whole window instead of summing per day (the only correct form for distinct counts)"
+    },
+    "note": {
+      "sum": "Sum of the daily values in the window; days without data count as 0",
+      "avg": "Sum of daily values divided by the number of days in the window; days without data count as 0",
+      "max": "Largest value among the days that have data in the window (no data at all → skipped this round)",
+      "min": "Smallest value among the days that have data in the window (no data at all → skipped this round)",
+      "weighted": "Weighted by the denominator (the only correct pick for per-user counts/values); evaluated over the whole range",
+      "lastDay": "Value of the most recent day with data in the window (often used for \"today so far\")",
+      "firstDay": "Value of the earliest day with data in the window",
+      "uniqTotal": "Evaluated over the whole range instead of summing per day (the only correct pick for distinct counts / triggered users)"
+    },
+    "warning": {
+      "nonAdditivePickedAdditive": "This analysis method cannot be summed per day. Choose \"Deduplicated total\" or \"Weighted average\", otherwise the result will be too high.",
+      "additivePickedOverall": "This analysis method is additive, so \"Cumulative\" or \"Daily average\" reads better; a deduplicated total only makes sense for distinct-count or per-user methods."
+    }
+  },
+  "window": {
+    "fixed": "Fixed dates",
+    "today": "Today",
+    "yesterday": "Yesterday",
+    "recentN": "Last {{n}} days (including today)",
+    "pastN": "Past {{n}} days (excluding today)",
+    "thisWeek": "This week",
+    "lastWeek": "Last week",
+    "thisMonth": "This month",
+    "lastMonth": "Last month",
+    "customOffsets": "Rolling range D-{{from}} ~ D-{{to}}",
+    "fromDateToToday": "From a chosen date to today",
+    "fromDateToYesterday": "From a chosen date to yesterday",
+    "lastNDays": "Last {{n}} days",
+    "cohortWindow": "Cohort {{window}}",
+    "followAlert": "Follows the alert window"
+  },
+  "summary": {
+    "event": "Event {{event}} · Method {{analysis}}{{prop}}{{window}}{{pick}}",
+    "propSegment": " · {{prop}}",
+    "windowSegment": " · {{window}}",
+    "pickSegment": " · {{pick}}",
+    "retention": "Retention {{start}} → {{retain}} · {{period}} · {{measure}}",
+    "periodDays": "{{n}} days",
+    "noEvent": "(no event specified)",
+    "measureCount": "Users"
+  },
+  "timeRange": {
+    "extra": "Once the metric carries its own time range, alert rules follow it by default; only relative ranges are supported (so they can be evaluated every day), up to 90 days",
+    "followAlert": "Follow the alert window instead"
+  },
+  "conditionGroup": {
+    "extra": "Event properties / user properties / cohorts / tags; same semantics as the condition group in event analysis"
+  },
+  "prop": {
+    "groupEvent": "Event properties",
+    "groupUser": "User properties",
+    "eventPlaceholder": "Select a property",
+    "eventDisabledPlaceholder": "This method does not need a property",
+    "tooltip": "Required when the calculation method needs a property; the property type determines which methods are available",
+    "eventWithType": "{{name}} ({{type}})",
+    "userWithType": "{{name}} (user · {{type}})",
+    "userOnly": "{{name}} (user)"
+  },
+  "event": {
+    "searchPlaceholder": "Search or select an event",
+    "optionWithName": "{{key}} ({{name}})",
+    "staleOption": "{{event}} (not in the event list; keeping the current value)"
+  },
+  "transform": {
+    "tooltip": "Arithmetic is applied first, then the value is rounded to the given number of decimal places (same as event analysis)",
+    "valuePlaceholder": "Operand (optional)"
+  },
+  "decimals": {
+    "placeholder": "Optional, 0-6"
+  },
+  "trial": {
+    "run": "Trial run",
+    "hint": "Evaluates the current definition once against real data (same implementation as alert evaluation); nothing is saved",
+    "failed": "Trial run failed",
+    "result": "Current value {{value}} · {{window}} ({{start}} ~ {{end}}) · {{pick}}{{auto}}",
+    "autoSuffix": " (auto)",
+    "note": "{{note}}; took {{ms}}ms"
+  },
+  "validation": {
+    "eventRequired": "Select an event",
+    "analysisRequired": "Select a calculation method",
+    "displayNameRequired": "Enter a display name",
+    "metricNameRequired": "Enter a metric name",
+    "metricNamePattern": "Start with a lowercase letter; use only lowercase letters, digits and underscores; up to 80 characters",
+    "metricNamePatternShort": "Invalid format",
+    "metricRequired": "Select a metric",
+    "periodRequired": "Select a cycle",
+    "periodFilled": "Enter a cycle",
+    "startEventRequired": "Select the start event",
+    "retainEventRequired": "Select the return event"
+  },
+  "create": {
+    "title": "New event metric",
+    "displayNamePlaceholder": "e.g. Average daily order amount over the last 7 days",
+    "metricNamePlaceholder": "e.g. order_amount_daily_avg_7d",
+    "metricNameExtra": "Unique asset key; it cannot be changed after creation. Analyses and alerts reference the metric by it",
+    "definitionHint": "Definition (same depth as event analysis; run a trial before saving)"
+  },
+  "modal": {
+    "title": "Create metric",
+    "metricNameExtra": "Start with a lowercase letter; may contain lowercase letters, digits and underscores; up to 80 characters",
+    "metricFallback": "Metric",
+    "summaryEvent": "{{event}} · {{metric}}",
+    "summaryEventEmpty": "Configure an event metric and run a query first",
+    "summaryRetention": "Start {{start}} → Return {{end}}",
+    "summaryRetentionEmpty": "Run a retention query first",
+    "summaryNote": ". The time range is taken from the query and is not stored in the metric."
+  },
+  "apply": {
+    "trigger": "Add from metric",
+    "ok": "Apply",
+    "placeholder": "Select a saved metric",
+    "empty": "No saved metrics of this type"
+  },
+  "detail": {
+    "title": "Metric details",
+    "titleNamed": "Metric details · {{name}}",
+    "meta": "Created by {{owner}} · created {{created}} · updated {{updated}}",
+    "readonlyNote": "The metric name is the unique asset key and the type determines the definition model; changing either would break existing analysis and alert references, so both are read-only.",
+    "saving": "Saving",
+    "createCard": "Create dashboard card",
+    "cardName": "{{name}} (Metric card)",
+    "alertTitle": "About definitions",
+    "alertBody": "A metric can carry its own query time and value pick; when the query time is unset, alerts are evaluated over the rule window (existing behaviour). When a metric is applied to analysis, the analysis page uses its own time range. Editing the definition of a metric that alert rules reference also changes the alert condition (Ops → Monitoring alerts → Policies).",
+    "retentionFiltersTitle": "Retention metric filter conditions",
+    "retentionFiltersBody": "Filter conditions attached to the start/return events are kept with the events; the cohort range and cycle can be adjusted here.",
+    "cohortRangeTooltip": "Time range of mature cohorts for retention; when unset it is derived from the cycle (≥ cycle + 1 day, up to 180 days)",
+    "deriveFromCycle": "Derive from the cycle instead",
+    "derivedFromCycle": "Derived from cycle",
+    "cohortRangeDerived": "Derived from the cycle ({{days}} days)"
+  },
+  "message": {
+    "deleted": "Deleted",
+    "updated": "Metric updated",
+    "created": "Metric created",
+    "cardCreated": "Card “{{name}}” created; add it to a dashboard in the dashboard studio",
+    "noEventMetric": "No event metric available to save",
+    "queryRetentionFirst": "Run a retention query first"
+  },
+  "confirm": {
+    "deleteTitle": "Delete metric “{{name}}”?",
+    "deleteEditing": "The metric will be deleted and unsaved edits will be lost. Analyses and alerts referencing it will stop working.",
+    "deleteContent": "Analyses and alerts referencing it will stop working; deletion cannot be undone."
+  }
+}

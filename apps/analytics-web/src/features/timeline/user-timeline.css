@@ -1,0 +1,33 @@
+/* 用户行为序列页（timeline）长语言版式兜底。
+ *
+ * 依据：AGENTS.md G.29「长语言不得溢出」+ docs/architecture/clklog-analytics-design-i18n-v1.md §14.10。
+ * 本文件只放**容器层**规则（antd 组件内部元素无法用行内样式覆盖的部分）；
+ * 单个控件的宽度下限、标签换行、截断 tooltip 等就近写在 UserTimeline.tsx 行内。
+ *
+ * 宽度估算（判断放不放得下）：俄 ≈ 中文 ×2.2、德/越/泰 ≈ ×2.0、法 ≈ ×1.8。
+ */
+
+/* antd 的 .ant-card-head-title 固定单行 + 省略号：
+ * 本页卡片标题要么是译后文案（俄 «Свойства пользователя» / 德 «Nutzerattribute»），
+ * 要么是用户标识（查询对象，用户数据，可能是长 ID）。中文字号下 248px 的左栏卡片够用，
+ * 长语言下会被拦腰截断且没有 title 可悬停 —— 这里放开为可换行，让容器长高而不是切字。 */
+.user-timeline .ant-card-head-title {
+  white-space: normal;
+  overflow-wrap: break-word;
+}
+
+/* 空态文案：左栏卡片在 lg 断点只占 1/4 宽（约 248px），
+ * 俄 «Свойств пользователя нет (не передавались)» 单行约 300px —— 必须允许换行 + 长词折行，
+ * 不能靠固定宽高把文案裁掉。 */
+.user-timeline .ant-empty-description {
+  white-space: normal;
+  overflow-wrap: break-word;
+}
+
+/* 工具条里的分段控件（时间倒序 / 时间正序）是导航控件：
+ * 俄 «Сначала новые» / «Сначала старые» 两个分段合计约 250px，被压窄时 antd 只会把标签
+ * 省略成 «Сначала нов…»（.ant-segmented-item-label 是 nowrap + ellipsis）。
+ * 让它按内容占宽，放不下时由工具条容器（Space wrap）整块换行，而不是压窄文字。 */
+.user-timeline .ant-segmented {
+  min-width: max-content;
+}

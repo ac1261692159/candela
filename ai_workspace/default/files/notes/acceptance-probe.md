@@ -1,0 +1,1 @@
+ClkLog AI acceptance probe. Harmless seed_once note; do not use for production knowledge.

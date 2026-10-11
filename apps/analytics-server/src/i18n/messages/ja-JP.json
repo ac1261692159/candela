@@ -1,0 +1,115 @@
+{
+  "alert": {
+    "level": {
+      "critical": "緊急",
+      "warning": "警告",
+      "info": "情報"
+    },
+    "status": {
+      "fire": "発火",
+      "repeat": "継続",
+      "resolve": "復旧"
+    },
+    "kind": {
+      "retention": "リテンション指標",
+      "event": "イベント指標",
+      "builtin": "内蔵指標"
+    },
+    "window": {
+      "today": "今日",
+      "lastDays": "直近 {{days}} 日",
+      "minutes": "{{minutes}} 分ウィンドウ",
+      "cohort": "コホート {{label}}"
+    },
+    "varSample": {
+      "ruleName": "本日のトラッキング量が少なすぎます",
+      "ruleCode": "metric_ab12cd34",
+      "level": "critical",
+      "levelFmt": "緊急",
+      "status": "発火",
+      "statusCode": "fire",
+      "value": "1,204回",
+      "valueRaw": "1204",
+      "unit": "回",
+      "comparator": "gt",
+      "comparatorFmt": "より大きい",
+      "threshold": "1,000回",
+      "metricName": "本日のトラッキング回数",
+      "metricKind": "イベント指標",
+      "windowDays": "1",
+      "windowFmt": "今日",
+      "project": "clklogapp",
+      "time": "2026-09-15 21:03:11",
+      "detectInterval": "60s",
+      "contactName": "運用チーム"
+    },
+    "channelName": {
+      "feishu_webhook": "Feishu",
+      "dingtalk": "DingTalk",
+      "wecom": "WeCom",
+      "telegram": "Telegram",
+      "webhook": "汎用 Webhook",
+      "email": "メール",
+      "sms": "SMS",
+      "whatsapp": "WhatsApp"
+    },
+    "channelTest": {
+      "text": "【テスト】Candela アラートチャンネル接続テスト\nチャンネル：{{channel}}\n日時：{{time}}",
+      "subject": "Candela アラートチャンネルテスト（{{channel}}）",
+      "ruleName": "チャンネル接続テスト",
+      "detailTargetInvalid": "ターゲット検証に失敗しました",
+      "detailSendFailed": "送信に失敗しました（エラーはベンダーの生の応答です）",
+      "detailSent": "テストメッセージを送信しました"
+    }
+  },
+  "units": {
+    "times": "回",
+    "items": "件",
+    "users": "人",
+    "sec": "秒",
+    "ms": "ミリ秒",
+    "min": "分",
+    "h": "時間",
+    "days": "日",
+    "percent": "%"
+  },
+  "mail": {
+    "reset": {
+      "subject": "【Candela】パスワード再設定",
+      "body": "こんにちは。\n\n以下のリンクからパスワードを再設定してください（{{minutes}} 分間有効・1 回のみ使用可）：\n{{link}}\n\nお心当たりがない場合は、このメールを無視してください。\n\nCandela アナリティクス"
+    },
+    "setup": {
+      "subject": "【Candela】アカウントのパスワード設定",
+      "body": "こんにちは。\n\n管理者が Candela アナリティクスのアカウントを作成しました。以下のリンクからパスワードを設定してください（{{hours}} 時間有効・1 回のみ使用可）：\n{{link}}\n\n設定後すぐにログインできます。\n\nCandela アナリティクス"
+    },
+    "invite": {
+      "subject": "【Candela】プロジェクト {{project}} への招待",
+      "body": "こんにちは。\n\n{{inviter}} さんが Candela アナリティクスのプロジェクト {{project}}（ロール：{{role}}）にあなたを招待しました。\n\n以下のリンクから登録して参加してください（{{days}} 日間有効）：\n{{link}}\n\nお心当たりがない場合は、このメールを無視してください。\n\nCandela アナリティクス"
+    },
+    "inviteNotify": {
+      "subject": "【Candela】プロジェクト {{project}} に追加されました",
+      "body": "こんにちは。\n\n{{inviter}} さんが Candela アナリティクスのプロジェクト {{project}}（ロール：{{role}}）にあなたを追加しました。\n\n既存のアカウントでログインしてアクセスできます。\n\nCandela アナリティクス"
+    },
+    "roles": {
+      "analyst": "アナリスト",
+      "member": "一般メンバー",
+      "external": "外部ユーザー"
+    },
+    "test": {
+      "subject": "【Candela】メールチャネルテスト",
+      "body": "これは Candela アナリティクスからのテストメールです。\n\nこのメールが届いたということは、アカウント用 SMTP 設定が有効になっています。パスワード再設定・初期設定・プロジェクト招待メールが利用可能です。\n\nCandela アナリティクス"
+    }
+  },
+  "reconcile": {
+    "notify": {
+      "dayAlertSubject": "【データ突合】{{date}} にしきい値超えの偏差があります（しきい値 {{threshold}}%）",
+      "failedSubject": "【データ突合】{{date}} の実行に失敗しました",
+      "lineProject": "プロジェクト：{{project}}",
+      "lineRange": "範囲：{{from}} 〜 {{to}}",
+      "lineThreshold": "しきい値：{{threshold}}%；異常日：{{days}}",
+      "lineDay": "{{date}}：sa {{sa}} / raw {{raw}}（{{deviation}}%）",
+      "lineReport": "レポート：{{path}}",
+      "lineReason": "原因：{{reason}}"
+    }
+  }
+}

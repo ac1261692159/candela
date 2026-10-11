@@ -1,0 +1,271 @@
+{
+  "kind": {
+    "event": "Métrica de evento",
+    "retention": "Métrica de retenção"
+  },
+  "list": {
+    "title": "Métricas",
+    "create": "Criar métrica",
+    "kindEvent": "Evento",
+    "kindRetention": "Retenção",
+    "intro": "As métricas de evento podem ser criadas diretamente com “Criar métrica” ou salvas a partir dos resultados da análise de eventos (levam a definição completa configurada no momento); as métricas de retenção continuam sendo criadas nos resultados da análise de retenção. A métrica pode ter **tempo de consulta** e **seleção de valor** próprios; as regras de alerta seguem por padrão o intervalo de tempo da métrica (também é possível sobrescrever na regra; veja Operação → Alertas → Criar alerta de métrica). Clique no nome de exibição para ver a definição completa; editar e excluir (com confirmação adicional) ficam no painel de detalhes, e o nome e o tipo da métrica não podem ser alterados (o identificador não muda e isso não afeta referências nem vínculos de alerta existentes).",
+    "column": {
+      "displayName": "Nome de exibição",
+      "name": "Nome da métrica",
+      "kind": "Tipo",
+      "definition": "Definição",
+      "remark": "Observações"
+    }
+  },
+  "label": {
+    "subject": "Sujeito de análise",
+    "event": "Evento",
+    "analysis": "Método de cálculo",
+    "percentile": "Percentil",
+    "prop": "Propriedade",
+    "transform": "Transformação numérica",
+    "decimals": "Casas decimais",
+    "valuePick": "Seleção de valor",
+    "timeRange": "Tempo de consulta",
+    "conditionGroup": "Grupo de condições",
+    "filters": "Filtros",
+    "displayName": "Nome de exibição",
+    "metricName": "Nome da métrica",
+    "metricNameReadonly": "Nome da métrica (não editável)",
+    "kindReadonly": "Tipo (não editável)",
+    "type": "Tipo",
+    "format": "Formato",
+    "definition": "Definição",
+    "definitionPick": "Definição da métrica",
+    "startEvent": "Evento inicial",
+    "retainEvent": "Evento de retorno",
+    "period": "Período",
+    "measure": "Medida",
+    "cohort": "Coorte",
+    "cohortRange": "Intervalo da coorte",
+    "granularity": "Granularidade",
+    "remarkOptional": "Observações (opcional)"
+  },
+  "format": {
+    "number": "Número",
+    "percent": "Porcentagem"
+  },
+  "measure": {
+    "rate": "Taxa de retenção",
+    "count": "Usuários retidos"
+  },
+  "cohort": {
+    "all": "Todos os usuários",
+    "firstDay": "Usuários do primeiro evento"
+  },
+  "granularity": {
+    "day": "Por dia",
+    "week": "Por semana",
+    "month": "Por mês"
+  },
+  "period": {
+    "day": "{{n}} dia(s)",
+    "day_one": "{{n}} dia",
+    "day_other": "{{n}} dias",
+    "week": "{{n}} semana(s)",
+    "week_one": "{{n}} semana",
+    "week_other": "{{n}} semanas",
+    "month": "{{n}} mês(es)",
+    "month_one": "{{n}} mês",
+    "month_other": "{{n}} meses"
+  },
+  "value": {
+    "notNeeded": "(não necessário)",
+    "none": "(nenhum)"
+  },
+  "filters": {
+    "count": "{{total}} condição(ões)",
+    "count_one": "{{total}} condição",
+    "count_other": "{{total}} condições"
+  },
+  "valuePick": {
+    "sum": "Acumulado",
+    "avg": "Média diária",
+    "max": "Valor máximo",
+    "min": "Valor mínimo",
+    "lastDay": "Último dia",
+    "firstDay": "Primeiro dia",
+    "uniqTotal": "Total deduplicado do período",
+    "weighted": "Média ponderada",
+    "auto": "Automático (pelo método de cálculo)",
+    "autoShort": "Valor automático",
+    "extra": "Sem seleção = automático (recomendado pelo método de cálculo), igual ao critério de alerta atual",
+    "label": {
+      "sum": "Acumulado",
+      "avg": "Média diária",
+      "max": "Valor máximo",
+      "min": "Valor mínimo",
+      "weighted": "Média ponderada",
+      "lastDay": "Último dia",
+      "firstDay": "Primeiro dia",
+      "uniqTotal": "Total deduplicado do período"
+    },
+    "hint": {
+      "sum": "Soma os valores de cada dia da janela; dias sem dados contam como 0",
+      "avg": "Soma dos valores diários ÷ dias da janela; dias sem dados contam como 0",
+      "max": "Maior valor entre os dias com dados da janela",
+      "min": "Menor valor entre os dias com dados da janela",
+      "weighted": "Ponderado pelo denominador (única opção correta para valores por usuário)",
+      "lastDay": "Valor do dia com dados mais recente da janela (comum para “hoje até agora”)",
+      "firstDay": "Valor do dia com dados mais antigo da janela",
+      "uniqTotal": "Avalia o período inteiro de uma vez, sem somar por dia (única opção correta para contagens deduplicadas)"
+    },
+    "note": {
+      "sum": "Soma os valores de cada dia da janela; dias sem dados contam como 0",
+      "avg": "Soma dos valores diários ÷ dias da janela; dias sem dados contam como 0",
+      "max": "Maior valor entre os dias com dados da janela (sem nenhum dado, a avaliação é ignorada nesta rodada)",
+      "min": "Menor valor entre os dias com dados da janela (sem nenhum dado, a avaliação é ignorada nesta rodada)",
+      "weighted": "Ponderado pelo denominador (valor correto para médias por usuário), avaliado no período inteiro",
+      "lastDay": "Valor do dia com dados mais recente da janela (comum para “hoje até agora”)",
+      "firstDay": "Valor do dia com dados mais antigo da janela",
+      "uniqTotal": "Avalia o período inteiro de uma vez, sem somar por dia (valor correto para contagens deduplicadas e usuários que dispararam)"
+    },
+    "warning": {
+      "nonAdditivePickedAdditive": "O método de cálculo atual não pode ser somado por dia; recomenda-se escolher “Total deduplicado do período” ou “Média ponderada”, caso contrário o resultado ficará alto demais",
+      "additivePickedOverall": "O método de cálculo atual pode ser somado, então “Acumulado/Média diária” é mais intuitivo; o total deduplicado do período só faz sentido para contagens deduplicadas ou valores por usuário"
+    }
+  },
+  "window": {
+    "fixed": "Data fixa",
+    "today": "Hoje",
+    "yesterday": "Ontem",
+    "recentN": "Últimos {{n}} dia(s) (incluindo hoje)",
+    "recentN_one": "Último {{n}} dia (incluindo hoje)",
+    "recentN_other": "Últimos {{n}} dias (incluindo hoje)",
+    "pastN": "{{n}} dia(s) anteriores (excluindo hoje)",
+    "pastN_one": "{{n}} dia anterior (excluindo hoje)",
+    "pastN_other": "{{n}} dias anteriores (excluindo hoje)",
+    "thisWeek": "Esta semana",
+    "lastWeek": "Semana passada",
+    "thisMonth": "Este mês",
+    "lastMonth": "Mês passado",
+    "customOffsets": "Intervalo dinâmico D-{{from}} ~ D-{{to}}",
+    "fromDateToToday": "Da data indicada até hoje",
+    "fromDateToYesterday": "Da data indicada até ontem",
+    "lastNDays": "Últimos {{n}} dia(s)",
+    "lastNDays_one": "Último {{n}} dia",
+    "lastNDays_other": "Últimos {{n}} dias",
+    "cohortWindow": "Coorte {{window}}",
+    "followAlert": "Seguir a janela do alerta"
+  },
+  "summary": {
+    "event": "Evento {{event}} · Cálculo {{analysis}}{{prop}}{{window}}{{pick}}",
+    "propSegment": " · {{prop}}",
+    "windowSegment": " · {{window}}",
+    "pickSegment": " · {{pick}}",
+    "retention": "Retenção {{start}} → {{retain}} · {{period}} · {{measure}}",
+    "periodDays": "{{n}} dia(s)",
+    "periodDays_one": "{{n}} dia",
+    "periodDays_other": "{{n}} dias",
+    "noEvent": "(evento não indicado)",
+    "measureCount": "Usuários"
+  },
+  "timeRange": {
+    "extra": "Quando a métrica tem intervalo de tempo próprio, as regras de alerta o seguem por padrão; só há suporte a intervalos relativos (avaliáveis diariamente), com no máximo 90 dias",
+    "followAlert": "Mudar para seguir a janela do alerta"
+  },
+  "conditionGroup": {
+    "extra": "Atributos de evento / propriedades do usuário / coortes / tags; com a mesma semântica dos grupos de condições da análise de eventos"
+  },
+  "prop": {
+    "groupEvent": "Atributo de evento",
+    "groupUser": "Propriedade do usuário",
+    "eventPlaceholder": "Selecionar propriedade",
+    "eventDisabledPlaceholder": "O método atual não precisa de propriedade",
+    "tooltip": "Obrigatório quando o método de cálculo exige propriedade; o tipo da propriedade define os métodos disponíveis",
+    "eventWithType": "{{name}} ({{type}})",
+    "userWithType": "{{name}} (usuário · {{type}})",
+    "userOnly": "{{name}} (usuário)"
+  },
+  "event": {
+    "searchPlaceholder": "Pesquise ou selecione um evento",
+    "optionWithName": "{{key}} ({{name}})",
+    "staleOption": "{{event}} (não está na lista de eventos; mantém o valor original)"
+  },
+  "transform": {
+    "tooltip": "Primeiro a operação aritmética e depois as casas decimais (igual à análise de eventos)",
+    "valuePlaceholder": "Operando (opcional)"
+  },
+  "decimals": {
+    "placeholder": "Opcional, 0-6"
+  },
+  "trial": {
+    "run": "Testar cálculo",
+    "hint": "Avalia uma vez com dados reais conforme a definição atual (mesma implementação da avaliação de alertas); não é salvo",
+    "failed": "Falha no cálculo de teste",
+    "result": "Valor atual {{value}} · {{window}} ({{start}} ~ {{end}}) · {{pick}}{{auto}}",
+    "autoSuffix": " (automático)",
+    "note": "{{note}}; levou {{ms}} ms"
+  },
+  "validation": {
+    "eventRequired": "Selecione um evento",
+    "analysisRequired": "Selecione um método de cálculo",
+    "displayNameRequired": "Digite o nome de exibição",
+    "metricNameRequired": "Digite o nome da métrica",
+    "metricNamePattern": "Deve começar com letra minúscula; apenas minúsculas, dígitos e sublinhado; no máximo 80 caracteres",
+    "metricNamePatternShort": "O formato não segue as regras",
+    "metricRequired": "Selecione uma métrica",
+    "periodRequired": "Selecione um período",
+    "periodFilled": "Preencha o período",
+    "startEventRequired": "Selecione o evento inicial",
+    "retainEventRequired": "Selecione o evento de retorno"
+  },
+  "create": {
+    "title": "Criar métrica de evento",
+    "displayNamePlaceholder": "ex.: Valor médio diário de pedidos nos últimos 7 dias",
+    "metricNamePlaceholder": "ex.: order_amount_daily_avg_7d",
+    "metricNameExtra": "Chave única do recurso; não pode ser alterada após a criação. A análise e os alertas a referenciam por ela.",
+    "definitionHint": "Definição (com a mesma profundidade da análise de eventos; recomenda-se testar o cálculo antes de salvar)"
+  },
+  "modal": {
+    "title": "Criar métrica",
+    "metricNameExtra": "Deve começar com letra minúscula e pode conter minúsculas, dígitos e sublinhado, com no máximo 80 caracteres",
+    "metricFallback": "Métrica",
+    "summaryEvent": "{{event}} · {{metric}}",
+    "summaryEventEmpty": "Configure e consulte primeiro uma métrica de evento",
+    "summaryRetention": "Inicial {{start}} → Retorno {{end}}",
+    "summaryRetentionEmpty": "Conclua primeiro a consulta de retenção",
+    "summaryNote": ". O intervalo de tempo é o do momento da consulta e não é gravado na métrica."
+  },
+  "apply": {
+    "trigger": "Adicionar de métrica",
+    "ok": "Aplicar",
+    "placeholder": "Selecione uma métrica salva",
+    "empty": "Ainda não há métricas deste tipo"
+  },
+  "detail": {
+    "title": "Detalhes da métrica",
+    "titleNamed": "Detalhes da métrica · {{name}}",
+    "meta": "Criado por {{owner}} · Criado {{created}} · Atualizado {{updated}}",
+    "readonlyNote": "O nome da métrica é a chave única do recurso e o tipo define o modelo de definição; alterá-los quebraria a análise e os alertas existentes, por isso são somente leitura.",
+    "saving": "Salvando",
+    "createCard": "Criar cartão no painel",
+    "cardName": "{{name}} (cartão de métrica)",
+    "alertTitle": "Descrição da definição",
+    "alertBody": "A métrica tem tempo de consulta e seleção de valor próprios; se o tempo de consulta não for definido, o alerta é avaliado pela janela da regra (comportamento atual). Ao aplicar na análise, a página de análise usa o próprio intervalo de tempo. Se uma regra de alerta referenciar a métrica, alterar a definição também altera a condição de avaliação do alerta (Operação → Alertas → Políticas).",
+    "retentionFiltersTitle": "Filtros da métrica de retenção",
+    "retentionFiltersBody": "Os filtros próprios do evento inicial e do evento de retorno são mantidos com o evento; o intervalo da coorte e o período podem ser ajustados aqui mesmo.",
+    "cohortRangeTooltip": "Intervalo de tempo das coortes maduras da retenção; se não definido, é deduzido do período (≥ período + 1 dia, no máximo 180 dias)",
+    "deriveFromCycle": "Mudar para deduzido do período",
+    "derivedFromCycle": "Deduzido do período",
+    "cohortRangeDerived": "Deduzido do período ({{days}} dias)"
+  },
+  "message": {
+    "deleted": "Excluído",
+    "updated": "Métrica atualizada",
+    "created": "Métrica criada",
+    "cardCreated": "Cartão “{{name}}” criado; você pode adicioná-lo a um painel no estúdio de painéis",
+    "noEventMetric": "Não há métricas de evento para salvar",
+    "queryRetentionFirst": "Consulte primeiro a retenção"
+  },
+  "confirm": {
+    "deleteTitle": "Excluir a métrica “{{name}}”?",
+    "deleteEditing": "A métrica será excluída e as alterações não salvas também serão perdidas. A análise e os alertas que a referenciam deixarão de funcionar.",
+    "deleteContent": "A análise e os alertas que a referenciam deixarão de funcionar e não será possível recuperar após a exclusão."
+  }
+}

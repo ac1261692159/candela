@@ -1,0 +1,84 @@
+name: CI
+
+on:
+  push:
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  gates:
+    name: i18n and structure
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: i18n key consistency
+        run: python3 scripts/i18n_check.py
+      - name: i18n hardcoded-text ratchet
+        run: python3 scripts/i18n_scan.py --check
+      - name: architecture ratchet
+        run: python3 scripts/arch_ratchet.py
+
+  server:
+    name: analytics-server tests
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "24"
+          cache: npm
+          cache-dependency-path: apps/analytics-server/package-lock.json
+      - name: install, generate Prisma client, test
+        working-directory: apps/analytics-server
+        env:
+          APP_CONFIG_PATH: /tmp/candela-ci-missing-config.yaml
+          CLICKHOUSE_PASSWORD: ""
+          READONLY_CH_PASSWORD: ""
+          MYSQL_PASSWORD: ""
+          DATABASE_URL: ""
+        run: |
+          npm ci
+          npx prisma generate
+          npm test -- --runInBand
+      - name: dependency license check
+        run: node scripts/license-check.mjs
+
+  web:
+    name: analytics-web tests
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "24"
+          cache: npm
+          cache-dependency-path: apps/analytics-web/package-lock.json
+      - name: install and test
+        working-directory: apps/analytics-web
+        run: |
+          npm ci
+          npx vitest run
+
+  harness:
+    name: harness tests
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "24"
+          cache: npm
+          cache-dependency-path: apps/analytics-harness-host/package-lock.json
+      - name: harness host
+        working-directory: apps/analytics-harness-host
+        run: |
+          npm ci
+          npm test
+      - name: harness broker
+        working-directory: apps/analytics-harness-broker
+        run: npm test

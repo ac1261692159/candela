@@ -1,0 +1,115 @@
+{
+  "alert": {
+    "level": {
+      "critical": "Nghiêm trọng",
+      "warning": "Cảnh báo",
+      "info": "Thông tin"
+    },
+    "status": {
+      "fire": "Kích hoạt",
+      "repeat": "Tiếp diễn",
+      "resolve": "Khôi phục"
+    },
+    "kind": {
+      "retention": "Chỉ số giữ chân",
+      "event": "Chỉ số sự kiện",
+      "builtin": "Chỉ số có sẵn"
+    },
+    "window": {
+      "today": "Hôm nay",
+      "lastDays": "{{days}} ngày qua",
+      "minutes": "Cửa sổ {{minutes}} phút",
+      "cohort": "Nhóm {{label}}"
+    },
+    "varSample": {
+      "ruleName": "Lượng báo cáo hôm nay quá thấp",
+      "ruleCode": "metric_ab12cd34",
+      "level": "critical",
+      "levelFmt": "Nghiêm trọng",
+      "status": "Kích hoạt",
+      "statusCode": "fire",
+      "value": "1.204 lần",
+      "valueRaw": "1204",
+      "unit": "lần",
+      "comparator": "gt",
+      "comparatorFmt": "Lớn hơn",
+      "threshold": "1.000 lần",
+      "metricName": "Số lần báo cáo hôm nay",
+      "metricKind": "Chỉ số sự kiện",
+      "windowDays": "1",
+      "windowFmt": "Hôm nay",
+      "project": "clklogapp",
+      "time": "2026-09-15 21:03:11",
+      "detectInterval": "60s",
+      "contactName": "Nhóm vận hành"
+    },
+    "channelName": {
+      "feishu_webhook": "Feishu",
+      "dingtalk": "DingTalk",
+      "wecom": "WeCom",
+      "telegram": "Telegram",
+      "webhook": "Webhook chung",
+      "email": "Email",
+      "sms": "SMS",
+      "whatsapp": "WhatsApp"
+    },
+    "channelTest": {
+      "text": "[Kiểm tra] Kiểm tra kết nối kênh cảnh báo Candela\nKênh: {{channel}}\nThời gian: {{time}}",
+      "subject": "Kiểm tra kênh cảnh báo Candela ({{channel}})",
+      "ruleName": "Kiểm tra kết nối kênh",
+      "detailTargetInvalid": "Kiểm tra đích không đạt",
+      "detailSendFailed": "Gửi thất bại (lỗi là phản hồi gốc từ nhà cung cấp)",
+      "detailSent": "Đã gửi tin nhắn kiểm tra"
+    }
+  },
+  "units": {
+    "times": "lần",
+    "items": "bản ghi",
+    "users": "người",
+    "sec": "giây",
+    "ms": "mili giây",
+    "min": "phút",
+    "h": "giờ",
+    "days": "ngày",
+    "percent": "%"
+  },
+  "mail": {
+    "reset": {
+      "subject": "[Candela] Đặt lại mật khẩu",
+      "body": "Xin chào,\n\nHãy dùng liên kết dưới đây để đặt lại mật khẩu (hiệu lực {{minutes}} phút, chỉ dùng một lần):\n{{link}}\n\nNếu không phải bạn yêu cầu, hãy bỏ qua email này.\n\nCandela Analytics"
+    },
+    "setup": {
+      "subject": "[Candela] Thiết lập mật khẩu tài khoản",
+      "body": "Xin chào,\n\nQuản trị viên đã tạo tài khoản Candela Analytics cho bạn. Hãy đặt mật khẩu qua liên kết sau (hiệu lực {{hours}} giờ, chỉ dùng một lần):\n{{link}}\n\nSau đó bạn có thể đăng nhập ngay.\n\nCandela Analytics"
+    },
+    "invite": {
+      "subject": "[Candela] Lời mời vào dự án {{project}}",
+      "body": "Xin chào,\n\n{{inviter}} đã mời bạn vào dự án {{project}} của Candela Analytics với vai trò {{role}}.\n\nHãy theo liên kết để đăng ký và tham gia (hiệu lực {{days}} ngày):\n{{link}}\n\nNếu bạn không mong đợi lời mời này, hãy bỏ qua email.\n\nCandela Analytics"
+    },
+    "inviteNotify": {
+      "subject": "[Candela] Bạn đã được thêm vào dự án {{project}}",
+      "body": "Xin chào,\n\n{{inviter}} đã thêm bạn vào dự án {{project}} của Candela Analytics với vai trò {{role}}.\n\nĐăng nhập bằng tài khoản hiện có để truy cập.\n\nCandela Analytics"
+    },
+    "roles": {
+      "analyst": "nhà phân tích",
+      "member": "thành viên thường",
+      "external": "bên ngoài"
+    },
+    "test": {
+      "subject": "[Candela] Kiểm tra kênh email",
+      "body": "Đây là email thử nghiệm từ Candela Analytics.\n\nNhận được email này nghĩa là cấu hình SMTP đã có hiệu lực: email đặt lại mật khẩu, thiết lập và mời dự án đã sẵn sàng.\n\nCandela Analytics"
+    }
+  },
+  "reconcile": {
+    "notify": {
+      "dayAlertSubject": "[Candela] Đối chiếu {{date}}: sai lệch vượt ngưỡng (ngưỡng {{threshold}}%)",
+      "failedSubject": "[Candela] Đối chiếu {{date}} thất bại",
+      "lineProject": "Dự án: {{project}}",
+      "lineRange": "Phạm vi: {{from}} ~ {{to}}",
+      "lineThreshold": "Ngưỡng: {{threshold}}%; số ngày bất thường: {{days}}",
+      "lineDay": "{{date}}: sa {{sa}} / raw {{raw}} ({{deviation}}%)",
+      "lineReport": "Báo cáo: {{path}}",
+      "lineReason": "Nguyên nhân: {{reason}}"
+    }
+  }
+}

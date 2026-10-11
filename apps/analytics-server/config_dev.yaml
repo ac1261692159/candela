@@ -1,0 +1,143 @@
+# ClkLog 分析平台后端 - 本地开发配置
+# 口令放在 apps/analytics-server/.env（不入库）。
+# 中间件可以是本机的 scripts/standalone-test-env/，或你自己转发到 localhost 的端口。
+# 敏感值通过环境变量注入，支持 ${ENV_NAME} 占位符。
+
+
+# 平台时区（IANA 名）：统计日历、落库 stat_date、告警/调度与默认展示口径。
+# 缺省 = Asia/Shanghai；改动即换全平台默认日历（历史 stat_date 分区口径不追溯，
+# 属部署期决定，见 docs/architecture/clklog-analytics-design-timezone-v1.md）。
+analytics:
+  timezone: Asia/Shanghai
+
+server:
+  port: 3100
+  # 本地开发允许所有来源，生产环境需收紧
+  cors:
+    origin: 'http://localhost:8180'
+
+# DeepSeek Harness：本地默认关闭。供应商与密钥不在配置文件里，
+# 需要联调时把 enabled 改为 true，然后在平台上「AI Workspace 管理 → 模型供应商」添加。
+deepseek_harness:
+  enabled: false
+  runtime:
+    linux_user: harness
+    home_subdir: clklog-ai
+    idle_ttl_ms: 900000
+    max_runtimes: 8
+    max_tokens: 8192
+    container_image: docker.io/library/node:24.20.0-bookworm-slim
+  workspace:
+    default_kind: persistent
+    temporary_ttl_ms: 86400000
+    recovery_retention_ms: 604800000
+    max_bytes: 1073741824
+  defaults:
+    permission_preset: workspace_write
+
+# ClickHouse 配置
+# HTTP 接口用于查询和写入，原生 TCP 接口用于批量插入（可选）
+clickhouse:
+  # 写库（default 用户，用于 ingestor 写入和分析 DDL）
+  write:
+    host: 'localhost'
+    port: 18123
+    protocol: 'http'
+    username: 'default'
+    password: '${CLICKHOUSE_PASSWORD}'
+    database: 'clklog_sa'
+  # 只读库（用于自定义 SQL 报表）
+  readonly:
+    host: 'localhost'
+    port: 18123
+    protocol: 'http'
+    username: 'sa_readonly'
+    password: '${READONLY_CH_PASSWORD}'
+    database: 'clklog_sa'
+  # 原生 TCP 端口（@clickhouse/client 可选）
+  tcp:
+    host: 'localhost'
+    port: 19000
+    username: 'default'
+    password: '${CLICKHOUSE_PASSWORD}'
+
+# MySQL 配置（元数据、看板、卡片）
+mysql:
+  host: 'localhost'
+  port: 13306
+  username: 'root'
+  password: '${MYSQL_PASSWORD}'
+  database: 'clklog_sa_meta'
+  # Prisma 连接字符串格式：mysql://user:pass@host:port/db
+  url: '${DATABASE_URL}'
+
+# Redis 配置（查询缓存、采样去重）
+redis:
+  host: 'localhost'
+  port: 16379
+  db: 0
+  # 本地无密码，生产环境使用 password
+  password: null
+  keyPrefix: 'clklog_sa:'
+  queryCache:
+    prefix: 'sa:query:'
+    ttlSeconds: 300
+
+# Kafka 配置（ingestor 消费）
+kafka:
+  # 本地 broker。若 metadata 返回其他地址，设 KAFKA_LOCAL_FORWARD=true，
+  # 由 kafka-socket.factory.ts 按端口映射到本机。
+  brokers:
+    - '127.0.0.1:19092'
+  clientId: 'clklog-analytics-dev'
+  consumerGroupId: 'clklog-sa-ingestor-dev'
+  topic: 'clklog'
+  # 本地 CKafka 可能未启用 SASL，生产环境需配置
+  sasl: null
+  ssl: false
+
+# ingestor 配置
+ingestor:
+  # 批量写入：条数或时间窗口先到先触发
+  batchSize: 500
+  batchFlushMs: 2000
+  # 失败重试
+  maxRetries: 3
+  retryDelayMs: 1000
+  # 位点提交策略：写入 CK 成功后提交
+  autoCommit: false
+  # 历史回灌 consumer group 后缀
+  replayGroupSuffix: 'replay-dev'
+
+# 查询引擎配置
+query:
+  # 全局查询超时（秒）。2026-09-09 用户决策 30→300：全周 properties JSON 解析类
+  # 合法重查询需要分钟级；有界限额（6亿行/50GB/2GB内存/4线程）不变（红线4）。
+  maxExecutionTime: 300
+  # 最大返回行数
+  maxResultRows: 100000
+  # 分组 TopN 默认值
+  defaultGroupLimit: 20
+
+# 自定义 SQL 安全限制
+sqlReport:
+  # 黑名单关键字（大小写不敏感）
+  blacklistedKeywords:
+    - INSERT
+    - ALTER
+    - DROP
+    - ATTACH
+    - DETACH
+    - TRUNCATE
+    - RENAME
+    - SYSTEM
+    - KILL
+    - DELETE
+  # 强制追加 LIMIT
+  forceLimit: 100000
+
+# 日志配置
+log:
+  level: 'debug'
+  # 慢查询阈值（毫秒）
+  slowQueryThresholdMs: 5000

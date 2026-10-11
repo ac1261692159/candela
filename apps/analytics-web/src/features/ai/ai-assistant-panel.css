@@ -1,0 +1,22 @@
+.ai-panel-resizer {
+  flex: 0 0 6px;
+  width: 6px;
+  align-self: stretch;
+  cursor: col-resize;
+  touch-action: none;
+  background: transparent;
+  border: 0;
+  padding: 0;
+  z-index: 2;
+}
+
+.ai-panel-resizer:hover,
+.ai-panel-resizer:focus-visible,
+.ai-panel-resizer[data-dragging='true'] {
+  background: rgba(30, 64, 175, 0.16);
+}
+
+.ai-panel-resizer:focus-visible {
+  outline: 2px solid #1e40af;
+  outline-offset: -2px;
+}

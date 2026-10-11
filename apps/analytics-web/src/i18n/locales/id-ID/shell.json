@@ -1,0 +1,58 @@
+{
+  "document": {
+    "title": "Platform Analitik Candela"
+  },
+  "menu": {
+    "report": "Laporan",
+    "dashboards": "Daftar dasbor",
+    "cards": "Kartu analisis",
+    "analysis": "Analisis",
+    "event": "Analisis peristiwa",
+    "funnel": "Analisis funnel",
+    "retention": "Analisis retensi",
+    "sql": "SQL kustom",
+    "user": "Pengguna",
+    "cohorts": "Kohort pengguna",
+    "tags": "Tag pengguna",
+    "subjects": "Subjek analisis",
+    "meta": "Manajemen pelacakan",
+    "events": "Peristiwa meta",
+    "virtualProperties": "Properti virtual",
+    "eventAttributes": "Atribut peristiwa",
+    "userProperties": "Properti pengguna",
+    "virtualEvents": "Peristiwa virtual",
+    "data": "Manajemen data",
+    "onboarding": "Panduan integrasi",
+    "metrics": "Metrik",
+    "debug": "Debug",
+    "quality": "Kualitas data",
+    "datatables": "Tabel data",
+    "iam": "Izin proyek",
+    "members": "Manajemen anggota",
+    "groups": "Grup anggota",
+    "roles": "Manajemen peran",
+    "dataPolicies": "Izin data",
+    "ops": "Operasional",
+    "slowQueries": "SQL lambat",
+    "serverStatus": "Status server",
+    "alerts": "Peringatan pemantauan",
+    "dataManagement": "Operasional data",
+    "settings": "Pengaturan",
+    "profile": "Pengaturan pribadi",
+    "projectOwners": "Pengaturan proyek",
+    "apiKeys": "Manajemen API Key",
+    "aiWorkspace": "AI Workspace",
+    "logout": "Keluar",
+    "users": "Pengguna",
+    "userTimeline": "Linimasa pengguna"
+  },
+  "header": {
+    "collapseMenu": "Ciutkan menu",
+    "expandMenu": "Perluas menu",
+    "openMenu": "Buka menu",
+    "menu": "Menu"
+  },
+  "drawer": {
+    "title": "Analitik Candela"
+  }
+}

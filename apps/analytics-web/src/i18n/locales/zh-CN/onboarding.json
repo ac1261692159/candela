@@ -1,0 +1,421 @@
+{
+  "page": {
+    "paramsTitle": "接入参数",
+    "projectName": "项目名称",
+    "reportEndpoint": "上报地址",
+    "projectToken": "项目 token",
+    "tokenHint": "向项目管理员索取（出于安全不在页面展示）；请通过环境变量或服务端配置注入",
+    "prereqTitle": "接入前必读",
+    "prereqLead": "上报方式统一为 POST +",
+    "prereqTail": "，三个表单字段如下；完整规范见仓库《数据上报规范与流程.md》。",
+    "descColumn": "说明",
+    "pitfall": "最常见的坑：receiver 只接受 base64 + urlencode 后的数据。直接 POST 原始 JSON body 会被解析成「data 为空」，HTTP 仍返回 200 但数据静默丢失。",
+    "curlLabel": "最小请求（curl）",
+    "curlTokenPlaceholder": "<项目 token>",
+    "curlDataPlaceholder": "<base64(JSON 数组)>",
+    "plannedTitle": "{{name}}：暂未开发",
+    "gotIt": "知道了",
+    "plannedBody": "该 SDK 尚未适配 ClkLog 上报协议，暂不提供接入文档与示例。",
+    "plannedHint": "可以先用「其他接入方式 → HTTP / RESTful API」按协议自行接入（任何语言都适用），或联系平台维护同学说明需要的 SDK，我们会按需求排期适配。",
+    "copied": "{{label}}已复制"
+  },
+  "drawer": {
+    "title": "{{name}} 接入文档",
+    "titleFallback": "接入文档",
+    "faqTitle": "常见问题（{{count}}）",
+    "downloadDemo": "下载演示工程（zip）",
+    "downloadDemoHint": "包内含 {{contents}} 与运行说明（README）；不含任何凭据。"
+  },
+  "code": {
+    "copied": "代码已复制",
+    "copyFailed": "复制失败，请手动选择"
+  },
+  "group": {
+    "client": "客户端 SDK",
+    "server": "服务端 SDK",
+    "other": "其他接入方式"
+  },
+  "groupHint": {
+    "client": "App / 网页 / 小程序 / 游戏引擎里的埋点采集",
+    "server": "后端服务里上报业务事件（订单、支付、注册等）",
+    "other": "不依赖特定语言：直接用 HTTP 协议接入，或批量回补历史数据"
+  },
+  "status": {
+    "ready": "已实测",
+    "planned": "暂未开发",
+    "partial": "语言级已实测"
+  },
+  "protocol": {
+    "project": "项目名（= 下方「项目名称」，不是项目显示名）",
+    "token": "项目令牌，向项目管理员索取；不要写进前端代码或仓库",
+    "data": "事件数组：JSON 数组 → Base64 → URL 编码（单条事件也必须包成数组）"
+  },
+  "encodingSample": "原始事件数组（单条也要数组）\n[{\"type\":\"track\",\"event\":\"PageView\",\"distinct_id\":\"u_1001\",\"time\":1785228036000,\"properties\":{\"channel\":\"app_store\"}}]\n   ↓ JSON.stringify + Base64\nW3sidHlwZSI6InRyYWNrIiwiZXZlbnQiOiJQYWdlVmlldyIsImRpc3RpbmN0X2lkIjoidV8xMDAxIiwidGltZSI6MTc4NTIyODAzNjAwMCwicHJvcGVydGllcyI6eyJjaGFubmVsIjoiYXBwX3N0b3JlIn19XQ==\n   ↓ URL 编码后放进表单字段 data\ndata=W3sidHlwZSI6InRyYWNrIiwiZXZlbnQiOiJQYWdlVmlldyIsImRpc3RpbmN0X2lkIjoidV8xMDAxIiwidGltZSI6MTc4NTIyODAzNjAwMCwicHJvcGVydGllcyI6eyJjaGFubmVsIjoiYXBwX3N0b3JlIn19XQ%3D%3D",
+  "guide": {
+    "http": {
+      "name": "HTTP / RESTful API",
+      "platform": "通用协议 · 任何语言可用",
+      "summary": "所有 SDK 最终都走这条协议；没有对应 SDK 的语言可直接按此接入",
+      "step1Title": "1. 请求方式与地址",
+      "step1Body": "POST 到上报地址，Content-Type 使用 application/x-www-form-urlencoded，三个表单字段即协议三要素。GET 也支持，但事件内容会进 URL，不推荐。",
+      "step1Code1Label": "最小请求（curl）",
+      "step1Code1": "curl -X POST '<上报地址>' \\\n  -H 'Content-Type: application/x-www-form-urlencoded' \\\n  --data-urlencode 'project=<项目名称>' \\\n  --data-urlencode 'token=<项目 token>' \\\n  --data-urlencode 'data=<base64(JSON 数组)>'",
+      "step1Note1": "HTTP 200 只表示格式解析通过，业务校验与入库是异步的；判断成功不要依赖响应体内容。",
+      "step1Note2": "地址必须带 /receiver 前缀（网关按此前缀转发到 receiver）。",
+      "step2Title": "2. 事件报文结构",
+      "step2Body": "data 里的每个元素是一条事件对象。字段含义：type（track 行为事件 / user_set 用户属性 / track_signup 登录关联）、event（事件名，track 必填）、distinct_id（访客 ID，全程稳定）、time（毫秒时间戳）、identities（身份扩展）、properties（自定义属性，$ 前缀为预置属性）。",
+      "step2Code1Label": "一条行为事件",
+      "step3Title": "3. 编码要求（最常见的坑）",
+      "step3Body": "把事件数组序列化成 JSON 字符串后做 Base64，再整体 URL 编码放进 data 字段。直接 POST 原始 JSON body 会被解析成「data 为空」：HTTP 仍然返回 200，但数据静默丢失。",
+      "step3Code1Label": "编码链路",
+      "step3Note1": "单条事件也必须包成数组（[{...}]）。",
+      "step3Note2": "Base64 结果里的 + / = 必须经过 URL 编码，否则会被表单解析破坏。",
+      "step4Title": "4. 用户身份与登录关联",
+      "step4Body": "匿名阶段用设备或游客标识作为 distinct_id；用户登录后上报一条 track_signup，把登录 ID 写进 identities.user_key、把原匿名 ID 写进 properties.$track_signup_original_id，之后所有事件都自动携带 identities.user_key，平台即可把同一人的前后行为归并。",
+      "step4Code1Label": "登录关联事件",
+      "step5Title": "5. 批量与重试",
+      "step5Body": "把多条事件放进同一个数组一次发送（建议每批 10~50 条），批量内单条异常不影响其他条。失败重试 3 次、退避 500ms×次数即可；持续失败时把数据落本地队列稍后重发，避免丢事件。",
+      "step6Title": "6. 验证上报结果",
+      "step6Body": "上报后到「数据管理 → Debug」按事件名查询最近上报（可看到属性明细与接收时间）；也可在事件分析里选该事件看是否有数据。常见延迟在秒级，Flink 聚合指标会有分钟级滞后。",
+      "faq1Q": "接口返回 200，但平台上查不到数据？",
+      "faq1A": "先确认 data 是「Base64 + URL 编码」后的内容（直接发 JSON 会 200 但 data 为空），再确认 project 与 token 匹配、事件名没有空格或大小写错误。",
+      "faq2Q": "time 用秒还是毫秒？",
+      "faq2A": "毫秒（13 位）。传秒（10 位）会被解析到 1970 年；不传时会以服务端接收时间为准。",
+      "faq3Q": "单条事件可以直接发 JSON 对象吗？",
+      "faq3A": "不可以，data 解码后必须是数组，单条事件写成 [{...}]。",
+      "faq4Q": "token 放前端安全吗？",
+      "faq4A": "不建议。上报令牌可写入数据，客户端请走服务端转发，或使用仅允许上报的受限令牌。"
+    },
+    "php": {
+      "name": "PHP",
+      "platform": "服务端 · PHP 7.4+（需 curl 扩展）",
+      "summary": "在业务代码里上报订单、支付、注册等事件",
+      "step1Title": "1. 前置条件",
+      "step1Body": "PHP 7.4 及以上，启用 curl 扩展（php -m | grep curl）。无第三方依赖。",
+      "step1Code1Label": "检查环境",
+      "step2Title": "2. 初始化客户端",
+      "step2Body": "三个参数：上报地址、项目名、项目 token。token 从环境变量读取，不要写进代码。",
+      "step2Code1Label": "构造与配置",
+      "step2Code1": "final class ClkLogClient\n{\n    private array $queue = [];\n    private ?string $loginId = null; // 登录后自动携带到 identities.user_key\n\n    public function __construct(\n        private readonly string $endpoint,\n        private readonly string $project,\n        private readonly string $token,\n        private readonly int $batchSize = 10,\n    ) {}\n\n    public static function fromEnv(): self\n    {\n        return new self(\n            getenv('CLKLOG_ENDPOINT') ?: '<上报地址>',\n            getenv('CLKLOG_PROJECT') ?: '<项目名称>',\n            getenv('CLKLOG_TOKEN') ?: throw new RuntimeException('缺少 CLKLOG_TOKEN'),\n            10,\n        );\n    }\n}",
+      "step3Title": "3. 上报行为事件",
+      "step3Body": "track() 把事件放入队列，达到批量条数自动发送；time 用毫秒时间戳。",
+      "step3Code1Label": "track 与入队",
+      "step3Code1": "public function track(string $distinctId, string $event, array $properties = []): void\n{\n    $this->enqueue($this->withIdentity([\n        'type'        => 'track',\n        'event'       => $event,\n        'distinct_id' => $distinctId,\n        'time'        => (int) (microtime(true) * 1000), // 毫秒\n        'properties'  => (object) $properties,\n    ]));\n}\n\n$cli = ClkLogClient::fromEnv();\n$cli->track('u_1001', 'Purchase', ['order_id' => 'O20260915001', 'amount' => 99.5]);",
+      "step4Title": "4. 用户属性与登录关联",
+      "step4Body": "profileSet() 写用户属性（覆盖写）；login() 上报 track_signup 完成匿名 ID 与登录 ID 的归并，之后所有事件自动带 identities.user_key。",
+      "step4Code1Label": "profileSet / login",
+      "step4Code1": "public function profileSet(string $distinctId, array $properties): void\n{\n    $this->enqueue($this->withIdentity([\n        'type'        => 'user_set',\n        'distinct_id' => $distinctId,\n        'time'        => (int) (microtime(true) * 1000),\n        'properties'  => (object) $properties,\n    ]));\n}\n\npublic function login(string $loginId, string $anonymousId): void\n{\n    $this->loginId = $loginId;\n    $this->enqueue([\n        'type'        => 'track_signup',\n        'event'       => '$SignUp',\n        'distinct_id' => $loginId,\n        'identities'  => ['user_key' => $loginId],\n        'properties'  => ['$track_signup_original_id' => $anonymousId],\n        'time'        => (int) (microtime(true) * 1000),\n    ]);\n}\n\n$cli->profileSet('u_1001', ['vip_level' => 3, 'register_channel' => 'app_store']);\n$cli->login('user_9527', 'u_1001');",
+      "step5Title": "5. 批量发送与失败重试",
+      "step5Body": "flush() 把队列序列化成 JSON、Base64、URL 编码后表单提交；失败重试 3 次并退避。进程退出前兜底 flush 一次。",
+      "step5Code1Label": "flush",
+      "step5Code1": "public function flush(): void\n{\n    if ($this->queue === []) {\n        return;\n    }\n    $payload = base64_encode(json_encode($this->queue, JSON_UNESCAPED_UNICODE));\n\n    for ($attempt = 1; $attempt <= 3; $attempt++) {\n        $ch = curl_init($this->endpoint);\n        curl_setopt_array($ch, [\n            CURLOPT_POST           => true,\n            CURLOPT_POSTFIELDS     => http_build_query([\n                'project' => $this->project,\n                'token'   => $this->token,\n                'data'    => $payload,\n            ]),\n            CURLOPT_HTTPHEADER     => ['Content-Type: application/x-www-form-urlencoded'],\n            CURLOPT_RETURNTRANSFER => true,\n            CURLOPT_TIMEOUT        => 10,\n        ]);\n        $body = curl_exec($ch);\n        $code = curl_getinfo($ch, CURLINFO_RESPONSE_CODE);\n        if ($code === 200) {\n            $this->queue = [];\n            return;\n        }\n        usleep($attempt * 500_000); // 退避\n    }\n    throw new RuntimeException('upstream flush failed after 3 attempts');\n}",
+      "step5Note1": "http_build_query 已完成 URL 编码，不要再手工 urlencode 一次。",
+      "step5Note2": "常驻进程（队列消费者、定时任务）建议在每轮结束显式 flush，避免事件长时间滞留内存。",
+      "step6Title": "6. 验证",
+      "step6Body": "运行一次上报后，到「数据管理 → Debug」按事件名查询，应能看到刚才的事件与属性；预期延迟数秒内。",
+      "faq1Q": "返回 200 但没有数据？",
+      "faq1A": "检查 data 是否为 Base64 后再被 http_build_query 编码的结果；确认 token 与 project 属于同一项目。",
+      "faq2Q": "time 用什么单位？",
+      "faq2A": "毫秒。PHP 里用 (int)(microtime(true) * 1000)。",
+      "faq3Q": "事件里的中文变乱码？",
+      "faq3A": "json_encode 时加 JSON_UNESCAPED_UNICODE，并确保字符串是 UTF-8。",
+      "faq4Q": "能在 Web 请求里同步上报吗？",
+      "faq4A": "可以，但建议入本地队列（Redis / 数据库表）由后台任务批量发送，避免拖慢接口响应。"
+    },
+    "go": {
+      "name": "Go",
+      "platform": "服务端 · Go 1.18+（仅标准库）",
+      "summary": "高并发后端服务里上报业务事件，无第三方依赖",
+      "step1Title": "1. 前置条件",
+      "step1Body": "Go 1.18 及以上，只用标准库（net/http、encoding/json、encoding/base64、net/url），不需要引入任何 SDK 模块。",
+      "step1Code1Label": "初始化模块",
+      "step2Title": "2. 定义事件与客户端",
+      "step2Body": "Event 结构体对应协议字段；Identities 承载 user_key 身份扩展。",
+      "step2Code1Label": "结构体与构造",
+      "step2Code1": "type Event struct {\n    Type       string         `json:\"type\"`                 // track / track_signup / user_set\n    Event      string         `json:\"event,omitempty\"`      // 事件名（track 必填）\n    DistinctID string         `json:\"distinct_id\"`          // 访客 ID\n    Time       int64          `json:\"time\"`                 // 毫秒时间戳\n    Identities map[string]any `json:\"identities,omitempty\"` // {\"user_key\": 登录 ID}\n    Properties map[string]any `json:\"properties,omitempty\"`\n}\n\ntype ClkLogClient struct {\n    Endpoint, Project, Token string\n    BatchSize                int\n    loginID                  string\n    queue                    []Event\n    http                     *http.Client\n}\n\nfunc NewClkLogClient(endpoint, project, token string) *ClkLogClient {\n    return &ClkLogClient{\n        Endpoint: endpoint, Project: project, Token: token, BatchSize: 10,\n        http: &http.Client{Timeout: 10 * time.Second},\n    }\n}",
+      "step3Title": "3. 上报行为事件",
+      "step3Body": "Track 入队，达到批量条数自动 Flush；登录后自动携带 identities.user_key。",
+      "step3Code1Label": "Track",
+      "step3Code1": "func (c *ClkLogClient) Track(distinctID, event string, props map[string]any) error {\n    e := Event{\n        Type: \"track\", Event: event, DistinctID: distinctID,\n        Time: time.Now().UnixMilli(), Properties: props,\n    }\n    if c.loginID != \"\" {\n        e.Identities = map[string]any{\"user_key\": c.loginID}\n    }\n    c.queue = append(c.queue, e)\n    if len(c.queue) >= c.BatchSize {\n        return c.Flush()\n    }\n    return nil\n}\n\n// 调用\ncli.Track(\"u_1001\", \"Purchase\", map[string]any{\"order_id\": \"O20260915001\", \"amount\": 99.5})",
+      "step4Title": "4. 登录关联与用户属性",
+      "step4Body": "Login 上报 track_signup 完成身份归并；ProfileSet 覆盖式写用户属性。",
+      "step4Code1Label": "Login / ProfileSet",
+      "step4Code1": "func (c *ClkLogClient) Login(loginID, anonymousID string) error {\n    c.loginID = loginID\n    c.queue = append(c.queue, Event{\n        Type: \"track_signup\", Event: \"$SignUp\", DistinctID: loginID,\n        Identities: map[string]any{\"user_key\": loginID},\n        Properties: map[string]any{\"$track_signup_original_id\": anonymousID},\n        Time:       time.Now().UnixMilli(),\n    })\n    if len(c.queue) >= c.BatchSize {\n        return c.Flush()\n    }\n    return nil\n}\n\nfunc (c *ClkLogClient) ProfileSet(distinctID string, props map[string]any) error {\n    e := Event{Type: \"user_set\", DistinctID: distinctID, Time: time.Now().UnixMilli(), Properties: props}\n    if c.loginID != \"\" {\n        e.Identities = map[string]any{\"user_key\": c.loginID}\n    }\n    c.queue = append(c.queue, e)\n    return nil\n}",
+      "step5Title": "5. 批量发送与失败重试",
+      "step5Body": "Flush 把队列 JSON 序列化 → Base64 → 表单编码后发送；失败重试 3 次，每次退避 500ms×次数。",
+      "step5Code1Label": "Flush",
+      "step5Code1": "func (c *ClkLogClient) Flush() error {\n    if len(c.queue) == 0 {\n        return nil\n    }\n    payload, err := json.Marshal(c.queue)\n    if err != nil {\n        return fmt.Errorf(\"marshal: %w\", err)\n    }\n    form := url.Values{}\n    form.Set(\"project\", c.Project)\n    form.Set(\"token\", c.Token)\n    form.Set(\"data\", base64.StdEncoding.EncodeToString(payload))\n\n    var lastErr error\n    for attempt := 1; attempt <= 3; attempt++ {\n        req, _ := http.NewRequest(http.MethodPost, c.Endpoint, bytes.NewBufferString(form.Encode()))\n        req.Header.Set(\"Content-Type\", \"application/x-www-form-urlencoded\")\n        resp, err := c.http.Do(req)\n        if err == nil && resp.StatusCode == http.StatusOK {\n            io.Copy(io.Discard, resp.Body)\n            resp.Body.Close()\n            c.queue = c.queue[:0]\n            return nil\n        }\n        if err == nil {\n            body, _ := io.ReadAll(resp.Body)\n            resp.Body.Close()\n            lastErr = fmt.Errorf(\"http %d: %s\", resp.StatusCode, string(body))\n        } else {\n            lastErr = err\n        }\n        time.Sleep(time.Duration(attempt) * 500 * time.Millisecond) // 退避\n    }\n    return fmt.Errorf(\"flush failed after 3 attempts: %w\", lastErr)\n}",
+      "step5Note1": "并发上报时给 queue 加 sync.Mutex，或每协程一个客户端实例。",
+      "step5Note2": "服务优雅退出（signal → shutdown）时调用一次 Flush，避免丢最后一批事件。",
+      "step6Title": "6. 验证",
+      "step6Body": "运行一次上报后，到「数据管理 → Debug」按事件名查询；也可用平台的事件分析看该事件量是否增长。",
+      "faq1Q": "返回 200 但没有数据？",
+      "faq1A": "确认 form 里的 data 是 Base64 字符串（Go 的 url.Values 会再编码一次，这是正确的）；确认 project/token 匹配。",
+      "faq2Q": "time 用什么单位？",
+      "faq2A": "毫秒，Go 里用 time.Now().UnixMilli()。",
+      "faq3Q": "批量里有一条事件字段非法会影响其他条吗？",
+      "faq3A": "不会，批量按条处理，非法条被跳过。",
+      "faq4Q": "需要处理响应体吗？",
+      "faq4A": "不需要解析业务结果，HTTP 200 即视为接收成功；非 200 才重试。"
+    },
+    "unity": {
+      "name": "Unity (C#)",
+      "platform": "客户端 · Unity 2021+ / .NET Standard 2.1（同一份代码也可用于 .NET 控制台）",
+      "summary": "游戏与 C# 客户端埋点：登录关联、用户属性、批量上报",
+      "step1Title": "1. 前置条件",
+      "step1Body": "Unity 2021 及以上（.NET Standard 2.1，含 HttpClient）。JSON 序列化：Unity 6 内置 System.Text.Json；更早版本可用 Newtonsoft.Json，或通过 NuGetForUnity 安装 System.Text.Json。",
+      "step1Code1Label": "依赖说明（按 Unity 版本二选一）",
+      "step1Code1": "// Unity 6 内置：直接 using System.Text.Json;\n// 旧版本：Package Manager 安装 com.unity.nuget.newtonsoft-json，改用 JsonConvert.SerializeObject",
+      "step2Title": "2. 初始化客户端",
+      "step2Body": "三个参数：上报地址、项目名、项目 token。客户端 token 建议由自家服务端下发（或走服务端转发上报），不要硬编码进包体。",
+      "step2Code1Label": "构造",
+      "step2Code1": "public sealed class ClkLogClient\n{\n    private readonly HttpClient _http;\n    private readonly string _endpoint, _project, _token;\n    private readonly int _batchSize;\n    private readonly List<Dictionary<string, object?>> _queue = new();\n    private string? _loginId;\n\n    public ClkLogClient(string endpoint, string project, string token, int batchSize = 10)\n    {\n        _endpoint = endpoint;\n        _project = project;\n        _token = token;\n        _batchSize = batchSize > 0 ? batchSize : 10;\n        _http = new HttpClient { Timeout = TimeSpan.FromSeconds(10) };\n    }\n}",
+      "step3Title": "3. 上报行为事件",
+      "step3Body": "Track 入队，达到批量条数自动发送；time 用毫秒时间戳。登录后事件自动携带 identities.user_key。",
+      "step3Code1Label": "Track",
+      "step3Code1": "public void Track(string distinctId, string eventName, Dictionary<string, object?>? properties = null)\n{\n    var e = new Dictionary<string, object?>\n    {\n        [\"type\"] = \"track\",\n        [\"event\"] = eventName,\n        [\"distinct_id\"] = distinctId,\n        [\"time\"] = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds(), // 毫秒\n        [\"properties\"] = properties ?? new Dictionary<string, object?>(),\n    };\n    Enqueue(WithIdentity(e));\n}\n\n// 调用\nclient.Track(\"u_1001\", \"Purchase\", new() { [\"order_id\"] = \"O20260915001\", [\"amount\"] = 99.5 });",
+      "step4Title": "4. 登录关联与用户属性",
+      "step4Body": "Login 上报 track_signup，把登录 ID 与匿名 ID 关联；之后所有事件都带 user_key。ProfileSet 覆盖式写用户属性。",
+      "step4Code1Label": "Login / ProfileSet",
+      "step4Code1": "public void Login(string loginId, string anonymousId)\n{\n    _loginId = loginId;\n    Enqueue(new Dictionary<string, object?>\n    {\n        [\"type\"] = \"track_signup\",\n        [\"event\"] = \"$SignUp\",\n        [\"distinct_id\"] = loginId,\n        [\"identities\"] = new Dictionary<string, object?> { [\"user_key\"] = loginId },\n        [\"properties\"] = new Dictionary<string, object?> { [\"$track_signup_original_id\"] = anonymousId },\n        [\"time\"] = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds(),\n    });\n}\n\nprivate Dictionary<string, object?> WithIdentity(Dictionary<string, object?> e)\n{\n    if (_loginId is not null)\n    {\n        e[\"identities\"] = new Dictionary<string, object?> { [\"user_key\"] = _loginId };\n    }\n    return e;\n}\n\npublic void ProfileSet(string distinctId, Dictionary<string, object?> properties)\n{\n    Enqueue(WithIdentity(new Dictionary<string, object?>\n    {\n        [\"type\"] = \"user_set\",\n        [\"distinct_id\"] = distinctId,\n        [\"time\"] = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds(),\n        [\"properties\"] = properties,\n    }));\n}",
+      "step5Title": "5. 批量发送与重试",
+      "step5Body": "FlushAsync 把队列序列化 → Base64 → 表单编码后 POST；失败重试 3 次并退避。游戏里在切场景、结算、退出前调用一次。",
+      "step5Code1Label": "FlushAsync",
+      "step5Code1": "public async Task FlushAsync()\n{\n    if (_queue.Count == 0) return;\n    var json = JsonSerializer.Serialize(_queue);\n    var payload = Convert.ToBase64String(Encoding.UTF8.GetBytes(json));\n\n    for (var attempt = 1; attempt <= 3; attempt++)\n    {\n        try\n        {\n            using var content = new FormUrlEncodedContent(new Dictionary<string, string>\n            {\n                [\"project\"] = _project,\n                [\"token\"] = _token,\n                [\"data\"] = payload,\n            });\n            var res = await _http.PostAsync(_endpoint, content);\n            if (res.IsSuccessStatusCode)\n            {\n                _queue.Clear();\n                return;\n            }\n        }\n        catch (Exception) when (attempt < 3)\n        {\n            // 网络异常按退避重试\n        }\n        await Task.Delay(attempt * 500);\n    }\n    // 三次都失败：保留队列，等下次触发（可另存本地文件做持久化）\n}",
+      "step5Note1": "Unity 主线程不要同步等待网络：用 async/await 或在协程里启动 Task，避免卡帧。",
+      "step5Note2": "需要弱网可靠性时，把队列写进 Application.persistentDataPath 的文件，下次启动补发。",
+      "step6Title": "6. 验证",
+      "step6Body": "在编辑器或真机跑一次上报，到「数据管理 → Debug」按事件名查询最近上报（含属性与接收时间）；确认登录后的同一 player 事件带上了 user_key。",
+      "faq1Q": "返回 200 但平台上没有数据？",
+      "faq1A": "最常见原因是没做 Base64（直接发了 JSON）或 token/project 不匹配；先确认 data 字段内容再排查网络。",
+      "faq2Q": "time 用什么单位？",
+      "faq2A": "毫秒，C# 用 DateTimeOffset.UtcNow.ToUnixTimeMilliseconds()。",
+      "faq3Q": "Unity 报缺少 System.Text.Json？",
+      "faq3A": "Unity 6 内置；更早版本装 com.unity.nuget.newtonsoft-json 并把序列化换成 JsonConvert.SerializeObject。",
+      "faq4Q": "客户端直接放 token 安全吗？",
+      "faq4A": "不建议。建议自家服务端代理上报，或用仅允许上报的受限令牌，并定期轮换。"
+    },
+    "javascript": {
+      "platform": "客户端 · 浏览器 H5（现代浏览器，零依赖）",
+      "summary": "网页埋点：页面浏览与点击采集 + 卸载前补发队列；已在真实浏览器里实测 5 步事件链落库。",
+      "note1": "踩坑：页面卸载补发必须用 `navigator.sendBeacon` 或 `fetch(..., {keepalive:true})`，且要传 `URLSearchParams` —— 传字符串会被当成 text/plain，receiver 解析不到 `data`。",
+      "faq1Q": "页面关闭时的事件为什么会丢？",
+      "faq1A": "卸载前用 `navigator.sendBeacon(new URLSearchParams(form))` 补发；直接把字符串交给 sendBeacon 会以 text/plain 发出，HTTP 200 但不入库。"
+    },
+    "miniprogram": {
+      "platform": "客户端 · 微信小程序（基础库 2.x，零依赖）",
+      "summary": "小程序内埋点：`wx.request` 上报 + 本地缓存队列 + `wx.onAppHide` 补发；语言级实现已实测（真机需在开发者工具中引入）。",
+      "note1": "踩坑：`wx.getStorageSync` 取不到 key 时返回空字符串而不是 null，storage 适配层要归一，否则匿名ID 会变成空串、用户合并不上。",
+      "faq1Q": "小程序里 request 的 data 传对象还是字符串？",
+      "faq1A": "统一传预编码好的 urlencoded 字符串，并显式设置 `header[\"content-type\"]`：不同基础库对对象的序列化行为不一致，传字符串最稳。"
+    },
+    "reactNative": {
+      "platform": "客户端 · React Native（JS/TS，Hermes）",
+      "summary": "RN 应用埋点：全局 `fetch` 上报 + 注入式 storage（AsyncStorage）+ 切后台补发；传输与队列核心已实测。",
+      "note1": "踩坑：Hermes 没有 `btoa` / `Buffer` / `TextEncoder`，`URLSearchParams.toString()` 在 RN 上也不可用 —— base64 与 urlencode 要用自带的纯 JS 实现。",
+      "faq1Q": "RN 里 base64 和 urlencode 怎么写？",
+      "faq1A": "不要依赖 `btoa` 或 `Buffer`（Hermes 都没有）：自实现 base64，并用 `encodeURIComponent` 逐段百分号编码，确保 `+` `/` `=` 都被编码。"
+    },
+    "android": {
+      "platform": "客户端 · Android 原生（Java / Kotlin，HTTP 传输）",
+      "summary": "Android 埋点客户端核心：设备ID 持久化、会话、批次、退避重试、退后台补发；已在 JVM（Java 8）实测 5 步事件链，APK 未打包验证。",
+      "note1": "踩坑：`Base64.getMimeEncoder()` 会按 76 字符折行，必须用 `getEncoder()`；`java.util.Base64` 需要 API 26+，更低版本改用 `android.util.Base64`。",
+      "faq1Q": "Android 上生产环境用什么传输？",
+      "faq1A": "把表单提交换成 OkHttp 即可（`RequestBody.create(form, MediaType.parse(\"application/x-www-form-urlencoded\"))`），编码与身份字段逻辑完全不变；Kotlin 调用形状相同。"
+    },
+    "ios": {
+      "platform": "客户端 · iOS 原生（Swift / Objective-C，URLSession）",
+      "summary": "iOS 埋点客户端核心：匿名ID 存 UserDefaults、批次、退避重试、进后台补发；用与 iOS 同一套 Foundation URLSession 实测 5 步事件链，App 打包未验证。",
+      "note1": "踩坑：`addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)` 不会编码 `+` `&` `=`，base64 里的 `+` 会被服务端解成空格导致数据损坏 —— 必须自己按 RFC3986 编码 UTF-8 字节。",
+      "faq1Q": "iOS 上怎么接进 App？",
+      "faq1A": "把客户端类加入工程，在 `applicationDidEnterBackground` 里调用 flush 补发；注意 `URLSessionConfiguration` 在创建 session 时被复制，改超时要重建 session。"
+    },
+    "cocos2dX": {
+      "platform": "客户端 · C++（Cocos2d-x；引擎侧未打包验证）",
+      "summary": "引擎内的 C++ 上报核心（JSON / 单行 base64 / 表单 POST / 队列）已实测；接入时只需把传输层换成引擎自带的 HttpRequest。",
+      "note1": "踩坑：把 libcurl 换成 `cocos2d::network::HttpRequest`（异步 + 回调）即可，但 base64 与 urlencode 仍须自己保证单行与全字符编码。",
+      "faq1Q": "为什么引擎里不直接用 libcurl？",
+      "faq1A": "能用但不推荐：引擎自带 HttpRequest 会复用平台网络栈并处理主线程回调；协议、编码、批次与身份字段与本页片段完全一致。"
+    },
+    "java": {
+      "platform": "服务端 · Java（JDK 8+，仅标准库）",
+      "summary": "业务服务里上报订单、支付、注册等事件；JDK 8 用 HttpURLConnection，JDK 11+ 可换成 java.net.http。",
+      "note1": "踩坑：`Base64.getMimeEncoder()` 会折行，必须用 `getEncoder()`；base64 放进表单还要再 urlencode，否则 `+` 会被解成空格。",
+      "faq1Q": "JDK 11+ 能换成 HttpClient 吗？",
+      "faq1A": "可以：把提交换成 `HttpClient.newHttpClient().send(...)`，body 用 `BodyPublishers.ofString(form)` 并显式设置 Content-Type，编码与身份逻辑不变。"
+    },
+    "python": {
+      "platform": "服务端 · Python 3.7+（仅标准库）",
+      "summary": "后端服务或脚本上报业务事件；`urllib` + `json` + `base64` 即可，无第三方依赖。",
+      "note1": "踩坑：`data` 必须 `urlencode` 后再作为 body 发送（不能直接把 dict 交给 urlopen）；重试时要重建 Request 对象。",
+      "faq1Q": "属性值里的中文会乱码吗？",
+      "faq1A": "用 `json.dumps(..., ensure_ascii=False).encode(\"utf-8\")` 再 base64，中文原样透传，不要再做额外转码。"
+    },
+    "nodejs": {
+      "platform": "服务端 · Node.js 18+（内置 fetch，零依赖）",
+      "summary": "Node 后端上报业务事件；用内置 `fetch` + `URLSearchParams`，不需要 axios / undici 等依赖。",
+      "note1": "踩坑：fetch 的 body 要给 `URLSearchParams` 实例（会自动带 urlencoded 的 Content-Type），传普通对象会被序列化成 JSON。",
+      "faq1Q": "超时怎么控制？",
+      "faq1A": "`fetch(url, { signal: AbortSignal.timeout(10000) })`；失败按 0.5s / 1s / 2s 退避重试，只有 HTTP 200 才清本地队列。"
+    },
+    "csharp": {
+      "platform": "服务端 · .NET 6+ / 8+（HttpClient）",
+      "summary": "C# 后端上报业务事件；`HttpClient` + `FormUrlEncodedContent`，与 Unity 客户端共用同一套协议口径。",
+      "note1": "踩坑：同一仓库里既有 Unity 客户端又有服务端示例时，SDK 风格工程的默认通配会把子目录源码编进两个工程（CS8802 / CS0579），要用 `Directory.Build.targets` 排除（`.props` 会被默认 Include 覆盖）。",
+      "faq1Q": "字符串里的 `$` 怎么处理？",
+      "faq1A": "C# 的 `$\"...\"` 是插值字符串：拼 JSON 时把 `$SignUp`、`$track_signup_original_id` 这类字段名放在普通字符串里，或显式转义 `\\$`，否则会被当变量解析。"
+    },
+    "ruby": {
+      "platform": "服务端 · Ruby 2.6+（仅标准库）",
+      "summary": "Ruby 服务端上报业务事件；`net/http` + `json` + `base64`，无 gem 依赖。",
+      "note1": "踩坑：`Base64.encode64` 每 60 字符插入换行（必须用 `strict_encode64`）；双引号字符串里的 `$SignUp` 会被当成全局变量插值成空串，要用单引号。",
+      "faq1Q": "为什么事件名发过去变成了空？",
+      "faq1A": "Ruby 双引号会插值 `$` 开头的全局变量，`\"$SignUp\"` 得到空串。事件名与 `$track_signup_original_id` 请用单引号或转义 `\\$`。"
+    },
+    "c": {
+      "platform": "服务端 · C11（libcurl）",
+      "summary": "C / C++ 服务端上报业务事件：手工拼 JSON + 自实现单行 base64 + libcurl 表单 POST。",
+      "note1": "踩坑：libcurl 必须设置写入回调（只设 `CURLOPT_WRITEDATA` 会被当成 FILE*）；base64 自己实现并保证单行，`+` `/` `=` 全部百分号编码。",
+      "faq1Q": "编译时找不到 curl.h？",
+      "faq1A": "macOS 的 curl 头文件在 SDK 里：`-I$(xcrun --show-sdk-path)/usr/include -L…/usr/lib -lcurl`；Linux 装 `libcurl4-openssl-dev` 即可。"
+    },
+    "lua": {
+      "platform": "服务端 · Lua 5.4+ / 5.5（luasocket + luasec）",
+      "summary": "Lua 脚本与 OpenResty 场景上报业务事件；OpenResty 只需把传输层换成 resty.http，协议逻辑不变。",
+      "note1": "踩坑：luasec 默认不校验证书，要显式 `verify=\"peer\"` 并给 `cafile`；它只认带下划线的协议名（`tlsv1_2`），写成 `tlsv12` 会直接报 invalid protocol。",
+      "faq1Q": "Lua 没有 os.setenv，配置怎么给？",
+      "faq1A": "把配置读进内存表再取值，或由外层导出环境变量；OpenResty 里用 `ngx.var` 或 `lua_shared_dict` 传配置。"
+    },
+    "flutter": {
+      "platform": "客户端 · Flutter 3.x / Dart 3.8+（依赖 http 包）",
+      "summary": "Flutter 应用埋点：Web 端已构建并在真实浏览器里点完三步验证落库；iOS / Android 未打包（本机无对应 SDK）。",
+      "note1": "踩坑：Dart 的两个内置编码函数都不能直接用 —— `Uri.encodeFull` 把 `+` `/` `=` 当保留字符原样保留，`Uri.encodeQueryComponent` 又把空格编成 `+`（与 base64 的 `+` 撞车）；必须自己按 RFC3986 编码，并在提交前断言 `data` 段无裸 `+` / `=`。",
+      "faq1Q": "Flutter Web 的产物怎么确认是新的？",
+      "faq1A": "dart2js 会把非 ASCII 字面量转义成 `\\uXXXX`，直接 grep 中文永远 0 命中（容易误判成旧产物）；要搜转义形式，或比对 `main.dart.js` 的大小与构建时间。"
+    },
+    "batchImport": {
+      "platform": "其他 · 命令行工具（Python 3，仅标准库）",
+      "summary": "把历史日志 / CSV 批量补报成事件（存量订单、支付、注册等数据回填）：支持试跑、限速与断点续跑；已用 120 行实测——落库 120 行，续跑无重发、无丢行。",
+      "step1Title": "1. 准备历史文件",
+      "step1Body": "按下面的列规范整理 CSV（或每行一个事件对象的 JSONL）。`time` 用原始毫秒时间戳才能还原历史时刻；登录态事件带上 `user_key`，绑定匿名ID 用 `original_id` 列。",
+      "step1Code1Label": "CSV 列规范与示例",
+      "step2Title": "2. 先试跑（不联网）",
+      "step2Body": "`--dry-run` 只做读取、规范化、编码与体积校验，不发网络也不写进度文件；用它先确认列映射对不对、哪些行被跳过及原因。",
+      "step2Code1Label": "试跑命令",
+      "step3Title": "3. 小批量真跑",
+      "step3Body": "去掉 `--dry-run` 即真实上报。建议先 `--limit` 小批量确认链路，再用 `--rate` 限速保护接收端；工具会打印本次 run 标识（`backfill-<时间>`）并写进每个事件的 `properties.backfill_run_id`，便于按 run 核对。",
+      "step3Code1Label": "回补命令与常用参数",
+      "step4Title": "4. 断点续跑",
+      "step4Body": "进度写在 `<输入文件>.backfill-progress.json`，中断后加 `--resume` 继续，已完成的批次不会重发；失败行连同行号写到 `<输入文件>.failed.jsonl`，修好后可单独重跑。",
+      "note1": "重要：本工具**不做去重** —— 同一条历史事件被完整回补两次就会入库两次。请始终配合 `--resume` 续跑，或先用 `--dry-run` / `--limit` 验证；输入文件内容或修改时间变化时 `--resume` 会拒绝执行，除非显式加 `--force-resume`。",
+      "step5Title": "5. 核对落库",
+      "step5Body": "按 run 标识统计落库行数与事件分布，与文件的发送条数对齐。数据链路有 1–3 分钟延迟，必要时多查几次。",
+      "step5Code1Label": "核对 SQL",
+      "faq1Q": "回补的事件时间会被改掉吗？",
+      "faq1A": "不会：工具把文件里的 `time` 原样送进事件（毫秒），分析侧按事件时间统计。**不要**用当前时间替换历史时间，否则历史趋势会全部挤到回补当天。",
+      "faq2Q": "文件很大（几十万行）怎么跑？",
+      "faq2A": "分批跑：`--limit` 控制单次条数、`--rate` 限速，配合 `--resume` 断点续跑；单批 50 条 / 1MB 的上限由工具自动切分，不需要手工拆文件。"
+    }
+  },
+  "planned": {
+    "android": {
+      "name": "Android",
+      "platform": "客户端 · Java / Kotlin",
+      "summary": "Android 原生 App 埋点（计划基于 OkHttp 封装）"
+    },
+    "ios": {
+      "name": "iOS",
+      "platform": "客户端 · Swift / Objective-C",
+      "summary": "iOS 原生 App 埋点（计划基于 URLSession 封装）"
+    },
+    "javascript": {
+      "name": "JavaScript / Web",
+      "platform": "客户端 · 浏览器 H5",
+      "summary": "网页埋点，自动采集页面浏览与点击"
+    },
+    "miniprogram": {
+      "name": "微信小程序",
+      "platform": "客户端 · 小程序 / 小游戏",
+      "summary": "小程序内埋点（计划适配 wx.request 与本地缓存队列）"
+    },
+    "flutter": {
+      "name": "Flutter",
+      "platform": "客户端 · Dart",
+      "summary": "跨端 App 埋点（计划基于 http 包封装）"
+    },
+    "reactNative": {
+      "name": "React Native",
+      "platform": "客户端 · JS / TS",
+      "summary": "RN 应用埋点（计划复用 JS 采集核心）"
+    },
+    "cocos2dX": {
+      "name": "Cocos2d-x",
+      "platform": "客户端 · C++ / Lua",
+      "summary": "Cocos 游戏埋点（计划基于 HttpClient 封装）"
+    },
+    "unreal": {
+      "name": "Unreal Engine",
+      "platform": "客户端 · C++ / 蓝图",
+      "summary": "UE 游戏埋点（计划基于 Http 模块封装）"
+    },
+    "java": {
+      "name": "Java",
+      "platform": "服务端 · JDK 8+",
+      "summary": "Java 后端上报（计划基于 HttpClient 封装）"
+    },
+    "python": {
+      "name": "Python",
+      "platform": "服务端 · Python 3.7+",
+      "summary": "Python 后端上报（计划基于 requests 封装）"
+    },
+    "nodejs": {
+      "name": "Node.js",
+      "platform": "服务端 · Node 16+",
+      "summary": "Node 后端上报（计划基于 undici / fetch 封装）"
+    },
+    "csharp": {
+      "name": "C#",
+      "platform": "服务端 · .NET 6+",
+      "summary": "服务端 C# 上报（当前可参考 Unity(C#) 文档里的客户端实现，或直接用 HTTP 协议）"
+    },
+    "ruby": {
+      "name": "Ruby",
+      "platform": "服务端 · Ruby 2.6+",
+      "summary": "Ruby 后端上报（计划基于 Net::HTTP 封装）"
+    },
+    "c": {
+      "name": "C",
+      "platform": "服务端 · C / C++",
+      "summary": "C/C++ 服务上报（计划基于 libcurl 封装）"
+    },
+    "lua": {
+      "name": "Lua",
+      "platform": "服务端 · Lua 5.3+ / OpenResty",
+      "summary": "Lua 与 OpenResty 场景上报"
+    },
+    "batchImport": {
+      "name": "批量回补（文件导入）",
+      "platform": "其他 · 历史数据导入",
+      "summary": "把历史日志/CSV 批量回补成事件（计划提供命令行工具）"
+    }
+  },
+  "guideCommon": {
+    "step1Title": "1. 前置条件",
+    "step1Body": "确认接入参数已就绪（见本页顶部）：上报地址、项目名、项目 token。协议固定为表单 POST，`data` 字段 = base64(JSON 数组) 再 urlencode —— 直接 POST 原始 JSON 会返回 200 但数据被丢弃。",
+    "step2Title": "2. 准备运行环境",
+    "step2Body": "按下面命令准备该语言的运行环境；只用标准库的实现可以跳过依赖安装。",
+    "step2Code1Label": "运行环境",
+    "step3Title": "3. 初始化并上报事件",
+    "step3Body": "该语言的最小可用上报实现：事件 JSON → base64 + urlencode 表单 → POST。事件时间必须是毫秒时间戳；登录后 `distinct_id` 始终是匿名ID，登录ID 走 `identities.user_key`。",
+    "step3Code1Label": "上报核心代码（实测写法）",
+    "step4Title": "4. 登录关联与用户属性",
+    "step4Body": "登录成功上报一条 `track_signup`（`properties.$track_signup_original_id` = 匿名ID）完成身份绑定，用户属性用 `user_set`；之后所有事件带 `identities.user_key`，分析侧就会归并到同一用户。",
+    "step5Title": "5. 验证落库",
+    "step5Body": "触发事件后查 `clklog.log_analysis` 核对 5 行：匿名 track / track_signup / user_set / 登录后 track ×2。数据链路有 1–3 分钟延迟；HTTP 200 只代表格式解析通过，必须查库确认。",
+    "step5Code1Label": "验证 SQL（ClickHouse）",
+    "faq1Q": "为什么上报返回 HTTP 200，库里却没有数据？",
+    "faq1A": "`data` 必须是 base64(JSON 数组) 再 urlencode 的表单字段。直接 POST 原始 JSON、base64 里带换行、或 `+` 未做百分号编码，都会返回 200 但数据被静默丢弃。",
+    "faq2Q": "事件时间错乱、或登录前后被拆成两个用户？",
+    "faq2A": "时间必须是毫秒时间戳（秒级会被算成 1970 年）；登录ID 放顶层 `identities.user_key`（不是 login_id），绑定匿名ID 放 `properties.$track_signup_original_id`（不是 original_id），且登录后 `distinct_id` 保持不变。"
+  }
+}

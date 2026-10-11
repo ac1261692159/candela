@@ -1,0 +1,45 @@
+{
+  "serviceUnavailable": "分析服務暫時無法連線。請稍後重試；若持續失敗請聯絡管理員。",
+  "dataUnavailable": "資料查詢服務暫時不可用。請稍後重試；若持續失敗請聯絡管理員。",
+  "requestTimeout": "請求逾時。請縮小查詢範圍或稍後重試。",
+  "genericUnavailable": "服務暫時不可用。請稍後重試；若持續失敗請聯絡管理員。",
+  "requestFailed": "請求失敗",
+  "status401": "登入已過期，請重新登入",
+  "status403": "沒有權限執行此操作",
+  "status404": "請求的資源不存在",
+  "status429": "請求過於頻繁，請稍後再試",
+  "unknown": "未知錯誤",
+  "queryFailed": "查詢失敗",
+  "validation": {
+    "selectTimeRange": "請選擇時間範圍",
+    "atLeastOneMetric": "請至少配置一個指標",
+    "tooManyMetrics": "最多 {{max}} 個指標",
+    "atLeastOneEventMetric": "請至少配置一個事件指標",
+    "metricEventRequired": "請為每個指標選擇事件",
+    "perCapitaNeedsNumber": "人均值需要選擇數值屬性",
+    "minuteSpanTooLong": "按分鐘查詢時間跨度不能超過 1 天",
+    "funnelMinSteps": "漏斗至少需要 {{min}} 步",
+    "funnelMaxSteps": "漏斗最多 {{max}} 步",
+    "startEventRequired": "請選擇初始事件",
+    "returnEventRequired": "請選擇回訪事件",
+    "retentionPeriodRequired": "請至少選擇一個留存週期"
+  },
+  "apiKey": {
+    "missing": "缺少 API Key（請透過 X-API-Key 或 Authorization: Bearer 提供）"
+  },
+  "rbac": {
+    "forbidden": "無權存取該資源"
+  },
+  "attribute": {
+    "datatableUserUnsupported": "資料表維度暫不支援使用者屬性",
+    "datatableInVirtualExpression": "維度表屬性不能用於虛擬屬性運算式",
+    "datatableStale": "屬性 {{prop}} 依賴的資料表已失效",
+    "datatableMultiple": "屬性 {{prop}} 綁定了多張資料表"
+  },
+  "analysis": {
+    "timeRange": {
+      "timezoneInvalid": "時區不合法（須為 IANA 時區名，如 Asia/Shanghai）"
+    }
+  },
+  "status413": "上傳內容過大，請減少列數後重試"
+}

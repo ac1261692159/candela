@@ -1,0 +1,45 @@
+{
+  "serviceUnavailable": "The analytics service cannot be reached right now. Please retry later; contact your administrator if the problem persists.",
+  "dataUnavailable": "The query service is temporarily unavailable. Please retry later; contact your administrator if the problem persists.",
+  "requestTimeout": "The request timed out. Narrow the time range or retry later.",
+  "genericUnavailable": "The service is temporarily unavailable. Please retry later; contact your administrator if the problem persists.",
+  "requestFailed": "Request failed",
+  "status401": "Your session has expired. Please sign in again.",
+  "status403": "You do not have permission to perform this action",
+  "status404": "The requested resource does not exist",
+  "status429": "Too many requests. Please try again later.",
+  "unknown": "Unknown error",
+  "queryFailed": "Query failed",
+  "validation": {
+    "selectTimeRange": "Select a time range",
+    "atLeastOneMetric": "Configure at least one metric",
+    "tooManyMetrics": "At most {{max}} metrics",
+    "atLeastOneEventMetric": "Configure at least one event metric",
+    "metricEventRequired": "Select an event for every metric",
+    "perCapitaNeedsNumber": "Per-user values require a numeric property",
+    "minuteSpanTooLong": "Minute-level queries cannot span more than 1 day",
+    "funnelMinSteps": "A funnel needs at least {{min}} steps",
+    "funnelMaxSteps": "A funnel supports at most {{max}} steps",
+    "startEventRequired": "Select the starting event",
+    "returnEventRequired": "Select the return event",
+    "retentionPeriodRequired": "Select at least one retention period"
+  },
+  "apiKey": {
+    "missing": "API Key required. Provide it via X-API-Key or Authorization: Bearer."
+  },
+  "rbac": {
+    "forbidden": "You do not have access to this resource."
+  },
+  "attribute": {
+    "datatableUserUnsupported": "User properties are not supported on data table dimensions",
+    "datatableInVirtualExpression": "Data table dimensions cannot be used in virtual property expressions",
+    "datatableStale": "The data table for property {{prop}} is no longer available",
+    "datatableMultiple": "Property {{prop}} is bound to multiple data tables"
+  },
+  "analysis": {
+    "timeRange": {
+      "timezoneInvalid": "Invalid time zone (must be an IANA name such as Asia/Shanghai)"
+    }
+  },
+  "status413": "The upload is too large. Reduce the number of rows and try again."
+}

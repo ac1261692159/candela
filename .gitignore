@@ -1,0 +1,73 @@
+# Node.js 本地虚拟环境依赖
+node_modules/
+**/node_modules/
+
+# Vite / NestJS 构建产物
+dist/
+build/
+*.tsbuildinfo
+
+# 本地环境变量（密钥不入库）
+.env
+.env.local
+.env.*.local
+
+# 开发日志
+*.log
+logs/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# 编辑器/IDE
+.vscode/
+# .zcode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+
+# 测试覆盖率
+coverage/
+.nyc_output/
+
+# Prisma 生成产物（可选，通常应提交，但本地生成可忽略）
+# prisma/generated/
+
+# 本地数据/死信队列文件
+*.jsonl
+dlq/
+
+# CI 构建产物（由 scripts/build.sh 生成，rsync 推送目标主机，不入库）
+target/
+.runtime/
+scripts/server-upgrade.sh
+
+# 测试数据
+sql/test/out/
+
+# 浏览器自动化临时产物（playwright-cli）
+.playwright-cli/
+login.yaml
+
+# 接入指南的演示工程 zip（由 scripts/build-sdk-demos.sh 生成，随前端产物发布）
+apps/analytics-web/public/sdk-demos/
+
+# Agent / 工具目录（本机工具产物，不入库）
+.agents/
+.zcode/
+.codex/
+.cursor/
+.impeccable/
+
+# SDK 示例工程的构建产物（examples/report-sdk 各语言工程）
+.dart_tool/
+obj/
+bin/
+.gradle/
+pubspec.lock
+
+# 部署资产目录中的本地覆盖（如未来放自定义资产）
+deploy-assets/**/local-*.xml

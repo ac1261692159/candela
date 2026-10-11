@@ -1,0 +1,542 @@
+{
+  "tab": {
+    "overview": "Tổng quan",
+    "rules": "Chính sách",
+    "history": "Lịch sử",
+    "mute": "Tắt thông báo",
+    "notifications": "Bản ghi thông báo",
+    "templates": "Mẫu thông báo",
+    "channels": "Cấu hình kênh",
+    "contacts": "Liên hệ",
+    "audits": "Bản ghi thay đổi"
+  },
+  "workbench": {
+    "title": "Cảnh báo giám sát",
+    "firing": "Hiện có {{count}} cảnh báo đang kích hoạt",
+    "noContact": "Không có liên hệ nào đang bật, cảnh báo sẽ không gửi ra ngoài",
+    "noContactHint": "Vào tab «Liên hệ» để thêm liên hệ và giữ trạng thái bật; khi quy tắc không gắn liên hệ, cảnh báo sẽ gửi đến toàn bộ liên hệ đang bật.",
+    "brokenRules": "{{count}} quy tắc hiện không hợp lệ",
+    "brokenRulesHint": "{{names}}: chỉ số được gắn đã bị xóa hoặc tính giá trị thất bại liên tiếp nhiều vòng, các quy tắc này sẽ không kích hoạt (xem cột sức khỏe trong tab «Chính sách»).",
+    "notifyFail24h": "Trong 24 giờ qua có {{count}} lần gửi thông báo thất bại",
+    "notifyFail24hHint": "Chỉ ghi nhận khi vẫn thất bại sau ba lần thử lại; có thể xem nguyên nhân thất bại trong tab «Bản ghi thông báo»."
+  },
+  "overview": {
+    "firedToday": "Kích hoạt hôm nay",
+    "unresolved": "Chưa khôi phục",
+    "notifyFailToday": "Thông báo thất bại hôm nay",
+    "firingEmpty": "Hiện không có cảnh báo nào đang kích hoạt",
+    "topRules": "Quy tắc kích hoạt nhiều nhất hôm nay",
+    "topRulesEmpty": "Hôm nay chưa có kích hoạt",
+    "fireCount": "Số lần kích hoạt"
+  },
+  "status": {
+    "firing": "Đang kích hoạt",
+    "normal": "Bình thường",
+    "resolved": "Đã khôi phục"
+  },
+  "severity": {
+    "label": "Mức độ",
+    "alertLevel": "Mức cảnh báo",
+    "critical": "Nghiêm trọng",
+    "warning": "Cảnh báo",
+    "info": "Thông tin"
+  },
+  "kind": {
+    "fire": "Cảnh báo kích hoạt",
+    "resolve": "Cảnh báo khôi phục"
+  },
+  "rule": {
+    "label": "Quy tắc",
+    "createMetric": "Tạo cảnh báo chỉ số",
+    "editTitle": "Sửa điều kiện kích hoạt",
+    "editTitleNamed": "Sửa điều kiện kích hoạt · {{name}}",
+    "saving": "Đang lưu",
+    "editorHint": "Chu kỳ phát hiện cố định 60 giây một lần. Cửa sổ × thời gian bất thường = số lần liên tiếp vượt ngưỡng rồi mới cảnh báo. Quy tắc có sẵn không thể xóa.",
+    "editorMetricHint": "Giá trị chỉ số được tính thời gian thực bằng cùng chuỗi truy vấn với bảng làm việc.",
+    "targetMetric": "Chỉ số quan sát",
+    "target": "Đối tượng quan sát",
+    "metricTag": "Chỉ số quản lý dữ liệu",
+    "comparator": "Quan hệ so sánh",
+    "threshold": "Ngưỡng",
+    "statWindow": "Cửa sổ thống kê",
+    "statWindowHint": "Phân tích sự kiện lọc theo ngày (stat_date), nên cửa sổ tính bằng ngày chứ không phải phút; «Hôm nay» là giá trị lũy kế trong ngày",
+    "windowMinutesLabel": "Độ chi tiết thống kê điểm dữ liệu",
+    "windowMinutesOption": "Thống kê {{minutes}} phút",
+    "windowTimes": "{{window}} × {{times}} lần",
+    "windowMinutesTimes": "{{minutes}} phút × {{times}}",
+    "windowDays": "{{days}} ngày",
+    "forWindows": "Thời gian bất thường",
+    "forWindowsHint": "Số lần phát hiện vượt ngưỡng liên tiếp để kích hoạt (mỗi lần cách nhau 60 giây)",
+    "timesSuffix": "lần",
+    "repeatInterval": "Khoảng lặp thông báo khi đang kích hoạt (phút)",
+    "notifyOnResolve": "Thông báo khi khôi phục",
+    "timeSourceHint": "Theo chỉ số = dùng thời gian truy vấn của chính chỉ số; do quy tắc này chỉ định = dùng cửa sổ thống kê bên dưới",
+    "timeSourceHintMetric": "Khi chỉ số có thời gian truy vấn riêng thì mặc định theo chỉ số; cũng có thể để quy tắc này chỉ định cửa sổ riêng",
+    "timeFromMetric": "Theo chỉ số",
+    "timeFromMetricWith": "Theo chỉ số ({{window}})",
+    "timeFromRule": "Do quy tắc này chỉ định",
+    "timeFromRuleNoWindow": "Do quy tắc này chỉ định (chỉ số này chưa đặt thời gian truy vấn)",
+    "name": "Tên quy tắc",
+    "defaultName": "Cảnh báo {{metric}}",
+    "created": "Đã tạo cảnh báo chỉ số",
+    "metricSource": "Đối tượng cảnh báo là chỉ số đã lưu trong «Quản lý dữ liệu → Chỉ số»",
+    "metricSourceHint": "Chu kỳ phát hiện 60 giây, chỉ kích hoạt khi số lần vượt ngưỡng liên tiếp đạt «thời gian bất thường». Cửa sổ tính theo ngày (hôm nay / N ngày qua), giá trị chỉ số được tính thời gian thực bằng cùng chuỗi truy vấn với bảng làm việc, không phụ thuộc bộ đệm thẻ.",
+    "probe": "Lấy giá trị thử",
+    "probeFailedPrefix": "Lấy giá trị thất bại",
+    "probeFailed": "Lấy giá trị thất bại: {{error}}",
+    "probeResult": "Giá trị hiện tại: {{value}} ({{window}}{{pick}}, mất {{ms}}ms)",
+    "probePick": " · {{pick}}",
+    "editCondition": "Sửa điều kiện",
+    "muteQuick": "Tắt thông báo nhanh",
+    "allContacts": "Toàn bộ liên hệ đang bật",
+    "checkInterval": "Phát hiện mỗi 60 giây",
+    "source": {
+      "metric": "Chỉ số: {{name}}",
+      "builtin": "Vận hành"
+    },
+    "column": {
+      "health": "Sức khỏe",
+      "condition": "Điều kiện",
+      "window": "Cửa sổ / thời gian bất thường",
+      "currentValue": "Giá trị hiện tại"
+    },
+    "health": {
+      "metricMissing": "Chỉ số đã bị xóa",
+      "evalFailed": "Tính giá trị thất bại",
+      "noContact": "Không có liên hệ"
+    }
+  },
+  "event": {
+    "filterLabel": "Trạng thái sự kiện",
+    "firedAt": "Thời gian kích hoạt",
+    "value": "Giá trị khi kích hoạt",
+    "lastSeen": "Quan sát gần nhất"
+  },
+  "notification": {
+    "time": "Thời gian",
+    "kindFire": "Kích hoạt",
+    "kindRepeat": "Lặp lại",
+    "kindResolve": "Khôi phục",
+    "result": "Kết quả",
+    "error": "Lỗi"
+  },
+  "contact": {
+    "label": "Liên hệ",
+    "hint": "Chọn kênh rồi điền theo hướng dẫn; webhook của bot nhóm vốn đã là thông tin xác thực, còn các kênh cần thông tin xác thực (email/SMS/Telegram/WhatsApp) thì điền trước ở trang «Cấu hình kênh». Quy tắc có thể gắn **nhiều** liên hệ (gửi đồng thời nhiều kênh); khi quy tắc không gắn liên hệ, cảnh báo sẽ gửi đến **toàn bộ liên hệ đang bật**.",
+    "updated": "Đã cập nhật liên hệ",
+    "editTitle": "Chỉnh sửa liên hệ",
+    "editTitleNamed": "Chỉnh sửa liên hệ · {{name}}",
+    "maskedHint": "Địa chỉ và khóa bí mật trong danh sách đã được che, nên **không điền lại**: để trống là giữ nguyên giá trị cũ, chỉ khi nhập giá trị mới mới ghi đè.",
+    "webhookUrl": "Địa chỉ Webhook",
+    "webhookRequired": "Vui lòng điền địa chỉ Webhook",
+    "address": "Địa chỉ",
+    "addressLabel": "Địa chỉ nhận",
+    "addressEmail": "Hộp thư",
+    "addressChatId": "chat_id (ví dụ -1001234567890)",
+    "addressWhatsapp": "Số điện thoại (E.164, ví dụ 8613800138000)",
+    "addressSms": "Số điện thoại (ví dụ +8613800138000)",
+    "secret": "Khóa bí mật",
+    "secretOptional": "Khóa bí mật (tùy chọn)",
+    "secretHint": "Khóa ký của Feishu/DingTalk; để trống nếu bot không bật kiểm tra chữ ký",
+    "smsProvider": "Nhà cung cấp SMS",
+    "smsProviderHint": "Để trống sẽ dùng nhà cung cấp mặc định đang bật của nền tảng",
+    "disableHint": "Sau khi tắt sẽ không gửi",
+    "bodyTemplateHint": "Mẫu body, chỗ giữ chỗ giống mẫu cảnh báo, ngoài ra có {{text}} và {{textJson}}",
+    "bodyTemplatePlaceholder": "Mẫu body (tùy chọn, mặc định {\"text\":\"{{textJson}}\"})",
+    "alertContacts": "Liên hệ nhận cảnh báo",
+    "multiHint": "Có thể chọn nhiều, khi quy tắc kích hoạt sẽ gửi đến toàn bộ liên hệ đã gắn; không chọn thì gửi đến toàn bộ liên hệ đang bật",
+    "multiExtra": "Có thể chọn nhiều (gửi đồng thời nhiều kênh); không chọn = gửi đến toàn bộ liên hệ đang bật",
+    "noneSelected": "Không chọn = toàn bộ liên hệ đang bật",
+    "disabledName": "{{name}} (đã tắt)",
+    "locale": "Ngôn ngữ",
+    "localeDefault": "Mặc định nền tảng",
+    "localeHint": "Thông báo được hiển thị theo ngôn ngữ của người nhận; để trống sẽ dùng ngôn ngữ mặc định của nền tảng",
+    "timezone": "Múi giờ",
+    "timezoneHint": "Thời gian kích hoạt/khôi phục trong thông báo được hiển thị theo múi giờ này; để trống = múi giờ dự án/nền tảng",
+    "timezoneDefault": "Theo dự án/nền tảng"
+  },
+  "channel": {
+    "label": "Kênh",
+    "feishu": "Feishu",
+    "dingtalk": "DingTalk",
+    "wecom": "WeCom",
+    "webhook": "Webhook chung",
+    "email": "Email",
+    "sms": "SMS",
+    "telegram": "Telegram",
+    "whatsapp": "WhatsApp",
+    "configMissing": "Chưa cấu hình: {{names}}",
+    "unavailable": "Kênh này hiện không khả dụng",
+    "pageHint": {
+      "title": "Ở đây cấu hình các kênh «cấp thông tin xác thực»",
+      "body": "Webhook của bot nhóm (Feishu / DingTalk / WeCom / Webhook chung) vốn đã là thông tin xác thực, vui lòng điền ở trang «Liên hệ»; trang này cấu hình SMTP, nhà cung cấp SMS, Telegram và WhatsApp. Khóa bí mật chỉ ghi không đọc, sau khi lưu có thể dùng «Gửi thử» để kiểm tra kết nối."
+    },
+    "envOnly": "Biến môi trường",
+    "notEnabled": "Chưa bật",
+    "pausedTag": "Tạm dừng",
+    "muted": "Kênh này đang tạm dừng gửi",
+    "mutedOn": "Đã tạm dừng {{channel}}",
+    "mutedOff": "Đã khôi phục {{channel}}",
+    "platformFallbackTag": "Kênh email nền tảng",
+    "platformFallbackNote": "Email được gửi bằng tài khoản SMTP trong “Cài đặt → Quản lý người dùng → Kênh email”; không cần nhập lại ở đây.",
+    "secretTag": "Khóa bí mật {{hint}}",
+    "secretTitle": "Thông tin xác thực (chỉ ghi không đọc)",
+    "secretTitleConfigured": "Thông tin xác thực (chỉ ghi không đọc, đã cấu hình {{hint}})",
+    "pageNote": "Lưu ý: giới hạn tần suất chính thức của DingTalk / WeCom / Telegram đều là 20 tin/phút, nền tảng đã tự động xếp hàng và gộp theo kênh; chữ ký và mẫu của SMS nội địa cần đăng ký duyệt trước ở bảng điều khiển nhà cung cấp, AWS SNS không có khu vực Trung Quốc đại lục và gửi đến số Trung Quốc cần đăng ký.",
+    "enableFirst": "Vui lòng mở rộng «{{channel}}» để điền và lưu cấu hình trước, rồi mới bật",
+    "enabled": "Đã bật {{channel}}",
+    "disabled": "Đã tắt {{channel}}",
+    "saved": "Đã lưu cấu hình {{channel}}",
+    "sendTest": "Gửi thử",
+    "testSmtp": "Hộp thư nhận thử",
+    "testChatId": "chat_id thử",
+    "testPhone": "Số nhận thử",
+    "testTarget": "Đích thử (không lưu vào hệ thống)",
+    "testOk": "Kiểm tra đạt",
+    "testFail": "Kiểm tra thất bại",
+    "testError": "{{detail}}: {{error}}",
+    "lastModified": "Sửa đổi lần cuối {{user}}"
+  },
+  "channelGroup": {
+    "chat": "Bot nhóm và IM",
+    "email": "Email",
+    "sms": "SMS"
+  },
+  "channelConfig": {
+    "helpTitle": "Cách cấu hình {{channel}}",
+    "muteLabel": "Tạm dừng gửi",
+    "muteHint": "Tạm dừng vẫn giữ cấu hình và khoá bí mật, nhưng kênh này không gửi bất kỳ cảnh báo nào (kênh email dự phòng của nền tảng cũng bị chặn). \"Gửi thử\" vẫn dùng được để kiểm tra thông tin xác thực.",
+    "smtp": {
+      "label": "Email (SMTP)",
+      "hint": "Nên dùng tài khoản gửi riêng + mã ủy quyền; sau khi lưu, «Gửi thử» sẽ kiểm tra kết nối trước rồi mới gửi thật một thư.",
+      "field": {
+        "host": "Máy chủ SMTP",
+        "port": "Cổng",
+        "secure": "SSL/TLS (465 thường bật)",
+        "user": "Tên đăng nhập",
+        "from": "Người gửi",
+        "fromPlaceholder": "Candela cảnh báo <alerts@example.com>",
+        "pass": "Mật khẩu / mã ủy quyền"
+      },
+      "help": "1. Chuẩn bị: dùng một hộp thư gửi riêng, bật SMTP trong bảng điều khiển nhà cung cấp và tạo **mật khẩu ứng dụng** — phần lớn nhà cung cấp không cho gửi bằng mật khẩu đăng nhập.\n2. Điền: host + cổng (465 bật SSL/TLS; 587 dùng STARTTLS). Địa chỉ người gửi phải trùng với tên đăng nhập SMTP, nếu không sẽ bị từ chối.\n3. Kiểm tra: \"Gửi thử\" kiểm tra kết nối rồi gửi thật một thư; khi lỗi sẽ hiện nguyên văn lỗi của nhà cung cấp (xác thực thất bại / người gửi không khớp / bị giới hạn tần suất). Cấu hình một lần dùng cho toàn nền tảng: lưu cùng tài khoản vào \"Cài đặt → Quản lý người dùng → Kênh email\", phần cảnh báo sẽ tự dự phòng sang đó."
+    },
+    "telegram": {
+      "label": "Telegram",
+      "hint": "Dùng @BotFather tạo bot để lấy Token; phía liên hệ chỉ điền chat_id. Trung Quốc đại lục cần proxy ra ngoài, có thể trỏ api_base đến dịch vụ Bot API tự dựng.",
+      "help": "1. Chuẩn bị: tìm @BotFather trong Telegram → gửi /newbot (tên người dùng phải kết thúc bằng \"bot\") → dán Token vào \"Bot Token\" bên dưới và lưu; sau đó **mở bot này trong Telegram của bạn và bấm START** — bot không thể tự bắt đầu trò chuyện, bỏ qua bước này bài kiểm tra sẽ báo chat not found.\n2. Điền: chat_id của liên hệ là ID dạng số mà @userinfobot trả về (chat riêng chính là ID người dùng của bạn); muốn gửi vào nhóm, thêm bot vào nhóm trước rồi tắt chế độ riêng tư bằng /setprivacy trong BotFather, nếu không bot sẽ không thấy tin nhắn nhóm.\n3. Kiểm tra: \"Gửi thử\" gửi thật một tin và hiện nguyên văn lỗi của Telegram khi thất bại (ví dụ chat not found); nếu máy chủ không kết nối được Telegram, đổi \"Địa chỉ API\" sang máy chủ Bot API tự dựng (để trống là api.telegram.org chính thức).",
+      "field": {
+        "apiBase": "Địa chỉ API (có thể để trống, mặc định là chính thức)",
+        "botToken": "Bot Token"
+      }
+    },
+    "whatsapp": {
+      "label": "WhatsApp (Cloud API)",
+      "hint": "Cần xác minh Meta Business + đăng ký số + duyệt mẫu; cảnh báo thuộc loại khởi tạo bởi doanh nghiệp, ngoài cửa sổ chỉ gửi được tin mẫu, mẫu cần có 1~4 biến (quy tắc/giá trị hiện tại/điều kiện/dự án).",
+      "field": {
+        "phoneNumberId": "Phone Number ID",
+        "templateName": "Tên mẫu",
+        "templateLang": "Ngôn ngữ mẫu",
+        "paramCount": "Số biến của mẫu (1~4)",
+        "apiVersion": "Phiên bản Graph API",
+        "accessToken": "System User Token"
+      },
+      "help": "1. Chuẩn bị: tài khoản Meta Business đã xác minh và một số WhatsApp Business đã đăng ký; lấy Phone Number ID trong bảng điều khiển Meta.\n2. Điền: Phone Number ID, tên mẫu, ngôn ngữ mẫu (ví dụ zh_CN) và số tham số (1–4). Cảnh báo thuộc loại do doanh nghiệp khởi tạo: chỉ gửi văn bản tự do trong 24 giờ kể từ tin nhắn cuối của người nhận, ngoài ra phải dùng mẫu đã duyệt.\n3. Kiểm tra: số liên hệ theo E.164 (không có \"+\"); \"Gửi thử\" gửi một tin kèm tham số mẫu và khi lỗi hiện mã lỗi gốc của Meta (mẫu chưa duyệt / sai số tham số / số chưa có trong danh sách thử)."
+    },
+    "smsAliyun": {
+      "label": "SMS Alibaba Cloud",
+      "hint": "Chữ ký và mẫu phải được đăng ký duyệt trước ở bảng điều khiển Alibaba Cloud; trong mẫu cần một biến nhận nội dung tóm tắt (ví dụ ${content}).",
+      "field": {
+        "signName": "Tên chữ ký",
+        "templateCode": "Mã mẫu (Template Code)",
+        "endpoint": "Điểm truy cập (có thể để trống)",
+        "accessKeyId": "AccessKey ID",
+        "accessKeySecret": "AccessKey Secret"
+      },
+      "help": "1. Chuẩn bị: kích hoạt Aliyun SMS và **xin duyệt cả chữ ký lẫn mẫu**; nên tạo AccessKey trong RAM chỉ có quyền SMS.\n2. Điền: AccessKey ID / Secret, tên chữ ký, CODE mẫu (dạng SMS_xxxxxxx) và khu vực. Nội dung bị ràng buộc bởi mẫu; nền tảng chỉ gửi một dòng tóm tắt.\n3. Kiểm tra: số nhận theo E.164 (ví dụ 8613800138000); khi lỗi sẽ hiện mã lỗi gốc của Aliyun (chữ ký chưa duyệt / tham số sai / hết số dư) — tra trong tài liệu Aliyun."
+    },
+    "smsTencent": {
+      "label": "SMS Tencent Cloud",
+      "hint": "Cần ứng dụng trên bảng điều khiển (SmsSdkAppId) + chữ ký và mẫu đã được duyệt; trong mẫu cần một biến nhận nội dung tóm tắt.",
+      "field": {
+        "sdkAppId": "SmsSdkAppId",
+        "signName": "Tên chữ ký",
+        "templateId": "ID mẫu",
+        "region": "Khu vực",
+        "secretId": "SecretId",
+        "secretKey": "SecretKey"
+      },
+      "help": "1. Chuẩn bị: kích hoạt Tencent Cloud SMS, tạo **chữ ký** và **mẫu nội dung** rồi chờ duyệt; nên dùng khoá tài khoản phụ với quyền tối thiểu.\n2. Điền: SDK AppID, SecretId / SecretKey, nội dung chữ ký, ID mẫu và khu vực (ví dụ ap-guangzhou). Nền tảng chỉ gửi một dòng tóm tắt.\n3. Kiểm tra: khi lỗi sẽ hiện mã lỗi gốc của Tencent (chữ ký hoặc mẫu chưa duyệt / sai số tham số / hết số dư)."
+    },
+    "smsAws": {
+      "label": "AWS SNS",
+      "hint": "SMS của SNS không có khu vực cn-* (không gửi được ở Trung Quốc đại lục); gửi đến số Trung Quốc cần đăng ký với AWS Support trước; mặc định sandbox chỉ gửi được đến số đã xác minh.",
+      "field": {
+        "region": "Region",
+        "accessKeyId": "AccessKey ID",
+        "secretAccessKey": "Secret Access Key"
+      },
+      "help": "1. Chuẩn bị: bật SNS trong tài khoản AWS. SNS **mặc định ở chế độ sandbox**: thêm số nhận vào danh sách cho phép hoặc xin quyền production. Lưu ý SNS không có khu vực cn-* — gửi tới số Trung Quốc cần yêu cầu riêng.\n2. Điền: AccessKey / Secret, khu vực (ví dụ ap-southeast-1) và Sender ID (một số khu vực bắt buộc).\n3. Kiểm tra: khi lỗi sẽ hiện lỗi gốc của SNS (sandbox chưa mở / khu vực không hỗ trợ / thiếu quyền / số chưa xác minh)."
+    },
+    "smsTwilio": {
+      "label": "Twilio",
+      "hint": "Kênh hải ngoại/dự phòng, không giới hạn khu vực; số From cần xác minh hoặc mua ở phía Twilio.",
+      "field": {
+        "fromNumber": "Số From (E.164)",
+        "accountSid": "Account SID",
+        "authToken": "Auth Token"
+      },
+      "help": "1. Chuẩn bị: mua hoặc xin một số gửi (Sender) trong tài khoản Twilio; tài khoản dùng thử chỉ gửi được tới số đã xác minh.\n2. Điền: Account SID, Auth Token và số From (E.164 có \"+\").\n3. Kiểm tra: khi lỗi sẽ hiện mã lỗi Twilio kèm mô tả (số không hỗ trợ điểm đến / người nhận chưa xác minh / hết số dư)."
+    }
+  },
+  "template": {
+    "kindFire": "Cảnh báo kích hoạt",
+    "kindResolve": "Cảnh báo khôi phục",
+    "channelChat": "Trò chuyện nhóm / Webhook",
+    "saved": "Đã lưu mẫu",
+    "reset": "Đã khôi phục mẫu mặc định",
+    "hint": {
+      "title": "Nội dung thông báo do mẫu quyết định",
+      "lead": "Mẫu được cấu hình theo «loại sự kiện × nhóm kênh» (chat bao gồm bot nhóm/IM/Webhook/WhatsApp), áp dụng cho toàn bộ quy tắc của dự án này. Chỗ giữ chỗ viết trong hai dấu ngoặc nhọn, khi gửi sẽ được thay bằng giá trị thực tế; hỗ trợ",
+      "tail": "điều kiện. SMS sau khi hiển thị sẽ nén khoảng trắng và cắt ở 40 ký tự."
+    },
+    "isDefault": "Mẫu mặc định",
+    "customized": "Đã tùy chỉnh · {{user}}",
+    "subject": "Tiêu đề email",
+    "body": "Nội dung thông báo",
+    "variables": "Chỗ giữ chỗ (nhấp để chèn vào vị trí con trỏ)",
+    "varTooltip": "{{label}} (ví dụ: {{sample}})",
+    "refreshPreview": "Làm mới xem trước",
+    "preview": "Xem trước",
+    "sampleHint": "Dữ liệu mẫu · sẽ không gửi",
+    "previewFailed": "Xem trước thất bại",
+    "previewSubject": "Tiêu đề",
+    "smsNote": "Khi gửi thực tế sẽ nén khoảng trắng và cắt còn 40 ký tự, hiện có tổng {{count}} ký tự.",
+    "rendering": "Đang hiển thị…",
+    "previewEmpty": "Sau khi chỉnh nội dung bên trái, phần xem trước ở đây sẽ tự động làm mới."
+  },
+  "mute": {
+    "scope": "Phạm vi",
+    "allRules": "Toàn bộ quy tắc",
+    "duration": "Thời lượng nhanh",
+    "pickDuration": "Chọn thời lượng",
+    "orRange": "Hoặc khoảng thời gian",
+    "reason": "Lý do",
+    "reasonPlaceholder": "Tùy chọn",
+    "add": "Thêm tắt thông báo",
+    "added": "Đã thêm tắt thông báo",
+    "needDuration": "Vui lòng chọn thời lượng nhanh hoặc khoảng thời gian tùy chỉnh",
+    "presetHours": "{{count}} giờ",
+    "presetDays": "{{count}} ngày",
+    "muted": "Đã tắt thông báo {{duration}}",
+    "start": "Bắt đầu",
+    "end": "Kết thúc",
+    "release": "Bỏ tắt"
+  },
+  "retention": {
+    "title": "Chính sách lưu trữ dữ liệu",
+    "hint": "Ba phạm vi có thể đặt riêng; để trống nghĩa là **lưu vĩnh viễn**. Việc dọn dẹp chạy theo ngày (kiểm tra mỗi 6 giờ), thao tác xóa sẽ được ghi vào bản ghi thay đổi. Xóa «Lịch sử cảnh báo» cũng sẽ xóa luôn bản ghi thông báo tương ứng.",
+    "scope": "Phạm vi",
+    "days": "Số ngày lưu",
+    "keepForever": "Để trống = vĩnh viễn",
+    "current": "Hiện tại",
+    "forever": "Lưu vĩnh viễn",
+    "daysValue": "{{days}} ngày",
+    "saved": "Đã lưu chính sách lưu trữ",
+    "scopeLabel": {
+      "events": "Lịch sử cảnh báo",
+      "notifications": "Bản ghi thông báo",
+      "audits": "Bản ghi thay đổi"
+    }
+  },
+  "audit": {
+    "hint": "Mọi thay đổi về quy tắc, liên hệ và tắt thông báo đều được lưu vết (chỉ quản trị viên nền tảng xem được); địa chỉ liên hệ chỉ ghi giá trị đã che.",
+    "empty": "Chưa có bản ghi thay đổi",
+    "column": {
+      "time": "Thời gian",
+      "operator": "Người thực hiện",
+      "action": "Hành động",
+      "target": "Đối tượng",
+      "detail": "Nội dung thay đổi"
+    },
+    "change": "{{field}}: {{from}} → {{to}}",
+    "fieldEntry": "{{field}}={{value}}",
+    "noChange": "(không thay đổi)",
+    "valueOn": "Bật",
+    "valueOff": "Tắt",
+    "field": {
+      "code": "Mã quy tắc",
+      "comparator": "Toán tử so sánh",
+      "windowMinutes": "Độ chi tiết (phút)",
+      "windowDays": "Cửa sổ (ngày)",
+      "forWindows": "Cửa sổ bất thường",
+      "repeatMinutes": "Khoảng lặp (phút)",
+      "notifyOnResolve": "Thông báo khôi phục",
+      "metricName": "Tên chỉ số",
+      "bodyLength": "Độ dài mẫu",
+      "deleted": "Số bản ghi đã xóa",
+      "wasDefault": "Vốn là mặc định",
+      "enabledContacts": "Liên hệ đang bật"
+    },
+    "action": {
+      "ruleUpdate": "Sửa quy tắc",
+      "ruleCreate": "Tạo quy tắc",
+      "ruleDelete": "Xóa quy tắc",
+      "contactCreate": "Tạo liên hệ",
+      "contactDelete": "Xóa liên hệ",
+      "contactDefault": "Đặt làm liên hệ mặc định (lịch sử)",
+      "muteCreate": "Tạo tắt thông báo",
+      "muteDelete": "Bỏ tắt thông báo",
+      "contactUpdate": "Sửa liên hệ",
+      "retentionUpdate": "Sửa chính sách lưu trữ",
+      "retentionCleanup": "Dọn theo chính sách lưu trữ",
+      "templateUpdate": "Sửa mẫu thông báo",
+      "templateReset": "Khôi phục mẫu mặc định"
+    }
+  },
+  "field": {
+    "enabled": "Bật",
+    "enabledAria": "Bật {{name}}",
+    "switchOn": "Bật",
+    "switchOff": "Tắt",
+    "booleanOn": "Bật",
+    "booleanOff": "Tắt",
+    "unit": "Đơn vị",
+    "unitPlaceholder": "ví dụ: lần / người",
+    "keepBlank": "Để trống nghĩa là không thay đổi",
+    "keepCurrent": "Để trống không thay đổi (hiện tại {{value}})",
+    "keepSavedValue": "Để trống nghĩa là không thay đổi giá trị đã lưu",
+    "keepSavedAddress": "Để trống nghĩa là không thay đổi địa chỉ đã lưu",
+    "keepSavedSecret": "Để trống nghĩa là không thay đổi khóa bí mật đã lưu"
+  },
+  "metric": {
+    "label": "Chỉ số",
+    "project": "Dự án",
+    "select": "Chọn chỉ số",
+    "noneInProject": "Dự án này chưa có chỉ số, vui lòng vào «Quản lý dữ liệu → Chỉ số» để tạo trước",
+    "option": "{{name}} ({{kind}})",
+    "optionDisabled": "{{name}} ({{kind}} · {{reason}})",
+    "unavailable": "Không khả dụng"
+  },
+  "validate": {
+    "required": "Vui lòng điền {{field}}",
+    "select": "Vui lòng chọn {{field}}"
+  },
+  "separator": {
+    "list": ", ",
+    "pair": "; ",
+    "entry": ", ",
+    "slash": " / "
+  },
+  "window": {
+    "last2Days": "2 ngày qua"
+  },
+  "templateVar": {
+    "ruleName": "Tên quy tắc",
+    "ruleCode": "Mã quy tắc",
+    "level": "Mức độ (tiếng Anh)",
+    "levelFmt": "Mức độ (đã dịch)",
+    "status": "Trạng thái (đã dịch)",
+    "statusCode": "Mã trạng thái (fire/repeat/resolve)",
+    "value": "Giá trị hiện tại (kèm đơn vị)",
+    "valueRaw": "Giá trị hiện tại (số gốc)",
+    "unit": "Đơn vị",
+    "comparator": "Toán tử so sánh (tiếng Anh)",
+    "comparatorFmt": "Toán tử so sánh (đã dịch)",
+    "threshold": "Ngưỡng (kèm đơn vị)",
+    "metricName": "Tên chỉ số",
+    "metricKind": "Loại chỉ số",
+    "windowDays": "Số ngày của cửa sổ",
+    "windowFmt": "Cửa sổ (đã dịch)",
+    "project": "Tên dự án",
+    "time": "Thời gian kích hoạt/khôi phục",
+    "detectInterval": "Chu kỳ phát hiện",
+    "contactName": "Liên hệ"
+  },
+  "ruleHealth": {
+    "ok": "Bình thường",
+    "metricMissing": "Chỉ số đã bị xóa",
+    "evalFailed": "Tính giá trị thất bại",
+    "noContact": "Không có liên hệ",
+    "detailNoMetric": "Quy tắc chưa gắn chỉ số",
+    "detailMetricDeleted": "Chỉ số {{metricId}} đã bị xóa",
+    "detailEvalFailed": "Tính giá trị thất bại liên tiếp {{times}} vòng: {{message}}",
+    "detailNoContact": "Không có liên hệ: quy tắc chưa gắn liên hệ và hệ thống không có liên hệ nào đang bật"
+  },
+  "unit": {
+    "times": "lần",
+    "rows": "bản ghi",
+    "pieces": "mục",
+    "percent": "%"
+  },
+  "error": {
+    "rule": {
+      "notFound": "Quy tắc không tồn tại: {{code}}",
+      "noFields": "Không có trường nào cần cập nhật",
+      "builtinNotDeletable": "Quy tắc có sẵn không thể xóa",
+      "metricMissing": "Chỉ số không tồn tại (vui lòng tạo trước trong «Quản lý dữ liệu → Chỉ số»)",
+      "metricLimit": "Cảnh báo chỉ số tối đa {{max}} quy tắc"
+    },
+    "contact": {
+      "idInvalid": "contact_id không hợp lệ",
+      "notFound": "Liên hệ không tồn tại",
+      "localeInvalid": "Ngôn ngữ không được hỗ trợ: {{locale}}",
+      "timezoneInvalid": "Múi giờ không hợp lệ (phải là tên IANA, ví dụ Asia/Shanghai)"
+    },
+    "channel": {
+      "unsupported": "Loại kênh không được hỗ trợ: {{kind}}",
+      "unavailable": "Kênh {{channel}} hiện không khả dụng",
+      "unknown": "Kênh không xác định: {{channel}}"
+    },
+    "channelConfig": {
+      "unsupported": "Cấu hình kênh không được hỗ trợ: {{channel}}",
+      "masterKeyMissing": "Thiếu khóa chính: vui lòng đặt biến môi trường {{env}} (base64 32 byte) để mã hóa và lưu thông tin xác thực của kênh"
+    },
+    "template": {
+      "syntaxError": "Lỗi cú pháp mẫu: {{error}}",
+      "subjectSyntaxError": "Lỗi cú pháp tiêu đề email: {{error}}",
+      "kindInvalid": "Loại sự kiện không hợp lệ (fire / resolve)",
+      "channelInvalid": "Kênh không hợp lệ (chat / email / sms)"
+    },
+    "mute": {
+      "notFound": "Mục tắt thông báo không tồn tại",
+      "windowInvalid": "Thời gian tắt thông báo không hợp lệ"
+    },
+    "retention": {
+      "scopeInvalid": "Phạm vi lưu trữ không được hỗ trợ: {{scope}}",
+      "daysInvalid": "Số ngày lưu phải là số nguyên 1~{{max}}, để trống nghĩa là lưu vĩnh viễn"
+    },
+    "metric": {
+      "notFound": "Chỉ số không tồn tại"
+    },
+    "validate": {
+      "failed": "Kiểm tra không đạt",
+      "required": "Vui lòng điền «{{field}}»",
+      "number": "«{{field}}» phải là số",
+      "portRange": "Phạm vi cổng phải là 1~65535",
+      "paramCount": "Số biến của mẫu phải là 1~4",
+      "apiBaseHttp": "Địa chỉ API phải bắt đầu bằng http(s)://",
+      "fromFormat": "Định dạng người gửi không đúng (có thể viết name <mail@example.com>)",
+      "webhookRequired": "Vui lòng điền địa chỉ Webhook",
+      "webhookHttps": "Địa chỉ Webhook phải bắt đầu bằng https://",
+      "webhookHttp": "Địa chỉ Webhook phải bắt đầu bằng http(s)://",
+      "feishuWebhook": "Có vẻ không phải webhook bot Feishu (phải có dạng https://open.feishu.cn/open-apis/bot/v2/hook/…)",
+      "dingtalkWebhook": "Có vẻ không phải webhook bot DingTalk (phải có dạng https://oapi.dingtalk.com/robot/send?access_token=…)",
+      "dingtalkSecret": "Khóa ký quá ngắn (SEC… do bảng điều khiển DingTalk tạo)",
+      "wecomWebhook": "Có vẻ không phải webhook bot nhóm WeCom (phải có dạng https://qyapi.weixin.qq.com/cgi-bin/webhook/send?key=…)",
+      "telegramChatIdRequired": "Vui lòng điền chat_id (ID hội thoại nhóm hoặc riêng, có thể lấy qua @userinfobot)",
+      "telegramChatIdFormat": "chat_id phải là số (ID nhóm bắt đầu bằng -100)",
+      "emailRequired": "Vui lòng điền hộp thư nhận",
+      "emailFormat": "Định dạng hộp thư không đúng",
+      "smsRequired": "Vui lòng điền số điện thoại nhận",
+      "smsFormat": "Định dạng số điện thoại không đúng (nên kèm mã quốc gia, ví dụ +8613800138000)",
+      "smsProvider": "Nhà cung cấp SMS không hợp lệ (có thể chọn: {{allowed}})",
+      "whatsappRequired": "Vui lòng điền số nhận (E.164, ví dụ 8613800138000)",
+      "whatsappFormat": "Số chữ số không đúng (E.164 không có dấu +, 8~15 chữ số)",
+      "headersJson": "Header tùy chỉnh phải là JSON hợp lệ (ví dụ {\"Authorization\":\"Bearer xxx\"})",
+      "bodyTemplate": "Lỗi cú pháp mẫu body: {{error}}"
+    },
+    "ops": {
+      "forbidden": "Chỉ quản trị viên nền tảng mới truy cập được bảng vận hành"
+    }
+  }
+}

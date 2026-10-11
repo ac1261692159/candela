@@ -1,0 +1,1116 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model MetaEvent {
+  event_key           String
+  project_name        String
+  display_name        String?
+  description         String?   @db.Text
+  owner               String?
+  remark              String?   @db.Text
+  status              String    @default("pending") // pending / visible / hidden
+  event_type          String    @default("report") // report / virtual / preset
+  is_preset           Boolean   @default(false)
+  first_seen_at       DateTime  @default(now())
+  yesterday_count     Int       @default(0)
+  recent_7d_count     Int       @default(0)
+  availability_status String    @default("no_data") // available / no_data / hidden / deprecated
+  data_status         String    @default("normal") // normal / no_recent_data / abnormal
+  connection_status   String    @default("auto") // auto / virtual_from / preset
+  is_deleted          Boolean   @default(false)
+  deleted_at          DateTime?
+  created_at          DateTime  @default(now())
+  updated_at          DateTime  @updatedAt
+
+  properties MetaEventProperty[]
+
+  @@id([event_key, project_name])
+  @@index([project_name, status])
+  @@index([project_name, event_type])
+  @@index([project_name, availability_status])
+}
+
+model MetaEventProperty {
+  id                  String   @id @default(uuid())
+  event_key           String
+  project_name        String
+  prop_key            String
+  display_name        String?
+  data_type           String   @default("string") // string / number / boolean / datetime / list / object / object_group
+  is_materialized     Boolean  @default(false)
+  materialized_column String?
+  sample_value        String?  @db.Text
+  status              String   @default("pending") // pending / visible / hidden
+  created_at          DateTime @default(now())
+  updated_at          DateTime @updatedAt
+
+  event MetaEvent @relation(fields: [event_key, project_name], references: [event_key, project_name])
+
+  @@unique([event_key, project_name, prop_key])
+  @@index([project_name])
+}
+
+model MetaEventAttribute {
+  id           String   @id @default(uuid())
+  project_name String
+  prop_key     String
+  display_name String?
+  data_type    String   @default("string") // string / number / boolean / datetime / list / object / object_group
+  remark       String?  @db.Text
+  status       String   @default("pending") // pending / visible / hidden
+  event_count  Int      @default(0)
+  created_at   DateTime @default(now())
+  updated_at   DateTime @updatedAt
+
+  @@unique([project_name, prop_key])
+  @@index([project_name, data_type])
+  @@index([project_name, status])
+}
+
+model MetaDiscoveryLog {
+  id           String   @id @default(uuid())
+  project_name String
+  event_key    String // 事件名；属性级变化时记录所属事件
+  prop_key     String? // 属性名（事件级变化时为 null）
+  change_type  String // event_created / property_created / property_type_changed
+  from_value   String?
+  to_value     String?
+  created_at   DateTime @default(now())
+
+  @@index([project_name, created_at])
+  @@index([project_name, event_key])
+}
+
+model MetaUserProperty {
+  id                  String   @id @default(uuid())
+  project_name        String
+  prop_key            String
+  display_name        String?
+  data_type           String   @default("String")
+  is_materialized     Boolean  @default(false)
+  materialized_column String?
+  status              String   @default("pending")
+  created_at          DateTime @default(now())
+  updated_at          DateTime @updatedAt
+
+  @@unique([project_name, prop_key])
+  @@index([project_name])
+}
+
+model MetaVirtualEvent {
+  ve_id           String   @id
+  project_name    String
+  display_name    String
+  definition_json String   @db.Text
+  status          String   @default("visible")
+  created_at      DateTime @default(now())
+  updated_at      DateTime @updatedAt
+
+  @@index([project_name])
+}
+
+model MetaVirtualProperty {
+  id             String   @id @default(uuid())
+  project_name   String
+  prop_key       String
+  display_name   String?
+  data_type      String   @default("string") // string / number / boolean / datetime
+  expression     String   @db.Text
+  event_key      String? // NULL 表示全局
+  description    String?  @db.Text
+  status         String   @default("active") // active / invalid / hidden
+  invalid_reason String?
+  created_at     DateTime @default(now())
+  updated_at     DateTime @updatedAt
+
+  @@unique([project_name, prop_key])
+  @@index([project_name, event_key])
+}
+
+model MetaSavedMetric {
+  metric_id       String   @id
+  project_name    String
+  owner           String
+  name            String
+  display_name    String
+  remark          String?  @db.Text
+  kind            String
+  definition_json String   @db.Text
+  format          String   @default("number")
+  created_at      DateTime @default(now())
+  updated_at      DateTime @updatedAt
+
+  @@unique([project_name, name])
+  @@index([project_name, kind])
+}
+
+model MetaUserCohort {
+  cohort_id        String    @id
+  project_name     String
+  owner            String
+  name             String
+  display_name     String
+  remark           String?   @db.Text
+  kind             String
+  definition_json  String    @db.Text
+  schedule         String    @default("manual")
+  status           String    @default("pending")
+  member_count     Int       @default(0)
+  batch_id         String    @default("")
+  last_computed_at DateTime?
+  compute_error    String?   @db.Text
+  subject_id       String    @default("")
+  locked           Boolean   @default(false)
+  created_at       DateTime  @default(now())
+  updated_at       DateTime  @updatedAt
+
+  @@unique([project_name, name])
+  @@index([project_name, status])
+  @@index([project_name, subject_id])
+}
+
+model MetaUserTag {
+  tag_id           String    @id
+  project_name     String
+  owner            String
+  name             String
+  display_name     String
+  remark           String?   @db.Text
+  kind             String    @default("condition")
+  definition_json  String    @db.Text
+  schedule         String    @default("manual")
+  status           String    @default("pending")
+  member_count     Int       @default(0)
+  batch_id         String    @default("")
+  last_computed_at DateTime?
+  compute_error    String?   @db.Text
+  subject_id       String    @default("")
+  locked           Boolean   @default(false)
+  created_at       DateTime  @default(now())
+  updated_at       DateTime  @updatedAt
+
+  @@unique([project_name, name])
+  @@index([project_name, status])
+  @@index([project_name, subject_id])
+}
+
+model MetaAnalysisSubject {
+  subject_id   String   @id
+  project_name String
+  name         String
+  display_name String
+  kind         String
+  source_json  String?  @db.Text
+  sort_order   Int      @default(0)
+  is_preset    Boolean  @default(false)
+  created_at   DateTime @default(now())
+  updated_at   DateTime @updatedAt
+
+  @@unique([project_name, name])
+  @@index([project_name])
+}
+
+model MetaPropertyDict {
+  id           String   @id @default(uuid())
+  project_name String
+  prop_key     String
+  dict_json    String   @db.Text
+  created_at   DateTime @default(now())
+  updated_at   DateTime @updatedAt
+
+  @@unique([project_name, prop_key])
+}
+
+model MetaFunnelTemplate {
+  id              String   @id @default(uuid())
+  project_name    String
+  name            String
+  definition_json String   @db.Text
+  owner           String?
+  created_at      DateTime @default(now())
+  updated_at      DateTime @updatedAt
+
+  @@index([project_name])
+}
+
+model SaDashboardFolder {
+  folder_id    String      @id
+  project_name String
+  name         String
+  parent_id    String      @default("")
+  locked       Boolean     @default(false)
+  sort_order   Int         @default(0)
+  created_at   DateTime    @default(now())
+  updated_at   DateTime    @updatedAt
+  dashboards   Dashboard[]
+
+  @@unique([project_name, parent_id, name])
+  @@index([project_name, parent_id])
+}
+
+model Dashboard {
+  db_id                String   @id
+  project_name         String
+  name                 String
+  description          String?  @db.VarChar(500)
+  layout_json          String?  @db.Text
+  owner                String
+  share_token          String?  @unique
+  refresh_interval_sec Int      @default(0) // 0=off; 30/60/300/900
+  cache_ttl_sec        Int      @default(300) // 30/60/300/900/3600
+  grid_columns         Int      @default(24) // 12/16/24 Grafana cols
+  show_card_type       Boolean  @default(false) // 看板格子是否显示「事件分析」等类型标签
+  cohort_filter_json   String?  @db.Text // { cohort_id, op: in|not_in } 看板级分群筛
+  folder_id            String?
+  locked               Boolean  @default(false)
+  visibility           String   @default("project") // project | restricted
+  created_at           DateTime @default(now())
+  updated_at           DateTime @updatedAt
+
+  dashboard_cards DashboardCard[]
+  folder          SaDashboardFolder? @relation(fields: [folder_id], references: [folder_id], onDelete: SetNull)
+
+  @@index([project_name])
+  @@index([folder_id])
+}
+
+// ===== 全局分析卡片（一等资产，不归属看板）=====
+// 事件/漏斗/留存/自定义SQL 分析均可保存为卡片；看板通过 DashboardCard 引用卡片。
+model Card {
+  card_id        String   @id
+  project_name   String // 项目隔离
+  owner          String // 创建人 user id（RBAC）
+  name           String // 卡片名称（项目内唯一，service 层校验）
+  description    String?  @db.VarChar(200) // 卡片描述（可空，≤200 字）
+  type           String // event / funnel / retention / sql / text
+  dsl_json       String   @db.Text // 查询定义（sql 类型存 {sql_text}；text 存正文与颜色）
+  chart_type     String   @default("line")
+  refresh_policy String   @default("auto")
+  locked         Boolean  @default(false)
+  created_at     DateTime @default(now())
+  updated_at     DateTime @updatedAt
+
+  dashboard_cards DashboardCard[]
+  cache           CardCache?
+
+  @@index([project_name, type])
+  @@index([owner])
+}
+
+// ===== 看板-卡片关联（布局信息在此）=====
+// 同一卡片可被多个看板引用；从看板移除仅删关联，不删卡片。
+model DashboardCard {
+  id           String   @id @default(uuid())
+  db_id        String
+  card_id      String
+  position_x   Int      @default(0)
+  position_y   Int      @default(0)
+  width        Int      @default(6)
+  height       Int      @default(4)
+  display_json String?  @db.Text
+  created_at   DateTime @default(now())
+
+  dashboard Dashboard @relation(fields: [db_id], references: [db_id], onDelete: Cascade)
+  card      Card      @relation(fields: [card_id], references: [card_id], onDelete: Cascade)
+
+  @@unique([db_id, card_id])
+  @@index([card_id])
+}
+
+// 卡片查询结果缓存（与看板无关；一张卡可被多块看板引用）
+model CardCache {
+  card_id      String   @id
+  result_json  String?  @db.LongText
+  error        String?  @db.Text
+  row_count    Int      @default(0)
+  refreshed_at DateTime
+  card         Card     @relation(fields: [card_id], references: [card_id], onDelete: Cascade)
+
+  @@map("cardcache")
+}
+
+// （SqlReport 已弃用 2026-09-01：自定义SQL报表统一为 type='sql' 的全局卡片，
+//  历史数据在 migration 20260901xxxx_redesign_card_dashboard 中迁入 card 表）
+
+// ===== 用户 / 权限（RBAC P1）=====
+
+model SaUser {
+  id                   String    @id @default(uuid())
+  username             String    @unique
+  password_hash        String
+  display_name         String?
+  // 邮箱（可空唯一，phase: clklog-analytics-account-lifecycle-v1）；写入前统一 trim().toLowerCase()
+  email                String?   @unique @db.VarChar(191)
+  platform_role        String    @default("none") // super_admin | none
+  status               String    @default("active") // active / disabled
+  default_project      String? // 个人默认项目（登录后自动应用）
+  locale               String?   @db.VarChar(16) // 界面语言偏好（BCP-47，如 zh-CN / en-US；null = 跟随浏览器）
+  timezone             String?   @db.VarChar(64) // 显示时区偏好（IANA，如 America/New_York；null = 跟随项目/平台）
+  // 创建人 username；脚本/迁移创建的记 system（account-lifecycle-v1）
+  created_by           String?   @db.VarChar(64)
+  // 管理员代设密码后置 true，本人改密成功置 false（强制首登改密）
+  must_change_password Boolean   @default(false)
+  // 登录锁定（内部字段，不进 API）：连续密码错误计数 + 锁定截止
+  failed_login_count   Int       @default(0)
+  locked_until         DateTime?
+  last_login_at        DateTime?
+  created_at           DateTime  @default(now())
+  updated_at           DateTime  @updatedAt
+
+  tokens               SaUserToken[]
+  auth_tokens          SaAuthToken[]
+  ai_workspaces        AiWorkspace[]
+  ai_template_versions AiWorkspaceTemplateVersion[] @relation("AiTemplatePublisher")
+  ai_sync_jobs         AiWorkspaceSyncJob[]         @relation("AiSyncRequester")
+  memberships          SaProjectMember[]
+  group_users          SaMemberGroupUser[]
+}
+
+model SaProject {
+  name         String   @id @db.VarChar(64)
+  display_name String
+  timezone     String?  @db.VarChar(64) // 项目统计口径时区（IANA；null = 平台时区，phase: clklog-analytics-timezone-v2）
+  // Debug 查询留档开关（phase: clklog-analytics-debug-query-v1）：默认开；关闭只影响新查询是否落档
+  debug_archive_enabled Boolean @default(true)
+  created_at   DateTime @default(now())
+  updated_at   DateTime @updatedAt
+}
+
+model SaProjectMember {
+  id             String        @id @default(uuid())
+  project_name   String
+  user_id        String
+  role_key       String
+  data_policy_id String?
+  // 成员有效期（phase: clklog-analytics-account-lifecycle-v3）：null = 永久；
+  // 到期行在权限解析点一律过滤（直接角色失效），列表端保留展示可续约
+  expires_at     DateTime?
+  created_at     DateTime      @default(now())
+  updated_at     DateTime      @updatedAt
+  user           SaUser        @relation(fields: [user_id], references: [id])
+  data_policy    SaDataPolicy? @relation(fields: [data_policy_id], references: [id])
+
+  @@unique([project_name, user_id])
+  @@index([project_name, role_key])
+}
+
+model SaMemberGroup {
+  id             String              @id @default(uuid())
+  project_name   String
+  name           String
+  role_key       String
+  data_policy_id String?
+  created_at     DateTime            @default(now())
+  updated_at     DateTime            @updatedAt
+  users          SaMemberGroupUser[]
+  data_policy    SaDataPolicy?       @relation(fields: [data_policy_id], references: [id])
+
+  @@unique([project_name, name])
+}
+
+model SaMemberGroupUser {
+  group_id String
+  user_id  String
+  group    SaMemberGroup @relation(fields: [group_id], references: [id], onDelete: Cascade)
+  user     SaUser        @relation(fields: [user_id], references: [id])
+
+  @@id([group_id, user_id])
+}
+
+model SaRoleGrant {
+  id           String   @id @default(uuid())
+  project_name String
+  role_key     String
+  grants_json  String   @db.Text
+  updated_by   String
+  updated_at   DateTime @updatedAt
+
+  @@unique([project_name, role_key])
+}
+
+model SaDataPolicy {
+  id              String            @id @default(uuid())
+  project_name    String
+  name            String
+  definition_json String            @db.Text
+  created_at      DateTime          @default(now())
+  updated_at      DateTime          @updatedAt
+  members         SaProjectMember[]
+  groups          SaMemberGroup[]
+
+  @@unique([project_name, name])
+}
+
+model SaAssetAcl {
+  id           String   @id @default(uuid())
+  project_name String   @db.VarChar(64)
+  asset_type   String   @db.VarChar(32)
+  asset_id     String   @db.VarChar(64)
+  subject_type String   @db.VarChar(16)
+  subject_id   String   @db.VarChar(64)
+  perm         String   @db.VarChar(16)
+  created_at   DateTime @default(now())
+
+  @@unique([asset_type, asset_id, subject_type, subject_id, perm])
+  @@index([project_name, asset_type, asset_id])
+}
+
+model SaUserToken {
+  id         String    @id @default(uuid())
+  user_id    String
+  token      String    @unique
+  expires_at DateTime?
+  created_at DateTime  @default(now())
+
+  user SaUser @relation(fields: [user_id], references: [id])
+
+  @@index([user_id])
+}
+
+// ===== 账号生命周期 v2：一次性令牌 + 项目邀请（phase: clklog-analytics-account-lifecycle-v2）=====
+
+// 一次性令牌（密码重置 / 建号设密）：仅存 sha256(明文 token)，消费即标记 used_at。
+// 同类新令牌签发时作废旧令牌（见 design-account-lifecycle-v2 §2）。
+model SaAuthToken {
+  id         String    @id @default(uuid())
+  user_id    String?
+  email      String? // 未注册目标邮箱（邀请预留）
+  purpose    String // password_reset | account_setup
+  token_hash String    @unique
+  expires_at DateTime
+  used_at    DateTime?
+  created_at DateTime  @default(now())
+
+  user SaUser? @relation(fields: [user_id], references: [id], onDelete: Cascade)
+
+  @@index([email, purpose, created_at])
+  @@index([purpose, created_at])
+}
+
+// 项目邀请（未注册邮箱）：受邀人点开链接注册落地即入会
+model SaInvitation {
+  id           String    @id @default(uuid())
+  project_name String
+  email        String // 小写规整
+  role_key     String // analyst | member | external（owner 禁放，与 addMember 同约束）
+  token_hash   String    @unique
+  invited_by   String // 操作者 username
+  expires_at   DateTime // 邀请链接有效期（7 天）
+  // 入会后成员有效期（account-lifecycle-v3，可选；接受/注册时写入 SaProjectMember.expires_at）
+  member_expires_at DateTime?
+  accepted_at  DateTime?
+  created_at   DateTime  @default(now())
+
+  @@index([project_name, email])
+}
+
+// 账号域 SMTP 网页配置（phase: clklog-analytics-account-lifecycle-v2 增补 v1.1）。
+// 单行（id='singleton'）；密码只存 AES-256-GCM 密文，明文永不落库、永不回显（与告警通道同体系）。
+model SaAuthMailConfig {
+  id            String   @id @default("singleton")
+  enabled       Boolean  @default(false)
+  host          String   @default("")
+  port          Int      @default(465)
+  secure        Boolean  @default(true)
+  user          String   @default("")
+  mail_from     String   @default("")
+  secret_cipher String?  @db.Text
+  updated_by    String   @default("")
+  updated_at    DateTime @updatedAt
+}
+
+// ===== 外部 AI 只读查询 API Key =====
+// 供外部 AI / 自动化工具通过 /sa/api/ai/query 只读查询 ClickHouse。
+// 与用户登录 token 隔离：独立 key、独立过期、独立撤销、独立审计。
+model SaApiKey {
+  id           String    @id @default(uuid())
+  name         String // 用途备注（如 "codebuddy-local"）
+  key_hash     String    @unique // 存哈希，不存明文
+  project_name String    @default("clklogapp") // 该 key 绑定的查询边界（project 过滤）
+  status       String    @default("active") // active / revoked
+  expires_at   DateTime? // 过期时间，null 表示永不过期
+  last_used_at DateTime? // 最近使用（审计）
+  created_at   DateTime  @default(now())
+  updated_at   DateTime  @updatedAt
+
+  @@index([project_name])
+  @@index([status])
+}
+
+// ===== AI Harness Workspace / 初始化模板 =====
+
+model AiWorkspace {
+  id                       String    @id
+  user_id                  String
+  project_name             String
+  kind                     String
+  display_name             String
+  status                   String    @default("creating")
+  initialized_from         String    @default("template")
+  applied_template_version Int?
+  last_access_at           DateTime  @default(now())
+  expires_at               DateTime?
+  created_at               DateTime  @default(now())
+  updated_at               DateTime  @updatedAt
+
+  user       SaUser                @relation(fields: [user_id], references: [id])
+  sync_items AiWorkspaceSyncItem[]
+
+  @@unique([user_id, project_name, kind, display_name])
+  @@index([project_name, user_id])
+  @@index([status, expires_at])
+}
+
+model AiWorkspaceTemplateVersion {
+  version        Int      @id @default(autoincrement())
+  state          String   @default("published")
+  manifest_json  Json
+  content_digest String
+  published_by   String
+  published_at   DateTime @default(now())
+
+  publisher SaUser               @relation("AiTemplatePublisher", fields: [published_by], references: [id])
+  sync_jobs AiWorkspaceSyncJob[]
+
+  @@index([state, published_at])
+}
+
+model AiWorkspaceSyncJob {
+  id               String    @id
+  template_version Int
+  scope_json       Json
+  state            String    @default("planned")
+  requested_by     String
+  planned_count    Int       @default(0)
+  success_count    Int       @default(0)
+  failed_count     Int       @default(0)
+  created_at       DateTime  @default(now())
+  finished_at      DateTime?
+
+  template  AiWorkspaceTemplateVersion @relation(fields: [template_version], references: [version])
+  requester SaUser                     @relation("AiSyncRequester", fields: [requested_by], references: [id])
+  items     AiWorkspaceSyncItem[]
+
+  @@index([state, created_at])
+  @@index([template_version])
+}
+
+model AiWorkspaceSyncItem {
+  id            String    @id @default(uuid())
+  job_id        String
+  workspace_id  String
+  state         String    @default("planned")
+  diff_json     Json?
+  recovery_path String?
+  error_code    String?
+  started_at    DateTime?
+  finished_at   DateTime?
+
+  job       AiWorkspaceSyncJob @relation(fields: [job_id], references: [id], onDelete: Cascade)
+  workspace AiWorkspace        @relation(fields: [workspace_id], references: [id])
+
+  @@unique([job_id, workspace_id])
+  @@index([workspace_id, state])
+}
+
+/// AI 模型供应商（phase: clklog-ai-model-providers-v1）
+/// 库是供应商与密钥的唯一来源（v1.1：没有配置文件/环境变量来源，初始为空）；
+/// 密钥只存 AES-256-GCM 密文（`keyId:iv:tag:ciphertext`），明文永不落库、永不回显。
+model SaAiModelProvider {
+  id             String   @id @default(uuid())
+  provider_id    String   @unique // ^[a-z0-9_-]+$
+  display_name   String
+  adapter        String // openai_compatible | deepseek
+  protocol       String // openai-completions | openai-responses | anthropic-messages
+  base_url       String
+  api_key_cipher String?  @db.Text
+  models_json    String   @db.Text // DeepseekHarnessModelConfig[]（含 supports_image）
+  /// 连接测试通过的模型 ID（JSON 数组）；供应商配置被改写时清空（v1.2）
+  verified_json  String   @db.Text @default("[]")
+  last_test_at   DateTime?
+  last_test_by   String?
+  updated_by     String
+  updated_at     DateTime @updatedAt
+
+  @@map("saaimodelprovider")
+}
+
+/// AI 模型默认选择（单行 id='singleton'）；revision 用于判定运行中 Runtime 是否已陈旧
+model SaAiModelSettings {
+  id                       String   @id @default("singleton")
+  default_provider         String
+  default_model            String
+  default_reasoning_effort String
+  revision                 Int      @default(1)
+  updated_by               String
+  updated_at               DateTime @updatedAt
+
+  @@map("saaimodelsettings")
+}
+
+// ===== 运维面板（phase: clklog-analytics-ops-console-v1）=====
+
+// 主机指标采样（切片 3：磁盘使用量趋势预估的数据源）
+// 只增不改；保留策略由后续清理任务决定（首期不做）
+model HostMetricSample {
+  id         BigInt   @id @default(autoincrement())
+  metric_key String // 如 disk_used:/data、table:clklog_sa.sa_events:rows
+  value      Float // 字节或百分比（语义随 metric_key 而定）
+  sampled_at DateTime @default(now())
+
+  @@index([metric_key, sampled_at])
+  @@map("hostmetricsample")
+}
+
+// 对拍快照（数据管理 V1.0）：reconcile 完成后落库，页面读快照避免每次跑 59s 重查询
+model ReconcileSnapshot {
+  id           BigInt   @id @default(autoincrement())
+  project_name String
+  ran_at       DateTime @default(now())
+  range_from   String
+  range_to     String
+  summary      Json // has_alert / alert_days / dup_crc_rows / crc_pass / recent_changes
+  daily        Json? // 按日对拍明细
+  crc          Json? // CRC 检查结果（含 approx 标记）
+  /// 事件级差异（Top N + 仅一侧存在）——页面直读，不再要求重新对拍（quality-ops-v1 §2.3）
+  events           Json?
+  /// 被跳过的日期及原因：已清理 / 超保留期（不参与 alert_days）
+  skipped          Json?
+  /// 当次实际阈值（百分比，随快照落库，避免"旧快照配新阈值"解释不清）
+  threshold_pct    Float?
+  /// 报告文件路径（落盘目录见配置 reconcile.reportDir）
+  report_path      String?
+  /// 当次触发方式：auto=定时 / manual=页面手点 / cli=运维脚本
+  trigger          String @default("manual")
+  discovery_count  Int    @default(0)
+
+  @@index([project_name, ran_at])
+  @@map("ops_reconcile_snapshot")
+}
+
+/// 对拍配置（单行；phase: clklog-data-quality-ops-v1）
+model OpsReconcileConfig {
+  id        Int      @id @default(autoincrement())
+  /// 定时对拍开关（只在 background_workers 进程生效）
+  enabled   Boolean  @default(true)
+  /// 低峰执行时刻（平台时区 HH:mm）
+  run_at    String   @default("03:30")
+  /// 偏差阈值（**百分比**，单一语义；现状 10%，口径对齐后再降）
+  threshold_pct Float @default(10)
+  /// 忽略事件清单（结构差异事件先隔离，R3 逐个归因）
+  ignore_events Json?
+  /// sa 侧是否与 raw 侧同样过滤空 event（口径对称）
+  skip_empty_event Boolean @default(true)
+  /// 快照过期阈值（小时）：超过 warn 变黄，超过 error 变红
+  stale_warn_hours  Int @default(24)
+  stale_error_hours Int @default(72)
+  updated_by String
+  updated_at DateTime @updatedAt
+  @@map("ops_reconcile_config")
+}
+
+/// 保留策略登记（预期保留 × 实际 TTL 对照；phase: clklog-data-quality-ops-v1）
+model OpsRetentionPolicy {
+  id           Int      @id @default(autoincrement())
+  target_db    String
+  target_table String
+  keep_days    Int
+  /// ttl | partition
+  mode         String   @default("ttl")
+  enabled      Boolean  @default(true)
+  remark       String?
+  updated_by   String
+  updated_at   DateTime @updatedAt
+  @@unique([target_db, target_table])
+  @@map("ops_retention_policy")
+}
+
+/// 清理登记（已清理/已设策略的区间；对拍据此标「已清理」而不是 ALERT）
+model OpsCleanupLedger {
+  id           BigInt   @id @default(autoincrement())
+  target_db    String
+  target_table String
+  /// partition | ttl | dir_log | rows（rows=定点删除影响的日期区间）
+  scope_type   String
+  range_from   String
+  range_to     String
+  /// drop_partition | set_ttl | log_dir_clean
+  action       String
+  detail       Json?
+  /// 前置对拍快照（通过的那条）
+  snapshot_id  BigInt?
+  operator     String
+  executed_at  DateTime @default(now())
+
+  @@index([target_table, range_from, range_to])
+  @@map("ops_cleanup_ledger")
+}
+
+// 清理动作审计（数据管理 V1.1）：DROP PARTITION / TTL 设置留痕（红线6）
+model OpsActionLog {
+  id               BigInt   @id @default(autoincrement())
+  action           String // drop_partition | set_ttl
+  target_table     String
+  detail           Json // 分区清单 / TTL 参数 / 执行结果
+  dry_run_snapshot Json?
+  status           String   @default("done") // done | failed | partial
+  error            String?
+  operator         String
+  created_at       DateTime @default(now())
+
+  @@index([target_table, created_at])
+  @@map("ops_action_log")
+}
+
+// 日志目录清理配置（数据管理 V1.1：程序内日志治理，不依赖 cron/Puppet）
+// 每个受监控目录一行：保留天数 + 自动清理开关 + 最近一次运行结果
+model LogCleanupConfig {
+  id               BigInt    @id @default(autoincrement())
+  path             String    @unique
+  label            String
+  retain_days      Int       @default(3)
+  enabled          Boolean   @default(true)
+  last_run_at      DateTime?
+  last_freed_bytes BigInt?
+  last_file_count  Int?
+
+  @@map("ops_log_cleanup_config")
+}
+
+// 告警联系人（飞书 webhook / 邮件 / 短信）
+model AlertContact {
+  id           BigInt             @id @default(autoincrement())
+  name         String
+  /// 通道 key，见 src/modules/alerting/channels/channel-registry.ts
+  kind         String             @default("feishu_webhook")
+  webhook_url  String             @default("")
+  address      String             @default("")
+  /// 通道专属选项（JSON）：{ secret?, headers?, body_template?, provider? }
+  options_json String?            @db.Text
+  /// 是否启用（停用后不再投递；未绑定联系人的规则会发给「全部启用联系人」）
+  enabled      Boolean            @default(true)
+  /// 收件人界面语言（i18n v1）：通知按此语言渲染；null = 平台默认 zh-CN
+  locale       String?            @db.VarChar(16)
+  /// 收件人时区（timezone-v2）：通知时间按此时区渲染；null = 项目/平台时区
+  timezone     String?            @db.VarChar(64)
+  /// 已弃用：2026-09-16 起用「启用 + 多联系人绑定」替代「默认联系人」
+  is_default   Boolean            @default(false)
+  created_at   DateTime           @default(now())
+  rules        AlertRule[]
+  bindings     AlertRuleContact[]
+
+  @@map("alertcontact")
+}
+
+/// 规则 ↔ 联系人多对多（一条规则可发到多个渠道）
+model AlertRuleContact {
+  id         BigInt       @id @default(autoincrement())
+  rule_code  String
+  contact_id BigInt
+  rule       AlertRule    @relation(fields: [rule_code], references: [code], onDelete: Cascade)
+  contact    AlertContact @relation(fields: [contact_id], references: [id], onDelete: Cascade)
+
+  @@unique([rule_code, contact_id])
+  @@index([contact_id])
+  @@map("alertrulecontact")
+}
+
+/// 告警数据保留策略（phase: clklog-analytics-alert-channels-v1）
+/// scope: events（告警历史）/ notifications（通知记录）/ audits（变更记录）
+/// retain_days = null 表示永久保留
+model AlertRetention {
+  id          String   @id @default(uuid())
+  scope       String   @unique
+  retain_days Int?
+  updated_by  String
+  updated_at  DateTime @updatedAt
+
+  @@map("alertretention")
+}
+
+/// 通道平台级配置（凭证与默认参数，phase: clklog-analytics-alert-channels-v1）
+/// 只有「凭证级」通道进这张表；Webhook 类通道的 URL 本身即凭证，存在 alertcontact.webhook_url
+model AlertChannelConfig {
+  id            String   @id @default(uuid())
+  /// smtp | sms_aliyun | sms_tencent | sms_aws | sms_twilio | telegram | whatsapp
+  channel       String   @unique
+  /// 本通道**自己的凭证**是否启用（与 muted 正交：平台邮件兜底时 enabled=false 仍会发信）
+  enabled       Boolean  @default(false)
+  /// 暂停投递：保留配置与密钥，但该通道不参与任何投递（含平台邮件兜底）——「真正关掉」靠它
+  muted         Boolean  @default(false)
+  /// 非密字段 JSON（host/port/user/from/signName/templateId/region/phone_number_id…）
+  config_json   String   @db.Text
+  /// 密文：key_id:iv:tag:ciphertext（AES-256-GCM，明文永不落库、不回显）
+  secret_cipher String?  @db.Text
+  updated_by    String
+  updated_at    DateTime @updatedAt
+
+  @@map("alertchannelconfig")
+}
+
+// 告警规则（内置 7 条随 migration 种子不可增删；source=metric 关联数据管理指标，可增删）
+model AlertRule {
+  id                BigInt   @id @default(autoincrement())
+  code              String   @unique
+  name              String
+  threshold         Float
+  enabled           Boolean  @default(true)
+  severity          String   @default("warning")
+  comparator        String   @default("gt")
+  unit              String   @default("")
+  window_minutes    Int      @default(1)
+  for_windows       Int      @default(1)
+  repeat_minutes    Int      @default(60)
+  notify_on_resolve Boolean  @default(true)
+  /// 已弃用：改用 AlertRuleContact（多联系人）；保留列以便回滚
+  contact_id        BigInt?
+  source            String   @default("builtin")
+  /// 旧卡片告警遗留列（alerting-v2）：代码已不再读写，保留以避免破坏性删列
+  card_id           String?
+  metric_key        String?
+  /// 指标告警（alerting-v4）：指向 metasavedmetric.metric_id
+  metric_id         String?
+  /// 指标时间窗口天数：1=今天, 2, 7, 30（事件分析按天过滤 stat_date，无分钟级窗口）
+  /// time_source=metric 时该列只作为兜底（指标自带查询时间优先）
+  window_days       Int      @default(1)
+  /// 时间范围来源（clklog-analytics-metric-v2）：metric=跟随指标查询时间；rule=由本规则窗口指定
+  time_source       String   @default("rule")
+  project_name      String?
+  updated_at        DateTime @updatedAt
+
+  events   AlertEvent[]
+  contact  AlertContact?      @relation(fields: [contact_id], references: [id], onDelete: SetNull)
+  contacts AlertRuleContact[]
+
+  @@index([source])
+  @@index([metric_id])
+  @@map("alertrule")
+}
+
+// 告警通知模板（alerting-v4）：项目 × 事件类型 × 通道；无记录时用代码内置默认模板（预填充占位符）
+model AlertTemplate {
+  id           BigInt   @id @default(autoincrement())
+  project_name String
+  /// fire | resolve
+  kind         String
+  /// feishu_webhook | email | sms
+  channel      String
+  /// 仅邮件使用
+  subject      String   @default("")
+  body         String   @db.Text
+  updated_by   String
+  updated_at   DateTime @updatedAt
+
+  @@unique([project_name, kind, channel])
+  @@map("alerttemplate")
+}
+
+// 告警事件（规则命中记录；状态 firing / resolved）
+model AlertEvent {
+  id           BigInt    @id @default(autoincrement())
+  rule_code    String
+  value        Float
+  status       String    @default("firing")
+  fired_at     DateTime  @default(now())
+  last_seen_at DateTime  @default(now())
+  resolved_at  DateTime?
+
+  rule          AlertRule           @relation(fields: [rule_code], references: [code], onDelete: Cascade)
+  notifications AlertNotification[]
+
+  @@index([rule_code, status])
+  @@index([fired_at])
+  @@map("alertevent")
+}
+
+model AlertMute {
+  id         BigInt   @id @default(autoincrement())
+  rule_code  String?
+  starts_at  DateTime
+  ends_at    DateTime
+  reason     String   @default("")
+  created_at DateTime @default(now())
+
+  @@index([ends_at])
+  @@map("alertmute")
+}
+
+/// 数据表（维度表）：每次导入生成一个完整版本，切换靠 active_version（见 clklog-analytics-design-datatable-v1.md §5）
+model MetaDatatable {
+  id              String    @id
+  project_name    String
+  table_key       String
+  remark          String?
+  row_count       Int       @default(0)
+  column_count    Int       @default(0)
+  version_seq     Int       @default(0)
+  active_version  Int       @default(0)
+  pending_version Int?
+  import_owner    String?
+  lease_until     DateTime?
+  /// active | deleted（删除只置位，不物理删除，便于排查与同名重建）
+  status          String    @default("active")
+  created_by      String
+  updated_by      String
+  created_at      DateTime  @default(now())
+  updated_at      DateTime  @updatedAt
+
+  @@unique([project_name, table_key])
+  @@map("datatable")
+}
+
+model MetaDatatableColumn {
+  id           String  @id
+  datatable_id String
+  field_key    String
+  data_type    String
+  display_name String?
+  is_primary   Boolean @default(false)
+  sort_order   Int
+
+  @@unique([datatable_id, field_key])
+  @@map("datatablecolumn")
+}
+
+/// 关联属性：把数据表绑到「事件属性 / 事件名称 / 事件时间（粒度）」；删除只置 invalid 不物理删
+model MetaDatatableBinding {
+  id             String   @id
+  datatable_id   String
+  project_name   String
+  target_type    String
+  target_prop    String
+  /// 方案 B：join 键列 —— 数据表里与 target_prop 取值匹配的那一列（不再隐含「第一列」）
+  key_column     String   @default("")
+  /// v1 单展示列（值映射用哪一列当业务名）；空则按 pickLabelField 默认
+  label_field    String?
+  /// 派生属性清单：key_column 之外每列生成 `<target_prop>@<field_key>`，含 data_type 与 display_name
+  field_mappings Json?
+  granularity    String?
+  status         String   @default("active")
+  created_by     String
+  created_at     DateTime @default(now())
+
+  @@unique([datatable_id, target_type, target_prop])
+  @@map("datatablebinding")
+}
+
+/// 导入审计：方式 / 起止版本 / 成功与丢弃行数 / 结果（红线⑥）
+model MetaDatatableImport {
+  id           String   @id
+  datatable_id String
+  project_name String
+  mode         String
+  from_version Int?
+  to_version   Int?
+  total_rows   Int
+  success_rows Int
+  dropped_rows Int
+  dropped_json String?  @db.Text
+  result       String
+  error        String?  @db.Text
+  operator     String
+  created_at   DateTime @default(now())
+
+  @@index([datatable_id, created_at])
+  @@map("datatableimport")
+}
+
+model AlertNotification {
+  id           BigInt   @id @default(autoincrement())
+  rule_code    String
+  event_id     BigInt?
+  kind         String
+  status       String
+  error        String?
+  /// 投递目标快照（多联系人后一条事件会有多行；只存快照不加外键，删联系人也要留下历史）
+  contact_id   BigInt?
+  contact_name String?
+  created_at   DateTime @default(now())
+
+  event AlertEvent? @relation(fields: [event_id], references: [id], onDelete: SetNull)
+
+  @@index([created_at])
+  @@index([rule_code, created_at])
+  @@map("alertnotification")
+}
+
+/// 数据治理 · 敏感数据清洗审计（phase: clklog-analytics-v1-data-governance §5.2）。
+/// 每次清洗必写一条：谁、何时、对哪张表、什么规则、备份表名、影响行数、是否已演练。
+/// 由 scripts/cleanup.sh 写入；Web 侧只读展示（本期无 UI，为后续预留）。
+model AuditCleanup {
+  id            BigInt   @id @default(autoincrement())
+  operator      String
+  action        String // delete | mask
+  target_db     String // 只允许 clklog_sa*
+  target_table  String
+  rule_json     Json?
+  backup_table  String   @default("")
+  affected_rows BigInt   @default(0)
+  staged        Boolean  @default(false)
+  status        String   @default("running") // running | done | failed
+  error         String?  @db.Text
+  created_at    DateTime @default(now())
+
+  @@index([created_at])
+  @@index([target_table, created_at])
+  @@map("audit_cleanup")
+}
+
+// ===== Debug 查询留档（phase: clklog-analytics-debug-query-v1）=====
+// 每次 Debug 查询成功留一条：条件 + 命中数 + 结果行快照；永久保存、可按条删除（删除写 ops_action_log 审计）。
+// 只删这份派生快照，不动 sa_events（红线 6：无审计不删除——删除动作本身留痕）。
+model MetaDebugRecord {
+  id              String   @id @default(uuid())
+  project_name    String
+  created_by      String
+  created_by_name String? // 冗余显示名：用户改名后历史仍可读
+  created_at      DateTime @default(now())
+  // 查询种类（phase: clklog-analytics-user-timeline-v1）：debug = Debug 实时查询留档；user_timeline = 用户行为序列
+  kind            String   @default("debug")
+  // 时间线专用查询规格（subject_id / value / from / to / events / order）；Debug 继续用 window + cond_* 列
+  spec_json       String?  @db.Text
+  // 时间线专用结果汇总（命中数/种类数/首末时间），随记录一起回看
+  summary_json    String?  @db.Text
+  window          String? // 1h / 24h / 7d（仅 debug）；时间线为 null，区间在 spec_json
+  cond_distinct_id String?
+  cond_user_key   String?
+  cond_event      String?
+  cond_limit      Int
+  matched_total   Int
+  row_count       Int
+  truncated       Boolean  @default(false) // 单条总量超限、按 seq 丢弃了剩余行
+  duration_ms     Int?
+  // 异步执行状态（phase: clklog-analytics-debug-async-query-v1）：
+  // 快查询一次跑完后直接落 done；超预算的查询先建 pending，由 DebugQueryWorker 认领执行。
+  status          String   @default("done") // pending / running / done / failed
+  error_code      String? // timeout / query_failed（前端按语言渲染，明细只进服务端日志）
+  started_at      DateTime?
+  finished_at     DateTime?
+  rows            MetaDebugRecordRow[]
+
+  @@index([project_name, created_at])
+  @@index([created_by])
+  @@index([status, created_at]) // worker 认领 pending / 回收 stale running
+}
+
+model MetaDebugRecordRow {
+  id                   String  @id @default(uuid())
+  record_id            String
+  seq                  Int
+  log_time             String // ClickHouse 墙钟串原文；回看时按平台时区还原渲染
+  event                String
+  distinct_id          String
+  user_key             String
+  properties           String  @db.Text // 原文；超限按字节截断
+  properties_truncated Boolean @default(false)
+
+  record MetaDebugRecord @relation(fields: [record_id], references: [id], onDelete: Cascade)
+
+  @@index([record_id, seq])
+}

@@ -1,0 +1,520 @@
+{
+  "range": {
+    "last1Hour": "Letzte 1 Stunde",
+    "last6Hours": "Letzte 6 Stunden",
+    "last24Hours": "Letzte 24 Stunden",
+    "last3Days": "Letzte 3 Tage",
+    "last90Days": "Letzte 90 Tage",
+    "last180Days": "Letzte 180 Tage"
+  },
+  "message": {
+    "executeFailed": "Ausführung fehlgeschlagen",
+    "updateFailed": "Aktualisierung fehlgeschlagen",
+    "setFailed": "Festlegen fehlgeschlagen"
+  },
+  "slowQuery": {
+    "title": "Langsame Abfragen",
+    "minDuration": "Mindestdauer",
+    "status": "Ausführungsstatus",
+    "generatedAt": "Daten erzeugt am {{time}}",
+    "fromCache": "(Aus dem Cache geladen, im Hintergrund werden die neuesten Daten aktualisiert)",
+    "empty": "Im aktuellen Zeitraum gibt es keine Abfrage über {{ms}} ms",
+    "expandSql": "SQL ausklappen",
+    "collapseSql": "SQL einklappen",
+    "column": {
+      "time": "Zeit",
+      "duration": "Dauer",
+      "readRows": "Gelesene Zeilen",
+      "readBytes": "Gelesene Bytes",
+      "memory": "Arbeitsspeicher",
+      "user": "Konto"
+    },
+    "retentionNote": "Daten stammen aus dem ClickHouse-Abfrageprotokoll (system.query_log) und werden nur etwa {{days}} Tage vorgehalten"
+  },
+  "serverStatus": {
+    "title": "Serverstatus",
+    "appVersion": "App-Version",
+    "uptime": "Läuft seit {{value}}",
+    "uptimeDays": "{{days}} Tage {{hours}} Stunden",
+    "uptimeHours": "{{hours}} Stunden {{minutes}} Minuten",
+    "uptimeMinutes": "{{minutes}} Minuten",
+    "hostMemory": "Host-Arbeitsspeicher",
+    "cpuLoad1m": "CPU-Last (1 Minute)",
+    "loadDetail": "5 Minuten {{load5}} · 15 Minuten {{load15}} · {{cores}} Kerne",
+    "diskPath": "Datenträger {{path}}",
+    "diskUsed": "Belegt {{used}} / {{total}}",
+    "unavailable": "Nicht verfügbar",
+    "readFailed": "Lesen fehlgeschlagen",
+    "dependencies": "Abhängigkeiten und Datenkette",
+    "connected": "Verbunden · v{{version}}",
+    "unreachable": "Nicht erreichbar",
+    "unreachableError": "Nicht erreichbar: {{error}}",
+    "eventRowsLabel": "Ereignismenge (sa_events)",
+    "eventRowsCount": "{{rows}} Zeilen · {{size}}",
+    "lastWrite": "Letzter Schreibvorgang der Datenkette",
+    "maybeStalled": "(möglicherweise ins Stocken geraten)",
+    "justNow": "Gerade eben",
+    "minutesAgo": "Vor {{minutes}} Minuten",
+    "processMemory": "Prozess-Arbeitsspeicher (Heap / RSS)",
+    "diskDetail": "Datenträgerdetails"
+  },
+  "diskTrend": {
+    "title": "Prognose der Datenträgernutzung",
+    "pathWholeDisk": "Gesamter Datenträger /data",
+    "pathReceiver": "receiver-Logverzeichnis",
+    "noSamples": "Noch keine Messwerte",
+    "accumulating": "Sampledaten werden gesammelt: aktuell {{count}}/3 Messpunkte; ab 3 Punkten ist eine Prognose möglich (eine Stichprobe pro Stunde)",
+    "flat": "Derzeit kein erkennbarer Anstieg, keine Prognose",
+    "forecast": "Bei der aktuellen Wachstumsrate ist der Datenträger voraussichtlich am {{date}} voll; verbleibend {{days}} Tage",
+    "seriesUsed": "Belegter Speicher",
+    "seriesPredicted": "Prognose (gestrichelt)",
+    "seriesTotal": "Gesamter Datenträger",
+    "totalMark": "Gesamt",
+    "tooltipValue": "{{size}} ({{gb}} GB)",
+    "hint": "Bei zu wenigen Messwerten wird keine Prognoselinie angezeigt (um Fehlinterpretationen zu vermeiden). Vorgehen: lineare Extrapolation nur bei steigender Nutzung, maximal 30 Tage; die Y-Achse reicht von 0 bis zur Gesamtkapazität des Datenträgers."
+  },
+  "logCleanup": {
+    "title": "Log-Verzeichnisverwaltung",
+    "hint": "Stündliche automatische Bereinigung abgelaufener .log-Dateien (die Rohdaten sind Textspiegel der ClickHouse-Daten und können gefahrlos gelöscht werden)",
+    "column": {
+      "path": "Verzeichnis",
+      "current": "Aktuelle Belegung",
+      "lastRun": "Letzte automatische Bereinigung",
+      "retainDays": "Aufbewahrungstage",
+      "autoClean": "Automatische Bereinigung"
+    },
+    "currentUsage": "{{count}} Dateien · {{size}}",
+    "currentUsage_one": "{{count}} Datei · {{size}}",
+    "currentUsage_other": "{{count}} Dateien · {{size}}",
+    "notRunYet": "Noch nicht ausgeführt",
+    "lastRun": "{{time}} ({{count}} Dateien gelöscht / {{size}})",
+    "lastRun_one": "{{time}} ({{count}} Datei gelöscht / {{size}})",
+    "lastRun_other": "{{time}} ({{count}} Dateien gelöscht / {{size}})",
+    "cleanNow": "Jetzt bereinigen",
+    "confirmTitle": "Bereinigung der Log-Dateien bestätigen",
+    "confirmOk": "Bereinigung ausführen",
+    "confirmMessage": "In {{path}} werden abgelaufene .log-Dateien gelöscht: etwa {{count}} Dateien / {{size}}",
+    "confirmMessage_one": "In {{path}} wird eine abgelaufene .log-Datei gelöscht: etwa {{count}} Datei / {{size}}",
+    "confirmMessage_other": "In {{path}} werden abgelaufene .log-Dateien gelöscht: etwa {{count}} Dateien / {{size}}",
+    "confirmDescription": "Diese Dateien sind Textspiegel bereits importierter Daten; das Löschen beeinträchtigt keine Funktion. Aktive Logs (heute) werden nicht gelöscht.",
+    "auditHint": "Dieser Vorgang wird im Bereinigungs-Audit protokolliert. Die Aufbewahrungstage lassen sich in der Tabelle oben anpassen.",
+    "deletedFiles": "{{count}} Dateien gelöscht, {{size}} freigegeben",
+    "deletedFiles_one": "{{count}} Datei gelöscht, {{size}} freigegeben",
+    "deletedFiles_other": "{{count}} Dateien gelöscht, {{size}} freigegeben",
+    "retentionUpdated": "Aufbewahrungsfrist auf {{days}} Tage aktualisiert"
+  },
+  "dataMgmt": {
+    "readonlyNotice": "Diese Seite umfasst: Übersicht / Trend / Datenzustand / Bereinigungs-Vorschau und -Ausführung / TTL und Aufbewahrungsrichtlinie. Bereinigung und TTL sind Aktionen: doppelte Bestätigung und ein bestandener Vorab-Abgleich sind nötig, dazu Audit und Registrierung der „bereinigten Bereiche“. Daten mit Zukunftszeitstempel (Uhren-Drift) werden nur erkannt, nie automatisch gelöscht.",
+    "loadingOverview": "Speicherübersicht wird geladen...",
+    "statTables": "Erfasste Tabellen",
+    "statRows": "Gesamtzeilen",
+    "statCompressed": "Komprimierte Gesamtgröße",
+    "rowsTenThousand": "{{value}} × 10.000",
+    "rowsHundredMillion": "{{value}} × 100 Mio.",
+    "overview": "Speicherübersicht",
+    "column": {
+      "table": "Tabelle",
+      "rows": "Zeilen",
+      "compressed": "Komprimiert",
+      "raw": "Rohdaten",
+      "partitions": "Partitionen",
+      "lastWrite": "Letzter Schreibvorgang",
+      "time": "Zeit",
+      "action": "Aktion",
+      "targetTable": "Zieltabelle",
+      "detail": "Details",
+      "operator": "Ausgeführt von"
+    },
+    "trend": "Tabellenspeicher-Trend (stündliche Stichproben)",
+    "ttlDays": "{{days}} Tage",
+    "trendAccumulating": "Sampledaten werden gesammelt: {{count}} Datenpunkte (eine Stichprobe pro Stunde, Trendlinie nach etwa 1 Stunde)",
+    "trendAccumulating_one": "Sampledaten werden gesammelt: {{count}} Datenpunkt (eine Stichprobe pro Stunde, Trendlinie nach etwa 1 Stunde)",
+    "trendAccumulating_other": "Sampledaten werden gesammelt: {{count}} Datenpunkte (eine Stichprobe pro Stunde, Trendlinie nach etwa 1 Stunde)",
+    "compressedBytes": "{{name}} komprimierte Bytes",
+    "health": "Datenzustand (Abgleich-Snapshot)",
+    "gotoQuality": "Zur Seite „Datenqualität“ für einen manuellen Abgleich",
+    "lastReconcile": "Letzter Abgleich",
+    "reconcileRange": "Abgleichbereich",
+    "reconcileStatus": "Abgleichstatus",
+    "hasAlert": "Mit Alarm",
+    "normal": "Normal",
+    "alertDays": "Alarmtage",
+    "dupCrcRows": "Doppelte CRC-Zeilen (näherungsweise)",
+    "noSnapshot": "Noch kein Abgleich-Snapshot: wird nach einem Abgleich auf der Seite „Datenqualität“ automatisch erzeugt",
+    "preview": "Bereinigungsvorschau (Kandidaten für DROP PARTITION)",
+    "selectTable": "Tabelle auswählen",
+    "previewPrefix": "Bereinigung von Daten, die älter als",
+    "previewSuffix": "Tage sind (monatliche Partitionierung)",
+    "previewRun": "Vorschau",
+    "previewImpact": "Betrifft {{count}} Monatspartitionen: {{rows}} Zeilen / etwa {{size}} werden freigegeben (Stichtag {{cutoff}})",
+    "previewImpact_one": "Betrifft {{count}} Monatspartition: {{rows}} Zeilen / etwa {{size}} werden freigegeben (Stichtag {{cutoff}})",
+    "previewImpact_other": "Betrifft {{count}} Monatspartitionen: {{rows}} Zeilen / etwa {{size}} werden freigegeben (Stichtag {{cutoff}})",
+    "previewNone": "Keine passenden Partitionen (Stichtag {{cutoff}})",
+    "previewWarning": "DROP PARTITION ist nicht wiederherstellbar; bitte die Vorschau vor der Ausführung erneut prüfen.",
+    "previewFailed": "Vorschau fehlgeschlagen: {{error}}",
+    "executeCleanup": "Bereinigung ausführen (die oben genannten {{count}} Partitionen löschen)",
+    "executeCleanup_one": "Bereinigung ausführen (die oben genannte {{count}} Partition löschen)",
+    "executeCleanup_other": "Bereinigung ausführen (die oben genannten {{count}} Partitionen löschen)",
+    "deletedPartitions": "{{count}} Partitionen gelöscht",
+    "deletedPartitions_one": "{{count}} Partition gelöscht",
+    "deletedPartitions_other": "{{count}} Partitionen gelöscht",
+    "ttl": "TTL-Einstellung (automatischer Lebenszyklus)",
+    "ttlHint": "TTL ändert nur die Tabellendefinition und wirkt sofort (historische Daten werden nicht neu geschrieben); abgelaufene Daten werden von ClickHouse beim Hintergrund-Merge nach und nach bereinigt, der Datenträgerspeicher wird nicht sofort freigegeben. Die aktuelle Übersicht steht in der TTL-Spalte der Speicherübersicht oben.",
+    "ttlSet": "TTL festlegen",
+    "ttlTitle": "TTL festlegen (schrittweise Hintergrundbereinigung abgelaufener Daten)",
+    "ttlTarget": "Zieltabelle:",
+    "ttlRetain": ", Aufbewahrung",
+    "ttlRetainSuffix": "Tage (überfällige Daten werden beim Hintergrund-Merge von ClickHouse nach und nach gelöscht)",
+    "ttlNoteBefore": "Es wird nur die Tabellendefinition geändert, historische Daten werden nicht neu geschrieben (materialize_ttl_after_modify ist explizit deaktiviert): abgelaufene Daten werden bei späteren Merges schrittweise bereinigt,",
+    "ttlNoteBold": "der Datenträger wird nicht sofort freigegeben",
+    "ttlNoteAfter": ". Für eine sofortige Freigabe bitte „Bereinigungsvorschau → Partitionen löschen“ verwenden.",
+    "ttlSetDone": "TTL auf {{days}} Tage gesetzt (wirkt schrittweise im Hintergrund)",
+    "confirmTypeHint": "Bitte den Namen der Zieltabelle zur Bestätigung eingeben:",
+    "audit": "Audit der Bereinigungsaktionen (letzte 10)",
+    "noActions": "Keine Bereinigungsaktionen",
+    "actionDropPartition": "Partition löschen",
+    "actionSetTtl": "TTL festlegen",
+    "statusDone": "Abgeschlossen",
+    "statusPartial": "Teilweise abgeschlossen",
+    "confirmDropTitle": "⚠️ Partitionen löschen bestätigen (nicht wiederherstellbar)",
+    "confirmDropOk": "Löschen ausführen",
+    "dropWarning": "Aus {{table}} werden {{count}} Monatspartitionen physisch gelöscht (etwa {{rows}} Zeilen); nicht wiederherstellbar",
+    "dropWarning_one": "Aus {{table}} wird {{count}} Monatspartition physisch gelöscht (etwa {{rows}} Zeilen); nicht wiederherstellbar",
+    "dropWarning_other": "Aus {{table}} werden {{count}} Monatspartitionen physisch gelöscht (etwa {{rows}} Zeilen); nicht wiederherstellbar",
+    "executeDone": "{{count}} Partitionen abgeschlossen",
+    "executeDone_one": "{{count}} Partition abgeschlossen",
+    "executeDone_other": "{{count}} Partitionen abgeschlossen",
+    "executeDonePartial": "{{count}} Partitionen abgeschlossen, {{failed}} fehlgeschlagen (Abbruch beim ersten Fehler; nach erneuter Vorschau wiederholbar)",
+    "executeDonePartial_one": "{{count}} Partition abgeschlossen, {{failed}} fehlgeschlagen (Abbruch beim ersten Fehler; nach erneuter Vorschau wiederholbar)",
+    "executeDonePartial_other": "{{count}} Partitionen abgeschlossen, {{failed}} fehlgeschlagen (Abbruch beim ersten Fehler; nach erneuter Vorschau wiederholbar)",
+    "snapshotStaleWarn": "Seit {{hours}} h nicht aktualisiert",
+    "snapshotStaleError": "Seit {{hours}} h nicht aktualisiert (prüfen)",
+    "preflight": {
+      "blocked": "Vorheriger Abgleich nicht erfüllt ({{reason}}): zuerst einen Abgleich für dieses Datum ausführen",
+      "ok": "Vorheriger Abgleich erfüllt (deckt {{date}} ab)",
+      "hint": "Voraussetzung: ein erfolgreicher Snapshot, höchstens {{max}} h alt, der {{date}} abdeckt; auf der Datenqualitätsseite starten",
+      "reason": {
+        "noSnapshot": "noch kein Snapshot",
+        "notCovered": "Snapshot deckt dieses Datum nicht ab",
+        "snapshotFailed": "letzter Snapshot hatte Alarme",
+        "snapshotStale": "Snapshot ist zu alt"
+      }
+    }
+  },
+  "error": {
+    "admin": {
+      "forbidden": "Nur der Plattform-Super-Administrator hat Zugriff auf das Betriebspanel"
+    },
+    "trend": {
+      "hoursInvalid": "hours muss eine Zahl sein"
+    },
+    "cleanup": {
+      "previewParamsRequired": "table und older_than_days sind Pflichtfelder",
+      "executeParamsRequired": "table / partitions / confirmed_table sind Pflichtfelder",
+      "tooManyPartitions": "Höchstens {{max}} Partitionen pro Vorgang (stapelweise Ausführung zur Senkung von IO-Spitzen)"
+    },
+    "ttl": {
+      "paramsRequired": "table / days / confirmed_table sind Pflichtfelder"
+    },
+    "mutation": {
+      "tableRequired": "table ist ein Pflichtfeld"
+    },
+    "dataMgmt": {
+      "tableNotInventoried": "Tabelle ist nicht im erfassten Bereich (erlaubt: {{allowed}})",
+      "tableNameInvalid": "Der Tabellenname muss dem Format db.table entsprechen",
+      "tableConfirmMismatch": "Tabellenname stimmt nicht überein: Eingabe „{{confirmed}}“ ≠ Ziel „{{table}}“",
+      "noExecutablePartition": "Keine ausführbare Partition (alle abgelehnt: {{rejected}})",
+      "ttlTimeColumnMissing": "Für die Tabelle ist keine TTL-Zeitspalte registriert (erlaubt: {{allowed}})",
+      "ttlDaysInvalid": "Die TTL-Tage müssen eine ganze Zahl zwischen 1 und 3650 sein",
+      "ttlSetFailed": "TTL konnte nicht gesetzt werden: {{message}}",
+      "preflight": "Vor der Bereinigung ist ein erfolgreicher Abgleich erforderlich, der {{required_to}} abdeckt; Snapshot-Status: {{reason}}"
+    },
+    "logCleanup": {
+      "retainDaysInvalid": "Die Aufbewahrungstage müssen eine ganze Zahl zwischen 1 und 365 sein",
+      "pathNotAllowed": "Das Verzeichnis steht nicht auf der Whitelist: {{path}}",
+      "pathRequired": "path ist ein Pflichtfeld"
+    },
+    "reconcile": {
+      "forbidden": "Nur Plattform-Super-Administratoren können die Abgleich-Einstellungen ändern",
+      "runAtInvalid": "Ausführungszeit muss im Format HH:mm vorliegen (Plattform-Zeitzone)",
+      "thresholdInvalid": "Die Abweichungsschwelle muss ein Prozentwert zwischen 0 und 100 sein",
+      "staleOrderInvalid": "Die Kritisch-Schwelle (rot) muss größer als die Warnschwelle (gelb) sein",
+      "staleHoursInvalid": "Die Schwellen müssen ganze Stunden zwischen 1 und 720 sein"
+    },
+    "retention": {
+      "tableNotInventoried": "Tabelle liegt außerhalb des Aufbewahrungsbereichs (erlaubt: {{allowed}})",
+      "keepDaysInvalid": "Aufbewahrungstage müssen eine ganze Zahl zwischen 1 und 3650 sein",
+      "keepDaysRequired": "keep_days ist erforderlich"
+    },
+    "dataDelete": {
+      "paramsRequired": "kind / table / project sind erforderlich",
+      "executeParamsRequired": "kind / table / project / confirm_table / confirm_token sind erforderlich",
+      "tableConfirmMismatch": "Tabellenbestätigung stimmt nicht: eingegeben „{{confirmed}}“ ≠ Ziel „{{table}}“",
+      "cleanupAccountMissing": "Bereinigungs-Konto nicht konfiguriert (CLICKHOUSE_CLEANUP_PASSWORD fehlt); Ausführung abgelehnt",
+      "rowsExceeded": "Etwa {{rows}} Zeilen betroffen — über dem Limit von {{max}} pro Lauf; nach Event aufteilen oder Zeitraum verkleinern",
+      "tokenInvalid": "Bestätigungstoken ungültig oder abgelaufen (Bedingung oder Zeilenzahl geändert); Vorschau erneut ausführen",
+      "preflight": "Vor dem Löschen ist ein erfolgreicher Abgleich erforderlich, der {{required_to}} abdeckt; Snapshot-Status: {{reason}}",
+      "nothingToDelete": "Die Bedingung trifft keine Zeilen",
+      "backupFailed": "Backup vor dem Löschen fehlgeschlagen; abgebrochen (keine Daten gelöscht): {{message}}",
+      "executeFailed": "Löschen fehlgeschlagen: {{message}} (Backup-Tabelle erlaubt Wiederherstellung)",
+      "tableNotAllowed": "Tabelle nicht in der Positivliste für gezieltes Löschen: {{table}}",
+      "communityRefused": "Community-Tabellen dürfen nicht gelöscht werden (rote Linie 1): {{table}}",
+      "kindNotAllowed": "Diese Tabelle unterstützt diese Löschbedingung nicht: {{kind}}",
+      "projectInvalid": "Ungültiger Projektname: {{project}}",
+      "eventInvalid": "Ungültiger Event-Name: {{event}}",
+      "beforeRequired": "before ist erforderlich (Daten mit stat_date vor diesem Tag löschen)",
+      "beforeInFuture": "before darf nicht nach heute liegen (für Zukunfts-Daten die Bedingung „Zukunftszeitstempel“ nutzen)",
+      "toInFuture": "to darf nicht nach heute liegen (für Zukunfts-Daten „Zukunftszeitstempel“ nutzen)",
+      "rangeInvalid": "from darf nicht nach to liegen",
+      "dateInvalid": "{{field}} muss YYYY-MM-DD sein",
+      "mutationRunning": "In {{table}} läuft eine Mutation; bitte Abschluss abwarten (IO-Schutz)"
+    },
+    "metaReconcile": {
+      "windowTooWide": "Ein Fenster von {{days}} Tagen überschreitet das ClickHouse-Schätzlimit: window_days verkleinern (Standard 7) oder scripts/reconcile.sh nutzen"
+    },
+    "projectRetire": {
+      "projectRequired": "project ist erforderlich",
+      "notRegistered": "Projekt nicht registriert: {{project}} (Schreibweise prüfen)",
+      "stillWriting": "In den letzten 24 h wurden {{rows}} Zeilen geschrieben: zuerst das Reporting des Projekts stoppen",
+      "executeParamsRequired": "project / step / confirm_token sind erforderlich"
+    }
+  },
+  "retention": {
+    "title": "Aufbewahrungsrichtlinie (Soll × Ist × verlässlicher Vergleichsbereich)",
+    "hint": "Die erwartete Aufbewahrung wird manuell gepflegt (Standard, falls nicht gesetzt: sa_events 540 Tage, Community-Tabellen 180 Tage); die tatsächliche stammt aus dem TTL der Tabellen.",
+    "trusted": "Verlässlicher Vergleichsbereich: {{from}} ~ {{to}} (kürzere der beiden Aufbewahrungen = {{days}} Tage)",
+    "trustedUnbounded": "Verlässlicher Vergleichsbereich: auf keiner Seite ist eine Aufbewahrung gesetzt — es gilt der tatsächliche Datenbereich",
+    "trustedBoundBy": "Begrenzt durch die {{days}}-tägige Aufbewahrung von {{table}} (das Bereinigen einer Tabelle verfälscht den Vergleich für diesen Zeitraum)",
+    "suspicious": "{{count}} verdächtige Datumspartitionen (zukünftige Partitionen / Altbestände älter als der verlässliche Bereich); nur Hinweis, keine automatische Bereinigung",
+    "suspiciousKind": {
+      "future": "zukünftige Partition",
+      "ancient": "Altbestand"
+    },
+    "column": {
+      "table": "Tabelle",
+      "expected": "Erwartete Aufbewahrung",
+      "actual": "Tatsächliche Aufbewahrung (TTL)",
+      "status": "Status"
+    },
+    "suggested": "(empfohlen)",
+    "actualUnset": "Nicht gesetzt (Risiko)",
+    "status": {
+      "ok": "Richtlinienkonform",
+      "unset": "Nicht gesetzt (Risiko)",
+      "deviates": "Abweichend",
+      "disabled": "Richtlinie inaktiv"
+    },
+    "register": "Eintragen",
+    "dialogTitle": "Erwartete Aufbewahrung eintragen: {{table}}",
+    "save": "Speichern",
+    "fieldKeepDays": "Aufbewahrungstage",
+    "fieldKeepDaysHint": "Eingetragen wird das Ziel; wirksam ist der TTL der Tabelle (unten über die TTL-Einstellung anwenden)",
+    "fieldEnabled": "Richtlinie aktiv",
+    "fieldRemark": "Notiz"
+  },
+  "quality": {
+    "title": "Datenqualität / Konsistenzabgleich",
+    "runningHint": "Abgleich läuft: die vollständige Zählung eines Tages dauert etwa 20–40 Sekunden, bitte die Seite nicht schließen…",
+    "idleHint": "Vergleicht sa_events mit log_analysis (standardmäßig gestern, maximal 3 Tage, etwa 30 Sekunden)",
+    "start": "Abgleich starten",
+    "cachedTag": "Cache-Ergebnis · Letzter Abgleich {{time}}",
+    "justFinishedTag": "Abgleich gerade abgeschlossen {{time}}",
+    "cachedHint": "Unten steht der **letzte Snapshot** (Tageswerte, Abweichungen je Event, bereinigte Bereiche). Metadaten-Erkennungen werden separat gelesen (letzte 50). Für ein aktuelles Ergebnis „Abgleich starten“ klicken.",
+    "emptyHint": "Noch kein Abgleichergebnis: Klicken Sie oben rechts auf „Abgleich starten“, um den ersten Abgleich auszuführen (etwa 30 Sekunden); danach wird das Cache-Ergebnis sofort angezeigt.",
+    "reportEmpty": "Noch keine Abgleichdaten; bitte einen Zeitraum wählen und „Abgleich starten“ klicken",
+    "normal": "Normal",
+    "abnormal": "Auffällig",
+    "pass": "Bestanden",
+    "column": {
+      "date": "Datum",
+      "saRows": "Zeilen in sa_events",
+      "crcUniq": "Eindeutige CRC-Werte",
+      "rawRows": "Zeilen in log_analysis",
+      "deviation": "Abweichung %",
+      "source": "Quelle",
+      "rows": "Zeilen",
+      "changeType": "Änderungsart",
+      "prop": "Eigenschaft",
+      "change": "Änderung",
+      "discoveredAt": "Erkannt am",
+      "diff": "Differenz (sa - raw)",
+      "skippedRange": "Bereinigter Bereich",
+      "skippedWhy": "Grund",
+      "skippedSource": "Aktion und Zeit"
+    },
+    "change": {
+      "eventCreated": "Neues Ereignis",
+      "propertyCreated": "Neue Eigenschaft ({{value}})",
+      "userPropertyCreated": "Neue Benutzer-Eigenschaft ({{value}})",
+      "userPropertyHidden": "Benutzer-Eigenschaft ausgeblendet",
+      "userPropertyActive": "Benutzer-Eigenschaft aktiviert"
+    },
+    "alert": {
+      "title": "Abweichung der Datenkonsistenz festgestellt",
+      "desc": "Im geprüften Zeitraum ({{days}}/{{total}} Tage) wurde eine Abweichung über dem Schwellenwert ({{threshold}} %) festgestellt, oder es gibt Zeilen mit doppelter CRC ({{dup}}). Bitte prüfen Sie, ob der ingestor Daten verliert oder die Definitionen abweichen.",
+      "desc_one": "Im geprüften Zeitraum ({{days}}/{{total}} Tag) wurde eine Abweichung über dem Schwellenwert ({{threshold}} %) festgestellt, oder es gibt Zeilen mit doppelter CRC ({{dup}}). Bitte prüfen Sie, ob der ingestor Daten verliert oder die Definitionen abweichen.",
+      "desc_other": "Im geprüften Zeitraum ({{days}}/{{total}} Tage) wurde eine Abweichung über dem Schwellenwert ({{threshold}} %) festgestellt, oder es gibt Zeilen mit doppelter CRC ({{dup}}). Bitte prüfen Sie, ob der ingestor Daten verliert oder die Definitionen abweichen."
+    },
+    "ok": {
+      "title": "Datenkonsistenz in Ordnung",
+      "desc": "{{from}} ~ {{to}}: alle Abgleichabweichungen liegen innerhalb des Schwellenwerts {{threshold}} %, keine doppelten CRC-Werte."
+    },
+    "stat": {
+      "days": "Abgleichstage",
+      "daysSuffix": " Tage / davon {{count}} Tage auffällig",
+      "daysSuffix_one": " Tage / davon {{count}} Tag auffällig",
+      "daysSuffix_other": " Tage / davon {{count}} Tage auffällig",
+      "dupCrc": "Doppelte CRC",
+      "rowsSuffix": " Zeilen",
+      "crcUnique": "CRC-Eindeutigkeit",
+      "skippedDays": "Bereinigte Tage",
+      "outOfRetention": "Tage außerhalb der Aufbewahrung"
+    },
+    "scope": {
+      "range": "Abgleichbereich",
+      "threshold": "Abweichungsschwellenwert",
+      "total": "Gesamt",
+      "trigger": "Ausgelöst durch",
+      "ignored": "Ignorierte Events"
+    },
+    "table": {
+      "daily": "Tagesgesamt-Abgleich",
+      "events": "Zählung auf Ereignisebene (sa_events vs. log_analysis)",
+      "discovery": "Aktuelle Metadatenänderungen",
+      "discoveryHint": "(automatisch erkannte neue Ereignisse/Eigenschaften/Attributtyp-Änderungen, insgesamt {{count}} Einträge)",
+      "discoveryHint_one": "(automatisch erkannte neue Ereignisse/Eigenschaften/Attributtyp-Änderungen, insgesamt {{count}} Eintrag)",
+      "discoveryHint_other": "(automatisch erkannte neue Ereignisse/Eigenschaften/Attributtyp-Änderungen, insgesamt {{count}} Einträge)",
+      "diffs": "Top-Abweichungen je Event (sa - raw)",
+      "diffsHint": "({{count}} Events weichen ab; Top 20 nach absoluter Differenz)",
+      "onlyInOne": "Nur auf einer Seite vorhanden (andere Seite = 0)",
+      "skipped": "Bereinigte Bereiche (vom Alarm ausgenommen)"
+    },
+    "skipped": "Übersprungen",
+    "skippedReason": {
+      "cleaned": "Bereinigt"
+    },
+    "ignored": {
+      "title": "{{count}} Events durch die Ignorierliste ausgeschlossen"
+    },
+    "trigger": {
+      "auto": "Zeitgesteuert",
+      "manual": "Manuell",
+      "cli": "Betriebsskript"
+    },
+    "stale": {
+      "warnTitle": "Abgleich-Snapshot ist veraltet",
+      "errorTitle": "Abgleich-Snapshot ist überholt",
+      "desc": "Der letzte Abgleich lief am {{time}} (vor {{hours}} h, über der Schwelle von {{warn}} h): Die Aussage spiegelt ggf. nicht mehr den aktuellen Stand wider — bitte erneut ausführen oder den Zeitplan prüfen."
+    },
+    "config": {
+      "button": "Abgleich-Einstellungen",
+      "title": "Abgleich-Einstellungen (Zeitplan außerhalb der Spitze und Schwelle)",
+      "save": "Speichern",
+      "enabled": "Zeitgesteuerten Abgleich aktivieren",
+      "enabledOn": "Aktiv",
+      "enabledOff": "Inaktiv",
+      "runAt": "Ausführungszeit",
+      "runAtHint": "Plattform-Zeitzone, HH:mm; Ausführung im nächsten Prüfzyklus (≤ 5 Min.) nach dieser Zeit",
+      "runAtInvalid": "Format muss HH:mm sein",
+      "threshold": "Abweichungsschwelle (%)",
+      "thresholdHint": "Ein Tag wird gemeldet, wenn |Abweichung| diesen Prozentsatz überschreitet; bis zur Angleichung der Erhebungswege mit 3–5 % starten",
+      "ignoreEvents": "Ignorierte Events",
+      "ignoreEventsHint": "Ein Event-Name pro Zeile; bekannte Erhebungsweg-Unterschiede isolieren, um tägliche Alarme zu vermeiden",
+      "skipEmpty": "Leere Events auf beiden Seiten filtern",
+      "skipEmptyHint": "Gleicher Erhebungsweg für sa- und Community-Seite: Zeilen mit leerem Event zählen auf beiden Seiten nicht",
+      "staleWarn": "Warnschwelle (h)",
+      "staleError": "Kritisch (h)",
+      "updatedAt": "Einstellungen aktualisiert"
+    },
+    "changeType": {
+      "eventCreated": "Neues Event",
+      "propertyCreated": "Neue Eigenschaft",
+      "propertyTypeChanged": "Eigenschaftstyp geändert",
+      "userPropertyCreated": "Neue Benutzer-Eigenschaft",
+      "userPropertyTypeChanged": "Benutzer-Eigenschaftstyp geändert",
+      "userPropertyHidden": "Benutzer-Eigenschaft ausgeblendet",
+      "userPropertyActive": "Benutzer-Eigenschaft aktiviert"
+    },
+    "outOfRetention": "Außerhalb der Aufbewahrung (nicht verglichen)",
+    "outOfRetentionShort": "Außerhalb Aufbewahrung",
+    "guide": {
+      "title": "Wozu dient diese Seite?",
+      "whatTitle": "Zweck",
+      "whatBody": "Dies ist eine Seitenpfad-Prüfung: sie gleicht sa_events (unser Ingestor) mit log_analysis (Community-Flink) tagesweise ab, um Konsumstillstand, stillen Datenverlust und Doppel-Schreibungen zu finden. Nur lesend, keine Geschäftsdaten werden geändert; standardmäßig wird der Vortag einmal täglich außerhalb der Spitze (03:30 Plattform-Zeitzone) geprüft und das Ergebnis als Snapshot gespeichert.",
+      "termsTitle": "Zentrale Begriffe",
+      "terms": {
+        "range": "Bereich: standardmäßig der Vortag; manuell bis 3 Tage (Speicherschutz für den Einzelknoten nach früheren OOM-Vorfällen).",
+        "threshold": "Schwelle: ein Tag wird nur gemeldet, wenn |Abweichung| sie überschreitet; aktueller Wert in der Konfigurationszeile oben (in %).",
+        "crc": "CRC-Eindeutigkeit: näherungsweise Deduplizierung nur auf unserer Seite; gemeldet ab 0,5 % doppelten Zeilen (der Näherungsalgorithmus hat eine Eigenungenauigkeit).",
+        "trusted": "Verlässlicher Bereich: vergleichbar nur innerhalb der kürzeren der beiden Aufbewahrungen; ältere Tage werden als „außerhalb der Aufbewahrung“ markiert und zählen nicht als Anomalie.",
+        "skipped": "Bereinigte Bereiche: absichtlich per DROP PARTITION / TTL gelöschte Zeiträume werden als „bereinigt“ markiert und lösen keine Alarme aus.",
+        "stale": "Snapshot-Frische: bei alt (gelb) / überholt (rot) spiegelt das Ergebnis nicht mehr den aktuellen Stand wider — erneut abgleichen oder den Zeitplan prüfen.",
+        "events": "Top-Abweichungen je Event: Events, die beidseitig vorkommen, aber unterschiedlich zählen — Top 20 nach absoluter Differenz; „nur eine Seite“ listet Events mit 0 auf der Gegenseite."
+      },
+      "howTitle": "Ergebnis lesen",
+      "how": {
+        "step1": "Eine dauerhafte Tagesabweichung von +1 % bis +2 % ist eine bekannte strukturelle Erhebungsweg-Differenz (die Community-Seite zählt Android-Fehler-/Retry-Events zu niedrig, siehe Whitepaper) — kein Datenverlust.",
+        "step2": "Sofort prüfen bei: negatives Vorzeichen (wir haben weniger als die Community-Seite), Event-Zähler fällt auf 0, oder ein neuer Event-Typ taucht in den Abweichungen auf.",
+        "step3": "Tage mit „außerhalb der Aufbewahrung“/„bereinigt“ zählen nicht als Anomalie; ein fehlgeschlagener CRC deutet auf mögliche Doppel-Schreibungen auf unserer Seite.",
+        "step4": "Die 3-Tage-Grenze im manuellen Lauf ist ein bewusster Speicherschutz; für längere Zeiträume die Großbereichs-Aufgabe außerhalb der Spitze nutzen (auf dem Server: scripts/reconcile.sh --type=range)."
+      },
+      "whoTitle": "Wer macht was",
+      "who": {
+        "admin": "Plattform-Super-Admin: Schwelle, Ignorierliste und Frischeschwellen über „Abgleich-Einstellungen“ (oben rechts) ändern und Fehler-/Veraltungs-Hinweise bearbeiten.",
+        "oncall": "Bereitschaft: zuerst „Top-Abweichungen je Event“ prüfen — neuer Event-Typ oder komplett verschwundenes Event —, dann den Tagesverlauf beider Seiten ansehen.",
+        "analyst": "Analysten: Diese Seite dient nicht der Geschäftsanalyse; Pipeline-Zustand unter Betrieb → Datenverwaltung → Datenzustand."
+      },
+      "footnote": "Zuordnung und Messwerte: docs/product/research-clklog-reconcile-caliber-v1.md (Repository)."
+    }
+  },
+  "dataCleanup": {
+    "unregisteredTitle": "Daten ↔ Metadaten",
+    "refresh": "Aktualisieren",
+    "unregisteredHint": "Ab {{from}}: {{data}} in Daten / {{meta}} registriert; nicht registrierte unten",
+    "colEvent": "Event",
+    "colRows": "Zeilen",
+    "colRange": "Datumsbereich",
+    "colFuture": "Zukunftsdatum",
+    "futureYes": "Zukunft",
+    "useEvent": "Nach Event löschen",
+    "useFuture": "Zukunft löschen",
+    "ghostTitle": "{{count}} Geister-Registrierungen (nur Metadaten)",
+    "deleteTitle": "Gezieltes Löschen (ALTER DELETE)",
+    "deleteHint": "Erst Vorschau, dann Tabellennamen eingeben. Automatisches Backup und Audit. Community-Tabellen sind nicht löschbar.",
+    "kind.event": "Nach Event",
+    "kind.project": "Nach Projekt",
+    "kind.before": "Vor Datum",
+    "kind.future": "Zukunftszeit",
+    "eventPlaceholder": "Event-Name (z. B. $SignUp)",
+    "beforePlaceholder": "Vor JJJJ-MM-TT",
+    "preview": "Vorschau",
+    "previewResult": "Etwa {{rows}} Zeilen ({{from}} ~ {{to}})",
+    "backupHint": "Vorab-Abgleich bestanden; Backup nach {{backup}}",
+    "preflightBlocked": "Vorab-Abgleich nicht erfüllt ({{reason}}): zuerst auf der Datenqualitätsseite ausführen",
+    "cleanupMissing": "Bereinigungs-Konto fehlt: gezieltes Löschen nicht verfügbar",
+    "rowsExceeded": "Zeilen über dem Limit {{max}} pro Lauf; aufteilen",
+    "confirmPlaceholder": "Tabellennamen eingeben: {{table}}",
+    "execute": "{{rows}} Zeilen löschen",
+    "done": "Löschen gestartet (~{{rows}} Zeilen)",
+    "doneDetail": "Backup {{backup}} | Mutation {{mutation}}; Löschen im Hintergrund, Bereich als bereinigt registriert",
+    "colAction": "Aktion",
+    "unregisteredFailed": "Nicht registrierte Events konnten nicht geladen werden: {{message}}",
+    "window": "Zeitraum",
+    "windowDays": "{{days}} Tage"
+  },
+  "projectRetire": {
+    "title": "Vorschau Projekt-Stilllegung",
+    "communityNote": "Community-Tabellen (clklog.log_analysis und 18 Aggregate) haben keine Projekt-Dimension; nutzen Sie Aufbewahrung/TTL",
+    "step": {
+      "stopWrites": "Zuerst das Reporting des Projekts stoppen (API-Key deaktivieren / SDK stoppen) und prüfen, dass Schreibvorgänge der letzten 24 h auf 0 gehen",
+      "execution": "Stilllegung ausführen: tabellenweise Löschung auf sa-Seite (DROP PARTITION für Mitgliedstabellen, sonst ALTER DELETE) plus Tabelle für Tabelle in MySQL",
+      "backupAudit": "Zu löschende Zeilen werden zuerst in eine Backup-Datei exportiert und die Aktion auditiert (action=project_retire)"
+    },
+    "result": {
+      "saDone": "sa-Seite abgeschlossen ({{tables}} Tabellen)",
+      "saPartial": "sa-Seite teilweise erledigt: eine große Tabelle überschritt das Budget pro Lauf; erneut ausführen",
+      "mysqlDone": "MySQL-Seite: {{rows}} Zeilen gelöscht"
+    },
+    "getToken": "Token holen"
+  }
+}

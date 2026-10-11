@@ -1,0 +1,290 @@
+{
+  "role": {
+    "analysisAdmin": "Administrador de análisis",
+    "analyst": "Analista",
+    "member": "Miembro",
+    "external": "Usuario externo",
+    "projectOwner": "Propietario del proyecto"
+  },
+  "label": {
+    "role": "Rol",
+    "user": "Usuario"
+  },
+  "message": {
+    "created": "Creado",
+    "minLength": "Al menos 6 caracteres"
+  },
+  "dataPolicy": {
+    "title": "Políticas de permisos de datos",
+    "column": "Permisos de datos",
+    "unrestricted": "Sin restricciones",
+    "create": "Crear política",
+    "reference": "Referencias",
+    "referenceCount": "Miembros {{members}} / grupos {{groups}}",
+    "deleteConfirm": "¿Eliminar la política?",
+    "definition": "Definición JSON (puede estar vacía; visible por defecto)",
+    "detail": "Detalles de la política",
+    "scopeEvents": "Eventos visibles",
+    "scopeEventProperties": "Propiedades de evento visibles",
+    "scopeUserProperties": "Propiedades de usuario visibles",
+    "scopeRowFilter": "Filtro de filas",
+    "scopeAll": "Sin restricción",
+    "scopeNone": "Ninguno (todo oculto)",
+    "rowFilterNone": "Ninguno",
+    "rowFilterAnd": "y",
+    "rowFilterItem": "{{prop}} {{op}} {{value}}"
+  },
+  "members": {
+    "title": "Miembros",
+    "add": "Añadir miembro",
+    "added": "Añadido",
+    "removeConfirm": "¿Quitar del proyecto?",
+    "remove": "Quitar",
+    "seed": "Rellenar con miembros de demostración",
+    "seedSuccess": "Se han creado analyst1 / member1 / external1 y se han unido a sus grupos correspondientes",
+    "seedHint": "Creará tres cuentas de demostración en el proyecto actual y las unirá a «Grupo de analistas / Grupo de miembros / Grupo de usuarios externos». Las cuentas con el mismo nombre que ya existan no cambiarán de contraseña.",
+    "demoPassword": "Contraseña de las cuentas de demostración"
+  },
+  "subjectGrant": {
+    "action": "Acceso a paneles",
+    "title": "Acceso a paneles · {{name}}",
+    "hint": "Marque para conceder visualización. Autorizar una carpeta cubre todos sus paneles, incluidos los creados después. Los elementos con edición se muestran solo de lectura aquí.",
+    "searchPlaceholder": "Buscar carpetas o paneles",
+    "folders": "Carpetas",
+    "dashboards": "Paneles",
+    "ungrouped": "Sin grupo",
+    "editable": "Puede editar",
+    "saved": "Acceso guardado",
+    "empty": "No hay carpetas ni paneles para autorizar"
+  },
+  "groups": {
+    "title": "Grupos de miembros",
+    "create": "Crear grupo",
+    "createTitle": "Crear grupo de miembros",
+    "memberCount": "Miembros",
+    "members": "Miembros",
+    "membersTitle": "Miembros del grupo · {{name}}",
+    "membersUpdated": "Miembros del grupo actualizados",
+    "membersHint": "Solo se pueden añadir personas que ya sean miembros de este proyecto. Los grupos no pueden vincularse a un owner.",
+    "membersEmpty": "Aún no hay miembros"
+  },
+  "roles": {
+    "title": "Roles",
+    "ownerNotice": "Cada proyecto admite como máximo 1 owner y solo lo designa el superadministrador. El administrador de análisis no puede modificar esta definición.",
+    "preset": "Predefinido",
+    "adjusted": "Ajustado",
+    "editDefinition": "Editar la definición del rol",
+    "saveSuccess": "Definición del administrador de análisis guardada",
+    "readonlyHint": "Los roles predefinidos no se pueden personalizar. Solo el propietario del proyecto puede modificar la definición del administrador de análisis.",
+    "feature": "Función",
+    "op": "Permisos de operación",
+    "detail": "Detalle de funciones",
+    "granted": "Concedido"
+  },
+  "apiKeys": {
+    "title": "Gestión de API Key",
+    "create": "Crear API Key",
+    "hintLead": "Para que las herramientas externas de IA o de automatización realicen",
+    "hintTail": "consultas de solo lectura en ClickHouse. Haga clic en «Crear API Key» para generarla al instante (nombre automático, ámbito de proyecto clklogapp de forma predeterminada y sin caducidad). El texto sin cifrar de la Key solo se muestra una vez al generarla: guárdelo en un lugar seguro.",
+    "projectScope": "Ámbito del proyecto",
+    "active": "Activa",
+    "revoked": "Revocada",
+    "expiresAt": "Fecha de caducidad",
+    "lastUsedAt": "Último uso",
+    "revokeConfirm": "¿Revocar esta Key? Dejará de ser válida de inmediato",
+    "revoke": "Revocar",
+    "deleteConfirm": "¿Eliminar esta Key? Esta acción no se puede deshacer",
+    "created": "API Key generada",
+    "revokedMsg": "Revocada",
+    "deleted": "Eliminada",
+    "copied": "Copiado al portapapeles",
+    "createSuccess": "API Key generada correctamente",
+    "plaintextWarning": "Esta Key solo se muestra una vez. Una vez cerrada, no podrá ver de nuevo el texto sin cifrar; guárdela ahora.",
+    "saved": "Ya la he guardado"
+  },
+  "projectSettings": {
+    "title": "Ajustes del proyecto",
+    "createProject": "Crear proyecto",
+    "createAccount": "Crear cuenta de acceso",
+    "ownerNotice": "Cada proyecto tiene exactamente un owner. Solo el superadministrador puede crear proyectos y designar o sustituir al owner; el owner anterior pasa a administrador de análisis. Al crear un proyecto solo se registra el nombre del espacio de análisis; no se crea ninguna base de datos en ClickHouse.",
+    "projectName": "Nombre del proyecto",
+    "displayName": "Nombre visible",
+    "currentOwner": "Owner actual",
+    "projectOwner": "Propietario del proyecto",
+    "unassigned": "Sin asignar",
+    "assign": "Designar / sustituir",
+    "selectUser": "Seleccionar usuario",
+    "userOption": "{{name}} ({{username}})",
+    "ownerUpdated": "Owner de {{name}} actualizado",
+    "projectCreated": "Proyecto creado",
+    "nameHint": "Debe empezar por minúscula y solo admite minúsculas, dígitos y guiones bajos, de 2 a 63 caracteres. El project_name del SDK de envío debe coincidir con este valor.",
+    "nameRequired": "Introduzca el nombre del proyecto",
+    "nameInvalid": "El formato no cumple los requisitos",
+    "namePlaceholder": "p. ej. game_ios",
+    "displayNamePlaceholder": "Nombre para mostrar; puede coincidir con el nombre del proyecto",
+    "ownerRequired": "Designe al owner",
+    "accountCreated": "Cuenta creada; puede añadirla a un proyecto desde Miembros",
+    "accountHint": "Solo crea la identidad de acceso; no será miembro de ningún proyecto automáticamente. Para añadir a alguien a un proyecto, vaya a «Miembros».",
+    "username": "Nombre de usuario",
+    "password": "Contraseña"
+  },
+  "error": {
+    "loadFailed": "No se pudo cargar. Vuelva a intentarlo.",
+    "grant": {
+      "subjectRequired": "Falta subject_id",
+      "assetsMustBeArray": "asset_ids debe ser un arreglo",
+      "subjectTypeInvalid": "subject_type debe ser user o group"
+    },
+    "asset": {
+      "folderNotFound": "La carpeta no existe",
+      "dashboardNotFound": "El panel no existe: {{id}}",
+      "cardNotFound": "La tarjeta no existe: {{id}}",
+      "cohortNotFound": "La cohorte no existe",
+      "tagNotFound": "La etiqueta no existe",
+      "viewGrantDashboardOnly": "El permiso de visualización solo se aplica a paneles y carpetas",
+      "editGrantAnalystOnly": "El permiso de edición solo se puede conceder a analistas de este proyecto",
+      "editGrantAnalystGroupOnly": "El permiso de edición solo se puede conceder a grupos de miembros con el rol de analista",
+      "withdrawGrantBeforeLock": "Retire primero el permiso de edición y luego bloquee",
+      "unlockBeforeGrant": "Desbloquee primero y luego conceda el permiso"
+    },
+    "forbidden": "No tiene acceso a este recurso",
+    "dataScope": {
+      "invalidProp": "Nombre de propiedad de usuario no válido",
+      "unsupportedOperator": "El filtrado por filas de los permisos de datos aún no admite el operador: {{op}}",
+      "eventForbidden": "No tiene permiso para consultar el evento: {{event}}",
+      "propertyForbidden": "No tiene permiso para usar la propiedad: {{property}}"
+    },
+    "project": {
+      "fieldsRequired": "name y owner_user_id son obligatorios",
+      "nameInvalid": "El nombre del proyecto debe empezar por minúscula y solo puede contener minúsculas, dígitos y guiones bajos, con una longitud de 2 a 63",
+      "exists": "El proyecto ya existe",
+      "timezoneInvalid": "Zona horaria no válida (debe ser un nombre IANA, p. ej. Asia/Shanghai)"
+    },
+    "demo": {
+      "passwordTooShort": "La contraseña de las cuentas de demostración debe tener al menos 6 caracteres"
+    },
+    "role": {
+      "grantsMustBeArray": "grants debe ser un array",
+      "invalid": "Rol no válido"
+    },
+    "member": {
+      "notMember": "No es miembro de este proyecto",
+      "ownerAssignForbidden": "No se puede designar al owner desde la gestión de miembros",
+      "notFound": "El miembro no existe",
+      "ownerRoleForbidden": "No se puede cambiar el rol de proyecto del owner",
+      "promoteToOwnerForbidden": "No se puede convertir a un miembro en owner",
+      "removeOwnerForbidden": "No se puede quitar al propietario del proyecto",
+      "expiryOwnerForbidden": "Un propietario de proyecto no puede tener caducidad",
+      "expiryInvalid": "La caducidad no es una fecha válida"
+    },
+    "user": {
+      "unavailable": "Usuario no disponible",
+      "notFound": "El usuario no existe"
+    },
+    "group": {
+      "bindingForbidden": "Los grupos de miembros no pueden vincularse a un owner ni a roles no válidos",
+      "notFound": "El grupo de miembros no existe",
+      "ownerForbidden": "Los grupos de miembros no pueden vincularse a un owner",
+      "memberRequired": "El usuario debe ser ya miembro del proyecto"
+    },
+    "dataPolicy": {
+      "notFound": "La política no existe",
+      "inUse": "Sigue siendo referenciada por miembros o grupos"
+    },
+    "invite": {
+      "emailInvalid": "Formato de correo no válido",
+      "alreadyMember": "La cuenta de este correo ya es miembro del proyecto",
+      "notFound": "Invitación no encontrada o ya cerrada",
+      "emailMismatch": "El correo de la cuenta actual no coincide con la invitación"
+    }
+  },
+  "permission": {
+    "feature": {
+      "projectAccess": "Gestión de permisos del proyecto",
+      "dataPolicy": "Permisos de datos",
+      "opsAccount": "Operación · Cuentas",
+      "opsProjectSettings": "Operación · Ajustes del proyecto",
+      "opsApiKey": "Operación · API Key",
+      "opsAiWorkspace": "Operación · AI Workspace",
+      "opsRuntime": "Operación · Gestión de operación futura",
+      "subject": "Sujeto de análisis",
+      "cohort": "Gestión de cohortes de usuarios",
+      "tag": "Gestión de etiquetas de usuario",
+      "meta": "Seguimiento / metadatos",
+      "modelUsage": "Uso de modelos",
+      "dashboard": "Uso de paneles",
+      "metric": "Gestión de métricas",
+      "timeline": "Línea temporal del usuario"
+    },
+    "op": {
+      "view": "Ver",
+      "edit": "Editar",
+      "manage": "Gestionar",
+      "use": "Uso de funciones"
+    },
+    "detail": {
+      "iamMemberView": "Ver los miembros, grupos de miembros, descripciones de roles y políticas de permisos de datos de este proyecto",
+      "iamMemberEdit": "Añadir y quitar miembros y grupos; asignar roles distintos del de owner",
+      "iamRoleEditAdmin": "Editar la definición de autorización del «administrador de análisis» de este proyecto",
+      "iamDataPolicyManage": "Crear, editar y eliminar políticas y asignarlas a miembros o grupos",
+      "opsUserManage": "Crear, deshabilitar y habilitar cuentas de acceso",
+      "opsOwnerAssign": "Crear proyectos de análisis; designar o sustituir al owner único del proyecto",
+      "opsApikeyManage": "Ver, crear y revocar Keys",
+      "opsAiWorkspaceManage": "Plantillas y sincronización",
+      "opsRuntimeAccess": "Marcador de posición; sin rutas en esta fase",
+      "subjectView": "Cambiar entre los sujetos existentes durante el análisis",
+      "subjectEdit": "Ver y editar los sujetos de análisis de este proyecto",
+      "cohortView": "Ver la lista de cohortes y la vista previa de miembros",
+      "cohortEditOwn": "Crear, editar y eliminar sus propias cohortes",
+      "cohortEditOthers": "Editar y eliminar cohortes de otras personas",
+      "tagView": "Ver la lista de etiquetas y la vista previa de miembros",
+      "tagEditOwn": "Crear, editar y eliminar sus propias etiquetas",
+      "tagEditOthers": "Editar y eliminar etiquetas de otras personas",
+      "metaView": "Ver eventos, propiedades, objetos virtuales, métricas, Debug y calidad de datos",
+      "metaPickerView": "Leer los eventos, propiedades y campos de tablas de dimensiones habilitados para los selectores de análisis (solo lectura)",
+      "metaEdit": "Editar definiciones, confirmar u ocultar, y usar Debug",
+      "modelQuery": "Consultas de eventos, embudos y retención",
+      "modelSql": "SQL personalizado",
+      "modelCardSave": "Guardar tarjetas",
+      "modelExport": "Exportar los datos de consulta o de panel ya presentados",
+      "dashboardView": "Ver los paneles accesibles y sus ajustes",
+      "dashboardViewAll": "Ver todos los paneles de este proyecto",
+      "dashboardEdit": "Crear paneles; intentar editar (prevalece AssetPolicy)",
+      "dashboardFilter": "Ajustar temporalmente los filtros del panel",
+      "dashboardFolderManage": "Crear, renombrar y eliminar carpetas",
+      "assetLock": "Bloquear y desbloquear carpetas, paneles, tarjetas, cohortes y etiquetas",
+      "assetGrant": "Conceder o retirar el permiso de edición y la visualización externa de paneles, tarjetas y carpetas",
+      "metricView": "Ver las métricas guardadas",
+      "metricEditOwn": "Crear, editar y eliminar sus propias métricas",
+      "metricEditOthers": "Editar y eliminar métricas de otras personas",
+      "timelineView": "Ver todos los eventos de un usuario en el periodo elegido"
+    }
+  },
+  "invite": {
+    "userOrEmailHint": "Elige una cuenta existente o escribe un correo completo para invitar a alguien no registrado.",
+    "userOrEmailPlaceholder": "Selecciona cuenta o escribe correo",
+    "addedDirect": "Ese correo ya tiene cuenta; se añadió al proyecto directamente",
+    "sent": "Correo de invitación enviado",
+    "emailInvalid": "Selecciona una cuenta o escribe un correo completo",
+    "pendingTitle": "Invitaciones pendientes",
+    "colEmail": "Correo",
+    "colInviter": "Invitado por",
+    "colExpires": "Caduca",
+    "revoke": "Revocar",
+    "revokeConfirm": "¿Revocar esta invitación? El enlace dejará de funcionar."
+  },
+  "member": {
+    "colExpiry": "Vigencia",
+    "expiryPermanent": "Permanente",
+    "expiryInDays": "Caduca en {{days}} días",
+    "expiredTag": "Caducado",
+    "renew": "Renovar",
+    "renewTitle": "Definir nueva fecha de caducidad",
+    "renewed": "Renovado",
+    "expiryLabel": "Caducidad del miembro (opcional)",
+    "expiryHint": "Al caducar, el rol directo del proyecto termina (los roles de grupo permanecen); vacío = permanente."
+  },
+  "audit": {
+    "title": "Auditoría del proyecto"
+  }
+}

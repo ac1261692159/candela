@@ -1,0 +1,45 @@
+{
+  "serviceUnavailable": "Der Analysedienst ist vorübergehend nicht erreichbar. Bitte später erneut versuchen; bei anhaltendem Fehler den Administrator kontaktieren.",
+  "dataUnavailable": "Der Datenabfragedienst ist vorübergehend nicht verfügbar. Bitte später erneut versuchen; bei anhaltendem Fehler den Administrator kontaktieren.",
+  "requestTimeout": "Zeitüberschreitung der Anfrage. Bitte den Abfragebereich einschränken oder später erneut versuchen.",
+  "genericUnavailable": "Der Dienst ist vorübergehend nicht verfügbar. Bitte später erneut versuchen; bei anhaltendem Fehler den Administrator kontaktieren.",
+  "requestFailed": "Anfrage fehlgeschlagen",
+  "status401": "Anmeldung abgelaufen, bitte erneut anmelden",
+  "status403": "Keine Berechtigung für diese Aktion",
+  "status404": "Die angeforderte Ressource existiert nicht",
+  "status429": "Zu viele Anfragen, bitte später erneut versuchen",
+  "unknown": "Unbekannter Fehler",
+  "queryFailed": "Abfrage fehlgeschlagen",
+  "validation": {
+    "selectTimeRange": "Bitte Zeitraum auswählen",
+    "atLeastOneMetric": "Bitte mindestens eine Metrik konfigurieren",
+    "tooManyMetrics": "Höchstens {{max}} Metriken",
+    "atLeastOneEventMetric": "Bitte mindestens eine Ereignismetrik konfigurieren",
+    "metricEventRequired": "Bitte für jede Metrik ein Ereignis auswählen",
+    "perCapitaNeedsNumber": "Für den Pro-Kopf-Wert muss eine numerische Eigenschaft gewählt werden",
+    "minuteSpanTooLong": "Bei minutengenauer Abfrage darf der Zeitraum höchstens 1 Tag betragen",
+    "funnelMinSteps": "Ein Funnel benötigt mindestens {{min}} Schritte",
+    "funnelMaxSteps": "Ein Funnel umfasst höchstens {{max}} Schritte",
+    "startEventRequired": "Bitte Start-Ereignis auswählen",
+    "returnEventRequired": "Bitte Rückkehrereignis auswählen",
+    "retentionPeriodRequired": "Bitte mindestens einen Retention-Zeitraum auswählen"
+  },
+  "apiKey": {
+    "missing": "API Key fehlt (bitte über X-API-Key oder Authorization: Bearer angeben)"
+  },
+  "rbac": {
+    "forbidden": "Kein Zugriff auf diese Ressource"
+  },
+  "attribute": {
+    "datatableUserUnsupported": "Datentabellen-Dimensionen unterstützen derzeit keine Benutzereigenschaften",
+    "datatableInVirtualExpression": "Eigenschaften aus Datentabellen dürfen nicht in Ausdrücken für virtuelle Eigenschaften verwendet werden",
+    "datatableStale": "Die von Eigenschaft {{prop}} verwendete Datentabelle ist nicht mehr gültig",
+    "datatableMultiple": "Eigenschaft {{prop}} ist an mehrere Datentabellen gebunden"
+  },
+  "analysis": {
+    "timeRange": {
+      "timezoneInvalid": "Ungültige Zeitzone (erforderlich ist ein IANA-Zeitzonenname, z. B. Asia/Shanghai)"
+    }
+  },
+  "status413": "Upload zu groß. Bitte die Zeilenzahl reduzieren und erneut versuchen"
+}

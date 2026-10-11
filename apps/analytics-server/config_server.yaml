@@ -1,0 +1,123 @@
+# ClkLog 分析平台后端 - 部署配置模板
+# 主机名 mysql.internal / redis.internal / kafka.internal 由部署脚本替换。
+# 口令只使用 ${ENV_NAME}，不写真实值。
+# 模型供应商与密钥**不在配置文件里**（phase: clklog-ai-model-providers-v1 v1.1）：
+# 由「设置 → AI Workspace 管理 → 模型供应商」维护，密钥以 AES-256-GCM 密文入库。
+# 这里只留部署容量与安全预设（enabled / runtime / workspace / permission_preset）。
+
+# 平台时区（IANA 名）：统计日历、落库 stat_date、告警/调度与默认展示口径。
+# 缺省 = Asia/Shanghai；改动即换全平台默认日历（历史 stat_date 分区口径不追溯，
+# 属部署期决定，见 docs/architecture/clklog-analytics-design-timezone-v1.md）。
+analytics:
+  timezone: Asia/Shanghai
+
+server:
+  port: 3100
+  cors:
+    origin: '*'
+
+deepseek_harness:
+  enabled: true
+  runtime:
+    linux_user: harness
+    home_subdir: clklog-ai
+    idle_ttl_ms: 900000
+    max_runtimes: 8
+    max_tokens: 8192
+    container_image: docker.io/library/node:24.20.0-bookworm-slim
+  workspace:
+    default_kind: persistent
+    temporary_ttl_ms: 86400000
+    recovery_retention_ms: 604800000
+    max_bytes: 1073741824
+  # 供应商与默认模型由网页维护（初始为空，超管自行添加并填写密钥）；
+  # 没有配置文件/环境变量来源，因此这里只有权限预设。
+  defaults:
+    permission_preset: workspace_write
+
+clickhouse:
+  write:
+    host: '127.0.0.1'
+    port: 8123
+    protocol: 'http'
+    username: 'default'
+    password: '${CLICKHOUSE_PASSWORD}'
+    database: 'clklog_sa'
+  readonly:
+    host: '127.0.0.1'
+    port: 8123
+    protocol: 'http'
+    username: 'sa_readonly'
+    password: '${READONLY_CH_PASSWORD}'
+    database: 'clklog_sa'
+  tcp:
+    host: '127.0.0.1'
+    port: 9000
+    username: 'default'
+    password: '${CLICKHOUSE_PASSWORD}'
+
+mysql:
+  host: 'mysql.internal'
+  port: 3306
+  username: 'root'
+  password: '${MYSQL_PASSWORD}'
+  database: 'clklog_sa_meta'
+  url: '${DATABASE_URL}'
+
+redis:
+  host: 'redis.internal'
+  port: 6379
+  db: 0
+  password: null
+  keyPrefix: 'clklog_sa:'
+  queryCache:
+    prefix: 'sa:query:'
+    ttlSeconds: 300
+
+kafka:
+  # CKafka PLAINTEXT 内网接入点
+  brokers:
+    - 'kafka.internal:9092'
+  clientId: 'clklog-analytics-server'
+  consumerGroupId: 'clklog-sa-ingestor'
+  topic: 'clklog'
+  sasl: null
+  ssl: false
+
+ingestor:
+  batchSize: 500
+  batchFlushMs: 2000
+  maxRetries: 3
+  retryDelayMs: 1000
+  autoCommit: false
+  replayGroupSuffix: 'replay'
+
+query:
+  # 平台用户查询墙钟上限（秒）。2026-09-09 用户决策 30→300：全周 properties JSON 解析类
+  # 合法重查询需要分钟级；有界限额（6亿行/50GB/2GB内存/4线程）不变（红线4）。
+  maxExecutionTime: 300
+  maxResultRows: 100000
+  defaultGroupLimit: 20
+
+sqlReport:
+  blacklistedKeywords:
+    - INSERT
+    - ALTER
+    - DROP
+    - ATTACH
+    - DETACH
+    - TRUNCATE
+    - RENAME
+    - SYSTEM
+    - KILL
+    - DELETE
+  forceLimit: 100000
+
+log:
+  level: 'info'
+  slowQueryThresholdMs: 5000
+
+# 对拍报告落盘目录（phase: clklog-data-quality-ops-v1）；写不进只记日志
+reconcile:
+  reportDir: /data/logs/production/clklog_manager/reconcile
+

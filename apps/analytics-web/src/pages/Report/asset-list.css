@@ -1,0 +1,11 @@
+/* 看板列表 / 分析卡片列表 共用：名称常态黑色，鼠标移上才变蓝 */
+.asset-name {
+  font-weight: 600;
+  cursor: pointer;
+  color: rgba(0, 0, 0, 0.88);
+  transition: color 0.15s;
+}
+
+.asset-name:hover {
+  color: #1677ff;
+}

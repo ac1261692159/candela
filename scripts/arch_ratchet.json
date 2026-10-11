@@ -1,0 +1,20 @@
+{
+  "updatedAt": "2026-09-01",
+  "limits": {
+    "packageFiles": 30,
+    "packageLines": 8000,
+    "packageTestFiles": 30,
+    "packageTestLines": 8000,
+    "fileLines": 1200
+  },
+  "overLimitPackages": {},
+  "testDebtPackages": {},
+  "oversizedFiles": {},
+  "envReaders": {
+    "analytics-server/src/modules/ai-assistant/harness-runtime-manager.service.ts": 16,
+    "analytics-server/src/modules/ingestor/dlq.service.ts": 1,
+    "analytics-server/src/modules/ingestor/kafka-consumer.service.ts": 3,
+    "analytics-server/src/modules/shared/kafka-socket.factory.ts": 1,
+    "analytics-web/vite.config.ts": 1
+  }
+}

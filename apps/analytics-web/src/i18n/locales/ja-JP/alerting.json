@@ -1,0 +1,542 @@
+{
+  "tab": {
+    "overview": "概要",
+    "rules": "ポリシー",
+    "history": "履歴",
+    "mute": "ミュート",
+    "notifications": "通知履歴",
+    "templates": "通知テンプレート",
+    "channels": "チャンネル設定",
+    "contacts": "連絡先",
+    "audits": "変更履歴"
+  },
+  "workbench": {
+    "title": "監視アラート",
+    "firing": "現在 {{count}} 件のアラートが発火中です",
+    "noContact": "有効な連絡先がないため、アラートは外部に送信されません",
+    "noContactHint": "「連絡先」タブで連絡先を追加して有効にしてください。ルールに連絡先をバインドしない場合は、すべての有効な連絡先に送信されます。",
+    "brokenRules": "{{count}} 件のルールが現在無効です",
+    "brokenRulesHint": "{{names}}：バインドした指標が削除されたか、複数回連続で評価に失敗しています。これらのルールは発火しません（詳細は「ポリシー」タブのヘルス列を参照）。",
+    "notifyFail24h": "直近 24 時間で {{count}} 件の通知送信に失敗しました",
+    "notifyFail24hHint": "3 回再試行しても失敗した場合のみ記録されます。「通知履歴」タブで失敗理由を確認できます。"
+  },
+  "overview": {
+    "firedToday": "本日の発火",
+    "unresolved": "未復旧",
+    "notifyFailToday": "本日の通知失敗",
+    "firingEmpty": "現在発火中のアラートはありません",
+    "topRules": "本日の発火が多いルール",
+    "topRulesEmpty": "本日はまだ発火していません",
+    "fireCount": "発火回数"
+  },
+  "status": {
+    "firing": "発火中",
+    "normal": "正常",
+    "resolved": "復旧済み"
+  },
+  "severity": {
+    "label": "重大度",
+    "alertLevel": "アラート重大度",
+    "critical": "緊急",
+    "warning": "警告",
+    "info": "情報"
+  },
+  "kind": {
+    "fire": "アラート発火",
+    "resolve": "アラート復旧"
+  },
+  "rule": {
+    "label": "ルール",
+    "createMetric": "指標アラートを新規作成",
+    "editTitle": "発火条件を変更",
+    "editTitleNamed": "発火条件を変更 · {{name}}",
+    "saving": "保存中",
+    "editorHint": "検出周期は 60 秒固定です。ウィンドウ × 異常継続 = 連続でしきい値を超えた回数に達するとアラートします。内蔵ルールは削除できません。",
+    "editorMetricHint": "指標の値はワークベンチと同じクエリ経路でリアルタイムに評価されます。",
+    "targetMetric": "監視指標",
+    "target": "監視対象",
+    "metricTag": "データ管理指標",
+    "comparator": "比較関係",
+    "threshold": "しきい値",
+    "statWindow": "統計ウィンドウ",
+    "statWindowHint": "イベント分析は日単位（stat_date）でフィルターするため、ウィンドウは分ではなく日です。「今日」は当日の累計値です",
+    "windowMinutesLabel": "データ点の統計粒度",
+    "windowMinutesOption": "{{minutes}} 分で統計",
+    "windowTimes": "{{window}} × {{times}} 回",
+    "windowMinutesTimes": "{{minutes}} 分 × {{times}}",
+    "windowDays": "{{days}} 日",
+    "forWindows": "異常継続",
+    "forWindowsHint": "連続で何回しきい値を超えたら発火するか（間隔は 60 秒）",
+    "timesSuffix": "回",
+    "repeatInterval": "発火中の繰り返し通知間隔（分）",
+    "notifyOnResolve": "復旧時に通知",
+    "timeSourceHint": "指標に従う = 指標が持つクエリ期間を使用。このルールで指定 = 以下の統計ウィンドウを使用",
+    "timeSourceHintMetric": "指標にクエリ期間がある場合はデフォルトで指標に従います。このルールで個別にウィンドウを指定することもできます",
+    "timeFromMetric": "指標に従う",
+    "timeFromMetricWith": "指標に従う（{{window}}）",
+    "timeFromRule": "このルールで指定",
+    "timeFromRuleNoWindow": "このルールで指定（この指標にはクエリ期間が設定されていません）",
+    "name": "ルール名",
+    "defaultName": "{{metric}} アラート",
+    "created": "指標アラートを作成しました",
+    "metricSource": "監視対象は「データ管理 → 指標」に保存済みの指標です",
+    "metricSourceHint": "検出周期は 60 秒で、連続して「異常継続」の回数に達すると発火します。ウィンドウは日単位（今日 / 直近 N 日）で計算し、指標の値はワークベンチと同じクエリ経路でリアルタイムに評価され、カードのキャッシュには依存しません。",
+    "probe": "値をテスト",
+    "probeFailedPrefix": "値の取得に失敗",
+    "probeFailed": "値の取得に失敗しました：{{error}}",
+    "probeResult": "現在の値：{{value}}（{{window}}{{pick}}、所要時間 {{ms}}ms）",
+    "probePick": " · {{pick}}",
+    "editCondition": "条件を編集",
+    "muteQuick": "クイックミュート",
+    "allContacts": "すべての有効な連絡先",
+    "checkInterval": "60 秒ごとに検出",
+    "source": {
+      "metric": "指標：{{name}}",
+      "builtin": "運用"
+    },
+    "column": {
+      "health": "ヘルス",
+      "condition": "条件",
+      "window": "ウィンドウ / 継続",
+      "currentValue": "現在値"
+    },
+    "health": {
+      "metricMissing": "指標が削除されました",
+      "evalFailed": "評価に失敗",
+      "noContact": "連絡先なし"
+    }
+  },
+  "event": {
+    "filterLabel": "イベントステータス",
+    "firedAt": "発火時刻",
+    "value": "発火時の値",
+    "lastSeen": "最終観測"
+  },
+  "notification": {
+    "time": "時刻",
+    "kindFire": "発火",
+    "kindRepeat": "繰り返し",
+    "kindResolve": "復旧",
+    "result": "結果",
+    "error": "エラー"
+  },
+  "contact": {
+    "label": "連絡先",
+    "hint": "チャンネルを選択すると表示される案内に従って入力してください。グループボットの webhook 自体が認証情報です。認証情報型のチャンネル（メール / SMS / Telegram / WhatsApp）は、先に「チャンネル設定」ページでプラットフォームの認証情報を入力します。ルールには**複数**の連絡先をバインドできます（複数チャンネルへ同時送信）。ルールに連絡先をバインドしない場合、アラートは**すべての有効な連絡先**に送信されます。",
+    "updated": "連絡先を更新しました",
+    "editTitle": "連絡先を編集",
+    "editTitleNamed": "連絡先を編集 · {{name}}",
+    "maskedHint": "アドレスとキーは一覧ではマスクされているため**フォームには再表示されません**。空欄のままなら元の値が維持され、新しい値を入力した場合のみ上書きされます。",
+    "webhookUrl": "Webhook アドレス",
+    "webhookRequired": "Webhook アドレスを入力してください",
+    "address": "アドレス",
+    "addressLabel": "受信アドレス",
+    "addressEmail": "メールアドレス",
+    "addressChatId": "chat_id（例：-1001234567890）",
+    "addressWhatsapp": "番号（E.164、例：8613800138000）",
+    "addressSms": "電話番号（例：+8613800138000）",
+    "secret": "キー",
+    "secretOptional": "キー（任意）",
+    "secretHint": "Feishu / DingTalk の署名キー。ボットで署名検証を有効にしていない場合は空欄にします",
+    "smsProvider": "SMS プロバイダー",
+    "smsProviderHint": "空欄の場合はプラットフォームのデフォルト有効プロバイダーを使用します",
+    "disableHint": "無効にすると送信されません",
+    "bodyTemplateHint": "body テンプレート。プレースホルダーはアラートテンプレートと同じで、ほかに {{text}} と {{textJson}} があります",
+    "bodyTemplatePlaceholder": "body テンプレート（任意、デフォルトは {\"text\":\"{{textJson}}\"}）",
+    "alertContacts": "アラートの連絡先",
+    "multiHint": "複数選択可。ルール発火時にバインドしたすべての連絡先へ送信します。未選択の場合はすべての有効な連絡先へ送信します",
+    "multiExtra": "複数選択可（複数チャンネルへ同時送信）。未選択 = すべての有効な連絡先へ送信",
+    "noneSelected": "未選択 = すべての有効な連絡先",
+    "disabledName": "{{name}}（無効）",
+    "locale": "言語",
+    "localeDefault": "プラットフォームのデフォルト",
+    "localeHint": "通知は受信者の言語でレンダリングされます。空欄の場合はプラットフォームのデフォルト言語を使用します",
+    "timezone": "タイムゾーン",
+    "timezoneHint": "通知内の発火 / 復旧時刻はこのタイムゾーンでレンダリングされます。空欄 = プロジェクト / プラットフォームのタイムゾーン",
+    "timezoneDefault": "プロジェクト / プラットフォームに従う"
+  },
+  "channel": {
+    "label": "チャンネル",
+    "feishu": "Feishu",
+    "dingtalk": "DingTalk",
+    "wecom": "WeCom",
+    "webhook": "汎用 Webhook",
+    "email": "メール",
+    "sms": "SMS",
+    "telegram": "Telegram",
+    "whatsapp": "WhatsApp",
+    "configMissing": "未設定：{{names}}",
+    "unavailable": "このチャンネルは現在利用できません",
+    "pageHint": {
+      "title": "ここで設定するのは「認証情報型」のチャンネルです",
+      "body": "グループボット（Feishu / DingTalk / WeCom / 汎用 Webhook）の webhook 自体が認証情報なので「連絡先」ページで入力してください。このページでは SMTP、SMS プロバイダー、Telegram、WhatsApp を設定します。キーは書き込み専用で、保存後に「テスト送信」で接続性を確認できます。"
+    },
+    "envOnly": "環境変数",
+    "notEnabled": "未有効",
+    "pausedTag": "一時停止",
+    "muted": "このチャネルは配信を一時停止しています",
+    "mutedOn": "{{channel}} の配信を一時停止しました",
+    "mutedOff": "{{channel}} の配信を再開しました",
+    "platformFallbackTag": "プラットフォームのメールチャネル",
+    "platformFallbackNote": "メールは「設定 → ユーザー管理 → メールチャネル」の SMTP アカウントで送信されます。ここに入力する必要はありません。",
+    "secretTag": "キー {{hint}}",
+    "secretTitle": "認証情報（書き込み専用）",
+    "secretTitleConfigured": "認証情報（書き込み専用、設定済み {{hint}}）",
+    "pageNote": "ヒント：DingTalk / WeCom / Telegram の公式レート制限はいずれも 20 件/分で、プラットフォームがチャンネルごとに自動でキューイングと集約を行います。中国国内 SMS の署名とテンプレートは、先にベンダーのコンソールで申請・審査が必要です。AWS SNS には中国大陸のリージョンがなく、中国の番号への送信には申請が必要です。",
+    "enableFirst": "先に「{{channel}}」を展開して設定を保存してから有効にしてください",
+    "enabled": "{{channel}} を有効にしました",
+    "disabled": "{{channel}} を無効にしました",
+    "saved": "{{channel}} の設定を保存しました",
+    "sendTest": "テスト送信",
+    "testSmtp": "テスト宛先メールアドレス",
+    "testChatId": "テスト chat_id",
+    "testPhone": "テスト宛先番号",
+    "testTarget": "テスト対象（保存されません）",
+    "testOk": "テスト成功",
+    "testFail": "テスト失敗",
+    "testError": "{{detail}}：{{error}}",
+    "lastModified": "最終更新 {{user}}"
+  },
+  "channelGroup": {
+    "chat": "グループボットと IM",
+    "email": "メール",
+    "sms": "SMS"
+  },
+  "channelConfig": {
+    "helpTitle": "{{channel}} の設定方法",
+    "muteLabel": "配信を一時停止",
+    "muteHint": "一時停止しても設定とシークレットは保持されますが、このチャネルはアラートを配信しません（プラットフォームのメールフォールバックも遮断されます）。「送信テスト」は資格情報の確認に引き続き使えます。",
+    "smtp": {
+      "label": "メール（SMTP）",
+      "hint": "専用の送信アカウント + 認証コードの使用をおすすめします。保存後の「テスト送信」は、先に接続性を検証してから実際に 1 通送信します。",
+      "field": {
+        "host": "SMTP サーバー",
+        "port": "ポート",
+        "secure": "SSL/TLS（465 では通常オン）",
+        "user": "ユーザー名",
+        "from": "差出人",
+        "fromPlaceholder": "Candela アラート <alerts@example.com>",
+        "pass": "パスワード / 認証コード"
+      },
+      "help": "1. 準備：専用の送信メールボックスを用意し、プロバイダーの管理画面で SMTP を有効化して**アプリパスワード**を発行します——多くのプロバイダーはログインパスワードでの送信を拒否します。\n2. 入力：ホスト + ポート（465 は SSL/TLS を有効、587 は STARTTLS）。「差出人」は SMTP ユーザー名と一致させてください。一致しないとプロバイダーに拒否されます。\n3. 検証：「送信テスト」は接続確認のうえ実際に 1 通送信します。失敗時はプロバイダーの生のエラー（認証失敗 / 差出人不一致 / レート制限）が表示されます。一度設定すれば全社で再利用できます：「設定 → ユーザー管理 → メールチャネル」に同じアカウントを保存すると、アラート側が自動的にフォールバックします。"
+    },
+    "telegram": {
+      "label": "Telegram",
+      "hint": "@BotFather でボットを作成して Token を取得します。連絡先側では chat_id のみ入力します。中国大陸からはプロキシ経由の出口が必要で、api_base を自前の Bot API サービスに向けることもできます。",
+      "help": "1. 準備：Telegram で @BotFather を検索 → /newbot を送信（ユーザー名は bot で終わる必要があります）→ 返ってきた Token を下の「Bot Token」に入力して保存。さらに**自分の Telegram でこのボットを開き「START」を押します**——ボットから会話は開始できず、これを飛ばすと送信テストは chat not found で失敗します。\n2. 入力：連絡先の chat_id は @userinfobot が返す数字 ID（個人チャットではあなたのユーザー ID）。グループへ送る場合は先にボットをグループへ追加し、BotFather の /setprivacy でプライバシーモードを解除してください。解除しないとグループのメッセージを受け取れません。\n3. 検証：「送信テスト」は実際に 1 通送り、失敗時は Telegram の生のエラー（chat not found など）を表示します。サーバーから Telegram へ到達できない場合は「API アドレス」を自前の Bot API サーバーに向けてください（空欄なら公式 api.telegram.org）。",
+      "field": {
+        "apiBase": "API アドレス（空欄可、デフォルトは公式）",
+        "botToken": "Bot Token"
+      }
+    },
+    "whatsapp": {
+      "label": "WhatsApp（Cloud API）",
+      "hint": "Meta Business の認証 + 番号登録 + テンプレート審査が必要です。アラートは business-initiated に該当し、ウィンドウ外ではテンプレートメッセージしか送れません。テンプレートには 1〜4 個の変数（ルール / 現在値 / 条件 / プロジェクト）が必要です。",
+      "field": {
+        "phoneNumberId": "Phone Number ID",
+        "templateName": "テンプレート名",
+        "templateLang": "テンプレート言語",
+        "paramCount": "テンプレート変数の数（1〜4）",
+        "apiVersion": "Graph API バージョン",
+        "accessToken": "System User Token"
+      },
+      "help": "1. 準備：Meta Business アカウントの審査を完了し、登録済みの WhatsApp Business 番号を用意します。Meta 管理画面で Phone Number ID を取得します。\n2. 入力：Phone Number ID、テンプレート名、テンプレート言語（例 zh_CN）、パラメータ数（1〜4）。アラートは「ビジネス主導」のメッセージです。相手が 24 時間以内に返信していれば自由文を送れますが、それ以外は承認済みテンプレートのみです。\n3. 検証：連絡先の番号は E.164（「+」なし）。「送信テスト」はサンプル変数付きで 1 通送り、失敗時は Meta の生のエラーコード（テンプレート未承認 / パラメータ数不一致 / 番号がテストリストにない）を表示します。"
+    },
+    "smsAliyun": {
+      "label": "Alibaba Cloud SMS",
+      "hint": "署名とテンプレートは、先に Alibaba Cloud コンソールで申請し審査に通す必要があります。テンプレートには要約を受け取る変数が 1 つ必要です（例：${content}）。",
+      "field": {
+        "signName": "署名名",
+        "templateCode": "テンプレート Code",
+        "endpoint": "エンドポイント（空欄可）",
+        "accessKeyId": "AccessKey ID",
+        "accessKeySecret": "AccessKey Secret"
+      },
+      "help": "1. 準備：Alibaba Cloud の SMS を開通し、**署名とテンプレートの両方を申請・承認**してください。SMS 権限だけを持つ RAM AccessKey を推奨します。\n2. 入力：AccessKey ID / Secret、署名名、テンプレート CODE（SMS_xxxxxxx 形式）、リージョン。本文はテンプレートに制約され、プラットフォームは 1 行の要約のみ送ります。\n3. 検証：宛先番号は E.164（例 8613800138000）。「送信テスト」の失敗は Alibaba Cloud の生のエラーコード（署名未承認 / パラメータ不一致 / 残高不足）を表示します。コードは公式ドキュメントで確認してください。"
+    },
+    "smsTencent": {
+      "label": "Tencent Cloud SMS",
+      "hint": "コンソールのアプリ（SmsSdkAppId）+ 審査済みの署名とテンプレートが必要です。テンプレートには要約を受け取る変数が 1 つ必要です。",
+      "field": {
+        "sdkAppId": "SmsSdkAppId",
+        "signName": "署名名",
+        "templateId": "テンプレート ID",
+        "region": "リージョン",
+        "secretId": "SecretId",
+        "secretKey": "SecretKey"
+      },
+      "help": "1. 準備：Tencent Cloud の SMS を開通し、**署名**と**本文テンプレート**を作成して承認を待ちます。最小権限のサブアカウントキーを推奨します。\n2. 入力：SDK AppID、SecretId / SecretKey、署名内容、テンプレート ID、リージョン（例 ap-guangzhou）。プラットフォームは 1 行の要約のみ送ります。\n3. 検証：「送信テスト」の失敗は Tencent Cloud の生のエラーコード（署名またはテンプレート未承認 / パラメータ数不一致 / 残高不足）を表示します。"
+    },
+    "smsAws": {
+      "label": "AWS SNS",
+      "hint": "SNS の SMS には cn-* リージョンがありません（中国大陸からは送信不可）。中国の番号へ送るには先に AWS Support への申請が必要です。デフォルトのサンドボックスでは検証済みの番号にしか送信できません。",
+      "field": {
+        "region": "Region",
+        "accessKeyId": "AccessKey ID",
+        "secretAccessKey": "Secret Access Key"
+      },
+      "help": "1. 準備：AWS アカウントで SNS を有効化します。SNS は**既定でサンドボックス**のため、宛先番号を許可リストに追加するか本番昇格を申請してください。SNS に cn-* リージョンはなく、中国の番号への送信は別途申請が必要です。\n2. 入力：AccessKey / Secret、リージョン（例 ap-southeast-1）、Sender ID（一部リージョンで必須）。\n3. 検証：「送信テスト」の失敗は SNS の生のエラー（サンドボックス未開放 / 非対応リージョン / 権限不足 / 番号未検証）を表示します。"
+    },
+    "smsTwilio": {
+      "label": "Twilio",
+      "hint": "海外 / 災害対策用のチャンネルで、リージョンの制限はありません。From 番号は Twilio 側で検証するか購入する必要があります。",
+      "field": {
+        "fromNumber": "From 番号（E.164）",
+        "accountSid": "Account SID",
+        "authToken": "Auth Token"
+      },
+      "help": "1. 準備：Twilio アカウントで送信番号（Sender）を購入または申請します。トライアル版は検証済み番号にのみ送信できます。\n2. 入力：Account SID、Auth Token、From 番号（E.164、「+」付き）。\n3. 検証：「送信テスト」の失敗は Twilio のエラーコードと説明（番号が宛先に非対応 / 宛先未検証 / 残高不足）を表示します。"
+    }
+  },
+  "template": {
+    "kindFire": "アラート発火",
+    "kindResolve": "アラート復旧",
+    "channelChat": "グループチャット / Webhook",
+    "saved": "テンプレートを保存しました",
+    "reset": "デフォルトテンプレートに戻しました",
+    "hint": {
+      "title": "通知内容はテンプレートで決まります",
+      "lead": "テンプレートは「イベントタイプ × チャンネルグループ」単位で設定します（chat はグループボット / IM / Webhook / WhatsApp をカバー）。プロジェクト内のすべてのルールに適用されます。プレースホルダーは二重中かっこで記述し、通知の送信時に実際の値へ置換されます。次のような条件式に対応しています：",
+      "tail": " SMS はレンダリング後に空白を圧縮し、40 文字で切り捨てます。"
+    },
+    "isDefault": "デフォルトテンプレート",
+    "customized": "カスタマイズ済み · {{user}}",
+    "subject": "メール件名",
+    "body": "通知内容",
+    "variables": "プレースホルダー（クリックでカーソル位置に挿入）",
+    "varTooltip": "{{label}}（例：{{sample}}）",
+    "refreshPreview": "プレビューを再読み込み",
+    "preview": "プレビュー",
+    "sampleHint": "サンプルデータ · 送信はされません",
+    "previewFailed": "プレビューに失敗しました",
+    "previewSubject": "件名",
+    "smsNote": "実際の送信時は空白を圧縮して 40 文字に切り捨てます。現在は合計 {{count}} 文字です。",
+    "rendering": "レンダリング中…",
+    "previewEmpty": "左側の内容を編集すると、ここでプレビューが自動的に再読み込みされます。"
+  },
+  "mute": {
+    "scope": "範囲",
+    "allRules": "すべてのルール",
+    "duration": "クイック期間",
+    "pickDuration": "期間を選択",
+    "orRange": "または期間帯",
+    "reason": "理由",
+    "reasonPlaceholder": "任意",
+    "add": "ミュートを追加",
+    "added": "ミュートを追加しました",
+    "needDuration": "クイック期間またはカスタム期間帯を選択してください",
+    "presetHours": "{{count}} 時間",
+    "presetDays": "{{count}} 日",
+    "muted": "{{duration}} ミュート中",
+    "start": "開始",
+    "end": "終了",
+    "release": "解除"
+  },
+  "retention": {
+    "title": "データ保持ポリシー",
+    "hint": "3 つの範囲を個別に設定できます。空欄は**永久保持**を意味します。クリーンアップは日次で実行され（6 時間ごとにチェック）、削除操作は変更履歴に記録されます。「アラート履歴」を削除すると、対応する通知履歴も同時に削除されます。",
+    "scope": "範囲",
+    "days": "保持日数",
+    "keepForever": "空欄 = 永久",
+    "current": "現在",
+    "forever": "永久保持",
+    "daysValue": "{{days}} 日",
+    "saved": "保持ポリシーを保存しました",
+    "scopeLabel": {
+      "events": "アラート履歴",
+      "notifications": "通知履歴",
+      "audits": "変更履歴"
+    }
+  },
+  "audit": {
+    "hint": "ルール・連絡先・ミュートの変更はすべて記録されます（プラットフォーム管理者のみ閲覧可）。連絡先のアドレスはマスクされた値のみ記録されます。",
+    "empty": "変更履歴はありません",
+    "column": {
+      "time": "時刻",
+      "operator": "実行者",
+      "action": "アクション",
+      "target": "対象",
+      "detail": "変更内容"
+    },
+    "change": "{{field}}：{{from}} → {{to}}",
+    "fieldEntry": "{{field}}={{value}}",
+    "noChange": "（変更なし）",
+    "valueOn": "オン",
+    "valueOff": "オフ",
+    "field": {
+      "code": "ルールコード",
+      "comparator": "比較演算子",
+      "windowMinutes": "粒度（分）",
+      "windowDays": "ウィンドウ（日）",
+      "forWindows": "継続ウィンドウ",
+      "repeatMinutes": "繰り返し間隔（分）",
+      "notifyOnResolve": "復旧通知",
+      "metricName": "指標名",
+      "bodyLength": "テンプレート長",
+      "deleted": "削除件数",
+      "wasDefault": "元はデフォルト",
+      "enabledContacts": "有効な連絡先"
+    },
+    "action": {
+      "ruleUpdate": "ルールを変更",
+      "ruleCreate": "ルールを新規作成",
+      "ruleDelete": "ルールを削除",
+      "contactCreate": "連絡先を新規作成",
+      "contactDelete": "連絡先を削除",
+      "contactDefault": "デフォルトの連絡先に設定（履歴）",
+      "muteCreate": "ミュートを新規作成",
+      "muteDelete": "ミュートを解除",
+      "contactUpdate": "連絡先を変更",
+      "retentionUpdate": "保持ポリシーを変更",
+      "retentionCleanup": "保持ポリシーに基づくクリーンアップ",
+      "templateUpdate": "通知テンプレートを変更",
+      "templateReset": "デフォルトテンプレートに戻す"
+    }
+  },
+  "field": {
+    "enabled": "有効",
+    "enabledAria": "{{name}} を有効化",
+    "switchOn": "有効",
+    "switchOff": "無効",
+    "booleanOn": "オン",
+    "booleanOff": "オフ",
+    "unit": "単位",
+    "unitPlaceholder": "例：回 / 人",
+    "keepBlank": "空欄は変更しないことを意味します",
+    "keepCurrent": "空欄なら変更しません（現在：{{value}}）",
+    "keepSavedValue": "空欄は保存済みの値を変更しないことを意味します",
+    "keepSavedAddress": "空欄は保存済みのアドレスを変更しないことを意味します",
+    "keepSavedSecret": "空欄は保存済みのキーを変更しないことを意味します"
+  },
+  "metric": {
+    "label": "指標",
+    "project": "プロジェクト",
+    "select": "指標を選択",
+    "noneInProject": "このプロジェクトに指標がありません。「データ管理 → 指標」で先に作成してください",
+    "option": "{{name}}（{{kind}}）",
+    "optionDisabled": "{{name}}（{{kind}} · {{reason}}）",
+    "unavailable": "利用不可"
+  },
+  "validate": {
+    "required": "{{field}}を入力してください",
+    "select": "{{field}}を選択してください"
+  },
+  "separator": {
+    "list": "、",
+    "pair": "；",
+    "entry": "、",
+    "slash": " / "
+  },
+  "window": {
+    "last2Days": "直近 2 日間"
+  },
+  "templateVar": {
+    "ruleName": "ルール名",
+    "ruleCode": "ルールコード",
+    "level": "重大度（英語）",
+    "levelFmt": "重大度（日本語表示）",
+    "status": "ステータス（日本語表示）",
+    "statusCode": "ステータスコード（fire/repeat/resolve）",
+    "value": "現在値（単位付き）",
+    "valueRaw": "現在値（元の数値）",
+    "unit": "単位",
+    "comparator": "比較演算子（英語）",
+    "comparatorFmt": "比較演算子（日本語表示）",
+    "threshold": "しきい値（単位付き）",
+    "metricName": "指標名",
+    "metricKind": "指標タイプ",
+    "windowDays": "ウィンドウ日数",
+    "windowFmt": "ウィンドウ（日本語表示）",
+    "project": "プロジェクト名",
+    "time": "発火 / 復旧時刻",
+    "detectInterval": "検出周期",
+    "contactName": "連絡先"
+  },
+  "ruleHealth": {
+    "ok": "正常",
+    "metricMissing": "指標が削除されました",
+    "evalFailed": "評価に失敗",
+    "noContact": "連絡先なし",
+    "detailNoMetric": "ルールに指標がバインドされていません",
+    "detailMetricDeleted": "指標 {{metricId}} が削除されました",
+    "detailEvalFailed": "{{times}} 回連続で評価に失敗しました：{{message}}",
+    "detailNoContact": "連絡先なし：ルールに連絡先がバインドされておらず、有効な連絡先も存在しません"
+  },
+  "unit": {
+    "times": "回",
+    "rows": "件",
+    "pieces": "個",
+    "percent": "%"
+  },
+  "error": {
+    "rule": {
+      "notFound": "ルールが存在しません：{{code}}",
+      "noFields": "更新するフィールドがありません",
+      "builtinNotDeletable": "内蔵ルールは削除できません",
+      "metricMissing": "指標が存在しません（「データ管理 → 指標」で先に作成してください）",
+      "metricLimit": "指標アラートは最大 {{max}} 件です"
+    },
+    "contact": {
+      "idInvalid": "contact_id が不正です",
+      "notFound": "連絡先が存在しません",
+      "localeInvalid": "未対応の言語：{{locale}}",
+      "timezoneInvalid": "不正なタイムゾーンです（Asia/Shanghai のような IANA 名を指定してください）"
+    },
+    "channel": {
+      "unsupported": "未対応のチャンネルタイプ：{{kind}}",
+      "unavailable": "チャンネル {{channel}} は現在利用できません",
+      "unknown": "未知のチャンネル：{{channel}}"
+    },
+    "channelConfig": {
+      "unsupported": "未対応のチャンネル設定：{{channel}}",
+      "masterKeyMissing": "マスターキーがありません：環境変数 {{env}}（32 バイトの base64）を設定してください。チャンネルの認証情報を暗号化して保存するために使用します"
+    },
+    "template": {
+      "syntaxError": "テンプレートの構文エラー：{{error}}",
+      "subjectSyntaxError": "メール件名の構文エラー：{{error}}",
+      "kindInvalid": "イベントタイプが不正です（fire / resolve）",
+      "channelInvalid": "チャンネルが不正です（chat / email / sms）"
+    },
+    "mute": {
+      "notFound": "ミュートが存在しません",
+      "windowInvalid": "ミュート期間が不正です"
+    },
+    "retention": {
+      "scopeInvalid": "未対応の保持範囲：{{scope}}",
+      "daysInvalid": "保持日数は 1〜{{max}} の整数である必要があります。空欄は永久保持を意味します"
+    },
+    "metric": {
+      "notFound": "指標が存在しません"
+    },
+    "validate": {
+      "failed": "検証に失敗しました",
+      "required": "「{{field}}」を入力してください",
+      "number": "「{{field}}」は数値である必要があります",
+      "portRange": "ポート範囲は 1〜65535 です",
+      "paramCount": "テンプレート変数の数は 1〜4 です",
+      "apiBaseHttp": "API アドレスは http(s):// で始まる必要があります",
+      "fromFormat": "差出人の形式が正しくありません（name <mail@example.com> と記述できます）",
+      "webhookRequired": "Webhook アドレスを入力してください",
+      "webhookHttps": "Webhook アドレスは https:// で始まる必要があります",
+      "webhookHttp": "Webhook アドレスは http(s):// で始まる必要があります",
+      "feishuWebhook": "Feishu ボットの webhook ではないようです（https://open.feishu.cn/open-apis/bot/v2/hook/… の形式）",
+      "dingtalkWebhook": "DingTalk ボットの webhook ではないようです（https://oapi.dingtalk.com/robot/send?access_token=… の形式）",
+      "dingtalkSecret": "署名キーが短すぎます（DingTalk コンソールが生成する SEC…）",
+      "wecomWebhook": "WeCom グループボットの webhook ではないようです（https://qyapi.weixin.qq.com/cgi-bin/webhook/send?key=… の形式）",
+      "telegramChatIdRequired": "chat_id を入力してください（グループまたは個人チャットの会話 ID。@userinfobot で取得できます）",
+      "telegramChatIdFormat": "chat_id は数値である必要があります（グループ ID は -100 で始まります）",
+      "emailRequired": "宛先メールアドレスを入力してください",
+      "emailFormat": "メールアドレスの形式が正しくありません",
+      "smsRequired": "宛先の電話番号を入力してください",
+      "smsFormat": "電話番号の形式が正しくありません（国番号付きを推奨。例：+8613800138000）",
+      "smsProvider": "SMS プロバイダーが無効です（選択可：{{allowed}}）",
+      "whatsappRequired": "宛先番号を入力してください（E.164、例：8613800138000）",
+      "whatsappFormat": "番号の桁数が正しくありません（E.164 は + なしで 8〜15 桁）",
+      "headersJson": "カスタムヘッダーは有効な JSON である必要があります（例：{\"Authorization\":\"Bearer xxx\"}）",
+      "bodyTemplate": "body テンプレートの構文エラー：{{error}}"
+    },
+    "ops": {
+      "forbidden": "運用パネルにアクセスできるのはプラットフォーム管理者のみです"
+    }
+  }
+}

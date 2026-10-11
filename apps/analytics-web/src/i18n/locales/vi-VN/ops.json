@@ -1,0 +1,492 @@
+{
+  "range": {
+    "last1Hour": "1 giờ qua",
+    "last6Hours": "6 giờ qua",
+    "last24Hours": "24 giờ qua",
+    "last3Days": "3 ngày qua",
+    "last90Days": "90 ngày qua",
+    "last180Days": "180 ngày qua"
+  },
+  "message": {
+    "executeFailed": "Thực thi thất bại",
+    "updateFailed": "Cập nhật thất bại",
+    "setFailed": "Thiết lập thất bại"
+  },
+  "slowQuery": {
+    "title": "SQL chậm",
+    "minDuration": "Thời gian tối thiểu",
+    "status": "Trạng thái thực thi",
+    "generatedAt": "Dữ liệu được tạo lúc {{time}}",
+    "fromCache": "(có sẵn trong bộ nhớ đệm nên mở ngay, dữ liệu mới nhất đang được làm mới ở nền)",
+    "empty": "Không có truy vấn nào vượt quá {{ms}} ms trong khoảng thời gian hiện tại",
+    "expandSql": "Mở rộng SQL",
+    "collapseSql": "Thu gọn SQL",
+    "column": {
+      "time": "Thời gian",
+      "duration": "Thời gian chạy",
+      "readRows": "Số dòng đọc",
+      "readBytes": "Số byte đọc",
+      "memory": "Bộ nhớ",
+      "user": "Tài khoản"
+    },
+    "retentionNote": "Dữ liệu lấy từ log truy vấn của ClickHouse (system.query_log), chỉ giữ khoảng {{days}} ngày gần nhất"
+  },
+  "serverStatus": {
+    "title": "Trạng thái máy chủ",
+    "appVersion": "Phiên bản ứng dụng",
+    "uptime": "Đã chạy {{value}}",
+    "uptimeDays": "{{days}} ngày {{hours}} giờ",
+    "uptimeHours": "{{hours}} giờ {{minutes}} phút",
+    "uptimeMinutes": "{{minutes}} phút",
+    "hostMemory": "Bộ nhớ máy chủ",
+    "cpuLoad1m": "Tải CPU (1 phút)",
+    "loadDetail": "5 phút {{load5}} · 15 phút {{load15}} · {{cores}} nhân",
+    "diskPath": "Ổ đĩa {{path}}",
+    "diskUsed": "Đã dùng {{used}} / {{total}}",
+    "unavailable": "Không khả dụng",
+    "readFailed": "Đọc thất bại",
+    "dependencies": "Phụ thuộc và luồng dữ liệu",
+    "connected": "Đã kết nối · v{{version}}",
+    "unreachable": "Không kết nối được",
+    "unreachableError": "Không kết nối được: {{error}}",
+    "eventRowsLabel": "Lượng sự kiện (sa_events)",
+    "eventRowsCount": "{{rows}} dòng · {{size}}",
+    "lastWrite": "Lần ghi gần nhất vào luồng dữ liệu",
+    "maybeStalled": "(có thể đang tắc)",
+    "justNow": "Vừa xong",
+    "minutesAgo": "{{minutes}} phút trước",
+    "processMemory": "Bộ nhớ tiến trình (heap / RSS)",
+    "diskDetail": "Chi tiết ổ đĩa"
+  },
+  "diskTrend": {
+    "title": "Dự báo dung lượng ổ đĩa",
+    "pathWholeDisk": "Toàn bộ ổ /data",
+    "pathReceiver": "Thư mục log receiver",
+    "noSamples": "Chưa có mẫu",
+    "accumulating": "Đang tích lũy dữ liệu mẫu: hiện có {{count}}/3 điểm, đủ 3 điểm mới dự báo được (lấy mẫu mỗi giờ một lần)",
+    "flat": "Hiện chưa có xu hướng tăng rõ rệt, tạm thời chưa dự báo",
+    "forecast": "Với tốc độ gần đây, dự kiến ổ đĩa đầy vào {{date}}, còn {{days}} ngày",
+    "seriesUsed": "Dung lượng đã dùng",
+    "seriesPredicted": "Dự báo (đường nét đứt)",
+    "seriesTotal": "Tổng dung lượng ổ đĩa",
+    "totalMark": "Tổng",
+    "tooltipValue": "{{size}} ({{gb}} GB)",
+    "hint": "Khi chưa đủ mẫu sẽ không hiển thị đường dự báo (tránh gây hiểu nhầm). Cách tính: chỉ ngoại suy tuyến tính khi dung lượng tăng, tối đa 30 ngày; trục Y từ 0 đến tổng dung lượng ổ đĩa."
+  },
+  "logCleanup": {
+    "title": "Quản lý thư mục log",
+    "hint": "Tự động dọn các file .log quá hạn mỗi giờ (bản sao văn bản của dữ liệu ClickHouse, có thể xóa an toàn)",
+    "column": {
+      "path": "Thư mục",
+      "current": "Dung lượng hiện tại",
+      "lastRun": "Lần dọn tự động gần nhất",
+      "retainDays": "Số ngày giữ",
+      "autoClean": "Tự động dọn"
+    },
+    "currentUsage": "{{count}} file · {{size}}",
+    "notRunYet": "Chưa chạy lần nào",
+    "lastRun": "{{time}} (đã xóa {{count}} file / {{size}})",
+    "cleanNow": "Dọn ngay",
+    "confirmTitle": "Xác nhận dọn file log",
+    "confirmOk": "Thực hiện dọn",
+    "confirmMessage": "Sẽ xóa các file .log quá thời hạn giữ trong {{path}}: khoảng {{count}} file / {{size}}",
+    "confirmDescription": "Đây là các bản sao văn bản của dữ liệu đã nhập kho, xóa không ảnh hưởng đến chức năng nào; log đang hoạt động (hôm nay) sẽ không bị xóa.",
+    "auditHint": "Thao tác này sẽ được ghi vào nhật ký kiểm toán dọn dẹp. Có thể điều chỉnh số ngày giữ trong bảng phía trên.",
+    "deletedFiles": "Đã xóa {{count}} file, giải phóng {{size}}",
+    "retentionUpdated": "Đã cập nhật thời hạn giữ thành {{days}} ngày"
+  },
+  "dataMgmt": {
+    "readonlyNotice": "Trang này gồm: tổng quan / xu hướng / sức khỏe dữ liệu / xem trước và thực thi dọn / TTL và chính sách lưu trữ. Dọn và TTL là hành động: cần xác nhận hai lần và đối chiếu trước đạt, đồng thời ghi audit và đăng ký \"phạm vi đã dọn\". Dữ liệu mốc thời gian tương lai (thiết bị lệch giờ) chỉ được phát hiện, không tự xoá.",
+    "loadingOverview": "Đang tải tổng quan lưu trữ...",
+    "statTables": "Số bảng",
+    "statRows": "Tổng số dòng",
+    "statCompressed": "Tổng sau nén",
+    "rowsTenThousand": "{{value}} × 10.000",
+    "rowsHundredMillion": "{{value}} × 100 triệu",
+    "overview": "Tổng quan lưu trữ",
+    "column": {
+      "table": "Bảng",
+      "rows": "Số dòng",
+      "compressed": "Sau nén",
+      "raw": "Nguyên bản",
+      "partitions": "Phân vùng",
+      "lastWrite": "Ghi gần nhất",
+      "time": "Thời gian",
+      "action": "Hành động",
+      "targetTable": "Bảng đích",
+      "detail": "Chi tiết",
+      "operator": "Người thực hiện"
+    },
+    "trend": "Xu hướng lưu trữ theo bảng (lấy mẫu mỗi giờ)",
+    "ttlDays": "{{days}} ngày",
+    "trendAccumulating": "Đang tích lũy dữ liệu mẫu: {{count}} điểm (lấy mẫu mỗi giờ, khoảng 1 giờ sau sẽ có đường xu hướng)",
+    "compressedBytes": "Số byte nén của {{name}}",
+    "health": "Sức khỏe dữ liệu (ảnh chụp đối chiếu)",
+    "gotoQuality": "Đến trang chất lượng dữ liệu để đối chiếu thủ công",
+    "lastReconcile": "Lần đối chiếu trước",
+    "reconcileRange": "Phạm vi đối chiếu",
+    "reconcileStatus": "Trạng thái đối chiếu",
+    "hasAlert": "Có cảnh báo",
+    "normal": "Bình thường",
+    "alertDays": "Số ngày có cảnh báo",
+    "dupCrcRows": "Dòng trùng CRC (ước tính)",
+    "noSnapshot": "Chưa có ảnh chụp đối chiếu: hãy chạy một lần đối chiếu ở trang chất lượng dữ liệu để tạo tự động",
+    "preview": "Chạy thử dọn dẹp (kiểm kê ứng viên DROP PARTITION)",
+    "selectTable": "Chọn bảng",
+    "previewPrefix": "Dọn dữ liệu trước",
+    "previewSuffix": "ngày (phân vùng theo tháng)",
+    "previewRun": "Chạy thử",
+    "previewImpact": "Sẽ ảnh hưởng {{count}} phân vùng tháng: {{rows}} dòng / giải phóng khoảng {{size}} (tính đến {{cutoff}})",
+    "previewNone": "Không có phân vùng nào thỏa điều kiện (tính đến {{cutoff}})",
+    "previewWarning": "DROP PARTITION không thể khôi phục; hãy kiểm tra lại danh sách chạy thử trước khi thực thi.",
+    "previewFailed": "Chạy thử thất bại: {{error}}",
+    "executeCleanup": "Thực hiện dọn dẹp (xóa {{count}} phân vùng ở trên)",
+    "deletedPartitions": "Đã xóa {{count}} phân vùng",
+    "ttl": "Thiết lập TTL (vòng đời tự động)",
+    "ttlHint": "TTL chỉ sửa định nghĩa bảng, có hiệu lực ngay khi nhấp (không viết lại dữ liệu lịch sử); dữ liệu quá hạn sẽ được merge nền của ClickHouse dọn dần, dung lượng ổ đĩa không được giải phóng ngay. Kết quả kiểm kê hiện tại xem ở cột TTL trong phần tổng quan lưu trữ phía trên.",
+    "ttlSet": "Thiết lập TTL",
+    "ttlTitle": "Thiết lập TTL (dọn dần dữ liệu quá hạn ở nền)",
+    "ttlTarget": "Bảng đích:",
+    "ttlRetain": ", giữ",
+    "ttlRetainSuffix": "ngày (dữ liệu quá hạn sẽ được merge nền của CH xóa dần)",
+    "ttlNoteBefore": "Chỉ sửa định nghĩa bảng, không viết lại dữ liệu lịch sử (đã tắt rõ ràng materialize_ttl_after_modify): dữ liệu quá hạn được dọn dần trong các lần merge sau,",
+    "ttlNoteBold": "không giải phóng ổ đĩa ngay",
+    "ttlNoteAfter": ". Nếu cần giải phóng ngay, hãy dùng «Chạy thử dọn dẹp → Xóa phân vùng».",
+    "ttlSetDone": "Đã đặt TTL thành {{days}} ngày (có hiệu lực dần ở nền)",
+    "confirmTypeHint": "Nhập tên bảng đích để xác nhận:",
+    "audit": "Kiểm toán thao tác dọn dẹp (10 bản ghi gần nhất)",
+    "noActions": "Chưa có thao tác dọn dẹp",
+    "actionDropPartition": "Xóa phân vùng",
+    "actionSetTtl": "Thiết lập TTL",
+    "statusDone": "Hoàn thành",
+    "statusPartial": "Hoàn thành một phần",
+    "confirmDropTitle": "⚠️ Xác nhận xóa phân vùng (không thể khôi phục)",
+    "confirmDropOk": "Thực hiện xóa",
+    "dropWarning": "Sẽ xóa vĩnh viễn {{count}} phân vùng tháng khỏi {{table}} (khoảng {{rows}} dòng), không thể khôi phục",
+    "executeDone": "Hoàn thành {{count}}",
+    "executeDonePartial": "Hoàn thành {{count}}, thất bại {{failed}} (dừng khi gặp lỗi, có thể chạy thử lại rồi thử lại)",
+    "snapshotStaleWarn": "Chưa cập nhật {{hours}} giờ",
+    "snapshotStaleError": "Chưa cập nhật {{hours}} giờ (cần kiểm tra)",
+    "preflight": {
+      "blocked": "Đối chiếu trước khi dọn chưa đạt ({{reason}}): hãy chạy đối chiếu bao phủ ngày đó trước",
+      "ok": "Đối chiếu trước đã đạt (bao phủ {{date}})",
+      "hint": "Yêu cầu: ảnh chụp đạt trong {{max}} giờ và bao phủ {{date}}; hãy chạy trên trang chất lượng dữ liệu",
+      "reason": {
+        "noSnapshot": "chưa có ảnh chụp",
+        "notCovered": "ảnh chụp không bao phủ ngày đó",
+        "snapshotFailed": "ảnh chụp gần nhất có cảnh báo",
+        "snapshotStale": "ảnh chụp đã cũ"
+      }
+    }
+  },
+  "error": {
+    "admin": {
+      "forbidden": "Chỉ quản trị viên nền tảng mới truy cập được bảng vận hành"
+    },
+    "trend": {
+      "hoursInvalid": "hours phải là số"
+    },
+    "cleanup": {
+      "previewParamsRequired": "table và older_than_days là bắt buộc",
+      "executeParamsRequired": "table / partitions / confirmed_table là bắt buộc",
+      "tooManyPartitions": "Tối đa {{max}} phân vùng mỗi lần (chia nhỏ để giảm đỉnh IO)"
+    },
+    "ttl": {
+      "paramsRequired": "table / days / confirmed_table là bắt buộc"
+    },
+    "mutation": {
+      "tableRequired": "table là bắt buộc"
+    },
+    "dataMgmt": {
+      "tableNotInventoried": "Bảng không nằm trong phạm vi kiểm kê (được phép: {{allowed}})",
+      "tableNameInvalid": "Tên bảng phải có định dạng db.table",
+      "tableConfirmMismatch": "Tên bảng xác nhận không khớp: đã nhập “{{confirmed}}” ≠ đích “{{table}}”",
+      "noExecutablePartition": "Không có phân vùng nào thực thi được (tất cả bị từ chối: {{rejected}})",
+      "ttlTimeColumnMissing": "Bảng chưa đăng ký cột thời gian TTL (được phép: {{allowed}})",
+      "ttlDaysInvalid": "Số ngày TTL phải là số nguyên trong khoảng 1-3650",
+      "ttlSetFailed": "Thiết lập TTL thất bại: {{message}}",
+      "preflight": "Cần một lần đối chiếu đạt bao phủ {{required_to}} trước khi dọn; trạng thái ảnh chụp: {{reason}}"
+    },
+    "logCleanup": {
+      "retainDaysInvalid": "Số ngày giữ phải là số nguyên trong khoảng 1-365",
+      "pathNotAllowed": "Thư mục không nằm trong danh sách cho phép: {{path}}",
+      "pathRequired": "path là bắt buộc"
+    },
+    "reconcile": {
+      "forbidden": "Chỉ quản trị viên nền tảng mới sửa được cấu hình đối chiếu",
+      "runAtInvalid": "Giờ chạy phải theo định dạng HH:mm (múi giờ nền tảng)",
+      "thresholdInvalid": "Ngưỡng độ lệch phải là phần trăm từ 0 đến 100",
+      "staleOrderInvalid": "Ngưỡng đỏ phải lớn hơn ngưỡng vàng",
+      "staleHoursInvalid": "Ngưỡng phải là số giờ nguyên từ 1 đến 720"
+    },
+    "retention": {
+      "tableNotInventoried": "Bảng ngoài phạm vi chính sách lưu trữ (cho phép: {{allowed}})",
+      "keepDaysInvalid": "Số ngày lưu phải là số nguyên từ 1 đến 3650",
+      "keepDaysRequired": "keep_days là bắt buộc"
+    },
+    "dataDelete": {
+      "paramsRequired": "kind / table / project là bắt buộc",
+      "executeParamsRequired": "kind / table / project / confirm_table / confirm_token là bắt buộc",
+      "tableConfirmMismatch": "Tên bảng xác nhận không khớp: đã nhập \"{{confirmed}}\" ≠ đích \"{{table}}\"",
+      "cleanupAccountMissing": "Tài khoản dọn chưa cấu hình (thiếu CLICKHOUSE_CLEANUP_PASSWORD); từ chối thực thi",
+      "rowsExceeded": "Khoảng {{rows}} hàng bị ảnh hưởng, vượt giới hạn {{max}} mỗi lần; chia theo sự kiện hoặc thu hẹp khoảng thời gian",
+      "tokenInvalid": "Token xác nhận không hợp lệ hoặc hết hạn (điều kiện hoặc số hàng đã đổi); chạy lại xem trước",
+      "preflight": "Cần một lần đối chiếu đạt bao phủ {{required_to}} trước khi xoá; trạng thái ảnh chụp: {{reason}}",
+      "nothingToDelete": "Điều kiện không khớp hàng nào",
+      "backupFailed": "Sao lưu trước khi xoá thất bại, đã dừng (chưa xoá dữ liệu): {{message}}",
+      "executeFailed": "Xoá thất bại: {{message}} (bảng sao lưu có thể phục hồi)",
+      "tableNotAllowed": "Bảng không có trong danh sách cho phép xoá điểm: {{table}}",
+      "communityRefused": "Không được xoá bảng bản cộng đồng (giới hạn đỏ 1): {{table}}",
+      "kindNotAllowed": "Bảng này không hỗ trợ điều kiện xoá đó: {{kind}}",
+      "projectInvalid": "Tên dự án không hợp lệ: {{project}}",
+      "eventInvalid": "Tên sự kiện không hợp lệ: {{event}}",
+      "beforeRequired": "Bắt buộc nhập before (xoá dữ liệu có stat_date trước ngày đó)",
+      "beforeInFuture": "before không được muộn hơn hôm nay (dữ liệu tương lai dùng điều kiện \"mốc thời gian tương lai\")",
+      "toInFuture": "to không được muộn hơn hôm nay (dữ liệu tương lai dùng \"mốc thời gian tương lai\")",
+      "rangeInvalid": "from không được muộn hơn to",
+      "dateInvalid": "{{field}} phải theo định dạng YYYY-MM-DD",
+      "mutationRunning": "{{table}} đang có mutation chưa xong; hãy đợi hoàn tất (bảo vệ IO)"
+    },
+    "metaReconcile": {
+      "windowTooWide": "Cửa sổ {{days}} ngày vượt giới hạn ước tính của ClickHouse: giảm window_days (mặc định 7) hoặc dùng scripts/reconcile.sh"
+    },
+    "projectRetire": {
+      "projectRequired": "project là bắt buộc",
+      "notRegistered": "Dự án chưa đăng ký: {{project}} (kiểm tra chính tả)",
+      "stillWriting": "Có {{rows}} hàng được ghi trong 24 giờ qua: hãy dừng thu thập của dự án trước",
+      "executeParamsRequired": "project / step / confirm_token là bắt buộc"
+    }
+  },
+  "retention": {
+    "title": "Chính sách lưu trữ (dự kiến × thực tế × khoảng tin cậy đối chiếu)",
+    "hint": "Thời gian lưu dự kiến do người dùng đăng ký (mặc định: sa_events 540 ngày, bảng cộng đồng 180 ngày); thực tế lấy từ TTL của bảng.",
+    "trusted": "Khoảng tin cậy đối chiếu: {{from}} ~ {{to}} (bên ngắn hơn = {{days}} ngày)",
+    "trustedUnbounded": "Khoảng tin cậy đối chiếu: cả hai bên chưa đặt thời gian lưu, dùng phạm vi dữ liệu thực tế",
+    "trustedBoundBy": "Giới hạn bởi thời gian lưu {{days}} ngày của {{table}} (dọn bảng nào cũng làm sai lệch so sánh giai đoạn đó)",
+    "suspicious": "{{count}} phân vùng ngày đáng ngờ (phân vùng tương lai / dữ liệu cũ trước khoảng tin cậy); chỉ cảnh báo, không tự dọn",
+    "suspiciousKind": {
+      "future": "phân vùng tương lai",
+      "ancient": "dữ liệu cũ"
+    },
+    "column": {
+      "table": "Bảng",
+      "expected": "Thời gian lưu dự kiến",
+      "actual": "Thời gian lưu thực tế (TTL)",
+      "status": "Trạng thái"
+    },
+    "suggested": "(đề xuất)",
+    "actualUnset": "Chưa đặt (rủi ro)",
+    "status": {
+      "ok": "Đúng chính sách",
+      "unset": "Chưa đặt (rủi ro)",
+      "deviates": "Lệch chính sách",
+      "disabled": "Chính sách đã tắt"
+    },
+    "register": "Đăng ký",
+    "dialogTitle": "Đăng ký thời gian lưu dự kiến: {{table}}",
+    "save": "Lưu",
+    "fieldKeepDays": "Số ngày lưu",
+    "fieldKeepDaysHint": "Đây là mục tiêu; giá trị áp dụng thực tế là TTL của bảng (dùng mục TTL bên dưới)",
+    "fieldEnabled": "Bật chính sách",
+    "fieldRemark": "Ghi chú"
+  },
+  "quality": {
+    "title": "Chất lượng dữ liệu / Đối chiếu nhất quán",
+    "runningHint": "Đang đối chiếu: đếm toàn bộ một ngày mất khoảng 20-40 giây, vui lòng không đóng trang…",
+    "idleHint": "So sánh sa_events với log_analysis (mặc định đối chiếu hôm qua, tối đa 3 ngày, khoảng 30 giây)",
+    "start": "Bắt đầu đối chiếu",
+    "cachedTag": "Kết quả đệm · Đối chiếu lần trước {{time}}",
+    "justFinishedTag": "Vừa hoàn thành đối chiếu {{time}}",
+    "cachedHint": "Bên dưới là **ảnh chụp gần nhất** (tổng theo ngày, chênh lệch theo sự kiện, phạm vi đã dọn). Bản ghi phát hiện metadata được đọc riêng (50 bản mới nhất). Bấm \"Bắt đầu đối chiếu\" để có kết quả hiện tại.",
+    "emptyHint": "Chưa có kết quả đối chiếu: nhấp «Bắt đầu đối chiếu» ở góc trên bên phải để chạy lần đầu (khoảng 30 giây), sau đó trang sẽ mở kết quả đệm tức thì.",
+    "reportEmpty": "Chưa có dữ liệu đối chiếu, hãy chọn khoảng thời gian rồi nhấp «Bắt đầu đối chiếu»",
+    "normal": "Bình thường",
+    "abnormal": "Bất thường",
+    "pass": "Đạt",
+    "column": {
+      "date": "Ngày",
+      "saRows": "Số dòng sa_events",
+      "crcUniq": "Số CRC duy nhất",
+      "rawRows": "Số dòng log_analysis",
+      "deviation": "Độ lệch %",
+      "source": "Nguồn",
+      "rows": "Số dòng",
+      "changeType": "Loại thay đổi",
+      "prop": "Thuộc tính",
+      "change": "Nội dung thay đổi",
+      "discoveredAt": "Thời điểm phát hiện",
+      "diff": "Chênh lệch (sa - raw)",
+      "skippedRange": "Phạm vi đã dọn",
+      "skippedWhy": "Lý do",
+      "skippedSource": "Hành động và thời gian"
+    },
+    "change": {
+      "eventCreated": "Sự kiện mới",
+      "propertyCreated": "Thuộc tính mới ({{value}})",
+      "userPropertyCreated": "Thuộc tính người dùng mới ({{value}})",
+      "userPropertyHidden": "Đã ẩn thuộc tính người dùng",
+      "userPropertyActive": "Đã kích hoạt thuộc tính người dùng"
+    },
+    "alert": {
+      "title": "Phát hiện bất thường về tính nhất quán dữ liệu",
+      "desc": "Trong {{days}}/{{total}} ngày phát hiện độ lệch vượt ngưỡng ({{threshold}}%), hoặc có {{dup}} dòng trùng CRC, hãy kiểm tra xem ingestor có mất dữ liệu hay có khác biệt về cách tính."
+    },
+    "ok": {
+      "title": "Dữ liệu nhất quán bình thường",
+      "desc": "Độ lệch đối chiếu trong khoảng {{from}} ~ {{to}} đều nằm trong ngưỡng {{threshold}}%, CRC không trùng lặp."
+    },
+    "stat": {
+      "days": "Số ngày đối chiếu",
+      "daysSuffix": "ngày / {{count}} ngày bất thường",
+      "dupCrc": "CRC trùng lặp",
+      "rowsSuffix": "dòng",
+      "crcUnique": "Tính duy nhất của CRC",
+      "skippedDays": "Số ngày đã dọn",
+      "outOfRetention": "Số ngày ngoài thời gian lưu"
+    },
+    "scope": {
+      "range": "Phạm vi đối chiếu",
+      "threshold": "Ngưỡng độ lệch",
+      "total": "Tổng lượng",
+      "trigger": "Cách kích hoạt",
+      "ignored": "Số sự kiện bỏ qua"
+    },
+    "table": {
+      "daily": "Đối chiếu tổng lượng theo ngày",
+      "events": "Đối chiếu số lượng theo sự kiện (sa_events vs log_analysis)",
+      "discovery": "Thay đổi siêu dữ liệu gần đây",
+      "discoveryHint": "(sự kiện/thuộc tính mới được phát hiện tự động, thay đổi kiểu thuộc tính, tổng {{count}} bản ghi)",
+      "diffs": "Chênh lệch theo sự kiện Top (sa - raw)",
+      "diffsHint": "({{count}} sự kiện lệch; top 20 theo độ lệch tuyệt đối)",
+      "onlyInOne": "Chỉ có ở một phía (phía kia bằng 0)",
+      "skipped": "Phạm vi đã dọn (không tính cảnh báo)"
+    },
+    "skipped": "Bỏ qua",
+    "skippedReason": {
+      "cleaned": "Đã dọn"
+    },
+    "ignored": {
+      "title": "Đã loại {{count}} sự kiện theo danh sách bỏ qua"
+    },
+    "trigger": {
+      "auto": "Theo lịch",
+      "manual": "Thủ công",
+      "cli": "Script vận hành"
+    },
+    "stale": {
+      "warnTitle": "Ảnh chụp đối chiếu đã cũ",
+      "errorTitle": "Ảnh chụp đối chiếu đã hết hạn",
+      "desc": "Lần đối chiếu gần nhất là {{time}} ({{hours}} giờ trước, vượt ngưỡng {{warn}} giờ): kết luận có thể không còn đúng — hãy chạy lại hoặc kiểm tra lịch định kỳ."
+    },
+    "config": {
+      "button": "Cấu hình đối chiếu",
+      "title": "Cấu hình đối chiếu (lịch giờ thấp điểm và ngưỡng)",
+      "save": "Lưu",
+      "enabled": "Bật đối chiếu định kỳ",
+      "enabledOn": "Đã bật",
+      "enabledOff": "Đã tắt",
+      "runAt": "Giờ chạy",
+      "runAtHint": "Múi giờ nền tảng, HH:mm; chạy ở chu kỳ kiểm tra kế tiếp (≤ 5 phút) sau mốc đó",
+      "runAtInvalid": "Định dạng phải là HH:mm",
+      "threshold": "Ngưỡng độ lệch (%)",
+      "thresholdHint": "Một ngày bị đánh dấu khi |độ lệch| vượt tỷ lệ này; nên bắt đầu 3–5% cho đến khi cách tính thống nhất",
+      "ignoreEvents": "Danh sách sự kiện bỏ qua",
+      "ignoreEventsHint": "Mỗi dòng một tên sự kiện; tách riêng các khác biệt đã biết để tránh cảnh báo hằng ngày",
+      "skipEmpty": "Lọc event rỗng đối xứng hai phía",
+      "skipEmptyHint": "Cùng cách tính ở cả hai phía (sa và bản cộng đồng): dòng event rỗng không được tính",
+      "staleWarn": "Ngưỡng vàng (giờ)",
+      "staleError": "Ngưỡng đỏ (giờ)",
+      "updatedAt": "Cập nhật cấu hình"
+    },
+    "changeType": {
+      "eventCreated": "Sự kiện mới",
+      "propertyCreated": "Thuộc tính mới",
+      "propertyTypeChanged": "Đổi kiểu thuộc tính",
+      "userPropertyCreated": "Thuộc tính người dùng mới",
+      "userPropertyTypeChanged": "Đổi kiểu thuộc tính người dùng",
+      "userPropertyHidden": "Ẩn thuộc tính người dùng",
+      "userPropertyActive": "Kích hoạt thuộc tính người dùng"
+    },
+    "outOfRetention": "Ngoài thời gian lưu (không đối chiếu)",
+    "outOfRetentionShort": "Ngoài thời gian lưu",
+    "guide": {
+      "title": "Trang này dùng để làm gì?",
+      "whatTitle": "Mục đích",
+      "whatBody": "Đây là tuyến kiểm tra song song: đối chiếu sa_events (do ingestor của ta ghi) với log_analysis (do Flink bản cộng đồng ghi) theo từng ngày, để phát hiện tiêu thụ dừng, mất dữ liệu âm thầm và ghi trùng. Chỉ đọc, không sửa dữ liệu nghiệp vụ; mặc định mỗi ngày một lần vào giờ thấp điểm (03:30 múi giờ nền tảng) tự động kiểm tra ngày hôm qua và lưu kết quả thành ảnh chụp.",
+      "termsTitle": "Thuật ngữ chính",
+      "terms": {
+        "range": "Phạm vi: mặc định hôm qua; thủ công tối đa 3 ngày (chốt an toàn bộ nhớ một nút sau sự cố OOM trước đây).",
+        "threshold": "Ngưỡng: một ngày chỉ bị đánh dấu khi |độ lệch| vượt ngưỡng; giá trị hiện tại ở dòng cấu hình phía trên (đơn vị %).",
+        "crc": "Tính duy nhất CRC: khử trùng lặp gần đúng chỉ ở phía ta; báo bất thường khi hàng trùng vượt 0,5% (thuật toán gần đúng có sai số).",
+        "trusted": "Khoảng tin cậy: chỉ so sánh được trong bên ngắn hơn của hai thời gian lưu; ngày vượt quá được đánh dấu \"ngoài thời gian lưu\" và không tính là bất thường.",
+        "skipped": "Phạm vi đã dọn: khoảng đã xoá có chủ đích bằng DROP PARTITION / TTL được đánh dấu \"đã dọn\" và không tính cảnh báo.",
+        "stale": "Độ mới của ảnh chụp: khi đã cũ (vàng)/hết hạn (đỏ) thì kết luận không còn đúng — chạy lại đối chiếu hoặc kiểm tra lịch định kỳ.",
+        "events": "Chênh lệch theo sự kiện Top: sự kiện có ở cả hai phía nhưng số lượng khác nhau, top 20 theo độ lệch tuyệt đối; \"chỉ một phía\" liệt kê các sự kiện mà phía kia bằng 0."
+      },
+      "howTitle": "Cách đọc kết quả",
+      "how": {
+        "step1": "Độ lệch ngày kéo dài +1%–+2% là khác biệt cấu trúc đã biết (bản cộng đồng đếm thiếu sự kiện lỗi/thử lại của Android — xem whitepaper), không phải mất dữ liệu.",
+        "step2": "Cần kiểm tra ngay khi: độ lệch chuyển âm (phía ta ít hơn bản cộng đồng), số lượng một sự kiện về 0, hoặc xuất hiện loại sự kiện mới trong chênh lệch.",
+        "step3": "Ngày được đánh dấu \"ngoài thời gian lưu\"/\"đã dọn\" không tính là bất thường; CRC không đạt nghĩa là phía ta có thể ghi trùng.",
+        "step4": "Giới hạn 3 ngày khi chạy tay là chốt an toàn bộ nhớ có chủ đích; với khoảng dài hơn, dùng tác vụ phạm vi rộng giờ thấp điểm (scripts/reconcile.sh --type=range trên máy chủ)."
+      },
+      "whoTitle": "Ai làm gì",
+      "who": {
+        "admin": "Quản trị viên nền tảng: sửa ngưỡng/danh sách bỏ qua/ngưỡng cũ tại \"Cấu hình đối chiếu\" (góc trên phải) và xử lý cảnh báo lỗi hoặc hết hạn.",
+        "oncall": "Trực ca: xem \"Chênh lệch theo sự kiện Top\" trước để biết là \"loại sự kiện mới\" hay \"một sự kiện biến mất\", rồi xem xu hướng tổng theo ngày của hai phía.",
+        "analyst": "Nhà phân tích: trang này không dành cho phân tích nghiệp vụ; sức khỏe luồng dữ liệu xem tại Vận hành → Quản lý dữ liệu → Sức khỏe dữ liệu."
+      },
+      "footnote": "Kết luận quy kết và số liệu: docs/product/research-clklog-reconcile-caliber-v1.md (kho mã)."
+    }
+  },
+  "dataCleanup": {
+    "unregisteredTitle": "Dữ liệu ↔ metadata",
+    "refresh": "Làm mới",
+    "unregisteredHint": "Từ {{from}}: dữ liệu {{data}} / metadata {{meta}}; chưa đăng ký ở dưới",
+    "colEvent": "Sự kiện",
+    "colRows": "Hàng",
+    "colRange": "Khoảng ngày",
+    "colFuture": "Ngày tương lai",
+    "futureYes": "có tương lai",
+    "useEvent": "Dọn theo sự kiện",
+    "useFuture": "Dọn ngày tương lai",
+    "ghostTitle": "{{count}} đăng ký ma (chỉ có metadata)",
+    "deleteTitle": "Xoá điểm (ALTER DELETE)",
+    "deleteHint": "Xem trước rồi nhập tên bảng để xác nhận. Tự động sao lưu và ghi audit. Không xoá được bảng bản cộng đồng.",
+    "kind.event": "Theo sự kiện",
+    "kind.project": "Theo dự án",
+    "kind.before": "Trước một ngày",
+    "kind.future": "Mốc tương lai",
+    "eventPlaceholder": "Tên sự kiện (vd $SignUp)",
+    "beforePlaceholder": "Trước ngày YYYY-MM-DD",
+    "preview": "Xem trước",
+    "previewResult": "Khoảng {{rows}} hàng ({{from}} ~ {{to}})",
+    "backupHint": "Đối chiếu trước đã đạt; sao lưu vào {{backup}}",
+    "preflightBlocked": "Đối chiếu trước chưa đạt ({{reason}}): chạy ở trang chất lượng dữ liệu trước",
+    "cleanupMissing": "Chưa cấu hình tài khoản dọn: không dùng được xoá điểm",
+    "rowsExceeded": "Số hàng vượt {{max}} mỗi lần; hãy chia nhỏ",
+    "confirmPlaceholder": "Nhập tên bảng để xác nhận: {{table}}",
+    "execute": "Xoá {{rows}} hàng",
+    "done": "Đã gửi xoá (~{{rows}} hàng)",
+    "doneDetail": "Sao lưu {{backup}} | mutation {{mutation}}; đang xoá nền và phạm vi đã đăng ký \"đã dọn\"",
+    "colAction": "Hành động",
+    "unregisteredFailed": "Không tải được sự kiện chưa đăng ký: {{message}}",
+    "window": "Cửa sổ",
+    "windowDays": "{{days}} ngày"
+  },
+  "projectRetire": {
+    "title": "Xem trước ngừng dự án",
+    "communityNote": "Bảng bản cộng đồng (clklog.log_analysis và 18 bảng tổng hợp) không có chiều dự án; hãy dùng thời gian lưu/TTL",
+    "step": {
+      "stopWrites": "Trước tiên hãy dừng thu thập của dự án (tắt API key/SDK) và xác nhận ghi trong 24 giờ về 0",
+      "execution": "Thực thi: xoá theo bảng ở phía sa (bảng thành viên dùng DROP PARTITION, còn lại ALTER DELETE) và xoá từng bảng ở MySQL",
+      "backupAudit": "Trước khi xoá sẽ xuất các hàng cần xoá ra tệp sao lưu và ghi audit (action=project_retire)"
+    },
+    "result": {
+      "saDone": "Phía sa xong ({{tables}} bảng)",
+      "saPartial": "Phía sa xong một phần: có bảng lớn vượt ngân sách mỗi lần; chạy lại để tiếp tục",
+      "mysqlDone": "Phía MySQL đã xoá {{rows}} hàng"
+    },
+    "getToken": "Lấy token xác nhận"
+  }
+}

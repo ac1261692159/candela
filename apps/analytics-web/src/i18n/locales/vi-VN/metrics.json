@@ -1,0 +1,255 @@
+{
+  "kind": {
+    "event": "Chỉ số sự kiện",
+    "retention": "Chỉ số giữ chân"
+  },
+  "list": {
+    "title": "Chỉ số",
+    "create": "Tạo chỉ số",
+    "kindEvent": "Sự kiện",
+    "kindRetention": "Giữ chân",
+    "intro": "Chỉ số sự kiện có thể «Tạo chỉ số» trực tiếp, hoặc lưu từ kết quả phân tích sự kiện (sẽ mang theo đầy đủ cách tính đang cấu hình); chỉ số giữ chân vẫn được tạo trong kết quả phân tích giữ chân. Chỉ số có thể mang sẵn **thời gian truy vấn** và **lựa chọn giá trị**, quy tắc cảnh báo mặc định theo khoảng thời gian của chỉ số (cũng có thể ghi đè trong quy tắc, xem Vận hành → Cảnh báo giám sát → Tạo cảnh báo chỉ số). Nhấp vào tên hiển thị để xem cách tính đầy đủ; chỉnh sửa và xóa (xác nhận hai lần) đều nằm trong ngăn chi tiết, tên chỉ số và loại không thể thay đổi (mã định danh giữ nguyên, không ảnh hưởng đến tham chiếu và liên kết cảnh báo hiện có).",
+    "column": {
+      "displayName": "Tên hiển thị",
+      "name": "Tên chỉ số",
+      "kind": "Loại",
+      "definition": "Cách tính",
+      "remark": "Ghi chú"
+    }
+  },
+  "label": {
+    "subject": "Chủ thể phân tích",
+    "event": "Sự kiện",
+    "analysis": "Phương pháp tính",
+    "percentile": "Phân vị",
+    "prop": "Thuộc tính",
+    "transform": "Biến đổi số",
+    "decimals": "Số chữ số thập phân",
+    "valuePick": "Lựa chọn giá trị",
+    "timeRange": "Thời gian truy vấn",
+    "conditionGroup": "Nhóm điều kiện",
+    "filters": "Điều kiện lọc",
+    "displayName": "Tên hiển thị",
+    "metricName": "Tên chỉ số",
+    "metricNameReadonly": "Tên chỉ số (không thể sửa)",
+    "kindReadonly": "Loại (không thể sửa)",
+    "type": "Loại",
+    "format": "Định dạng",
+    "definition": "Cách tính",
+    "definitionPick": "Cách tính chỉ số",
+    "startEvent": "Sự kiện bắt đầu",
+    "retainEvent": "Sự kiện quay lại",
+    "period": "Chu kỳ",
+    "measure": "Cách tính",
+    "cohort": "Nhóm",
+    "cohortRange": "Phạm vi nhóm",
+    "granularity": "Độ chi tiết",
+    "remarkOptional": "Ghi chú (tùy chọn)"
+  },
+  "format": {
+    "number": "Số",
+    "percent": "Phần trăm"
+  },
+  "measure": {
+    "rate": "Tỷ lệ giữ chân",
+    "count": "Số người giữ chân"
+  },
+  "cohort": {
+    "all": "Tất cả người dùng",
+    "firstDay": "Người dùng kích hoạt lần đầu"
+  },
+  "granularity": {
+    "day": "Theo ngày",
+    "week": "Theo tuần",
+    "month": "Theo tháng"
+  },
+  "period": {
+    "day": "{{n}} ngày",
+    "week": "{{n}} tuần",
+    "month": "{{n}} tháng"
+  },
+  "value": {
+    "notNeeded": "(không cần)",
+    "none": "(không có)"
+  },
+  "filters": {
+    "count": "{{total}} bản ghi"
+  },
+  "valuePick": {
+    "sum": "Lũy kế",
+    "avg": "Bình quân ngày",
+    "max": "Giá trị lớn nhất",
+    "min": "Giá trị nhỏ nhất",
+    "lastDay": "Ngày mới nhất",
+    "firstDay": "Ngày đầu",
+    "uniqTotal": "Tổng khử trùng lặp cả đoạn",
+    "weighted": "Bình quân gia quyền",
+    "auto": "Tự động (theo phương pháp tính)",
+    "autoShort": "Giá trị tự động",
+    "extra": "Không chọn = tự động (gợi ý theo phương pháp tính), khớp với cách tính cảnh báo hiện có",
+    "label": {
+      "sum": "Lũy kế",
+      "avg": "Bình quân ngày",
+      "max": "Giá trị lớn nhất",
+      "min": "Giá trị nhỏ nhất",
+      "weighted": "Bình quân gia quyền",
+      "lastDay": "Ngày mới nhất",
+      "firstDay": "Ngày đầu",
+      "uniqTotal": "Tổng khử trùng lặp cả đoạn"
+    },
+    "hint": {
+      "sum": "Cộng giá trị của các ngày trong cửa sổ; ngày không có dữ liệu tính là 0",
+      "avg": "Tổng giá trị các ngày ÷ số ngày trong cửa sổ; ngày không có dữ liệu tính là 0",
+      "max": "Giá trị lớn nhất trong các ngày có dữ liệu của cửa sổ",
+      "min": "Giá trị nhỏ nhất trong các ngày có dữ liệu của cửa sổ",
+      "weighted": "Gia quyền theo mẫu số (cách duy nhất đúng cho chỉ số bình quân)",
+      "lastDay": "Giá trị của ngày có dữ liệu gần nhất trong cửa sổ (thường dùng cho «hôm nay đến hiện tại»)",
+      "firstDay": "Giá trị của ngày có dữ liệu sớm nhất trong cửa sổ",
+      "uniqTotal": "Tính trên toàn bộ khoảng thời gian, không cộng theo ngày (cách duy nhất đúng cho số khử trùng lặp)"
+    },
+    "note": {
+      "sum": "Cộng giá trị của các ngày trong cửa sổ; ngày không có dữ liệu tính là 0",
+      "avg": "Tổng giá trị các ngày ÷ số ngày trong cửa sổ; ngày không có dữ liệu tính là 0",
+      "max": "Giá trị lớn nhất trong các ngày có dữ liệu của cửa sổ (hoàn toàn không có dữ liệu → bỏ qua lượt này)",
+      "min": "Giá trị nhỏ nhất trong các ngày có dữ liệu của cửa sổ (hoàn toàn không có dữ liệu → bỏ qua lượt này)",
+      "weighted": "Gia quyền theo mẫu số (cách duy nhất đúng cho số lần bình quân/giá trị bình quân), tính trên toàn bộ khoảng thời gian",
+      "lastDay": "Giá trị của ngày có dữ liệu gần nhất trong cửa sổ (thường dùng cho «hôm nay đến hiện tại»)",
+      "firstDay": "Giá trị của ngày có dữ liệu sớm nhất trong cửa sổ",
+      "uniqTotal": "Tính trên toàn bộ khoảng thời gian, không cộng theo ngày (cách duy nhất đúng cho số khử trùng lặp/số người dùng kích hoạt)"
+    },
+    "warning": {
+      "nonAdditivePickedAdditive": "Phương pháp tính hiện tại không thể cộng theo ngày, nên chọn «Tổng khử trùng lặp cả đoạn» hoặc «Bình quân gia quyền», nếu không kết quả sẽ cao hơn thực tế",
+      "additivePickedOverall": "Phương pháp tính hiện tại có thể cộng, dùng «Lũy kế/Bình quân ngày» sẽ trực quan hơn; tổng khử trùng lặp cả đoạn chỉ có ý nghĩa với chỉ số khử trùng lặp/bình quân"
+    }
+  },
+  "window": {
+    "fixed": "Ngày cố định",
+    "today": "Hôm nay",
+    "yesterday": "Hôm qua",
+    "recentN": "{{n}} ngày qua (gồm hôm nay)",
+    "pastN": "{{n}} ngày trước (không gồm hôm nay)",
+    "thisWeek": "Tuần này",
+    "lastWeek": "Tuần trước",
+    "thisMonth": "Tháng này",
+    "lastMonth": "Tháng trước",
+    "customOffsets": "Khoảng động D-{{from}} ~ D-{{to}}",
+    "fromDateToToday": "Từ ngày chỉ định đến hôm nay",
+    "fromDateToYesterday": "Từ ngày chỉ định đến hôm qua",
+    "lastNDays": "{{n}} ngày qua",
+    "cohortWindow": "Nhóm {{window}}",
+    "followAlert": "Theo cửa sổ cảnh báo"
+  },
+  "summary": {
+    "event": "Sự kiện {{event}} · Tính {{analysis}}{{prop}}{{window}}{{pick}}",
+    "propSegment": " · {{prop}}",
+    "windowSegment": " · {{window}}",
+    "pickSegment": " · {{pick}}",
+    "retention": "Giữ chân {{start}} → {{retain}} · {{period}} · {{measure}}",
+    "periodDays": "{{n}} ngày",
+    "noEvent": "(chưa chỉ định sự kiện)",
+    "measureCount": "Số người"
+  },
+  "timeRange": {
+    "extra": "Khi chỉ số có khoảng thời gian riêng, quy tắc cảnh báo mặc định theo đó; chỉ hỗ trợ khoảng tương đối (có thể tính lặp mỗi ngày), tối đa 90 ngày",
+    "followAlert": "Đổi thành theo cửa sổ cảnh báo"
+  },
+  "conditionGroup": {
+    "extra": "Thuộc tính sự kiện / thuộc tính người dùng / nhóm người dùng / thẻ; cùng ngữ nghĩa với nhóm điều kiện trong phân tích sự kiện"
+  },
+  "prop": {
+    "groupEvent": "Thuộc tính sự kiện",
+    "groupUser": "Thuộc tính người dùng",
+    "eventPlaceholder": "Chọn thuộc tính",
+    "eventDisabledPlaceholder": "Phương pháp tính hiện tại không cần thuộc tính",
+    "tooltip": "Bắt buộc khi phương pháp tính cần thuộc tính; kiểu thuộc tính quyết định các phương pháp tính khả dụng",
+    "eventWithType": "{{name}} ({{type}})",
+    "userWithType": "{{name}} (người dùng · {{type}})",
+    "userOnly": "{{name}} (người dùng)"
+  },
+  "event": {
+    "searchPlaceholder": "Tìm kiếm hoặc chọn sự kiện",
+    "optionWithName": "{{key}} ({{name}})",
+    "staleOption": "{{event}} (không có trong danh sách sự kiện, giữ nguyên giá trị cũ)"
+  },
+  "transform": {
+    "tooltip": "Thực hiện phép tính số học trước, rồi giữ số chữ số thập phân (giống phân tích sự kiện)",
+    "valuePlaceholder": "Toán hạng (tùy chọn)"
+  },
+  "decimals": {
+    "placeholder": "Có thể chọn 0-6"
+  },
+  "trial": {
+    "run": "Tính thử",
+    "hint": "Tính giá trị thật một lần theo cách tính hiện tại (cùng cách triển khai với phán đoán cảnh báo), không lưu lại",
+    "failed": "Tính thử thất bại",
+    "result": "Giá trị hiện tại {{value}} · {{window}} ({{start}} ~ {{end}}) · {{pick}}{{auto}}",
+    "autoSuffix": "(tự động)",
+    "note": "{{note}}; mất {{ms}}ms"
+  },
+  "validation": {
+    "eventRequired": "Vui lòng chọn sự kiện",
+    "analysisRequired": "Vui lòng chọn phương pháp tính",
+    "displayNameRequired": "Vui lòng nhập tên hiển thị",
+    "metricNameRequired": "Vui lòng nhập tên chỉ số",
+    "metricNamePattern": "Bắt đầu bằng chữ thường, chỉ gồm chữ thường/số/dấu gạch dưới, tối đa 80 ký tự",
+    "metricNamePatternShort": "Định dạng không đúng quy tắc",
+    "metricRequired": "Vui lòng chọn chỉ số",
+    "periodRequired": "Vui lòng chọn chu kỳ",
+    "periodFilled": "Vui lòng điền chu kỳ",
+    "startEventRequired": "Vui lòng chọn sự kiện bắt đầu",
+    "retainEventRequired": "Vui lòng chọn sự kiện quay lại"
+  },
+  "create": {
+    "title": "Tạo chỉ số sự kiện",
+    "displayNamePlaceholder": "ví dụ: Giá trị đặt hàng bình quân 7 ngày qua",
+    "metricNamePlaceholder": "ví dụ: order_amount_daily_avg_7d",
+    "metricNameExtra": "Khóa duy nhất của tài sản, không thể sửa sau khi tạo; phân tích và cảnh báo tham chiếu theo khóa này",
+    "definitionHint": "Cách tính (cùng độ sâu với phân tích sự kiện; nên «Tính thử» trước khi lưu)"
+  },
+  "modal": {
+    "title": "Tạo chỉ số",
+    "metricNameExtra": "Bắt đầu bằng chữ thường, có thể gồm chữ thường/số/dấu gạch dưới, không quá 80 ký tự",
+    "metricFallback": "Chỉ số",
+    "summaryEvent": "{{event}} · {{metric}}",
+    "summaryEventEmpty": "Vui lòng cấu hình và truy vấn một chỉ số sự kiện trước",
+    "summaryRetention": "Bắt đầu {{start}} → Quay lại {{end}}",
+    "summaryRetentionEmpty": "Vui lòng hoàn thành truy vấn giữ chân trước",
+    "summaryNote": ". Khoảng thời gian lấy theo lúc truy vấn, không ghi vào chỉ số."
+  },
+  "apply": {
+    "trigger": "Thêm từ chỉ số",
+    "ok": "Áp dụng",
+    "placeholder": "Chọn chỉ số đã lưu",
+    "empty": "Chưa có chỉ số thuộc loại này"
+  },
+  "detail": {
+    "title": "Chi tiết chỉ số",
+    "titleNamed": "Chi tiết chỉ số · {{name}}",
+    "meta": "Người tạo {{owner}} · Tạo {{created}} · Cập nhật {{updated}}",
+    "readonlyNote": "Tên chỉ số là khóa duy nhất của tài sản, loại quyết định mô hình cách tính, thay đổi sẽ làm gián đoạn tham chiếu phân tích và cảnh báo hiện có, vì vậy chỉ đọc.",
+    "saving": "Đang lưu",
+    "createCard": "Tạo thẻ bảng điều khiển",
+    "cardName": "{{name}} (thẻ chỉ số)",
+    "alertTitle": "Giải thích cách tính",
+    "alertBody": "Chỉ số có sẵn thời gian truy vấn và lựa chọn giá trị; khi chưa đặt thời gian truy vấn, cảnh báo tính theo cửa sổ của quy tắc (hành vi hiện tại). Khi áp dụng vào phân tích, trang phân tích lấy khoảng thời gian của chính nó làm chuẩn. Khi chỉ số được quy tắc cảnh báo tham chiếu, sửa cách tính cũng sẽ thay đổi điều kiện phán đoán cảnh báo (Vận hành → Cảnh báo giám sát → Chính sách).",
+    "retentionFiltersTitle": "Điều kiện lọc của chỉ số giữ chân",
+    "retentionFiltersBody": "Điều kiện lọc sẵn có của sự kiện bắt đầu/quay lại được giữ theo sự kiện; phạm vi nhóm và chu kỳ có thể điều chỉnh ngay tại đây.",
+    "cohortRangeTooltip": "Khoảng thời gian nhóm đã chín của giữ chân; nếu không đặt sẽ tự suy ra theo chu kỳ (≥ chu kỳ + 1 ngày, tối đa 180 ngày)",
+    "deriveFromCycle": "Đổi thành suy theo chu kỳ",
+    "derivedFromCycle": "Suy theo chu kỳ",
+    "cohortRangeDerived": "Suy theo chu kỳ ({{days}} ngày)"
+  },
+  "message": {
+    "deleted": "Đã xóa",
+    "updated": "Đã cập nhật chỉ số",
+    "created": "Đã tạo chỉ số",
+    "cardCreated": "Đã tạo thẻ “{{name}}”, có thể thêm vào bảng điều khiển trong trình dựng bảng điều khiển",
+    "noEventMetric": "Không có chỉ số sự kiện nào để lưu",
+    "queryRetentionFirst": "Vui lòng truy vấn giữ chân trước"
+  },
+  "confirm": {
+    "deleteTitle": "Xóa chỉ số “{{name}}”?",
+    "deleteEditing": "Chỉ số này sẽ bị xóa, các thay đổi chưa lưu cũng mất theo. Phân tích và cảnh báo tham chiếu nó sẽ mất hiệu lực.",
+    "deleteContent": "Phân tích và cảnh báo tham chiếu nó sẽ mất hiệu lực, sau khi xóa không thể khôi phục."
+  }
+}

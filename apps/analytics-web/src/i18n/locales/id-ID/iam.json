@@ -1,0 +1,290 @@
+{
+  "role": {
+    "analysisAdmin": "Admin analisis",
+    "analyst": "Analis",
+    "member": "Anggota biasa",
+    "external": "Pengguna eksternal",
+    "projectOwner": "Owner proyek"
+  },
+  "label": {
+    "role": "Peran",
+    "user": "Pengguna"
+  },
+  "message": {
+    "created": "Telah dibuat",
+    "minLength": "Minimal 6 karakter"
+  },
+  "dataPolicy": {
+    "title": "Kebijakan izin data",
+    "column": "Izin data",
+    "unrestricted": "Tanpa batasan",
+    "create": "Buat kebijakan",
+    "reference": "Rujukan",
+    "referenceCount": "Anggota {{members}} / grup {{groups}}",
+    "deleteConfirm": "Hapus kebijakan?",
+    "definition": "JSON definisi (boleh kosong; bawaan semua terlihat)",
+    "detail": "Detail kebijakan",
+    "scopeEvents": "Peristiwa yang terlihat",
+    "scopeEventProperties": "Properti peristiwa yang terlihat",
+    "scopeUserProperties": "Properti pengguna yang terlihat",
+    "scopeRowFilter": "Filter baris",
+    "scopeAll": "Tanpa batasan",
+    "scopeNone": "Tidak ada (semua disembunyikan)",
+    "rowFilterNone": "Tidak ada",
+    "rowFilterAnd": "dan",
+    "rowFilterItem": "{{prop}} {{op}} {{value}}"
+  },
+  "members": {
+    "title": "Manajemen anggota",
+    "add": "Tambah anggota",
+    "added": "Telah ditambahkan",
+    "removeConfirm": "Keluarkan dari proyek?",
+    "remove": "Keluarkan",
+    "seed": "Isi anggota demo",
+    "seedSuccess": "analyst1 / member1 / external1 telah dibuat dan dimasukkan ke grup anggotanya",
+    "seedHint": "Akan membuat tiga akun demo di proyek ini dan memasukkannya ke “grup analis / grup anggota biasa / grup pengguna eksternal”. Akun dengan nama sama yang sudah ada tidak akan diubah kata sandinya.",
+    "demoPassword": "Kata sandi akun demo"
+  },
+  "subjectGrant": {
+    "action": "Akses dasbor",
+    "title": "Akses dasbor · {{name}}",
+    "hint": "Centang untuk memberi akses lihat. Memberi izin pada folder mencakup semua dasbor di dalamnya, termasuk yang dibuat kemudian. Aset dengan akses edit bersifat hanya baca di sini.",
+    "searchPlaceholder": "Cari folder atau dasbor",
+    "folders": "Folder",
+    "dashboards": "Dasbor",
+    "ungrouped": "Tanpa folder",
+    "editable": "Dapat mengedit",
+    "saved": "Akses disimpan",
+    "empty": "Tidak ada folder atau dasbor untuk diberi izin"
+  },
+  "groups": {
+    "title": "Grup anggota",
+    "create": "Buat grup",
+    "createTitle": "Buat grup anggota",
+    "memberCount": "Jumlah anggota",
+    "members": "Anggota",
+    "membersTitle": "Anggota grup · {{name}}",
+    "membersUpdated": "Anggota grup telah diperbarui",
+    "membersHint": "Hanya orang yang sudah menjadi anggota proyek ini yang dapat ditambahkan. Grup tidak dapat diikat ke owner.",
+    "membersEmpty": "Belum ada anggota"
+  },
+  "roles": {
+    "title": "Manajemen peran",
+    "ownerNotice": "Setiap proyek maksimal 1 owner dan hanya ditetapkan oleh super admin. Admin analisis tidak dapat mengubah definisi ini.",
+    "preset": "Prasetel",
+    "adjusted": "Telah disesuaikan",
+    "editDefinition": "Edit definisi peran",
+    "saveSuccess": "Definisi admin analisis telah disimpan",
+    "readonlyHint": "Peran prasetel tidak dapat disesuaikan. Definisi admin analisis hanya dapat diubah oleh owner proyek.",
+    "feature": "Fitur",
+    "op": "Izin tindakan",
+    "detail": "Detail fitur",
+    "granted": "Dimiliki"
+  },
+  "apiKeys": {
+    "title": "Manajemen API Key",
+    "create": "Buat API Key",
+    "hintLead": "Dipakai alat AI / otomasi eksternal melalui",
+    "hintTail": "untuk kueri ClickHouse secara hanya baca. Klik “Buat API Key” untuk membuatnya sekali klik (penamaan otomatis, batas proyek bawaan clklogapp, tanpa kedaluwarsa). Teks asli Key hanya ditampilkan sekali saat dibuat, simpan dengan aman.",
+    "projectScope": "Batas proyek",
+    "active": "Berlaku",
+    "revoked": "Dicabut",
+    "expiresAt": "Waktu kedaluwarsa",
+    "lastUsedAt": "Terakhir dipakai",
+    "revokeConfirm": "Cabut Key ini? Setelah dicabut langsung tidak berlaku",
+    "revoke": "Cabut",
+    "deleteConfirm": "Hapus Key ini? Tindakan ini tidak dapat dipulihkan",
+    "created": "API Key telah dibuat",
+    "revokedMsg": "Telah dicabut",
+    "deleted": "Sudah dihapus",
+    "copied": "Tersalin ke papan klip",
+    "createSuccess": "API Key berhasil dibuat",
+    "plaintextWarning": "Key ini hanya ditampilkan sekali; setelah ditutup, teks aslinya tidak dapat dilihat lagi, segera simpan.",
+    "saved": "Sudah saya simpan"
+  },
+  "projectSettings": {
+    "title": "Pengaturan proyek",
+    "createProject": "Buat proyek",
+    "createAccount": "Buat akun masuk",
+    "ownerNotice": "Setiap proyek memiliki tepat satu owner. Pembuatan proyek serta penetapan/penggantian owner hanya dapat dilakukan super admin; owner sebelumnya akan diturunkan menjadi admin analisis. Membuat proyek hanya mendaftarkan nama ruang analisis dan tidak membuat database di ClickHouse.",
+    "projectName": "Nama proyek",
+    "displayName": "Nama tampilan",
+    "currentOwner": "Owner saat ini",
+    "projectOwner": "Owner proyek",
+    "unassigned": "Belum ditetapkan",
+    "assign": "Tetapkan / ganti",
+    "selectUser": "Pilih pengguna",
+    "userOption": "{{name}} ({{username}})",
+    "ownerUpdated": "Owner {{name}} telah diperbarui",
+    "projectCreated": "Proyek telah dibuat",
+    "nameHint": "Diawali huruf kecil, hanya huruf kecil, angka, dan garis bawah, 2–63 karakter. project_name yang dilaporkan SDK harus sama dengan ini.",
+    "nameRequired": "Masukkan nama proyek",
+    "nameInvalid": "Format tidak sesuai ketentuan",
+    "namePlaceholder": "Misalnya game_ios",
+    "displayNamePlaceholder": "Nama untuk dibaca manusia; boleh sama dengan nama proyek",
+    "ownerRequired": "Tetapkan owner",
+    "accountCreated": "Akun telah dibuat; tambahkan ke proyek di manajemen anggota",
+    "accountHint": "Hanya membuat identitas masuk dan tidak otomatis menjadi anggota proyek mana pun. Untuk menambahkan orang ke proyek, buka “Manajemen anggota”.",
+    "username": "Nama pengguna",
+    "password": "Kata sandi"
+  },
+  "error": {
+    "loadFailed": "Gagal memuat. Coba lagi.",
+    "grant": {
+      "subjectRequired": "subject_id tidak ada",
+      "assetsMustBeArray": "asset_ids harus berupa array",
+      "subjectTypeInvalid": "subject_type harus user atau group"
+    },
+    "asset": {
+      "folderNotFound": "Folder tidak ada",
+      "dashboardNotFound": "Dasbor tidak ada: {{id}}",
+      "cardNotFound": "Kartu tidak ada: {{id}}",
+      "cohortNotFound": "Kohort tidak ada",
+      "tagNotFound": "Tag tidak ada",
+      "viewGrantDashboardOnly": "Izin lihat hanya berlaku untuk dasbor dan folder",
+      "editGrantAnalystOnly": "Izin edit hanya dapat diberikan kepada analis proyek ini",
+      "editGrantAnalystGroupOnly": "Izin edit hanya dapat diberikan kepada grup anggota yang berperan analis",
+      "withdrawGrantBeforeLock": "Tarik dulu izin edit sebelum mengunci",
+      "unlockBeforeGrant": "Buka kunci dulu sebelum memberi akses"
+    },
+    "forbidden": "Tidak berhak mengakses sumber daya ini",
+    "dataScope": {
+      "invalidProp": "Nama properti pengguna tidak valid",
+      "unsupportedOperator": "Penyaringan baris pada izin data belum mendukung operator: {{op}}",
+      "eventForbidden": "Tidak berhak mengueri peristiwa: {{event}}",
+      "propertyForbidden": "Tidak berhak memakai properti: {{property}}"
+    },
+    "project": {
+      "fieldsRequired": "name dan owner_user_id wajib diisi",
+      "nameInvalid": "Nama proyek harus diawali huruf kecil, hanya berisi huruf kecil, angka, dan garis bawah, panjang 2–63",
+      "exists": "Proyek sudah ada",
+      "timezoneInvalid": "Zona waktu tidak valid (harus nama IANA, misalnya Asia/Shanghai)"
+    },
+    "demo": {
+      "passwordTooShort": "Kata sandi akun demo minimal 6 karakter"
+    },
+    "role": {
+      "grantsMustBeArray": "grants harus berupa larik",
+      "invalid": "Peran tidak valid"
+    },
+    "member": {
+      "notMember": "Bukan anggota proyek tersebut",
+      "ownerAssignForbidden": "Owner tidak dapat ditetapkan melalui manajemen anggota",
+      "notFound": "Anggota tidak ada",
+      "ownerRoleForbidden": "Peran proyek owner tidak dapat diubah",
+      "promoteToOwnerForbidden": "Anggota tidak dapat diubah menjadi owner",
+      "removeOwnerForbidden": "Owner proyek tidak dapat dikeluarkan",
+      "expiryOwnerForbidden": "Owner proyek tidak dapat diberi masa berlaku",
+      "expiryInvalid": "Masa berlaku bukan waktu yang valid"
+    },
+    "user": {
+      "unavailable": "Pengguna tidak tersedia",
+      "notFound": "Pengguna tidak ada"
+    },
+    "group": {
+      "bindingForbidden": "Grup anggota tidak dapat diikat ke owner atau peran yang tidak valid",
+      "notFound": "Grup anggota tidak ada",
+      "ownerForbidden": "Grup anggota tidak dapat diikat ke owner",
+      "memberRequired": "Pengguna harus sudah menjadi anggota proyek"
+    },
+    "dataPolicy": {
+      "notFound": "Kebijakan tidak ada",
+      "inUse": "Masih dirujuk anggota atau grup"
+    },
+    "invite": {
+      "emailInvalid": "Format email tidak valid",
+      "alreadyMember": "Akun email ini sudah menjadi anggota proyek",
+      "notFound": "Undangan tidak ditemukan atau sudah berakhir",
+      "emailMismatch": "Email akun yang masuk tidak cocok dengan undangan"
+    }
+  },
+  "permission": {
+    "feature": {
+      "projectAccess": "Manajemen izin proyek",
+      "dataPolicy": "Izin data",
+      "opsAccount": "Operasional · akun",
+      "opsProjectSettings": "Operasional · pengaturan proyek",
+      "opsApiKey": "Operasional · API Key",
+      "opsAiWorkspace": "Operasional · AI Workspace",
+      "opsRuntime": "Operasional · manajemen operasional lanjutan",
+      "subject": "Subjek analisis",
+      "cohort": "Manajemen kohort pengguna",
+      "tag": "Manajemen tag pengguna",
+      "meta": "Pelacakan / metadata",
+      "modelUsage": "Penggunaan model",
+      "dashboard": "Penggunaan dasbor",
+      "metric": "Manajemen metrik",
+      "timeline": "Linimasa pengguna"
+    },
+    "op": {
+      "view": "Lihat",
+      "edit": "Edit",
+      "manage": "Kelola",
+      "use": "Penggunaan fitur"
+    },
+    "detail": {
+      "iamMemberView": "Lihat anggota, grup anggota, penjelasan peran, dan kebijakan izin data proyek ini",
+      "iamMemberEdit": "Tambah/hapus anggota dan grup; tetapkan peran selain owner",
+      "iamRoleEditAdmin": "Edit definisi izin “admin analisis” proyek ini",
+      "iamDataPolicyManage": "Buat, edit, dan hapus kebijakan lalu berikan ke anggota atau grup",
+      "opsUserManage": "Buat, nonaktifkan, dan aktifkan akun masuk",
+      "opsOwnerAssign": "Buat proyek analisis; tetapkan atau ganti owner tunggal proyek",
+      "opsApikeyManage": "Lihat, buat, dan cabut Key",
+      "opsAiWorkspaceManage": "Templat dan sinkronisasi",
+      "opsRuntimeAccess": "Placeholder, belum ada rute pada tahap ini",
+      "subjectView": "Beralih antar subjek yang ada dalam analisis",
+      "subjectEdit": "Lihat dan edit subjek analisis proyek ini",
+      "cohortView": "Lihat daftar kohort dan pratinjau anggotanya",
+      "cohortEditOwn": "Buat, edit, dan hapus kohort milik sendiri",
+      "cohortEditOthers": "Edit dan hapus kohort milik orang lain",
+      "tagView": "Lihat daftar tag dan pratinjau anggotanya",
+      "tagEditOwn": "Buat, edit, dan hapus tag milik sendiri",
+      "tagEditOthers": "Edit dan hapus tag milik orang lain",
+      "metaView": "Lihat peristiwa, properti, objek virtual, metrik, Debug, kualitas data",
+      "metaPickerView": "Membaca peristiwa, properti, dan field tabel dimensi yang aktif untuk pemilih analisis (hanya baca)",
+      "metaEdit": "Edit definisi, konfirmasi/sembunyikan, Debug",
+      "modelQuery": "Kueri peristiwa / funnel / retensi",
+      "modelSql": "SQL kustom",
+      "modelCardSave": "Simpan kartu",
+      "modelExport": "Ekspor hasil kueri atau data dasbor yang ditampilkan",
+      "dashboardView": "Lihat dasbor yang dapat diakses beserta pengaturannya",
+      "dashboardViewAll": "Lihat semua dasbor proyek ini",
+      "dashboardEdit": "Buat dasbor; mencoba mengedit (keputusan akhir mengikuti AssetPolicy)",
+      "dashboardFilter": "Sesuaikan filter dasbor sementara",
+      "dashboardFolderManage": "Buat/ganti nama/hapus folder",
+      "assetLock": "Kunci/buka kunci folder, dasbor, kartu, kohort, tag",
+      "assetGrant": "Beri atau tarik izin edit dan akses penampil eksternal untuk dasbor/kartu/folder",
+      "metricView": "Lihat metrik tersimpan",
+      "metricEditOwn": "Buat, edit, dan hapus metrik milik sendiri",
+      "metricEditOthers": "Edit dan hapus metrik milik orang lain",
+      "timelineView": "Lihat semua event satu pengguna pada rentang waktu terpilih"
+    }
+  },
+  "invite": {
+    "userOrEmailHint": "Pilih akun yang ada, atau ketik email lengkap untuk mengundang orang yang belum terdaftar.",
+    "userOrEmailPlaceholder": "Pilih akun atau ketik email",
+    "addedDirect": "Email sudah memiliki akun; langsung ditambahkan ke proyek",
+    "sent": "Email undangan terkirim",
+    "emailInvalid": "Pilih akun atau masukkan alamat email lengkap",
+    "pendingTitle": "Undangan tertunda",
+    "colEmail": "Email",
+    "colInviter": "Diundang oleh",
+    "colExpires": "Kedaluwarsa",
+    "revoke": "Cabut",
+    "revokeConfirm": "Cabut undangan ini? Tautan tidak akan berfungsi lagi."
+  },
+  "member": {
+    "colExpiry": "Masa berlaku",
+    "expiryPermanent": "Permanen",
+    "expiryInDays": "Kedaluwarsa dalam {{days}} hari",
+    "expiredTag": "Kedaluwarsa",
+    "renew": "Perpanjang",
+    "renewTitle": "Atur waktu kedaluwarsa baru",
+    "renewed": "Diperpanjang",
+    "expiryLabel": "Masa berlaku anggota (opsional)",
+    "expiryHint": "Setelah kedaluwarsa, peran langsung di proyek berakhir (peran grup tetap); kosong = permanen."
+  },
+  "audit": {
+    "title": "Audit proyek"
+  }
+}

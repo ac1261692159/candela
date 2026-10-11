@@ -1,0 +1,255 @@
+{
+  "kind": {
+    "event": "イベント指標",
+    "retention": "リテンション指標"
+  },
+  "list": {
+    "title": "指標",
+    "create": "指標を新規作成",
+    "kindEvent": "イベント",
+    "kindRetention": "リテンション",
+    "intro": "イベント指標は「指標を新規作成」から直接作成するか、イベント分析の結果から保存できます（現在の設定の定義がそのまま引き継がれます）。リテンション指標は引き続きリテンション分析の結果から作成します。指標には**クエリ期間**と**値の選択**を設定でき、アラートルールはデフォルトで指標の期間に従います（ルール側で上書きも可能。詳細は運用 → 監視アラート → 指標アラートの新規作成を参照）。表示名をクリックすると定義の全体を確認できます。編集と削除（二段階確認）は詳細ドロワーで行い、指標名とタイプは変更できません（識別子は変わらないため、既存の参照やアラートとのバインドに影響しません）。",
+    "column": {
+      "displayName": "表示名",
+      "name": "指標名",
+      "kind": "タイプ",
+      "definition": "定義",
+      "remark": "メモ"
+    }
+  },
+  "label": {
+    "subject": "分析主体",
+    "event": "イベント",
+    "analysis": "計算方法",
+    "percentile": "パーセンタイル",
+    "prop": "プロパティ",
+    "transform": "数値変換",
+    "decimals": "小数点以下の桁数",
+    "valuePick": "値の選択",
+    "timeRange": "クエリ期間",
+    "conditionGroup": "条件グループ",
+    "filters": "フィルター条件",
+    "displayName": "表示名",
+    "metricName": "指標名",
+    "metricNameReadonly": "指標名（変更不可）",
+    "kindReadonly": "タイプ（変更不可）",
+    "type": "タイプ",
+    "format": "形式",
+    "definition": "定義",
+    "definitionPick": "指標の定義",
+    "startEvent": "開始イベント",
+    "retainEvent": "再訪イベント",
+    "period": "周期",
+    "measure": "定義",
+    "cohort": "コホート",
+    "cohortRange": "コホート範囲",
+    "granularity": "粒度",
+    "remarkOptional": "メモ（任意）"
+  },
+  "format": {
+    "number": "数値",
+    "percent": "パーセント"
+  },
+  "measure": {
+    "rate": "リテンション率",
+    "count": "リテンションユーザー数"
+  },
+  "cohort": {
+    "all": "すべてのユーザー",
+    "firstDay": "初回発火ユーザー"
+  },
+  "granularity": {
+    "day": "日単位",
+    "week": "週単位",
+    "month": "月単位"
+  },
+  "period": {
+    "day": "{{n}}日",
+    "week": "{{n}}週",
+    "month": "{{n}}か月"
+  },
+  "value": {
+    "notNeeded": "（不要）",
+    "none": "（なし）"
+  },
+  "filters": {
+    "count": "{{total}} 件"
+  },
+  "valuePick": {
+    "sum": "累計",
+    "avg": "日平均",
+    "max": "最大値",
+    "min": "最小値",
+    "lastDay": "最新日",
+    "firstDay": "初日",
+    "uniqTotal": "全区間のユニーク合計",
+    "weighted": "加重平均",
+    "auto": "自動（計算方法による）",
+    "autoShort": "自動選択",
+    "extra": "未選択の場合は自動（計算方法による推奨）となり、既存のアラート定義と一致します",
+    "label": {
+      "sum": "累計",
+      "avg": "日平均",
+      "max": "最大値",
+      "min": "最小値",
+      "weighted": "加重平均",
+      "lastDay": "最新日",
+      "firstDay": "初日",
+      "uniqTotal": "全区間のユニーク合計"
+    },
+    "hint": {
+      "sum": "ウィンドウ内の各日の値を合計します。データがない日は 0 として扱います",
+      "avg": "各日の値の合計 ÷ ウィンドウの日数。データがない日は 0 として扱います",
+      "max": "ウィンドウ内でデータがある日の最大値",
+      "min": "ウィンドウ内でデータがある日の最小値",
+      "weighted": "分母で加重します（ユーザーあたりの値に唯一正しい方法）",
+      "lastDay": "ウィンドウ内で最も新しい、データがある日の値（「今日の現在まで」によく使います）",
+      "firstDay": "ウィンドウ内で最も古い、データがある日の値",
+      "uniqTotal": "区間全体でまとめて評価し、日ごとには合計しません（ユニーク数に唯一正しい方法）"
+    },
+    "note": {
+      "sum": "ウィンドウ内の各日の値を合計します。データがない日は 0 として扱います",
+      "avg": "各日の値の合計 ÷ ウィンドウの日数。データがない日は 0 として扱います",
+      "max": "ウィンドウ内でデータがある日の最大値（まったくデータがない場合は今回はスキップ）",
+      "min": "ウィンドウ内でデータがある日の最小値（まったくデータがない場合は今回はスキップ）",
+      "weighted": "分母で加重します（ユーザーあたりの回数 / ユーザーあたりの値に唯一正しい選択）。区間全体でまとめて評価します",
+      "lastDay": "ウィンドウ内で最も新しい、データがある日の値（「今日の現在まで」によく使います）",
+      "firstDay": "ウィンドウ内で最も古い、データがある日の値",
+      "uniqTotal": "区間全体でまとめて評価し、日ごとには合計しません（ユニーク数 / 発火ユーザー数に唯一正しい選択）"
+    },
+    "warning": {
+      "nonAdditivePickedAdditive": "現在の計算方法は日ごとに合計できません。「全区間のユニーク合計」または「加重平均」を選ぶことをおすすめします。そのままでは結果が高く出ます",
+      "additivePickedOverall": "現在の計算方法は合計できるため、「累計 / 日平均」のほうが直感的です。全区間のユニーク合計はユニーク数 / ユーザーあたりの値にのみ意味があります"
+    }
+  },
+  "window": {
+    "fixed": "固定日付",
+    "today": "今日",
+    "yesterday": "昨日",
+    "recentN": "直近 {{n}} 日間（今日を含む）",
+    "pastN": "過去 {{n}} 日間（今日を含まない）",
+    "thisWeek": "今週",
+    "lastWeek": "先週",
+    "thisMonth": "今月",
+    "lastMonth": "先月",
+    "customOffsets": "動的レンジ D-{{from}} 〜 D-{{to}}",
+    "fromDateToToday": "指定日から今日まで",
+    "fromDateToYesterday": "指定日から昨日まで",
+    "lastNDays": "直近 {{n}} 日間",
+    "cohortWindow": "コホート {{window}}",
+    "followAlert": "アラートウィンドウに従う"
+  },
+  "summary": {
+    "event": "イベント {{event}} · 計算 {{analysis}}{{prop}}{{window}}{{pick}}",
+    "propSegment": " · {{prop}}",
+    "windowSegment": " · {{window}}",
+    "pickSegment": " · {{pick}}",
+    "retention": "リテンション {{start}} → {{retain}} · {{period}} · {{measure}}",
+    "periodDays": "{{n}} 日",
+    "noEvent": "(イベント未指定)",
+    "measureCount": "ユーザー数"
+  },
+  "timeRange": {
+    "extra": "指標に期間を持たせると、アラートルールはデフォルトでそれに従います。対応するのは相対期間のみ（毎日繰り返し評価できます）で、最長 90 日です",
+    "followAlert": "アラートウィンドウに従うよう変更"
+  },
+  "conditionGroup": {
+    "extra": "イベントプロパティ / ユーザープロパティ / コホート / タグ。イベント分析の条件グループと同じ意味です"
+  },
+  "prop": {
+    "groupEvent": "イベントプロパティ",
+    "groupUser": "ユーザープロパティ",
+    "eventPlaceholder": "プロパティを選択",
+    "eventDisabledPlaceholder": "現在の方法ではプロパティは不要です",
+    "tooltip": "計算方法にプロパティが必要な場合は必須です。プロパティの型によって選択できる計算方法が決まります",
+    "eventWithType": "{{name}}（{{type}}）",
+    "userWithType": "{{name}}（ユーザー・{{type}}）",
+    "userOnly": "{{name}}（ユーザー）"
+  },
+  "event": {
+    "searchPlaceholder": "イベントを検索または選択",
+    "optionWithName": "{{key}}（{{name}}）",
+    "staleOption": "{{event}}（イベント一覧にないため元の値のまま）"
+  },
+  "transform": {
+    "tooltip": "先に四則演算を行い、その後で小数点以下の桁数を丸めます（イベント分析と同じ）",
+    "valuePlaceholder": "演算数（任意）"
+  },
+  "decimals": {
+    "placeholder": "0〜6 で指定"
+  },
+  "trial": {
+    "run": "試算",
+    "hint": "現在の定義で実際に 1 回評価します（アラート判定と同じ実装）。保存はされません",
+    "failed": "試算に失敗しました",
+    "result": "現在の値 {{value}} · {{window}}（{{start}} 〜 {{end}}）· {{pick}}{{auto}}",
+    "autoSuffix": "（自動）",
+    "note": "{{note}}。所要時間 {{ms}}ms"
+  },
+  "validation": {
+    "eventRequired": "イベントを選択してください",
+    "analysisRequired": "計算方法を選択してください",
+    "displayNameRequired": "表示名を入力してください",
+    "metricNameRequired": "指標名を入力してください",
+    "metricNamePattern": "小文字で始まり、小文字 / 数字 / アンダースコアのみ、最大 80 文字",
+    "metricNamePatternShort": "形式が規則に一致しません",
+    "metricRequired": "指標を選択してください",
+    "periodRequired": "周期を選択してください",
+    "periodFilled": "周期を入力してください",
+    "startEventRequired": "開始イベントを選択してください",
+    "retainEventRequired": "再訪イベントを選択してください"
+  },
+  "create": {
+    "title": "イベント指標を新規作成",
+    "displayNamePlaceholder": "例：直近 7 日間の日平均注文金額",
+    "metricNamePlaceholder": "例：order_amount_daily_avg_7d",
+    "metricNameExtra": "アセットの一意キーで、作成後は変更できません。分析とアラートはこれを参照します",
+    "definitionHint": "定義（イベント分析と同じ深さ。保存前に「試算」の実行をおすすめします）"
+  },
+  "modal": {
+    "title": "指標を作成",
+    "metricNameExtra": "小文字で始まり、小文字 / 数字 / アンダースコアを含めることができ、80 文字以内です",
+    "metricFallback": "指標",
+    "summaryEvent": "{{event}} · {{metric}}",
+    "summaryEventEmpty": "先にイベント指標を 1 つ設定してクエリしてください",
+    "summaryRetention": "開始 {{start}} → 再訪 {{end}}",
+    "summaryRetentionEmpty": "先にリテンションのクエリを完了してください",
+    "summaryNote": "。期間はクエリ時のものを使用し、指標には保存されません。"
+  },
+  "apply": {
+    "trigger": "指標から追加",
+    "ok": "適用",
+    "placeholder": "保存済みの指標を選択",
+    "empty": "このタイプの指標はまだありません"
+  },
+  "detail": {
+    "title": "指標の詳細",
+    "titleNamed": "指標の詳細 · {{name}}",
+    "meta": "作成者 {{owner}} · 作成 {{created}} · 更新 {{updated}}",
+    "readonlyNote": "指標名はアセットの一意キーであり、タイプは定義モデルを決めます。変更すると既存の分析やアラートの参照が壊れるため、読み取り専用です。",
+    "saving": "保存中",
+    "createCard": "ダッシュボードカードを作成",
+    "cardName": "{{name}}（指標カード）",
+    "alertTitle": "定義について",
+    "alertBody": "指標はクエリ期間と値の選択を保持できます。クエリ期間が未設定の場合、アラートはルールのウィンドウで評価されます（従来の動作）。分析に適用した場合、分析ページは独自の期間を使用します。アラートルールが参照している指標の定義を変更すると、アラートの判定条件も変わります（運用 → 監視アラート → ポリシー）。",
+    "retentionFiltersTitle": "リテンション指標のフィルター条件",
+    "retentionFiltersBody": "開始 / 再訪イベントに付属するフィルター条件はイベントとともに保持されます。コホート範囲と周期はここで直接調整できます。",
+    "cohortRangeTooltip": "リテンションの成熟コホートの期間です。未設定の場合は周期から自動導出されます（周期 + 1 日以上、最長 180 日）",
+    "deriveFromCycle": "周期からの導出に変更",
+    "derivedFromCycle": "周期から導出",
+    "cohortRangeDerived": "周期から導出（{{days}} 日）"
+  },
+  "message": {
+    "deleted": "削除しました",
+    "updated": "指標を更新しました",
+    "created": "指標を作成しました",
+    "cardCreated": "カード「{{name}}」を作成しました。ダッシュボードワークショップからダッシュボードに追加できます",
+    "noEventMetric": "保存できるイベント指標がありません",
+    "queryRetentionFirst": "先にリテンションをクエリしてください"
+  },
+  "confirm": {
+    "deleteTitle": "指標「{{name}}」を削除しますか？",
+    "deleteEditing": "この指標を削除します。未保存の変更もすべて失われます。これを参照している分析とアラートは無効になります。",
+    "deleteContent": "これを参照している分析とアラートは無効になり、削除後は復元できません。"
+  }
+}

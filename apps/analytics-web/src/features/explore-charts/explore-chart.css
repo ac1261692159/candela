@@ -1,0 +1,84 @@
+.explore-chart {
+  position: relative;
+  min-width: 0;
+}
+
+.explore-chart--fill {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+}
+
+.explore-chart--fill .explore-chart__canvas {
+  flex: 1;
+  min-height: 0;
+}
+
+.explore-chart__stats {
+  position: absolute;
+  left: 8px;
+  right: 8px;
+  bottom: 4px;
+  z-index: 2;
+  padding: 4px 8px 6px;
+  border-radius: 6px;
+  background: rgba(255, 255, 255, 0.92);
+  box-shadow: 0 1px 2px rgba(15, 23, 42, 0.06);
+  font-size: 11px;
+  line-height: 1.35;
+  color: #0f172a;
+  font-variant-numeric: tabular-nums;
+}
+
+.explore-chart__stats-row {
+  display: grid;
+  gap: 8px;
+  align-items: center;
+  min-height: 20px;
+}
+
+.explore-chart__stats-row--head {
+  color: #64748b;
+  font-size: 10px;
+  letter-spacing: 0.02em;
+}
+
+.explore-chart__stats-name {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  min-width: 0;
+  font-weight: 600;
+}
+
+.explore-chart__stats-name i {
+  flex: 0 0 8px;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+}
+
+.explore-chart__stats-name span,
+.explore-chart__stats-val {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.explore-chart__stats-val {
+  text-align: right;
+  color: #334155;
+}
+
+.chart-field-panel {
+  flex: 0 0 280px;
+  width: 280px;
+  min-width: 240px;
+  max-width: 320px;
+  align-self: stretch;
+  border-left: 1px solid #f0f0f0;
+  padding: 8px 12px 16px;
+  overflow: auto;
+  background: #fff;
+}

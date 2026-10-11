@@ -1,0 +1,421 @@
+{
+  "page": {
+    "paramsTitle": "Tham số tích hợp",
+    "projectName": "Tên dự án",
+    "reportEndpoint": "Địa chỉ báo cáo",
+    "projectToken": "token dự án",
+    "tokenHint": "Hỏi quản trị viên dự án (vì lý do bảo mật nên không hiển thị trên trang); vui lòng đưa vào qua biến môi trường hoặc cấu hình phía máy chủ",
+    "prereqTitle": "Đọc trước khi tích hợp",
+    "prereqLead": "Cách báo cáo thống nhất là POST +",
+    "prereqTail": ", ba trường biểu mẫu như sau; đặc tả đầy đủ xem tài liệu đặc tả quy trình báo cáo dữ liệu trong kho mã nguồn.",
+    "descColumn": "Mô tả",
+    "pitfall": "Cái bẫy phổ biến nhất: receiver chỉ nhận dữ liệu đã qua base64 + urlencode. Gửi thẳng body JSON thô sẽ bị phân tích thành «data rỗng», HTTP vẫn trả về 200 nhưng dữ liệu bị mất âm thầm.",
+    "curlLabel": "Yêu cầu tối thiểu (curl)",
+    "curlTokenPlaceholder": "<token dự án>",
+    "curlDataPlaceholder": "<base64(mảng JSON)>",
+    "plannedTitle": "{{name}}: chưa phát triển",
+    "gotIt": "Đã hiểu",
+    "plannedBody": "SDK này chưa được thích ứng với giao thức báo cáo của ClkLog, tạm thời chưa có tài liệu và ví dụ tích hợp.",
+    "plannedHint": "Có thể tạm dùng «Cách tích hợp khác → HTTP / RESTful API» để tự tích hợp theo giao thức (dùng được với mọi ngôn ngữ), hoặc liên hệ nhóm vận hành nền tảng để nêu SDK bạn cần, chúng tôi sẽ sắp lịch thích ứng theo nhu cầu.",
+    "copied": "Đã sao chép {{label}}"
+  },
+  "drawer": {
+    "title": "Tài liệu tích hợp {{name}}",
+    "titleFallback": "Tài liệu tích hợp",
+    "faqTitle": "Câu hỏi thường gặp ({{count}})",
+    "downloadDemo": "Tải dự án demo (zip)",
+    "downloadDemoHint": "Gói bao gồm {{contents}} và hướng dẫn chạy (README); không chứa bất kỳ thông tin xác thực nào."
+  },
+  "code": {
+    "copied": "Đã sao chép mã",
+    "copyFailed": "Sao chép thất bại, vui lòng chọn thủ công"
+  },
+  "group": {
+    "client": "SDK phía client",
+    "server": "SDK phía máy chủ",
+    "other": "Cách tích hợp khác"
+  },
+  "groupHint": {
+    "client": "Thu thập tracking trong App / web / mini program / engine game",
+    "server": "Báo cáo sự kiện nghiệp vụ từ dịch vụ backend (đơn hàng, thanh toán, đăng ký…)",
+    "other": "Không phụ thuộc ngôn ngữ: tích hợp trực tiếp qua giao thức HTTP, hoặc nhập bù dữ liệu lịch sử theo lô"
+  },
+  "status": {
+    "ready": "Đã kiểm chứng",
+    "planned": "Chưa phát triển",
+    "partial": "Đã kiểm chứng ở mức ngôn ngữ"
+  },
+  "protocol": {
+    "project": "Tên dự án (= «Tên dự án» bên dưới, không phải tên hiển thị của dự án)",
+    "token": "Token dự án, hỏi quản trị viên dự án; không được ghi vào mã frontend hoặc kho mã nguồn",
+    "data": "Mảng sự kiện: mảng JSON → Base64 → mã hóa URL (sự kiện đơn lẻ cũng phải bọc thành mảng)"
+  },
+  "encodingSample": "Mảng sự kiện gốc (một sự kiện cũng phải là mảng)\n[{\"type\":\"track\",\"event\":\"PageView\",\"distinct_id\":\"u_1001\",\"time\":1785228036000,\"properties\":{\"channel\":\"app_store\"}}]\n   ↓ JSON.stringify + Base64\nW3sidHlwZSI6InRyYWNrIiwiZXZlbnQiOiJQYWdlVmlldyIsImRpc3RpbmN0X2lkIjoidV8xMDAxIiwidGltZSI6MTc4NTIyODAzNjAwMCwicHJvcGVydGllcyI6eyJjaGFubmVsIjoiYXBwX3N0b3JlIn19XQ==\n   ↓ Mã hóa URL rồi đặt vào trường data của form\ndata=W3sidHlwZSI6InRyYWNrIiwiZXZlbnQiOiJQYWdlVmlldyIsImRpc3RpbmN0X2lkIjoidV8xMDAxIiwidGltZSI6MTc4NTIyODAzNjAwMCwicHJvcGVydGllcyI6eyJjaGFubmVsIjoiYXBwX3N0b3JlIn19XQ%3D%3D",
+  "guide": {
+    "http": {
+      "name": "HTTP / RESTful API",
+      "platform": "Giao thức chung · dùng được với mọi ngôn ngữ",
+      "summary": "Mọi SDK cuối cùng đều đi qua giao thức này; ngôn ngữ chưa có SDK có thể tích hợp trực tiếp theo đây",
+      "step1Title": "1. Cách gửi yêu cầu và địa chỉ",
+      "step1Body": "POST đến địa chỉ báo cáo với Content-Type là application/x-www-form-urlencoded, ba trường biểu mẫu chính là ba yếu tố của giao thức. GET cũng được hỗ trợ, nhưng nội dung sự kiện sẽ vào URL nên không khuyến khích.",
+      "step1Code1Label": "Yêu cầu tối thiểu (curl)",
+      "step1Code1": "curl -X POST '<địa chỉ báo cáo>' \\\n  -H 'Content-Type: application/x-www-form-urlencoded' \\\n  --data-urlencode 'project=<tên dự án>' \\\n  --data-urlencode 'token=<token dự án>' \\\n  --data-urlencode 'data=<base64(mảng JSON)>'",
+      "step1Note1": "HTTP 200 chỉ cho biết định dạng đã được phân tích thành công, việc kiểm tra nghiệp vụ và nhập kho diễn ra bất đồng bộ; đừng dựa vào nội dung phản hồi để phán đoán thành công.",
+      "step1Note2": "Địa chỉ phải có tiền tố /receiver (gateway chuyển tiếp đến receiver dựa trên tiền tố này).",
+      "step2Title": "2. Cấu trúc bản tin sự kiện",
+      "step2Body": "Mỗi phần tử trong data là một đối tượng sự kiện. Ý nghĩa các trường: type (track là sự kiện hành vi / user_set là thuộc tính người dùng / track_signup là liên kết đăng nhập), event (tên sự kiện, bắt buộc với track), distinct_id (ID khách truy cập, ổn định suốt quá trình), time (dấu thời gian mili giây), identities (mở rộng danh tính), properties (thuộc tính tùy chỉnh, tiền tố $ là thuộc tính có sẵn).",
+      "step2Code1Label": "Một sự kiện hành vi",
+      "step3Title": "3. Yêu cầu mã hóa (cái bẫy phổ biến nhất)",
+      "step3Body": "Chuyển mảng sự kiện thành chuỗi JSON rồi mã hóa Base64, sau đó mã hóa URL toàn bộ và đặt vào trường data. Gửi thẳng body JSON thô sẽ bị phân tích thành «data rỗng»: HTTP vẫn trả về 200 nhưng dữ liệu bị mất âm thầm.",
+      "step3Code1Label": "Chuỗi mã hóa",
+      "step3Note1": "Một sự kiện đơn lẻ cũng phải bọc thành mảng ([{...}]).",
+      "step3Note2": "Các ký tự + / = trong kết quả Base64 phải được mã hóa URL, nếu không sẽ bị quá trình phân tích biểu mẫu làm hỏng.",
+      "step4Title": "4. Danh tính người dùng và liên kết đăng nhập",
+      "step4Body": "Giai đoạn ẩn danh dùng ID thiết bị hoặc ID khách làm distinct_id; sau khi người dùng đăng nhập, báo cáo một sự kiện track_signup với ID đăng nhập trong identities.user_key và ID ẩn danh cũ trong properties.$track_signup_original_id, từ đó mọi sự kiện đều tự động mang identities.user_key, nền tảng có thể gộp hành vi trước và sau của cùng một người.",
+      "step4Code1Label": "Sự kiện liên kết đăng nhập",
+      "step5Title": "5. Gửi theo lô và thử lại",
+      "step5Body": "Đặt nhiều sự kiện vào cùng một mảng và gửi một lần (nên 10~50 bản ghi mỗi lô), một bản ghi lỗi trong lô không ảnh hưởng đến các bản ghi khác. Thất bại thì thử lại 3 lần, giãn cách 500ms × số lần là đủ; nếu vẫn thất bại liên tục, hãy ghi dữ liệu vào hàng đợi cục bộ để gửi lại sau, tránh mất sự kiện.",
+      "step6Title": "6. Kiểm chứng kết quả báo cáo",
+      "step6Body": "Sau khi báo cáo, vào «Quản lý dữ liệu → Debug» để truy vấn theo tên sự kiện (có thể thấy chi tiết thuộc tính và thời gian nhận); cũng có thể chọn sự kiện đó trong phân tích sự kiện để xem có dữ liệu không. Độ trễ thường ở mức giây, chỉ số tổng hợp của Flink sẽ chậm vài phút.",
+      "faq1Q": "API trả về 200 nhưng trên nền tảng không tra được dữ liệu?",
+      "faq1A": "Trước tiên xác nhận data là nội dung đã «Base64 + mã hóa URL» (gửi JSON trực tiếp sẽ trả 200 nhưng data rỗng), sau đó xác nhận project và token khớp nhau, tên sự kiện không có khoảng trắng hay sai chữ hoa chữ thường.",
+      "faq2Q": "time dùng giây hay mili giây?",
+      "faq2A": "Mili giây (13 chữ số). Truyền giây (10 chữ số) sẽ bị phân tích thành năm 1970; nếu không truyền thì lấy thời gian nhận ở máy chủ làm chuẩn.",
+      "faq3Q": "Một sự kiện đơn lẻ có thể gửi thẳng đối tượng JSON không?",
+      "faq3A": "Không được, data sau khi giải mã phải là mảng, sự kiện đơn lẻ phải viết thành [{...}].",
+      "faq4Q": "Đặt token ở frontend có an toàn không?",
+      "faq4A": "Không nên. Token báo cáo có thể ghi dữ liệu, phía client hãy đi qua máy chủ trung chuyển, hoặc dùng token hạn chế chỉ cho phép báo cáo."
+    },
+    "php": {
+      "name": "PHP",
+      "platform": "Máy chủ · PHP 7.4+ (cần extension curl)",
+      "summary": "Báo cáo các sự kiện như đơn hàng, thanh toán, đăng ký ngay trong mã nghiệp vụ",
+      "step1Title": "1. Điều kiện tiên quyết",
+      "step1Body": "PHP 7.4 trở lên, bật extension curl (php -m | grep curl). Không có phụ thuộc bên thứ ba.",
+      "step1Code1Label": "Kiểm tra môi trường",
+      "step2Title": "2. Khởi tạo client",
+      "step2Body": "Ba tham số: địa chỉ báo cáo, tên dự án, token dự án. Token đọc từ biến môi trường, không ghi vào mã.",
+      "step2Code1Label": "Khởi tạo và cấu hình",
+      "step2Code1": "final class ClkLogClient\n{\n    private array $queue = [];\n    private ?string $loginId = null; // tự động gắn vào identities.user_key sau khi đăng nhập\n\n    public function __construct(\n        private readonly string $endpoint,\n        private readonly string $project,\n        private readonly string $token,\n        private readonly int $batchSize = 10,\n    ) {}\n\n    public static function fromEnv(): self\n    {\n        return new self(\n            getenv('CLKLOG_ENDPOINT') ?: '<địa chỉ báo cáo>',\n            getenv('CLKLOG_PROJECT') ?: '<tên dự án>',\n            getenv('CLKLOG_TOKEN') ?: throw new RuntimeException('thiếu CLKLOG_TOKEN'),\n            10,\n        );\n    }\n}",
+      "step3Title": "3. Báo cáo sự kiện hành vi",
+      "step3Body": "track() đưa sự kiện vào hàng đợi, tự động gửi khi đủ số lượng của lô; time dùng dấu thời gian mili giây.",
+      "step3Code1Label": "track và xếp hàng",
+      "step3Code1": "public function track(string $distinctId, string $event, array $properties = []): void\n{\n    $this->enqueue($this->withIdentity([\n        'type'        => 'track',\n        'event'       => $event,\n        'distinct_id' => $distinctId,\n        'time'        => (int) (microtime(true) * 1000), // mili giây\n        'properties'  => (object) $properties,\n    ]));\n}\n\n$cli = ClkLogClient::fromEnv();\n$cli->track('u_1001', 'Purchase', ['order_id' => 'O20260915001', 'amount' => 99.5]);",
+      "step4Title": "4. Thuộc tính người dùng và liên kết đăng nhập",
+      "step4Body": "profileSet() ghi thuộc tính người dùng (ghi đè); login() báo cáo track_signup để gộp ID ẩn danh với ID đăng nhập, sau đó mọi sự kiện tự động mang identities.user_key.",
+      "step4Code1Label": "profileSet / login",
+      "step4Code1": "public function profileSet(string $distinctId, array $properties): void\n{\n    $this->enqueue($this->withIdentity([\n        'type'        => 'user_set',\n        'distinct_id' => $distinctId,\n        'time'        => (int) (microtime(true) * 1000),\n        'properties'  => (object) $properties,\n    ]));\n}\n\npublic function login(string $loginId, string $anonymousId): void\n{\n    $this->loginId = $loginId;\n    $this->enqueue([\n        'type'        => 'track_signup',\n        'event'       => '$SignUp',\n        'distinct_id' => $loginId,\n        'identities'  => ['user_key' => $loginId],\n        'properties'  => ['$track_signup_original_id' => $anonymousId],\n        'time'        => (int) (microtime(true) * 1000),\n    ]);\n}\n\n$cli->profileSet('u_1001', ['vip_level' => 3, 'register_channel' => 'app_store']);\n$cli->login('user_9527', 'u_1001');",
+      "step5Title": "5. Gửi theo lô và thử lại khi thất bại",
+      "step5Body": "flush() chuyển hàng đợi thành JSON, Base64, mã hóa URL rồi gửi theo biểu mẫu; thất bại thì thử lại 3 lần kèm giãn cách. Trước khi tiến trình kết thúc, gọi flush một lần để chốt.",
+      "step5Code1Label": "flush",
+      "step5Code1": "public function flush(): void\n{\n    if ($this->queue === []) {\n        return;\n    }\n    $payload = base64_encode(json_encode($this->queue, JSON_UNESCAPED_UNICODE));\n\n    for ($attempt = 1; $attempt <= 3; $attempt++) {\n        $ch = curl_init($this->endpoint);\n        curl_setopt_array($ch, [\n            CURLOPT_POST           => true,\n            CURLOPT_POSTFIELDS     => http_build_query([\n                'project' => $this->project,\n                'token'   => $this->token,\n                'data'    => $payload,\n            ]),\n            CURLOPT_HTTPHEADER     => ['Content-Type: application/x-www-form-urlencoded'],\n            CURLOPT_RETURNTRANSFER => true,\n            CURLOPT_TIMEOUT        => 10,\n        ]);\n        $body = curl_exec($ch);\n        $code = curl_getinfo($ch, CURLINFO_RESPONSE_CODE);\n        if ($code === 200) {\n            $this->queue = [];\n            return;\n        }\n        usleep($attempt * 500_000); // giãn cách (backoff)\n    }\n    throw new RuntimeException('upstream flush failed after 3 attempts');\n}",
+      "step5Note1": "http_build_query đã mã hóa URL xong, đừng urlencode thủ công thêm một lần nữa.",
+      "step5Note2": "Với tiến trình thường trú (consumer hàng đợi, tác vụ định kỳ), nên flush rõ ràng ở cuối mỗi vòng để sự kiện không đọng lại trong bộ nhớ quá lâu.",
+      "step6Title": "6. Kiểm chứng",
+      "step6Body": "Sau khi chạy báo cáo một lần, vào «Quản lý dữ liệu → Debug» truy vấn theo tên sự kiện, sẽ thấy sự kiện và thuộc tính vừa gửi; độ trễ dự kiến trong vài giây.",
+      "faq1Q": "Trả về 200 nhưng không có dữ liệu?",
+      "faq1A": "Kiểm tra data có phải kết quả Base64 rồi được http_build_query mã hóa lần nữa không; xác nhận token và project thuộc cùng một dự án.",
+      "faq2Q": "time dùng đơn vị nào?",
+      "faq2A": "Mili giây. Trong PHP dùng (int)(microtime(true) * 1000).",
+      "faq3Q": "Chữ tiếng Việt trong sự kiện bị lỗi font?",
+      "faq3A": "Thêm JSON_UNESCAPED_UNICODE khi json_encode, và đảm bảo chuỗi là UTF-8.",
+      "faq4Q": "Có thể báo cáo đồng bộ ngay trong request web không?",
+      "faq4A": "Được, nhưng nên đưa vào hàng đợi cục bộ (Redis / bảng database) để tác vụ nền gửi theo lô, tránh làm chậm phản hồi API."
+    },
+    "go": {
+      "name": "Go",
+      "platform": "Máy chủ · Go 1.18+ (chỉ thư viện chuẩn)",
+      "summary": "Báo cáo sự kiện nghiệp vụ trong dịch vụ backend chịu tải cao, không cần phụ thuộc bên thứ ba",
+      "step1Title": "1. Điều kiện tiên quyết",
+      "step1Body": "Go 1.18 trở lên, chỉ dùng thư viện chuẩn (net/http, encoding/json, encoding/base64, net/url), không cần thêm module SDK nào.",
+      "step1Code1Label": "Khởi tạo module",
+      "step2Title": "2. Định nghĩa sự kiện và client",
+      "step2Body": "Struct Event tương ứng các trường của giao thức; Identities mang phần mở rộng danh tính user_key.",
+      "step2Code1Label": "Struct và khởi tạo",
+      "step2Code1": "type Event struct {\n    Type       string         `json:\"type\"`                 // track / track_signup / user_set\n    Event      string         `json:\"event,omitempty\"`      // tên sự kiện (bắt buộc với track)\n    DistinctID string         `json:\"distinct_id\"`          // ID khách truy cập\n    Time       int64          `json:\"time\"`                 // dấu thời gian mili giây\n    Identities map[string]any `json:\"identities,omitempty\"` // {\"user_key\": ID đăng nhập}\n    Properties map[string]any `json:\"properties,omitempty\"`\n}\n\ntype ClkLogClient struct {\n    Endpoint, Project, Token string\n    BatchSize                int\n    loginID                  string\n    queue                    []Event\n    http                     *http.Client\n}\n\nfunc NewClkLogClient(endpoint, project, token string) *ClkLogClient {\n    return &ClkLogClient{\n        Endpoint: endpoint, Project: project, Token: token, BatchSize: 10,\n        http: &http.Client{Timeout: 10 * time.Second},\n    }\n}",
+      "step3Title": "3. Báo cáo sự kiện hành vi",
+      "step3Body": "Track xếp hàng đợi, tự động Flush khi đủ số lượng của lô; sau khi đăng nhập sẽ tự động mang identities.user_key.",
+      "step3Code1Label": "Track",
+      "step3Code1": "func (c *ClkLogClient) Track(distinctID, event string, props map[string]any) error {\n    e := Event{\n        Type: \"track\", Event: event, DistinctID: distinctID,\n        Time: time.Now().UnixMilli(), Properties: props,\n    }\n    if c.loginID != \"\" {\n        e.Identities = map[string]any{\"user_key\": c.loginID}\n    }\n    c.queue = append(c.queue, e)\n    if len(c.queue) >= c.BatchSize {\n        return c.Flush()\n    }\n    return nil\n}\n\n// Gọi\ncli.Track(\"u_1001\", \"Purchase\", map[string]any{\"order_id\": \"O20260915001\", \"amount\": 99.5})",
+      "step4Title": "4. Liên kết đăng nhập và thuộc tính người dùng",
+      "step4Body": "Login báo cáo track_signup để gộp danh tính; ProfileSet ghi đè thuộc tính người dùng.",
+      "step4Code1Label": "Login / ProfileSet",
+      "step4Code1": "func (c *ClkLogClient) Login(loginID, anonymousID string) error {\n    c.loginID = loginID\n    c.queue = append(c.queue, Event{\n        Type: \"track_signup\", Event: \"$SignUp\", DistinctID: loginID,\n        Identities: map[string]any{\"user_key\": loginID},\n        Properties: map[string]any{\"$track_signup_original_id\": anonymousID},\n        Time:       time.Now().UnixMilli(),\n    })\n    if len(c.queue) >= c.BatchSize {\n        return c.Flush()\n    }\n    return nil\n}\n\nfunc (c *ClkLogClient) ProfileSet(distinctID string, props map[string]any) error {\n    e := Event{Type: \"user_set\", DistinctID: distinctID, Time: time.Now().UnixMilli(), Properties: props}\n    if c.loginID != \"\" {\n        e.Identities = map[string]any{\"user_key\": c.loginID}\n    }\n    c.queue = append(c.queue, e)\n    return nil\n}",
+      "step5Title": "5. Gửi theo lô và thử lại khi thất bại",
+      "step5Body": "Flush chuyển hàng đợi thành JSON → Base64 → mã hóa biểu mẫu rồi gửi; thất bại thì thử lại 3 lần, mỗi lần giãn cách 500ms × số lần.",
+      "step5Code1Label": "Flush",
+      "step5Code1": "func (c *ClkLogClient) Flush() error {\n    if len(c.queue) == 0 {\n        return nil\n    }\n    payload, err := json.Marshal(c.queue)\n    if err != nil {\n        return fmt.Errorf(\"marshal: %w\", err)\n    }\n    form := url.Values{}\n    form.Set(\"project\", c.Project)\n    form.Set(\"token\", c.Token)\n    form.Set(\"data\", base64.StdEncoding.EncodeToString(payload))\n\n    var lastErr error\n    for attempt := 1; attempt <= 3; attempt++ {\n        req, _ := http.NewRequest(http.MethodPost, c.Endpoint, bytes.NewBufferString(form.Encode()))\n        req.Header.Set(\"Content-Type\", \"application/x-www-form-urlencoded\")\n        resp, err := c.http.Do(req)\n        if err == nil && resp.StatusCode == http.StatusOK {\n            io.Copy(io.Discard, resp.Body)\n            resp.Body.Close()\n            c.queue = c.queue[:0]\n            return nil\n        }\n        if err == nil {\n            body, _ := io.ReadAll(resp.Body)\n            resp.Body.Close()\n            lastErr = fmt.Errorf(\"http %d: %s\", resp.StatusCode, string(body))\n        } else {\n            lastErr = err\n        }\n        time.Sleep(time.Duration(attempt) * 500 * time.Millisecond) // giãn cách\n    }\n    return fmt.Errorf(\"flush failed after 3 attempts: %w\", lastErr)\n}",
+      "step5Note1": "Khi báo cáo đồng thời, hãy thêm sync.Mutex cho queue, hoặc dùng một instance client cho mỗi goroutine.",
+      "step5Note2": "Khi dịch vụ thoát êm (signal → shutdown), gọi Flush một lần để tránh mất lô sự kiện cuối cùng.",
+      "step6Title": "6. Kiểm chứng",
+      "step6Body": "Sau khi chạy báo cáo một lần, vào «Quản lý dữ liệu → Debug» truy vấn theo tên sự kiện; cũng có thể dùng phân tích sự kiện của nền tảng để xem lượng sự kiện đó có tăng không.",
+      "faq1Q": "Trả về 200 nhưng không có dữ liệu?",
+      "faq1A": "Xác nhận data trong form là chuỗi Base64 (url.Values của Go sẽ mã hóa thêm một lần, điều đó là đúng); xác nhận project/token khớp nhau.",
+      "faq2Q": "time dùng đơn vị nào?",
+      "faq2A": "Mili giây, trong Go dùng time.Now().UnixMilli().",
+      "faq3Q": "Một sự kiện có trường không hợp lệ trong lô có ảnh hưởng đến các bản ghi khác không?",
+      "faq3A": "Không, lô được xử lý theo từng bản ghi, bản ghi không hợp lệ sẽ bị bỏ qua.",
+      "faq4Q": "Có cần xử lý nội dung phản hồi không?",
+      "faq4A": "Không cần phân tích kết quả nghiệp vụ, HTTP 200 là coi như nhận thành công; chỉ thử lại khi khác 200."
+    },
+    "unity": {
+      "name": "Unity (C#)",
+      "platform": "Client · Unity 2021+ / .NET Standard 2.1 (cùng mã này cũng dùng được cho console .NET)",
+      "summary": "Tracking cho game và client C#: liên kết đăng nhập, thuộc tính người dùng, báo cáo theo lô",
+      "step1Title": "1. Điều kiện tiên quyết",
+      "step1Body": "Unity 2021 trở lên (.NET Standard 2.1, có HttpClient). Tuần tự hóa JSON: Unity 6 có sẵn System.Text.Json; bản cũ hơn có thể dùng Newtonsoft.Json, hoặc cài System.Text.Json qua NuGetForUnity.",
+      "step1Code1Label": "Phụ thuộc (chọn một theo phiên bản Unity)",
+      "step1Code1": "// Có sẵn trong Unity 6: dùng trực tiếp using System.Text.Json;\n// Bản cũ: cài com.unity.nuget.newtonsoft-json trong Package Manager, rồi đổi sang JsonConvert.SerializeObject",
+      "step2Title": "2. Khởi tạo client",
+      "step2Body": "Ba tham số: địa chỉ báo cáo, tên dự án, token dự án. Token phía client nên do máy chủ của bạn cấp (hoặc trung chuyển báo cáo qua máy chủ), không hard-code vào gói cài đặt.",
+      "step2Code1Label": "Khởi tạo",
+      "step2Code1": "public sealed class ClkLogClient\n{\n    private readonly HttpClient _http;\n    private readonly string _endpoint, _project, _token;\n    private readonly int _batchSize;\n    private readonly List<Dictionary<string, object?>> _queue = new();\n    private string? _loginId;\n\n    public ClkLogClient(string endpoint, string project, string token, int batchSize = 10)\n    {\n        _endpoint = endpoint;\n        _project = project;\n        _token = token;\n        _batchSize = batchSize > 0 ? batchSize : 10;\n        _http = new HttpClient { Timeout = TimeSpan.FromSeconds(10) };\n    }\n}",
+      "step3Title": "3. Báo cáo sự kiện hành vi",
+      "step3Body": "Track xếp hàng đợi, tự động gửi khi đủ số lượng của lô; time dùng dấu thời gian mili giây. Sau khi đăng nhập, sự kiện tự động mang identities.user_key.",
+      "step3Code1Label": "Track",
+      "step3Code1": "public void Track(string distinctId, string eventName, Dictionary<string, object?>? properties = null)\n{\n    var e = new Dictionary<string, object?>\n    {\n        [\"type\"] = \"track\",\n        [\"event\"] = eventName,\n        [\"distinct_id\"] = distinctId,\n        [\"time\"] = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds(), // mili giây\n        [\"properties\"] = properties ?? new Dictionary<string, object?>(),\n    };\n    Enqueue(WithIdentity(e));\n}\n\n// Gọi\nclient.Track(\"u_1001\", \"Purchase\", new() { [\"order_id\"] = \"O20260915001\", [\"amount\"] = 99.5 });",
+      "step4Title": "4. Liên kết đăng nhập và thuộc tính người dùng",
+      "step4Body": "Login báo cáo track_signup để liên kết ID đăng nhập với ID ẩn danh; sau đó mọi sự kiện đều mang user_key. ProfileSet ghi đè thuộc tính người dùng.",
+      "step4Code1Label": "Login / ProfileSet",
+      "step4Code1": "public void Login(string loginId, string anonymousId)\n{\n    _loginId = loginId;\n    Enqueue(new Dictionary<string, object?>\n    {\n        [\"type\"] = \"track_signup\",\n        [\"event\"] = \"$SignUp\",\n        [\"distinct_id\"] = loginId,\n        [\"identities\"] = new Dictionary<string, object?> { [\"user_key\"] = loginId },\n        [\"properties\"] = new Dictionary<string, object?> { [\"$track_signup_original_id\"] = anonymousId },\n        [\"time\"] = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds(),\n    });\n}\n\nprivate Dictionary<string, object?> WithIdentity(Dictionary<string, object?> e)\n{\n    if (_loginId is not null)\n    {\n        e[\"identities\"] = new Dictionary<string, object?> { [\"user_key\"] = _loginId };\n    }\n    return e;\n}\n\npublic void ProfileSet(string distinctId, Dictionary<string, object?> properties)\n{\n    Enqueue(WithIdentity(new Dictionary<string, object?>\n    {\n        [\"type\"] = \"user_set\",\n        [\"distinct_id\"] = distinctId,\n        [\"time\"] = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds(),\n        [\"properties\"] = properties,\n    }));\n}",
+      "step5Title": "5. Gửi theo lô và thử lại",
+      "step5Body": "FlushAsync chuyển hàng đợi thành JSON → Base64 → mã hóa biểu mẫu rồi POST; thất bại thì thử lại 3 lần kèm giãn cách. Trong game, hãy gọi một lần khi chuyển cảnh, quyết toán và trước khi thoát.",
+      "step5Code1Label": "FlushAsync",
+      "step5Code1": "public async Task FlushAsync()\n{\n    if (_queue.Count == 0) return;\n    var json = JsonSerializer.Serialize(_queue);\n    var payload = Convert.ToBase64String(Encoding.UTF8.GetBytes(json));\n\n    for (var attempt = 1; attempt <= 3; attempt++)\n    {\n        try\n        {\n            using var content = new FormUrlEncodedContent(new Dictionary<string, string>\n            {\n                [\"project\"] = _project,\n                [\"token\"] = _token,\n                [\"data\"] = payload,\n            });\n            var res = await _http.PostAsync(_endpoint, content);\n            if (res.IsSuccessStatusCode)\n            {\n                _queue.Clear();\n                return;\n            }\n        }\n        catch (Exception) when (attempt < 3)\n        {\n            // lỗi mạng thì thử lại theo giãn cách\n        }\n        await Task.Delay(attempt * 500);\n    }\n    // Thất bại cả ba lần: giữ nguyên hàng đợi, chờ lần kích hoạt sau (có thể lưu ra file cục bộ để bền vững)\n}",
+      "step5Note1": "Không chờ mạng đồng bộ trên luồng chính của Unity: dùng async/await hoặc khởi động Task trong coroutine để tránh giật khung hình.",
+      "step5Note2": "Khi cần độ tin cậy trên mạng yếu, hãy ghi hàng đợi vào file trong Application.persistentDataPath để gửi bù ở lần khởi động sau.",
+      "step6Title": "6. Kiểm chứng",
+      "step6Body": "Chạy báo cáo một lần trong editor hoặc trên máy thật, vào «Quản lý dữ liệu → Debug» truy vấn theo tên sự kiện (kèm thuộc tính và thời gian nhận); xác nhận các sự kiện của cùng player sau khi đăng nhập đều mang user_key.",
+      "faq1Q": "Trả về 200 nhưng trên nền tảng không có dữ liệu?",
+      "faq1A": "Nguyên nhân phổ biến nhất là chưa Base64 (gửi thẳng JSON) hoặc token/project không khớp; hãy kiểm tra nội dung trường data trước rồi mới rà soát mạng.",
+      "faq2Q": "time dùng đơn vị nào?",
+      "faq2A": "Mili giây, trong C# dùng DateTimeOffset.UtcNow.ToUnixTimeMilliseconds().",
+      "faq3Q": "Unity báo thiếu System.Text.Json?",
+      "faq3A": "Unity 6 có sẵn; bản cũ hơn hãy cài com.unity.nuget.newtonsoft-json và đổi tuần tự hóa sang JsonConvert.SerializeObject.",
+      "faq4Q": "Đặt token trực tiếp ở client có an toàn không?",
+      "faq4A": "Không nên. Nên để máy chủ của bạn làm proxy báo cáo, hoặc dùng token hạn chế chỉ cho phép báo cáo và luân chuyển định kỳ."
+    },
+    "javascript": {
+      "platform": "Client · trình duyệt H5 (trình duyệt hiện đại, không có phụ thuộc)",
+      "summary": "Tracking trang web: thu thập lượt xem trang và lượt nhấp + gửi bù hàng đợi trước khi trang gỡ bỏ; chuỗi 5 sự kiện đã được kiểm chứng ghi vào kho trên trình duyệt thật.",
+      "note1": "Cạm bẫy: khi trang gỡ bỏ phải gửi bù bằng `navigator.sendBeacon` hoặc `fetch(..., {keepalive:true})`, và truyền `URLSearchParams` — truyền chuỗi sẽ bị coi là text/plain nên receiver không phân tích được `data`.",
+      "faq1Q": "Vì sao sự kiện bị mất khi đóng trang?",
+      "faq1A": "Hãy gửi bù trước khi trang gỡ bỏ bằng `navigator.sendBeacon(new URLSearchParams(form))`; đưa thẳng chuỗi cho sendBeacon sẽ gửi dưới dạng text/plain, HTTP trả 200 nhưng dữ liệu không vào kho."
+    },
+    "miniprogram": {
+      "platform": "Client · mini program WeChat (thư viện cơ sở 2.x, không có phụ thuộc)",
+      "summary": "Tracking trong mini program: gửi bằng `wx.request` + hàng đợi đệm cục bộ + gửi bù bằng `wx.onAppHide`; bản triển khai ở mức ngôn ngữ đã được kiểm chứng (trên máy thật cần nạp vào developer tool).",
+      "note1": "Cạm bẫy: `wx.getStorageSync` trả về chuỗi rỗng chứ không phải null khi không tìm thấy key, nên lớp thích ứng storage phải chuẩn hoá, nếu không ID ẩn danh sẽ thành chuỗi rỗng và không gộp được người dùng.",
+      "faq1Q": "Trong mini program, data của request nên truyền đối tượng hay chuỗi?",
+      "faq1A": "Hãy luôn truyền chuỗi urlencoded đã mã hóa sẵn và đặt `header[\"content-type\"]` một cách tường minh: các thư viện cơ sở khác nhau tuần tự hoá đối tượng không nhất quán, truyền chuỗi là ổn định nhất."
+    },
+    "reactNative": {
+      "platform": "Client · React Native (JS/TS, Hermes)",
+      "summary": "Tracking trong ứng dụng RN: gửi bằng `fetch` toàn cục + storage được tiêm vào (AsyncStorage) + gửi bù khi chuyển ra nền; phần lõi truyền tải và hàng đợi đã được kiểm chứng.",
+      "note1": "Cạm bẫy: Hermes không có `btoa` / `Buffer` / `TextEncoder`, và `URLSearchParams.toString()` cũng không dùng được trên RN — phải tự triển khai base64 và urlencode bằng JS thuần.",
+      "faq1Q": "Trên RN viết base64 và urlencode thế nào?",
+      "faq1A": "Đừng dựa vào `btoa` hay `Buffer` (Hermes đều không có): hãy tự triển khai base64 và mã hóa phần trăm từng đoạn bằng `encodeURIComponent`, bảo đảm `+` `/` `=` đều được mã hóa."
+    },
+    "android": {
+      "platform": "Client · Android gốc (Java / Kotlin, truyền tải HTTP)",
+      "summary": "Lõi client tracking Android: lưu bền ID thiết bị, phiên, lô, thử lại có giãn cách, gửi bù khi chuyển ra nền; chuỗi 5 sự kiện đã được kiểm chứng trên JVM (Java 8), nhưng APK chưa được đóng gói kiểm chứng.",
+      "note1": "Cạm bẫy: `Base64.getMimeEncoder()` xuống dòng sau mỗi 76 ký tự, bắt buộc dùng `getEncoder()`; `java.util.Base64` cần API 26+, bản thấp hơn phải chuyển sang `android.util.Base64`.",
+      "faq1Q": "Trên Android dùng truyền tải nào cho môi trường production?",
+      "faq1A": "Chỉ cần thay phần gửi biểu mẫu bằng OkHttp (`RequestBody.create(form, MediaType.parse(\"application/x-www-form-urlencoded\"))`); logic mã hóa và trường định danh không đổi, cách gọi trong Kotlin cũng giống hệt."
+    },
+    "ios": {
+      "platform": "Client · iOS gốc (Swift / Objective-C, URLSession)",
+      "summary": "Lõi client tracking iOS: ID ẩn danh lưu trong UserDefaults, lô, thử lại có giãn cách, gửi bù khi vào nền; chuỗi 5 sự kiện đã được kiểm chứng bằng đúng bộ Foundation URLSession của iOS, nhưng app chưa được đóng gói kiểm chứng.",
+      "note1": "Cạm bẫy: `addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)` không mã hóa `+` `&` `=`, dấu `+` trong base64 bị máy chủ giải thành dấu cách làm hỏng dữ liệu — phải tự mã hóa byte UTF-8 theo RFC3986.",
+      "faq1Q": "Trên iOS tích hợp vào app thế nào?",
+      "faq1A": "Thêm lớp client vào project và gọi flush trong `applicationDidEnterBackground` để gửi bù; lưu ý `URLSessionConfiguration` bị sao chép khi tạo session, muốn đổi thời gian chờ phải tạo lại session."
+    },
+    "cocos2dX": {
+      "platform": "Client · C++ (Cocos2d-x; phía engine chưa được đóng gói kiểm chứng)",
+      "summary": "Lõi gửi dữ liệu bằng C++ trong engine (JSON / base64 một dòng / POST biểu mẫu / hàng đợi) đã được kiểm chứng; khi tích hợp chỉ cần thay lớp truyền tải bằng HttpRequest có sẵn của engine.",
+      "note1": "Cạm bẫy: chỉ cần thay libcurl bằng `cocos2d::network::HttpRequest` (bất đồng bộ + callback), nhưng base64 và urlencode vẫn phải tự bảo đảm một dòng và mã hóa đủ ký tự.",
+      "faq1Q": "Vì sao trong engine không dùng thẳng libcurl?",
+      "faq1A": "Dùng được nhưng không khuyến nghị: HttpRequest có sẵn của engine tái sử dụng tầng mạng của nền tảng và xử lý callback trên luồng chính; giao thức, mã hóa, lô và trường định danh hoàn toàn giống các đoạn trong trang này."
+    },
+    "java": {
+      "platform": "Máy chủ · Java (JDK 8+, chỉ thư viện chuẩn)",
+      "summary": "Báo cáo đơn hàng, thanh toán, đăng ký và các sự kiện khác từ dịch vụ nghiệp vụ; JDK 8 dùng HttpURLConnection, JDK 11+ có thể đổi sang java.net.http.",
+      "note1": "Cạm bẫy: `Base64.getMimeEncoder()` xuống dòng, bắt buộc dùng `getEncoder()`; base64 đưa vào biểu mẫu còn phải urlencode, nếu không `+` sẽ bị giải thành dấu cách.",
+      "faq1Q": "JDK 11+ đổi sang HttpClient được không?",
+      "faq1A": "Được: thay phần gửi bằng `HttpClient.newHttpClient().send(...)`, dùng `BodyPublishers.ofString(form)` làm body và đặt Content-Type tường minh; logic mã hóa và định danh không đổi."
+    },
+    "python": {
+      "platform": "Máy chủ · Python 3.7+ (chỉ thư viện chuẩn)",
+      "summary": "Báo cáo sự kiện nghiệp vụ từ dịch vụ backend hoặc script; chỉ cần `urllib` + `json` + `base64`, không có phụ thuộc bên thứ ba.",
+      "note1": "Cạm bẫy: `data` phải qua `urlencode` rồi mới gửi làm body (không đưa thẳng dict cho urlopen); khi thử lại phải tạo lại đối tượng Request.",
+      "faq1Q": "Chữ tiếng Việt trong giá trị thuộc tính có bị lỗi font không?",
+      "faq1A": "Dùng `json.dumps(..., ensure_ascii=False).encode(\"utf-8\")` rồi base64, chữ tiếng Việt được truyền nguyên dạng, không cần chuyển mã thêm."
+    },
+    "nodejs": {
+      "platform": "Máy chủ · Node.js 18+ (fetch tích hợp, không có phụ thuộc)",
+      "summary": "Báo cáo sự kiện nghiệp vụ từ backend Node; dùng `fetch` tích hợp + `URLSearchParams`, không cần các phụ thuộc như axios / undici.",
+      "note1": "Cạm bẫy: body của fetch phải là một đối tượng `URLSearchParams` (sẽ tự mang Content-Type urlencoded), truyền đối tượng thường sẽ bị tuần tự hoá thành JSON.",
+      "faq1Q": "Kiểm soát thời gian chờ thế nào?",
+      "faq1A": "`fetch(url, { signal: AbortSignal.timeout(10000) })`; khi lỗi thì thử lại với giãn cách 0,5 giây / 1 giây / 2 giây và chỉ xoá hàng đợi cục bộ khi HTTP 200."
+    },
+    "csharp": {
+      "platform": "Máy chủ · .NET 6+ / 8+ (HttpClient)",
+      "summary": "Báo cáo sự kiện nghiệp vụ từ backend C#; `HttpClient` + `FormUrlEncodedContent`, dùng chung một giao thức với client Unity.",
+      "note1": "Cạm bẫy: khi cùng một repository vừa có client Unity vừa có ví dụ phía máy chủ, glob mặc định của project kiểu SDK sẽ biên dịch mã trong thư mục con vào cả hai project (CS8802 / CS0579), phải loại trừ bằng `Directory.Build.targets` (`.props` sẽ bị Include mặc định ghi đè).",
+      "faq1Q": "Xử lý `$` trong chuỗi thế nào?",
+      "faq1A": "`$\"...\"` trong C# là chuỗi nội suy: khi ghép JSON, hãy đặt các tên trường như `$SignUp`, `$track_signup_original_id` trong chuỗi thường hoặc thoát tường minh thành `\\$`, nếu không chúng sẽ bị hiểu là biến."
+    },
+    "ruby": {
+      "platform": "Máy chủ · Ruby 2.6+ (chỉ thư viện chuẩn)",
+      "summary": "Báo cáo sự kiện nghiệp vụ từ máy chủ Ruby; `net/http` + `json` + `base64`, không có phụ thuộc gem.",
+      "note1": "Cạm bẫy: `Base64.encode64` chèn dấu xuống dòng mỗi 60 ký tự (phải dùng `strict_encode64`); `$SignUp` trong chuỗi nháy kép bị nội suy thành biến toàn cục và ra chuỗi rỗng, nên dùng nháy đơn.",
+      "faq1Q": "Vì sao tên sự kiện gửi đi lại thành rỗng?",
+      "faq1A": "Nháy kép trong Ruby nội suy biến toàn cục bắt đầu bằng `$`, nên `\"$SignUp\"` cho ra chuỗi rỗng. Hãy viết tên sự kiện và `$track_signup_original_id` bằng nháy đơn hoặc thoát thành `\\$`."
+    },
+    "c": {
+      "platform": "Máy chủ · C11 (libcurl)",
+      "summary": "Báo cáo sự kiện nghiệp vụ từ dịch vụ C / C++: tự ghép JSON + tự triển khai base64 một dòng + POST biểu mẫu bằng libcurl.",
+      "note1": "Cạm bẫy: libcurl bắt buộc phải đặt callback ghi (chỉ đặt `CURLOPT_WRITEDATA` sẽ bị coi là FILE*); tự triển khai base64 và bảo đảm một dòng, mã hóa phần trăm toàn bộ `+` `/` `=`.",
+      "faq1Q": "Không tìm thấy curl.h khi biên dịch?",
+      "faq1A": "Trên macOS, header của curl nằm trong SDK: `-I$(xcrun --show-sdk-path)/usr/include -L…/usr/lib -lcurl`; trên Linux chỉ cần cài `libcurl4-openssl-dev`."
+    },
+    "lua": {
+      "platform": "Máy chủ · Lua 5.4+ / 5.5 (luasocket + luasec)",
+      "summary": "Báo cáo sự kiện nghiệp vụ trong script Lua và tình huống OpenResty; với OpenResty chỉ cần thay lớp truyền tải bằng resty.http, logic giao thức không đổi.",
+      "note1": "Cạm bẫy: luasec mặc định không kiểm tra chứng chỉ, phải đặt tường minh `verify=\"peer\"` và cung cấp `cafile`; nó chỉ nhận tên giao thức có dấu gạch dưới (`tlsv1_2`), viết `tlsv12` sẽ báo ngay invalid protocol.",
+      "faq1Q": "Lua không có os.setenv, cấp cấu hình thế nào?",
+      "faq1A": "Đọc cấu hình vào bảng trong bộ nhớ rồi lấy giá trị, hoặc để lớp ngoài xuất biến môi trường; trong OpenResty truyền cấu hình qua `ngx.var` hoặc `lua_shared_dict`."
+    },
+    "flutter": {
+      "platform": "Client · Flutter 3.x / Dart 3.8+ (phụ thuộc gói http)",
+      "summary": "Tracking cho ứng dụng Flutter: bản web đã được build và trên trình duyệt thật đã bấm hết ba bước để kiểm chứng dữ liệu vào kho; iOS / Android chưa được đóng gói (máy này không có SDK tương ứng).",
+      "note1": "Cạm bẫy: hai hàm mã hóa có sẵn của Dart đều không dùng trực tiếp được — `Uri.encodeFull` giữ nguyên `+` `/` `=` như ký tự dành riêng, còn `Uri.encodeQueryComponent` lại mã hóa dấu cách thành `+` (đụng với `+` của base64); phải tự mã hóa theo RFC3986 và trước khi gửi phải bảo đảm trường `data` không có `+` / `=` trần.",
+      "faq1Q": "Làm sao xác nhận bản build Flutter Web là bản mới?",
+      "faq1A": "dart2js chuyển literal không phải ASCII thành dạng thoát `\\uXXXX`, nên grep trực tiếp ký tự có dấu luôn ra 0 kết quả (dễ đoán nhầm là bản cũ); hãy tìm dạng đã thoát, hoặc so sánh kích thước và thời điểm build của `main.dart.js`."
+    },
+    "batchImport": {
+      "platform": "Khác · công cụ dòng lệnh (Python 3, chỉ thư viện chuẩn)",
+      "summary": "Nhập bù log / CSV lịch sử thành sự kiện theo lô (nhập bù dữ liệu đơn hàng, thanh toán, đăng ký đã có sẵn): hỗ trợ chạy thử, giới hạn tốc độ và chạy tiếp từ điểm dừng; đã kiểm chứng với 120 dòng — vào kho 120 dòng, chạy tiếp không gửi lại và không mất dòng nào.",
+      "step1Title": "1. Chuẩn bị tệp lịch sử",
+      "step1Body": "Sắp xếp CSV theo quy cách cột bên dưới (hoặc JSONL với mỗi dòng một đối tượng sự kiện). Giữ `time` ở dấu thời gian mili giây gốc thì mới khôi phục đúng thời điểm lịch sử; sự kiện thuộc trạng thái đăng nhập cần có `user_key`, còn để gắn ID ẩn danh thì dùng cột `original_id`.",
+      "step1Code1Label": "Quy cách cột CSV và ví dụ",
+      "step2Title": "2. Chạy thử trước (không kết nối mạng)",
+      "step2Body": "`--dry-run` chỉ đọc, chuẩn hoá, mã hóa và kiểm tra kích thước, không gửi lên mạng và không ghi tệp tiến độ; dùng nó để xác nhận ánh xạ cột đã đúng chưa, dòng nào bị bỏ qua và vì sao.",
+      "step2Code1Label": "Lệnh chạy thử",
+      "step3Title": "3. Chạy thật với lô nhỏ",
+      "step3Body": "Bỏ `--dry-run` là gửi thật. Nên dùng `--limit` với lô nhỏ trước để xác nhận đường truyền, rồi dùng `--rate` để giới hạn tốc độ nhằm bảo vệ phía nhận; công cụ in ra mã nhận diện lần chạy (`backfill-<thời gian>`) và ghi vào `properties.backfill_run_id` của từng sự kiện, tiện cho việc đối chiếu theo lần chạy.",
+      "step3Code1Label": "Lệnh nhập bù và tham số thường dùng",
+      "step4Title": "4. Chạy tiếp từ điểm dừng",
+      "step4Body": "Tiến độ ghi vào `<tệp đầu vào>.backfill-progress.json`; sau khi gián đoạn, thêm `--resume` để chạy tiếp, các lô đã xong sẽ không bị gửi lại. Dòng lỗi được ghi kèm số dòng vào `<tệp đầu vào>.failed.jsonl`, sửa xong có thể chạy lại riêng những dòng đó.",
+      "note1": "Quan trọng: công cụ **không khử trùng lặp** — cùng một sự kiện lịch sử được nhập bù trọn vẹn hai lần sẽ vào kho hai lần. Hãy luôn chạy tiếp bằng `--resume`, hoặc kiểm tra trước bằng `--dry-run` / `--limit`; khi nội dung hoặc thời gian sửa đổi của tệp đầu vào thay đổi, `--resume` sẽ từ chối chạy, trừ khi thêm tường minh `--force-resume`.",
+      "step5Title": "5. Đối chiếu dữ liệu vào kho",
+      "step5Body": "Thống kê theo mã lần chạy số dòng vào kho và phân bố sự kiện, rồi đối chiếu với số dòng mà tệp đã gửi. Chuỗi dữ liệu trễ 1–3 phút, cần thì truy vấn thêm vài lần.",
+      "step5Code1Label": "SQL đối chiếu",
+      "faq1Q": "Sự kiện nhập bù có bị đổi thời gian không?",
+      "faq1A": "Không: công cụ đưa `time` trong tệp vào sự kiện nguyên dạng (mili giây), phía phân tích thống kê theo thời gian sự kiện. **Không** thay thời gian lịch sử bằng thời gian hiện tại, nếu không toàn bộ xu hướng lịch sử sẽ dồn hết vào ngày nhập bù.",
+      "faq2Q": "Tệp rất lớn (hàng trăm nghìn dòng) thì chạy thế nào?",
+      "faq2A": "Chạy theo từng phần: `--limit` giới hạn số lượng mỗi lần, `--rate` giới hạn tốc độ, kết hợp `--resume` để chạy tiếp từ điểm dừng; giới hạn 50 sự kiện / 1 MB mỗi yêu cầu do công cụ tự chia, không cần tách tệp thủ công."
+    }
+  },
+  "planned": {
+    "android": {
+      "name": "Android",
+      "platform": "Client · Java / Kotlin",
+      "summary": "Tracking cho app Android gốc (dự kiến đóng gói dựa trên OkHttp)"
+    },
+    "ios": {
+      "name": "iOS",
+      "platform": "Client · Swift / Objective-C",
+      "summary": "Tracking cho app iOS gốc (dự kiến đóng gói dựa trên URLSession)"
+    },
+    "javascript": {
+      "name": "JavaScript / Web",
+      "platform": "Client · trình duyệt H5",
+      "summary": "Tracking trên trang web, tự động thu thập lượt xem trang và lượt nhấp"
+    },
+    "miniprogram": {
+      "name": "Mini program WeChat",
+      "platform": "Client · mini program / mini game",
+      "summary": "Tracking trong mini program (dự kiến thích ứng wx.request và hàng đợi đệm cục bộ)"
+    },
+    "flutter": {
+      "name": "Flutter",
+      "platform": "Client · Dart",
+      "summary": "Tracking cho app đa nền tảng (dự kiến đóng gói dựa trên gói http)"
+    },
+    "reactNative": {
+      "name": "React Native",
+      "platform": "Client · JS / TS",
+      "summary": "Tracking cho ứng dụng RN (dự kiến tái sử dụng lõi thu thập JS)"
+    },
+    "cocos2dX": {
+      "name": "Cocos2d-x",
+      "platform": "Client · C++ / Lua",
+      "summary": "Tracking cho game Cocos (dự kiến đóng gói dựa trên HttpClient)"
+    },
+    "unreal": {
+      "name": "Unreal Engine",
+      "platform": "Client · C++ / Blueprint",
+      "summary": "Tracking cho game UE (dự kiến đóng gói dựa trên module Http)"
+    },
+    "java": {
+      "name": "Java",
+      "platform": "Máy chủ · JDK 8+",
+      "summary": "Báo cáo từ backend Java (dự kiến đóng gói dựa trên HttpClient)"
+    },
+    "python": {
+      "name": "Python",
+      "platform": "Máy chủ · Python 3.7+",
+      "summary": "Báo cáo từ backend Python (dự kiến đóng gói dựa trên requests)"
+    },
+    "nodejs": {
+      "name": "Node.js",
+      "platform": "Máy chủ · Node 16+",
+      "summary": "Báo cáo từ backend Node (dự kiến đóng gói dựa trên undici / fetch)"
+    },
+    "csharp": {
+      "name": "C#",
+      "platform": "Máy chủ · .NET 6+",
+      "summary": "Báo cáo từ backend C# (hiện có thể tham khảo phần triển khai client trong tài liệu Unity(C#), hoặc dùng trực tiếp giao thức HTTP)"
+    },
+    "ruby": {
+      "name": "Ruby",
+      "platform": "Máy chủ · Ruby 2.6+",
+      "summary": "Báo cáo từ backend Ruby (dự kiến đóng gói dựa trên Net::HTTP)"
+    },
+    "c": {
+      "name": "C",
+      "platform": "Máy chủ · C / C++",
+      "summary": "Báo cáo từ dịch vụ C/C++ (dự kiến đóng gói dựa trên libcurl)"
+    },
+    "lua": {
+      "name": "Lua",
+      "platform": "Máy chủ · Lua 5.3+ / OpenResty",
+      "summary": "Báo cáo cho kịch bản Lua và OpenResty"
+    },
+    "batchImport": {
+      "name": "Nhập bù theo lô (nhập từ file)",
+      "platform": "Khác · nhập dữ liệu lịch sử",
+      "summary": "Nhập bù log/CSV lịch sử thành sự kiện theo lô (dự kiến cung cấp công cụ dòng lệnh)"
+    }
+  },
+  "guideCommon": {
+    "step1Title": "1. Điều kiện tiên quyết",
+    "step1Body": "Xác nhận tham số tích hợp đã sẵn sàng (xem đầu trang này): địa chỉ báo cáo, tên dự án và token dự án. Giao thức cố định là POST biểu mẫu, trường `data` = base64(mảng JSON) rồi urlencode — POST thẳng JSON thô sẽ trả 200 nhưng dữ liệu bị bỏ.",
+    "step2Title": "2. Chuẩn bị môi trường chạy",
+    "step2Body": "Chuẩn bị môi trường chạy của ngôn ngữ này theo lệnh bên dưới; bản triển khai chỉ dùng thư viện chuẩn có thể bỏ qua bước cài phụ thuộc.",
+    "step2Code1Label": "Môi trường chạy",
+    "step3Title": "3. Khởi tạo và báo cáo sự kiện",
+    "step3Body": "Bản triển khai tối thiểu của ngôn ngữ này: JSON sự kiện → biểu mẫu base64 + urlencode → POST. Thời gian sự kiện bắt buộc là dấu thời gian mili giây; sau khi đăng nhập, `distinct_id` luôn là ID ẩn danh và ID đăng nhập đi qua `identities.user_key`.",
+    "step3Code1Label": "Mã báo cáo cốt lõi (cách viết đã kiểm chứng)",
+    "step4Title": "4. Liên kết đăng nhập và thuộc tính người dùng",
+    "step4Body": "Sau khi đăng nhập thành công, báo cáo một `track_signup` (`properties.$track_signup_original_id` = ID ẩn danh) để gắn kết định danh, thuộc tính người dùng dùng `user_set`; sau đó mọi sự kiện đều mang `identities.user_key` và phía phân tích sẽ gộp về cùng một người dùng.",
+    "step5Title": "5. Kiểm chứng dữ liệu vào kho",
+    "step5Body": "Sau khi phát sự kiện, truy vấn `clklog.log_analysis` để đối chiếu 5 dòng: track ẩn danh / track_signup / user_set / track sau đăng nhập ×2. Chuỗi dữ liệu trễ 1–3 phút; HTTP 200 chỉ nghĩa là định dạng đã được phân tích, bắt buộc phải kiểm tra kho.",
+    "step5Code1Label": "SQL kiểm chứng (ClickHouse)",
+    "faq1Q": "Vì sao báo cáo trả HTTP 200 mà trong kho không có dữ liệu?",
+    "faq1A": "`data` phải là trường biểu mẫu chứa base64(mảng JSON) rồi urlencode. POST thẳng JSON thô, base64 có dấu xuống dòng, hoặc `+` chưa được mã hóa phần trăm đều trả 200 nhưng dữ liệu bị bỏ đi âm thầm.",
+    "faq2Q": "Thời gian sự kiện sai lệch, hoặc bị tách thành hai người dùng trước và sau khi đăng nhập?",
+    "faq2A": "Thời gian bắt buộc là dấu thời gian mili giây (cấp giây sẽ bị tính thành năm 1970); ID đăng nhập đặt ở `identities.user_key` cấp cao nhất (không phải login_id), ID ẩn danh cần gắn đặt ở `properties.$track_signup_original_id` (không phải original_id), và `distinct_id` giữ nguyên sau khi đăng nhập."
+  }
+}

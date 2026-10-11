@@ -1,0 +1,115 @@
+{
+  "alert": {
+    "level": {
+      "critical": "Critical",
+      "warning": "Warning",
+      "info": "Info"
+    },
+    "status": {
+      "fire": "Triggered",
+      "repeat": "Ongoing",
+      "resolve": "Resolved"
+    },
+    "kind": {
+      "retention": "Retention metric",
+      "event": "Event metric",
+      "builtin": "Built-in metric"
+    },
+    "window": {
+      "today": "Today",
+      "lastDays": "Last {{days}} days",
+      "minutes": "{{minutes}}-minute window",
+      "cohort": "Cohort {{label}}"
+    },
+    "varSample": {
+      "ruleName": "Low event volume today",
+      "ruleCode": "metric_ab12cd34",
+      "level": "critical",
+      "levelFmt": "Critical",
+      "status": "Triggered",
+      "statusCode": "fire",
+      "value": "1,204 times",
+      "valueRaw": "1204",
+      "unit": "times",
+      "comparator": "gt",
+      "comparatorFmt": "greater than",
+      "threshold": "1,000 times",
+      "metricName": "Reports today",
+      "metricKind": "Event metric",
+      "windowDays": "1",
+      "windowFmt": "Today",
+      "project": "clklogapp",
+      "time": "2026-09-15 21:03:11",
+      "detectInterval": "60s",
+      "contactName": "Ops group"
+    },
+    "channelName": {
+      "feishu_webhook": "Feishu",
+      "dingtalk": "DingTalk",
+      "wecom": "WeCom",
+      "telegram": "Telegram",
+      "webhook": "Generic Webhook",
+      "email": "Email",
+      "sms": "SMS",
+      "whatsapp": "WhatsApp"
+    },
+    "channelTest": {
+      "text": "[Test] Candela alert channel connectivity test\nChannel: {{channel}}\nTime: {{time}}",
+      "subject": "Candela alert channel test ({{channel}})",
+      "ruleName": "Channel connectivity test",
+      "detailTargetInvalid": "Target validation failed",
+      "detailSendFailed": "Delivery failed (raw vendor error returned)",
+      "detailSent": "Test message sent"
+    }
+  },
+  "units": {
+    "times": "times",
+    "items": "items",
+    "users": "users",
+    "sec": "sec",
+    "ms": "ms",
+    "min": "min",
+    "h": "h",
+    "days": "days",
+    "percent": "%"
+  },
+  "mail": {
+    "reset": {
+      "subject": "[Candela] Password reset",
+      "body": "Hello,\n\nUse the link below to reset your password (valid for {{minutes}} minutes, single use):\n{{link}}\n\nIf you did not request this, ignore this email.\n\nCandela Analytics"
+    },
+    "setup": {
+      "subject": "[Candela] Set up your account password",
+      "body": "Hello,\n\nAn administrator created a Candela Analytics account for you. Set your password via this link (valid for {{hours}} hours, single use):\n{{link}}\n\nYou can sign in right after.\n\nCandela Analytics"
+    },
+    "invite": {
+      "subject": "[Candela] Invitation to project {{project}}",
+      "body": "Hello,\n\n{{inviter}} invited you to the Candela Analytics project {{project}} as {{role}}.\n\nFollow this link to sign up and join (valid for {{days}} days):\n{{link}}\n\nIf you were not expecting this, ignore this email.\n\nCandela Analytics"
+    },
+    "inviteNotify": {
+      "subject": "[Candela] You were added to project {{project}}",
+      "body": "Hello,\n\n{{inviter}} added you to the Candela Analytics project {{project}} as {{role}}.\n\nSign in with your existing account to access it.\n\nCandela Analytics"
+    },
+    "roles": {
+      "analyst": "analyst",
+      "member": "member",
+      "external": "external"
+    },
+    "test": {
+      "subject": "[Candela] Email channel test",
+      "body": "This is a test email from Candela Analytics.\n\nReceiving it means the account SMTP settings are active: password reset, account setup and project invitation emails are ready.\n\nCandela Analytics"
+    }
+  },
+  "reconcile": {
+    "notify": {
+      "dayAlertSubject": "[Candela] Reconciliation {{date}}: deviation above threshold ({{threshold}}%)",
+      "failedSubject": "[Candela] Reconciliation for {{date}} failed",
+      "lineProject": "Project: {{project}}",
+      "lineRange": "Range: {{from}} ~ {{to}}",
+      "lineThreshold": "Threshold: {{threshold}}%; days over threshold: {{days}}",
+      "lineDay": "{{date}}: sa {{sa}} / raw {{raw}} ({{deviation}}%)",
+      "lineReport": "Report: {{path}}",
+      "lineReason": "Reason: {{reason}}"
+    }
+  }
+}

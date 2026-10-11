@@ -1,0 +1,115 @@
+{
+  "alert": {
+    "level": {
+      "critical": "紧急",
+      "warning": "警告",
+      "info": "提示"
+    },
+    "status": {
+      "fire": "触发",
+      "repeat": "持续",
+      "resolve": "恢复"
+    },
+    "kind": {
+      "retention": "留存指标",
+      "event": "事件指标",
+      "builtin": "内置指标"
+    },
+    "window": {
+      "today": "今天",
+      "lastDays": "近 {{days}} 天",
+      "minutes": "{{minutes}} 分钟窗口",
+      "cohort": "队列 {{label}}"
+    },
+    "varSample": {
+      "ruleName": "今日上报量过低",
+      "ruleCode": "metric_ab12cd34",
+      "level": "critical",
+      "levelFmt": "紧急",
+      "status": "触发",
+      "statusCode": "fire",
+      "value": "1,204次",
+      "valueRaw": "1204",
+      "unit": "次",
+      "comparator": "gt",
+      "comparatorFmt": "大于",
+      "threshold": "1,000次",
+      "metricName": "今日上报次数",
+      "metricKind": "事件指标",
+      "windowDays": "1",
+      "windowFmt": "今天",
+      "project": "clklogapp",
+      "time": "2026-09-15 21:03:11",
+      "detectInterval": "60s",
+      "contactName": "运维群"
+    },
+    "channelName": {
+      "feishu_webhook": "飞书",
+      "dingtalk": "钉钉",
+      "wecom": "企业微信",
+      "telegram": "Telegram",
+      "webhook": "通用 Webhook",
+      "email": "邮件",
+      "sms": "短信",
+      "whatsapp": "WhatsApp"
+    },
+    "channelTest": {
+      "text": "【测试】Candela 告警通道连通性测试\n通道：{{channel}}\n时间：{{time}}",
+      "subject": "Candela 告警通道测试（{{channel}}）",
+      "ruleName": "通道连通性测试",
+      "detailTargetInvalid": "目标校验未通过",
+      "detailSendFailed": "投递失败（错误为厂商原始返回）",
+      "detailSent": "已发出测试消息"
+    }
+  },
+  "units": {
+    "times": "次",
+    "items": "条",
+    "users": "人",
+    "sec": "秒",
+    "ms": "毫秒",
+    "min": "分钟",
+    "h": "小时",
+    "days": "天",
+    "percent": "%"
+  },
+  "mail": {
+    "reset": {
+      "subject": "【Candela】重置密码",
+      "body": "你好，\n\n请点击以下链接重置你的密码（{{minutes}} 分钟内有效，仅可使用一次）：\n{{link}}\n\n如非本人操作，请忽略本邮件。\n\nCandela 分析平台"
+    },
+    "setup": {
+      "subject": "【Candela】设置你的账号密码",
+      "body": "你好，\n\n管理员为你创建了 Candela 分析平台账号。请点击以下链接设置密码（{{hours}} 小时内有效，仅可使用一次）：\n{{link}}\n\n设置完成后即可登录。\n\nCandela 分析平台"
+    },
+    "invite": {
+      "subject": "【Candela】邀请你加入项目 {{project}}",
+      "body": "你好，\n\n{{inviter}} 邀请你加入 Candela 分析平台项目 {{project}}，角色：{{role}}。\n\n请点击以下链接完成注册并加入（{{days}} 天内有效）：\n{{link}}\n\n如非预期邀请，请忽略本邮件。\n\nCandela 分析平台"
+    },
+    "inviteNotify": {
+      "subject": "【Candela】你已加入项目 {{project}}",
+      "body": "你好，\n\n{{inviter}} 已把你加入 Candela 分析平台项目 {{project}}，角色：{{role}}。\n\n使用既有账号登录即可访问。\n\nCandela 分析平台"
+    },
+    "roles": {
+      "analyst": "分析师",
+      "member": "普通成员",
+      "external": "外部人员"
+    },
+    "test": {
+      "subject": "【Candela】邮件通道测试",
+      "body": "这是一封来自 Candela 分析平台的测试邮件。\n\n收到本邮件说明账号域 SMTP 配置已生效，忘记密码、建号设密与项目邀请邮件将可用。\n\nCandela 分析平台"
+    }
+  },
+  "reconcile": {
+    "notify": {
+      "dayAlertSubject": "【数据对拍】{{date}} 存在超阈值偏差（阈值 {{threshold}}%）",
+      "failedSubject": "【数据对拍】{{date}} 执行失败",
+      "lineProject": "项目：{{project}}",
+      "lineRange": "范围：{{from}} ~ {{to}}",
+      "lineThreshold": "阈值：{{threshold}}%；异常日：{{days}}",
+      "lineDay": "{{date}}：sa {{sa}} / raw {{raw}}（{{deviation}}%）",
+      "lineReport": "报告：{{path}}",
+      "lineReason": "原因：{{reason}}"
+    }
+  }
+}

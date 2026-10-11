@@ -1,0 +1,45 @@
+{
+  "serviceUnavailable": "Layanan analisis sementara tidak dapat terhubung. Coba lagi nanti; jika terus gagal, hubungi administrator.",
+  "dataUnavailable": "Layanan kueri data sementara tidak tersedia. Coba lagi nanti; jika terus gagal, hubungi administrator.",
+  "requestTimeout": "Permintaan habis waktu. Persempit rentang kueri atau coba lagi nanti.",
+  "genericUnavailable": "Layanan sementara tidak tersedia. Coba lagi nanti; jika terus gagal, hubungi administrator.",
+  "requestFailed": "Permintaan gagal",
+  "status401": "Sesi masuk telah berakhir, silakan masuk kembali",
+  "status403": "Tidak ada izin untuk melakukan tindakan ini",
+  "status404": "Sumber daya yang diminta tidak ada",
+  "status429": "Permintaan terlalu sering, coba lagi nanti",
+  "unknown": "Kesalahan tidak diketahui",
+  "queryFailed": "Kueri gagal",
+  "validation": {
+    "selectTimeRange": "Pilih rentang waktu",
+    "atLeastOneMetric": "Konfigurasikan minimal satu metrik",
+    "tooManyMetrics": "Maksimal {{max}} metrik",
+    "atLeastOneEventMetric": "Konfigurasikan minimal satu metrik peristiwa",
+    "metricEventRequired": "Pilih peristiwa untuk setiap metrik",
+    "perCapitaNeedsNumber": "Nilai per pengguna memerlukan properti numerik",
+    "minuteSpanTooLong": "Kueri per menit tidak boleh melebihi rentang 1 hari",
+    "funnelMinSteps": "Funnel memerlukan minimal {{min}} langkah",
+    "funnelMaxSteps": "Funnel maksimal {{max}} langkah",
+    "startEventRequired": "Pilih peristiwa awal",
+    "returnEventRequired": "Pilih peristiwa kunjungan ulang",
+    "retentionPeriodRequired": "Pilih minimal satu periode retensi"
+  },
+  "apiKey": {
+    "missing": "API Key tidak ada (berikan melalui X-API-Key atau Authorization: Bearer)"
+  },
+  "rbac": {
+    "forbidden": "Tidak berhak mengakses sumber daya ini"
+  },
+  "attribute": {
+    "datatableUserUnsupported": "Dimensi tabel data belum mendukung properti pengguna",
+    "datatableInVirtualExpression": "Properti tabel dimensi tidak dapat dipakai dalam ekspresi properti virtual",
+    "datatableStale": "Tabel data yang menjadi acuan properti {{prop}} sudah tidak berlaku",
+    "datatableMultiple": "Properti {{prop}} terikat ke lebih dari satu tabel data"
+  },
+  "analysis": {
+    "timeRange": {
+      "timezoneInvalid": "Zona waktu tidak valid (harus nama zona waktu IANA, misalnya Asia/Shanghai)"
+    }
+  },
+  "status413": "Konten unggahan terlalu besar. Kurangi jumlah baris lalu coba lagi."
+}

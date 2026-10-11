@@ -1,0 +1,290 @@
+{
+  "role": {
+    "analysisAdmin": "分析管理员",
+    "analyst": "分析师",
+    "member": "普通成员",
+    "external": "外部人员",
+    "projectOwner": "项目 owner"
+  },
+  "label": {
+    "role": "角色",
+    "user": "用户"
+  },
+  "message": {
+    "created": "已创建",
+    "minLength": "至少 6 位"
+  },
+  "dataPolicy": {
+    "title": "数据权限策略",
+    "column": "数据权限",
+    "unrestricted": "不限制",
+    "create": "新建策略",
+    "reference": "引用",
+    "referenceCount": "成员 {{members}} / 组 {{groups}}",
+    "deleteConfirm": "删除策略？",
+    "definition": "定义 JSON（可空，默认全可见）",
+    "detail": "策略明细",
+    "scopeEvents": "可见事件",
+    "scopeEventProperties": "可见事件属性",
+    "scopeUserProperties": "可见用户属性",
+    "scopeRowFilter": "行过滤条件",
+    "scopeAll": "不限制",
+    "scopeNone": "无（全部不可见）",
+    "rowFilterNone": "无",
+    "rowFilterAnd": "且",
+    "rowFilterItem": "{{prop}} {{op}} {{value}}"
+  },
+  "members": {
+    "title": "成员管理",
+    "add": "添加成员",
+    "added": "已添加",
+    "removeConfirm": "移出项目？",
+    "remove": "移除",
+    "seed": "填充演示成员",
+    "seedSuccess": "已创建 analyst1 / member1 / external1，并加入对应成员组",
+    "seedHint": "会在当前项目创建三个演示账号并加入「分析师组 / 普通成员组 / 外部人员组」。已存在的同名账号不会改密。",
+    "demoPassword": "演示账号密码"
+  },
+  "subjectGrant": {
+    "action": "看板授权",
+    "title": "看板授权 · {{name}}",
+    "hint": "勾选即授予「可查看」。给文件夹授权会覆盖其内全部看板（含之后新建的）；被授「可编辑」的资产在此为只读。",
+    "searchPlaceholder": "搜索文件夹或看板",
+    "folders": "文件夹",
+    "dashboards": "看板",
+    "ungrouped": "未分组",
+    "editable": "可编辑",
+    "saved": "授权已保存",
+    "empty": "没有可授权的文件夹或看板"
+  },
+  "groups": {
+    "title": "成员组",
+    "create": "新建组",
+    "createTitle": "新建成员组",
+    "memberCount": "人数",
+    "members": "成员",
+    "membersTitle": "组成员 · {{name}}",
+    "membersUpdated": "已更新组成员",
+    "membersHint": "只能加入已经是本项目成员的人。组不能绑定 owner。",
+    "membersEmpty": "暂无组员"
+  },
+  "roles": {
+    "title": "角色管理",
+    "ownerNotice": "每项目最多 1 位 owner，仅超管指定。分析管理员不能改这条定义。",
+    "preset": "预置",
+    "adjusted": "已调整",
+    "editDefinition": "编辑角色定义",
+    "saveSuccess": "已保存分析管理员定义",
+    "readonlyHint": "预置角色不可自定义。分析管理员的定义仅项目 owner 可改。",
+    "feature": "功能",
+    "op": "操作权限",
+    "detail": "功能明细",
+    "granted": "拥有"
+  },
+  "apiKeys": {
+    "title": "API Key 管理",
+    "create": "新建 API Key",
+    "hintLead": "用于外部 AI / 自动化工具通过",
+    "hintTail": "只读查询 ClickHouse。点击「新建 API Key」一键生成（自动命名、项目边界默认 clklogapp、永不过期）。Key 明文仅在生成时展示一次，请妥善保存。",
+    "projectScope": "项目边界",
+    "active": "生效中",
+    "revoked": "已吊销",
+    "expiresAt": "过期时间",
+    "lastUsedAt": "最近使用",
+    "revokeConfirm": "确定吊销该 Key？吊销后立即失效",
+    "revoke": "吊销",
+    "deleteConfirm": "确定删除该 Key？此操作不可恢复",
+    "created": "API Key 已生成",
+    "revokedMsg": "已吊销",
+    "deleted": "已删除",
+    "copied": "已复制到剪贴板",
+    "createSuccess": "API Key 生成成功",
+    "plaintextWarning": "此 Key 仅展示一次，关闭后无法再次查看明文，请立即保存。",
+    "saved": "我已保存"
+  },
+  "projectSettings": {
+    "title": "项目设置",
+    "createProject": "新建项目",
+    "createAccount": "新建登录账号",
+    "ownerNotice": "每个项目恰好一位 owner。新建项目与指定/替换 owner 仅超管可做；原 owner 会降为分析管理员。新建项目只登记分析空间名，不会在 ClickHouse 建库。",
+    "projectName": "项目名",
+    "displayName": "显示名",
+    "currentOwner": "当前 owner",
+    "projectOwner": "项目 owner",
+    "unassigned": "未指定",
+    "assign": "指定 / 替换",
+    "selectUser": "选择用户",
+    "userOption": "{{name}}（{{username}}）",
+    "ownerUpdated": "已更新 {{name}} 的 owner",
+    "projectCreated": "项目已创建",
+    "nameHint": "小写字母开头，仅小写字母、数字、下划线，2～63 位。上报 SDK 的 project_name 须与此一致。",
+    "nameRequired": "请输入项目名",
+    "nameInvalid": "格式不符合要求",
+    "namePlaceholder": "例如 game_ios",
+    "displayNamePlaceholder": "给人看的名称，可与项目名相同",
+    "ownerRequired": "请指定 owner",
+    "accountCreated": "账号已创建，可在成员管理里加入项目",
+    "accountHint": "只创建登录身份，不会自动成为任何项目的成员。把人加进项目请到「成员管理」。",
+    "username": "用户名",
+    "password": "密码"
+  },
+  "error": {
+    "loadFailed": "加载失败，请重试",
+    "grant": {
+      "subjectRequired": "缺少 subject_id",
+      "assetsMustBeArray": "asset_ids 必须是数组",
+      "subjectTypeInvalid": "subject_type 必须是 user 或 group"
+    },
+    "asset": {
+      "folderNotFound": "文件夹不存在",
+      "dashboardNotFound": "看板不存在: {{id}}",
+      "cardNotFound": "卡片不存在: {{id}}",
+      "cohortNotFound": "分群不存在",
+      "tagNotFound": "标签不存在",
+      "viewGrantDashboardOnly": "仅看板与文件夹可授予查看",
+      "editGrantAnalystOnly": "编辑授权只能授给本项目分析师",
+      "editGrantAnalystGroupOnly": "编辑授权只能授给角色为分析师的成员组",
+      "withdrawGrantBeforeLock": "先撤回编辑授权再锁定",
+      "unlockBeforeGrant": "先解锁再授权"
+    },
+    "forbidden": "无权访问该资源",
+    "dataScope": {
+      "invalidProp": "非法用户属性名",
+      "unsupportedOperator": "数据权限行过滤暂不支持操作符: {{op}}",
+      "eventForbidden": "无权查询事件: {{event}}",
+      "propertyForbidden": "无权使用属性: {{property}}"
+    },
+    "project": {
+      "fieldsRequired": "name 与 owner_user_id 必填",
+      "nameInvalid": "项目名须为小写字母开头，仅含小写字母、数字、下划线，长度 2～63",
+      "exists": "项目已存在",
+      "timezoneInvalid": "不合法的时区（须为 IANA 名，如 Asia/Shanghai）"
+    },
+    "demo": {
+      "passwordTooShort": "演示账号密码至少 6 位"
+    },
+    "role": {
+      "grantsMustBeArray": "grants 必须是数组",
+      "invalid": "非法角色"
+    },
+    "member": {
+      "notMember": "不是该项目成员",
+      "ownerAssignForbidden": "不能通过成员管理指定 owner",
+      "notFound": "成员不存在",
+      "ownerRoleForbidden": "不能改 owner 的项目角色",
+      "promoteToOwnerForbidden": "不能把成员改成 owner",
+      "removeOwnerForbidden": "不能移除项目 owner",
+      "expiryOwnerForbidden": "项目 owner 不能设置有效期",
+      "expiryInvalid": "有效期不是合法时间"
+    },
+    "user": {
+      "unavailable": "用户不可用",
+      "notFound": "用户不存在"
+    },
+    "group": {
+      "bindingForbidden": "成员组不能绑定 owner 或非法角色",
+      "notFound": "成员组不存在",
+      "ownerForbidden": "成员组不能绑定 owner",
+      "memberRequired": "用户必须已是项目成员"
+    },
+    "dataPolicy": {
+      "notFound": "策略不存在",
+      "inUse": "仍被成员或组引用"
+    },
+    "invite": {
+      "emailInvalid": "邮箱格式不正确",
+      "alreadyMember": "该邮箱对应账号已是本项目成员",
+      "notFound": "邀请不存在或已结束",
+      "emailMismatch": "当前登录账号的邮箱与邀请不匹配"
+    }
+  },
+  "permission": {
+    "feature": {
+      "projectAccess": "项目权限管理",
+      "dataPolicy": "数据权限",
+      "opsAccount": "运维 · 账号",
+      "opsProjectSettings": "运维 · 项目设置",
+      "opsApiKey": "运维 · API Key",
+      "opsAiWorkspace": "运维 · AI Workspace",
+      "opsRuntime": "运维 · 后续运维管理",
+      "subject": "分析主体",
+      "cohort": "用户分群管理",
+      "tag": "用户标签管理",
+      "meta": "埋点 / 元数据",
+      "modelUsage": "模型使用",
+      "dashboard": "看板使用",
+      "metric": "指标管理",
+      "timeline": "用户行为序列"
+    },
+    "op": {
+      "view": "查看",
+      "edit": "编辑",
+      "manage": "管理",
+      "use": "功能使用"
+    },
+    "detail": {
+      "iamMemberView": "查看本项目成员、成员组、角色说明、数据权限策略",
+      "iamMemberEdit": "添加/移除成员与组；分配非 owner 角色",
+      "iamRoleEditAdmin": "编辑本项目「分析管理员」授权定义",
+      "iamDataPolicyManage": "新建、编辑、删除策略并赋给成员或组",
+      "opsUserManage": "新建、禁用、启用登录账号",
+      "opsOwnerAssign": "新建分析项目；指定或替换项目唯一 owner",
+      "opsApikeyManage": "查看、创建、撤销 Key",
+      "opsAiWorkspaceManage": "模板与同步",
+      "opsRuntimeAccess": "占位，本期无路由",
+      "subjectView": "在分析中切换已有主体",
+      "subjectEdit": "查看并编辑本项目分析主体",
+      "cohortView": "查看分群列表与成员预览",
+      "cohortEditOwn": "新增、编辑、删除自己的分群",
+      "cohortEditOthers": "编辑、删除他人的分群",
+      "tagView": "查看标签列表与成员预览",
+      "tagEditOwn": "新增、编辑、删除自己的标签",
+      "tagEditOthers": "编辑、删除他人的标签",
+      "metaView": "查看事件、属性、虚拟对象、指标、Debug、数据质量",
+      "metaPickerView": "分析选择器读取已启用的事件、属性与维度表字段（只读）",
+      "metaEdit": "编辑定义、确认/隐藏、Debug",
+      "modelQuery": "事件 / 漏斗 / 留存查询",
+      "modelSql": "自定义 SQL",
+      "modelCardSave": "保存卡片",
+      "modelExport": "导出已呈现的查询或看板数据",
+      "dashboardView": "查看可访问看板及设置",
+      "dashboardViewAll": "查看本项目全部看板",
+      "dashboardEdit": "新建看板；尝试编辑（最终以 AssetPolicy 为准）",
+      "dashboardFilter": "临时调整看板筛选",
+      "dashboardFolderManage": "新建/重命名/删除文件夹",
+      "assetLock": "锁定/解锁文件夹、看板、卡片、分群、标签",
+      "assetGrant": "授予或撤回看板/卡片/文件夹的编辑权与外部查看",
+      "metricView": "查看已保存指标",
+      "metricEditOwn": "新建、编辑、删除自己的指标",
+      "metricEditOthers": "编辑、删除他人的指标",
+      "timelineView": "按用户查看其指定时间段的全部上报事件"
+    }
+  },
+  "invite": {
+    "userOrEmailHint": "可选择已有账号；也可直接输入完整邮箱邀请未注册的人。",
+    "userOrEmailPlaceholder": "选择账号或输入邮箱",
+    "addedDirect": "该邮箱已有账号，已直接加入项目",
+    "sent": "邀请邮件已发送",
+    "emailInvalid": "请输入已有账号或完整邮箱地址",
+    "pendingTitle": "待接受邀请",
+    "colEmail": "邮箱",
+    "colInviter": "邀请人",
+    "colExpires": "过期时间",
+    "revoke": "撤销",
+    "revokeConfirm": "撤销该邀请？对方将无法再通过链接加入。"
+  },
+  "member": {
+    "colExpiry": "有效期",
+    "expiryPermanent": "永久",
+    "expiryInDays": "{{days}} 天后到期",
+    "expiredTag": "已到期",
+    "renew": "续约",
+    "renewTitle": "设置新的到期时间",
+    "renewed": "已续约",
+    "expiryLabel": "成员有效期（选填）",
+    "expiryHint": "到期后失去本项目直接角色（组内角色不受影响）；留空为永久。"
+  },
+  "audit": {
+    "title": "项目操作审计"
+  }
+}

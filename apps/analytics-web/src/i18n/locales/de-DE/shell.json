@@ -1,0 +1,58 @@
+{
+  "document": {
+    "title": "Candela Analyseplattform"
+  },
+  "menu": {
+    "report": "Berichte",
+    "dashboards": "Dashboards",
+    "cards": "Analysekarten",
+    "analysis": "Analyse",
+    "event": "Ereignisanalyse",
+    "funnel": "Funnel-Analyse",
+    "retention": "Retention-Analyse",
+    "sql": "Eigenes SQL",
+    "user": "Benutzer",
+    "cohorts": "Kohorten",
+    "tags": "Benutzer-Tags",
+    "subjects": "Analyse-Subjekte",
+    "meta": "Tracking-Plan",
+    "events": "Meta-Ereignisse",
+    "virtualProperties": "Virtuelle Eigenschaften",
+    "eventAttributes": "Ereignisattribute",
+    "userProperties": "Benutzereigenschaften",
+    "virtualEvents": "Virtuelle Ereignisse",
+    "data": "Datenverwaltung",
+    "onboarding": "Integration",
+    "metrics": "Metriken",
+    "debug": "Debug",
+    "quality": "Datenqualität",
+    "datatables": "Datentabellen",
+    "iam": "Berechtigungen",
+    "members": "Mitglieder",
+    "groups": "Mitgliedergruppen",
+    "roles": "Rollen",
+    "dataPolicies": "Datenberechtigungen",
+    "ops": "Betrieb",
+    "slowQueries": "Langsame Abfragen",
+    "serverStatus": "Serverstatus",
+    "alerts": "Alarme",
+    "dataManagement": "Datenverwaltung",
+    "settings": "Einstellungen",
+    "profile": "Profil",
+    "projectOwners": "Projekteinstellungen",
+    "apiKeys": "API-Key-Verwaltung",
+    "aiWorkspace": "AI Workspace",
+    "logout": "Abmelden",
+    "users": "Benutzerverwaltung",
+    "userTimeline": "Nutzer-Zeitachse"
+  },
+  "header": {
+    "collapseMenu": "Menü einklappen",
+    "expandMenu": "Menü ausklappen",
+    "openMenu": "Menü öffnen",
+    "menu": "Menü"
+  },
+  "drawer": {
+    "title": "Candela Analyse"
+  }
+}

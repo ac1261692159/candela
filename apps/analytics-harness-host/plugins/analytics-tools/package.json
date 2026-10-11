@@ -1,0 +1,12 @@
+{
+  "name": "@clklog/analytics-harness-tools",
+  "description": "Controlled ClkLog page and analysis tools for DeepSeek Harness",
+  "version": "1.0.0",
+  "private": true,
+  "license": "AGPL-3.0-only",
+  "type": "module",
+  "main": "index.mjs",
+  "dependencies": {
+    "@deepseek-ai/dsh-tools": "0.1.2-alpha.3"
+  }
+}

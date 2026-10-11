@@ -1,0 +1,23 @@
+# 构建产物 / 本地缓存：不入库（flutter create 的标准忽略项 + 本项目实际会产生的目录）
+/build/
+.dart_tool/
+.packages
+.flutter-plugins
+.flutter-plugins-dependencies
+/pubspec.lock
+/doc/api/
+/coverage/
+
+# IDE（flutter create 会生成 .idea/ 与 *.iml，本示例不提交）
+.idea/
+*.iml
+*.ipr
+*.iws
+.vscode/
+
+# 杂项
+.DS_Store
+*.log
+*.swp
+app.*.symbols
+app.*.map.json

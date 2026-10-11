@@ -1,0 +1,14 @@
+{
+  "name": "@clklog/analytics-harness-broker",
+  "version": "1.0.0",
+  "private": true,
+  "license": "AGPL-3.0-only",
+  "type": "module",
+  "engines": {
+    "node": ">=24 <25"
+  },
+  "scripts": {
+    "start": "node src/server.mjs",
+    "test": "node --test src/server.test.mjs"
+  }
+}

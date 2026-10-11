@@ -1,0 +1,22 @@
+<Project>
+
+  <!--
+    本文件为 ServerReport 服务端示例引入的 MSBuild 配置（未修改任何既有文件）。
+
+    背景：csharp/ 下同时存在
+      - ClkLogDemo.csproj（既有 Unity 客户端示例）
+      - ServerReport/ServerReport.csproj（新增服务端控制台示例）
+    SDK 风格工程的默认通配（**/*.cs、**/obj/** 只排除自身 BaseIntermediateOutputPath）会把
+    子目录 ServerReport/ 的源码与生成文件也编进父工程，导致 CS8802（多个顶级语句）与
+    CS0579（程序集特性重复）。这里只对父工程移除该子目录，保持既有示例可编译。
+
+    必须是 Directory.Build.targets（不能是 .props）：.props 在默认通配 Include 之前求值，
+    那里的 Remove 会被随后的默认 Include 覆盖掉；.targets 在工程体之后求值，才能生效。
+  -->
+  <ItemGroup Condition="'$(MSBuildProjectName)' == 'ClkLogDemo'">
+    <Compile Remove="ServerReport/**" />
+    <None Remove="ServerReport/**" />
+    <EmbeddedResource Remove="ServerReport/**" />
+  </ItemGroup>
+
+</Project>

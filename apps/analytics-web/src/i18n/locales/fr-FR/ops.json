@@ -1,0 +1,520 @@
+{
+  "range": {
+    "last1Hour": "Dernière heure",
+    "last6Hours": "6 dernières heures",
+    "last24Hours": "24 dernières heures",
+    "last3Days": "3 derniers jours",
+    "last90Days": "90 derniers jours",
+    "last180Days": "180 derniers jours"
+  },
+  "message": {
+    "executeFailed": "Échec de l'exécution",
+    "updateFailed": "Échec de la mise à jour",
+    "setFailed": "Échec de l'application"
+  },
+  "slowQuery": {
+    "title": "Requêtes lentes",
+    "minDuration": "Durée minimale",
+    "status": "Statut d'exécution",
+    "generatedAt": "Données générées le {{time}}",
+    "fromCache": " (affichage immédiat depuis le cache, actualisation des données en arrière-plan)",
+    "empty": "Aucune requête de plus de {{ms}} ms sur la plage temporelle actuelle",
+    "expandSql": "Développer le SQL",
+    "collapseSql": "Réduire le SQL",
+    "column": {
+      "time": "Heure",
+      "duration": "Durée",
+      "readRows": "Lignes lues",
+      "readBytes": "Octets lus",
+      "memory": "Mémoire",
+      "user": "Compte"
+    },
+    "retentionNote": "Données issues du journal de requêtes ClickHouse (system.query_log), conservées sur environ {{days}} derniers jours"
+  },
+  "serverStatus": {
+    "title": "État du serveur",
+    "appVersion": "Version de l'application",
+    "uptime": "En service depuis {{value}}",
+    "uptimeDays": "{{days}} j {{hours}} h",
+    "uptimeHours": "{{hours}} h {{minutes}} min",
+    "uptimeMinutes": "{{minutes}} min",
+    "hostMemory": "Mémoire de l'hôte",
+    "cpuLoad1m": "Charge CPU (1 minute)",
+    "loadDetail": "5 min {{load5}} · 15 min {{load15}} · {{cores}} cœurs",
+    "diskPath": "Disque {{path}}",
+    "diskUsed": "Utilisé {{used}} / {{total}}",
+    "unavailable": "Indisponible",
+    "readFailed": "Échec de la lecture",
+    "dependencies": "Dépendances et chaîne de données",
+    "connected": "Connecté · v{{version}}",
+    "unreachable": "Injoignable",
+    "unreachableError": "Injoignable : {{error}}",
+    "eventRowsLabel": "Volume d'événements (sa_events)",
+    "eventRowsCount": "{{rows}} lignes · {{size}}",
+    "lastWrite": "Dernière écriture dans la chaîne de données",
+    "maybeStalled": " (possiblement à l'arrêt)",
+    "justNow": "À l'instant",
+    "minutesAgo": "il y a {{minutes}} min",
+    "processMemory": "Mémoire du processus (tas / RSS)",
+    "diskDetail": "Détail du disque"
+  },
+  "diskTrend": {
+    "title": "Prévision d'utilisation du disque",
+    "pathWholeDisk": "Disque complet /data",
+    "pathReceiver": "Répertoire des logs receiver",
+    "noSamples": "Aucun échantillon pour le moment",
+    "accumulating": "Collecte des échantillons : {{count}}/3 point(s) d'échantillonnage, la prévision démarre à 3 points (un échantillon par heure)",
+    "accumulating_one": "Collecte des échantillons : {{count}}/3 point d'échantillonnage, la prévision démarre à 3 points (un échantillon par heure)",
+    "accumulating_other": "Collecte des échantillons : {{count}}/3 points d'échantillonnage, la prévision démarre à 3 points (un échantillon par heure)",
+    "flat": "Aucune tendance de croissance nette, pas de prévision pour le moment",
+    "forecast": "Au rythme de croissance récent, le disque sera saturé le {{date}}, dans {{days}} jours",
+    "seriesUsed": "Espace utilisé",
+    "seriesPredicted": "Prévision (pointillés)",
+    "seriesTotal": "Capacité totale du disque",
+    "totalMark": "Total",
+    "tooltipValue": "{{size}} ({{gb}} GB)",
+    "hint": "Aucune courbe de prévision n'est tracée lorsque les échantillons sont trop peu nombreux (pour éviter d'induire en erreur). Méthode : extrapolation linéaire uniquement lorsque l'usage augmente, sur 30 jours au maximum ; l'axe Y va de 0 à la capacité totale du disque."
+  },
+  "logCleanup": {
+    "title": "Gestion des répertoires de logs",
+    "hint": "Les fichiers .log expirés sont nettoyés automatiquement toutes les heures (les messages bruts sont des copies texte des données ClickHouse et peuvent être supprimés sans risque)",
+    "column": {
+      "path": "Répertoire",
+      "current": "Occupation actuelle",
+      "lastRun": "Dernier nettoyage automatique",
+      "retainDays": "Jours de rétention",
+      "autoClean": "Nettoyage automatique"
+    },
+    "currentUsage": "{{count}} fichier(s) · {{size}}",
+    "currentUsage_one": "{{count}} fichier · {{size}}",
+    "currentUsage_other": "{{count}} fichiers · {{size}}",
+    "notRunYet": "Pas encore exécuté",
+    "lastRun": "{{time}} ({{count}} supprimé(s) / {{size}})",
+    "lastRun_one": "{{time}} ({{count}} supprimé / {{size}})",
+    "lastRun_other": "{{time}} ({{count}} supprimés / {{size}})",
+    "cleanNow": "Nettoyer maintenant",
+    "confirmTitle": "Confirmer le nettoyage des logs",
+    "confirmOk": "Lancer le nettoyage",
+    "confirmMessage": "Suppression des fichiers .log dépassant la période de rétention dans {{path}} : environ {{count}} fichier(s) / {{size}}",
+    "confirmMessage_one": "Suppression des fichiers .log dépassant la période de rétention dans {{path}} : environ {{count}} fichier / {{size}}",
+    "confirmMessage_other": "Suppression des fichiers .log dépassant la période de rétention dans {{path}} : environ {{count}} fichiers / {{size}}",
+    "confirmDescription": "Ces fichiers sont des copies texte de données déjà ingérées : les supprimer n'affecte aucune fonctionnalité. Les logs actifs (aujourd'hui) ne sont pas supprimés.",
+    "auditHint": "Cette opération est consignée dans l'audit de nettoyage. Le nombre de jours de rétention se règle dans le tableau ci-dessus.",
+    "deletedFiles": "{{count}} fichier(s) supprimé(s), {{size}} libérés",
+    "deletedFiles_one": "{{count}} fichier supprimé, {{size}} libérés",
+    "deletedFiles_other": "{{count}} fichiers supprimés, {{size}} libérés",
+    "retentionUpdated": "Rétention mise à jour : {{days}} jours"
+  },
+  "dataMgmt": {
+    "readonlyNotice": "Cette page couvre : vue d'ensemble / tendance / santé des données / prévisualisation et exécution du nettoyage / TTL et politique de rétention. Nettoyage et TTL sont des actions : double confirmation et rapprochement préalable réussi requis, avec écriture d'un audit et d'un enregistrement de « plage nettoyée ». Les données à horodatage futur (appareils à horloge faussée) sont seulement détectées, jamais supprimées automatiquement.",
+    "loadingOverview": "Chargement de la vue d'ensemble du stockage...",
+    "statTables": "Tables inventoriées",
+    "statRows": "Total de lignes",
+    "statCompressed": "Taille compressée totale",
+    "rowsTenThousand": "{{value}}×10 k",
+    "rowsHundredMillion": "{{value}}×100 M",
+    "overview": "Vue d'ensemble du stockage",
+    "column": {
+      "table": "Table",
+      "rows": "Lignes",
+      "compressed": "Compressé",
+      "raw": "Brut",
+      "partitions": "Partitions",
+      "lastWrite": "Dernière écriture",
+      "time": "Heure",
+      "action": "Action",
+      "targetTable": "Table cible",
+      "detail": "Détail",
+      "operator": "Opérateur"
+    },
+    "trend": "Tendance du stockage des tables (échantillons horaires)",
+    "ttlDays": "{{days}} jours",
+    "trendAccumulating": "Collecte des échantillons : {{count}} point(s) (un échantillon par heure, la courbe de tendance apparaît dans environ 1 heure)",
+    "trendAccumulating_one": "Collecte des échantillons : {{count}} point (un échantillon par heure, la courbe de tendance apparaît dans environ 1 heure)",
+    "trendAccumulating_other": "Collecte des échantillons : {{count}} points (un échantillon par heure, la courbe de tendance apparaît dans environ 1 heure)",
+    "compressedBytes": "Octets compressés de {{name}}",
+    "health": "Santé des données (instantané de rapprochement)",
+    "gotoQuality": "Aller à la page Qualité des données pour lancer un rapprochement manuel",
+    "lastReconcile": "Dernier rapprochement",
+    "reconcileRange": "Plage du rapprochement",
+    "reconcileStatus": "Statut du rapprochement",
+    "hasAlert": "Alertes",
+    "normal": "Normal",
+    "alertDays": "Jours en alerte",
+    "dupCrcRows": "Lignes CRC dupliquées (approx.)",
+    "noSnapshot": "Aucun instantané de rapprochement : lancez un rapprochement sur la page Qualité des données pour en générer un",
+    "preview": "Prévisualisation du nettoyage (candidats DROP PARTITION)",
+    "selectTable": "Sélectionner une table",
+    "previewPrefix": "Nettoyer les données de plus de",
+    "previewSuffix": "jours (partitions mensuelles)",
+    "previewRun": "Prévisualiser",
+    "previewImpact": "Affectera {{count}} partition(s) mensuelle(s) : {{rows}} lignes / libération d'environ {{size}} (jusqu'au {{cutoff}})",
+    "previewImpact_one": "Affectera {{count}} partition mensuelle : {{rows}} lignes / libération d'environ {{size}} (jusqu'au {{cutoff}})",
+    "previewImpact_other": "Affectera {{count}} partitions mensuelles : {{rows}} lignes / libération d'environ {{size}} (jusqu'au {{cutoff}})",
+    "previewNone": "Aucune partition correspondante (jusqu'au {{cutoff}})",
+    "previewWarning": "DROP PARTITION est irréversible ; vérifiez la liste de prévisualisation avant d'exécuter.",
+    "previewFailed": "Échec de la prévisualisation : {{error}}",
+    "executeCleanup": "Lancer le nettoyage (supprimer les {{count}} partition(s) ci-dessus)",
+    "executeCleanup_one": "Lancer le nettoyage (supprimer la {{count}} partition ci-dessus)",
+    "executeCleanup_other": "Lancer le nettoyage (supprimer les {{count}} partitions ci-dessus)",
+    "deletedPartitions": "{{count}} partition(s) supprimée(s)",
+    "deletedPartitions_one": "{{count}} partition supprimée",
+    "deletedPartitions_other": "{{count}} partitions supprimées",
+    "ttl": "Réglages TTL (cycle de vie automatique)",
+    "ttlHint": "Le TTL ne modifie que la définition de la table et prend effet immédiatement (les données historiques ne sont pas réécrites) ; les données expirées sont supprimées progressivement lors des fusions en arrière-plan de ClickHouse, l'espace disque n'est donc pas libéré immédiatement. Voir la colonne TTL de la vue d'ensemble du stockage ci-dessus.",
+    "ttlSet": "Définir le TTL",
+    "ttlTitle": "Définir le TTL (nettoyage progressif en arrière-plan des données expirées)",
+    "ttlTarget": "Table cible :",
+    "ttlRetain": ", conserver",
+    "ttlRetainSuffix": " jours (les données expirées sont supprimées progressivement lors des fusions en arrière-plan de ClickHouse)",
+    "ttlNoteBefore": "Seule la définition de la table est modifiée, les données historiques ne sont pas réécrites (materialize_ttl_after_modify est explicitement désactivé) : les données expirées sont supprimées progressivement lors des fusions suivantes, ",
+    "ttlNoteBold": "l'espace disque n'est pas libéré immédiatement",
+    "ttlNoteAfter": ". Pour libérer de l'espace tout de suite, utilisez « Prévisualisation du nettoyage → Supprimer des partitions ».",
+    "ttlSetDone": "TTL défini sur {{days}} jours (application progressive en arrière-plan)",
+    "confirmTypeHint": "Saisissez le nom de la table cible pour confirmer :",
+    "audit": "Audit des nettoyages (10 derniers)",
+    "noActions": "Aucune action de nettoyage",
+    "actionDropPartition": "Suppression de partitions",
+    "actionSetTtl": "Définition du TTL",
+    "statusDone": "Terminé",
+    "statusPartial": "Partiellement terminé",
+    "confirmDropTitle": "⚠️ Confirmer la suppression des partitions (irréversible)",
+    "confirmDropOk": "Supprimer",
+    "dropWarning": "Supprimera définitivement {{count}} partition(s) mensuelle(s) de {{table}} (environ {{rows}} lignes), sans possibilité de restauration",
+    "dropWarning_one": "Supprimera définitivement {{count}} partition mensuelle de {{table}} (environ {{rows}} lignes), sans possibilité de restauration",
+    "dropWarning_other": "Supprimera définitivement {{count}} partitions mensuelles de {{table}} (environ {{rows}} lignes), sans possibilité de restauration",
+    "executeDone": "{{count}} terminé(s)",
+    "executeDone_one": "{{count}} terminé",
+    "executeDone_other": "{{count}} terminés",
+    "executeDonePartial": "{{count}} terminé(s), {{failed}} en échec (arrêt au premier échec, relancez la prévisualisation puis réessayez)",
+    "executeDonePartial_one": "{{count}} terminé, {{failed}} en échec (arrêt au premier échec, relancez la prévisualisation puis réessayez)",
+    "executeDonePartial_other": "{{count}} terminés, {{failed}} en échec (arrêt au premier échec, relancez la prévisualisation puis réessayez)",
+    "snapshotStaleWarn": "Pas de mise à jour depuis {{hours}} h",
+    "snapshotStaleError": "Pas de mise à jour depuis {{hours}} h (à vérifier)",
+    "preflight": {
+      "blocked": "Rapprochement préalable non satisfait ({{reason}}) : lancez d'abord un rapprochement couvrant cette date",
+      "ok": "Rapprochement préalable satisfait (couvre le {{date}})",
+      "hint": "Prérequis : un instantané réussi de moins de {{max}} h couvrant le {{date}} ; lancez-en un depuis la page Qualité des données",
+      "reason": {
+        "noSnapshot": "aucun instantané",
+        "notCovered": "l'instantané ne couvre pas cette date",
+        "snapshotFailed": "le dernier instantané comportait des alertes",
+        "snapshotStale": "instantané obsolète"
+      }
+    }
+  },
+  "error": {
+    "admin": {
+      "forbidden": "Seul un super administrateur de plateforme peut accéder à la console d'exploitation"
+    },
+    "trend": {
+      "hoursInvalid": "hours doit être un nombre"
+    },
+    "cleanup": {
+      "previewParamsRequired": "table et older_than_days sont obligatoires",
+      "executeParamsRequired": "table / partitions / confirmed_table sont obligatoires",
+      "tooManyPartitions": "Au maximum {{max}} partitions par requête (exécution par lots pour lisser les pics d'E/S)"
+    },
+    "ttl": {
+      "paramsRequired": "table / days / confirmed_table sont obligatoires"
+    },
+    "mutation": {
+      "tableRequired": "table est obligatoire"
+    },
+    "dataMgmt": {
+      "tableNotInventoried": "La table ne fait pas partie du périmètre inventorié (autorisées : {{allowed}})",
+      "tableNameInvalid": "Le nom de table doit être au format db.table",
+      "tableConfirmMismatch": "Nom de table de confirmation différent : saisie « {{confirmed}} » ≠ cible « {{table}} »",
+      "noExecutablePartition": "Aucune partition exécutable (toutes rejetées : {{rejected}})",
+      "ttlTimeColumnMissing": "Aucune colonne temporelle TTL n'est enregistrée pour cette table (autorisées : {{allowed}})",
+      "ttlDaysInvalid": "Le nombre de jours du TTL doit être un entier compris entre 1 et 3650",
+      "ttlSetFailed": "Échec de la définition du TTL : {{message}}",
+      "preflight": "Un rapprochement réussi couvrant le {{required_to}} est requis avant le nettoyage ; état de l’instantané : {{reason}}"
+    },
+    "logCleanup": {
+      "retainDaysInvalid": "Les jours de rétention doivent être un entier compris entre 1 et 365",
+      "pathNotAllowed": "Répertoire hors de la liste blanche de nettoyage : {{path}}",
+      "pathRequired": "path est obligatoire"
+    },
+    "reconcile": {
+      "forbidden": "Seul un super administrateur de plateforme peut modifier les réglages de rapprochement",
+      "runAtInvalid": "L'heure d'exécution doit être au format HH:mm (fuseau de la plateforme)",
+      "thresholdInvalid": "Le seuil d'écart doit être un pourcentage entre 0 et 100",
+      "staleOrderInvalid": "Le seuil critique (rouge) doit être supérieur au seuil d'avertissement (jaune)",
+      "staleHoursInvalid": "Les seuils d'ancienneté doivent être des heures entières entre 1 et 720"
+    },
+    "retention": {
+      "tableNotInventoried": "Table hors du périmètre de rétention (autorisées : {{allowed}})",
+      "keepDaysInvalid": "Les jours de rétention doivent être un entier entre 1 et 3650",
+      "keepDaysRequired": "keep_days est obligatoire"
+    },
+    "dataDelete": {
+      "paramsRequired": "kind / table / project sont obligatoires",
+      "executeParamsRequired": "kind / table / project / confirm_table / confirm_token sont obligatoires",
+      "tableConfirmMismatch": "Confirmation de table différente : saisi « {{confirmed}} » ≠ cible « {{table}} »",
+      "cleanupAccountMissing": "Compte de nettoyage non configuré (CLICKHOUSE_CLEANUP_PASSWORD absent) ; exécution refusée",
+      "rowsExceeded": "Environ {{rows}} lignes seraient affectées, au-delà de la limite de {{max}} par exécution ; découpez par événement ou réduisez la plage",
+      "tokenInvalid": "Jeton de confirmation invalide ou expiré (condition ou nombre de lignes modifiés) ; relancez l'aperçu",
+      "preflight": "Un rapprochement réussi couvrant {{required_to}} est requis avant suppression ; état de l’instantané : {{reason}}",
+      "nothingToDelete": "La condition ne correspond à aucune ligne",
+      "backupFailed": "Échec de la sauvegarde avant suppression ; interrompu (aucune donnée supprimée) : {{message}}",
+      "executeFailed": "Échec de la suppression : {{message}} (la table de sauvegarde permet un retour arrière)",
+      "tableNotAllowed": "Table hors de la liste autorisée pour la suppression ciblée : {{table}}",
+      "communityRefused": "Les tables de la version communautaire ne peuvent pas être supprimées (ligne rouge 1) : {{table}}",
+      "kindNotAllowed": "Cette table ne prend pas en charge cette condition de suppression : {{kind}}",
+      "projectInvalid": "Nom de projet invalide : {{project}}",
+      "eventInvalid": "Nom d'événement invalide : {{event}}",
+      "beforeRequired": "before est obligatoire (supprimer les données antérieures à cette date)",
+      "beforeInFuture": "before ne peut pas dépasser aujourd'hui (utilisez la condition « horodatage futur »)",
+      "toInFuture": "to ne peut pas dépasser aujourd'hui (utilisez la condition « horodatage futur »)",
+      "rangeInvalid": "from ne peut pas être postérieur à to",
+      "dateInvalid": "{{field}} doit être au format YYYY-MM-DD",
+      "mutationRunning": "{{table}} a une mutation en cours ; attendez la fin avant de supprimer (protection IO)"
+    },
+    "metaReconcile": {
+      "windowTooWide": "Une fenêtre de {{days}} jours dépasse la limite estimée de ClickHouse : réduisez window_days (défaut 7) ou utilisez scripts/reconcile.sh"
+    },
+    "projectRetire": {
+      "projectRequired": "project est obligatoire",
+      "notRegistered": "Projet non enregistré : {{project}} (vérifiez l’orthographe)",
+      "stillWriting": "{{rows}} lignes écrites ces dernières 24 h : arrêtez d’abord la collecte du projet",
+      "executeParamsRequired": "project / step / confirm_token sont obligatoires"
+    }
+  },
+  "retention": {
+    "title": "Politique de rétention (attendu × réel × plage de rapprochement fiable)",
+    "hint": "La rétention attendue est enregistrée manuellement (valeurs par défaut : sa_events 540 jours, tables communautaires 180 jours) ; la rétention réelle provient du TTL de chaque table.",
+    "trusted": "Plage de rapprochement fiable : {{from}} ~ {{to}} (le plus court des deux côtés = {{days}} jours)",
+    "trustedUnbounded": "Plage de rapprochement fiable : aucune rétention définie des deux côtés, l'étendue réelle des données s'applique",
+    "trustedBoundBy": "Limité par la rétention de {{days}} jours de {{table}} (nettoyer une table fausse la comparaison sur cette période)",
+    "suspicious": "{{count}} partitions de date suspectes (partitions futures / données historiques antérieures à la plage fiable) ; signalées uniquement, jamais nettoyées automatiquement",
+    "suspiciousKind": {
+      "future": "partition future",
+      "ancient": "données historiques"
+    },
+    "column": {
+      "table": "Table",
+      "expected": "Rétention attendue",
+      "actual": "Rétention réelle (TTL)",
+      "status": "Statut"
+    },
+    "suggested": "(suggéré)",
+    "actualUnset": "Non défini (risque)",
+    "status": {
+      "ok": "Conforme",
+      "unset": "Non défini (risque)",
+      "deviates": "Écart à la politique",
+      "disabled": "Politique désactivée"
+    },
+    "register": "Enregistrer",
+    "dialogTitle": "Enregistrer la rétention attendue : {{table}}",
+    "save": "Enregistrer",
+    "fieldKeepDays": "Jours de rétention",
+    "fieldKeepDaysHint": "Cette valeur est l'objectif ; ce qui s'applique réellement est le TTL de la table (utilisez le réglage TTL ci-dessous)",
+    "fieldEnabled": "Politique activée",
+    "fieldRemark": "Remarque"
+  },
+  "quality": {
+    "title": "Qualité des données / rapprochement de cohérence",
+    "runningHint": "Rapprochement en cours : le comptage complet d'une journée prend environ 20 à 40 secondes, ne fermez pas cette page…",
+    "idleHint": "Compare sa_events et log_analysis (par défaut hier, 3 jours au maximum, environ 30 secondes)",
+    "start": "Lancer le rapprochement",
+    "cachedTag": "Résultat en cache · dernier rapprochement {{time}}",
+    "justFinishedTag": "Rapprochement terminé à l'instant {{time}}",
+    "cachedHint": "Ci-dessous le **dernier instantané** (totaux quotidiens, écarts par événement et plages nettoyées). Les détections de métadonnées sont lues directement (50 dernières). Pour un résultat à l'instant présent, cliquez sur « Lancer le rapprochement ».",
+    "emptyHint": "Aucun résultat de rapprochement : cliquez sur « Lancer le rapprochement » en haut à droite pour lancer le premier passage (environ 30 secondes), ensuite la page affichera instantanément le résultat en cache.",
+    "reportEmpty": "Aucune donnée de rapprochement pour le moment, sélectionnez une plage temporelle puis cliquez sur « Lancer le rapprochement »",
+    "normal": "Normal",
+    "abnormal": "Anormal",
+    "pass": "Conforme",
+    "column": {
+      "date": "Date",
+      "saRows": "Lignes sa_events",
+      "crcUniq": "CRC uniques",
+      "rawRows": "Lignes log_analysis",
+      "deviation": "Écart %",
+      "source": "Source",
+      "rows": "Lignes",
+      "changeType": "Type de changement",
+      "prop": "Propriété",
+      "change": "Contenu du changement",
+      "discoveredAt": "Détecté le",
+      "diff": "Écart (sa - raw)",
+      "skippedRange": "Plage nettoyée",
+      "skippedWhy": "Motif",
+      "skippedSource": "Action et horodatage"
+    },
+    "change": {
+      "eventCreated": "Nouvel événement",
+      "propertyCreated": "Nouvelle propriété ({{value}})",
+      "userPropertyCreated": "Nouvelle propriété utilisateur ({{value}})",
+      "userPropertyHidden": "Propriété utilisateur masquée",
+      "userPropertyActive": "Propriété utilisateur activée"
+    },
+    "alert": {
+      "title": "Anomalie de cohérence des données détectée",
+      "desc": "Un écart supérieur au seuil ({{threshold}} %) a été détecté sur {{days}}/{{total}} jours, ou {{dup}} lignes présentent un CRC dupliqué. Vérifiez si l'ingestor perd des données ou si les définitions diffèrent."
+    },
+    "ok": {
+      "title": "Cohérence des données normale",
+      "desc": "Les écarts de rapprochement entre {{from}} et {{to}} restent dans le seuil de {{threshold}} %, sans CRC dupliqué."
+    },
+    "stat": {
+      "days": "Jours comparés",
+      "daysSuffix": " jours / {{count}} jour(s) en anomalie",
+      "daysSuffix_one": " jours / {{count}} jour en anomalie",
+      "daysSuffix_other": " jours / {{count}} jours en anomalie",
+      "dupCrc": "CRC dupliqués",
+      "rowsSuffix": "lignes",
+      "crcUnique": "Unicité des CRC",
+      "skippedDays": "Jours nettoyés",
+      "outOfRetention": "Jours hors rétention"
+    },
+    "scope": {
+      "range": "Plage de rapprochement",
+      "threshold": "Seuil d'écart",
+      "total": "Total",
+      "trigger": "Déclencheur",
+      "ignored": "Événements ignorés"
+    },
+    "table": {
+      "daily": "Rapprochement des totaux quotidiens",
+      "events": "Comptages par événement (sa_events vs log_analysis)",
+      "discovery": "Changements de métadonnées récents",
+      "discoveryHint": "(nouveaux événements / propriétés / changements de type détectés automatiquement, {{count}} entrée(s))",
+      "discoveryHint_one": "(nouveaux événements / propriétés / changements de type détectés automatiquement, {{count}} entrée)",
+      "discoveryHint_other": "(nouveaux événements / propriétés / changements de type détectés automatiquement, {{count}} entrées)",
+      "diffs": "Principaux écarts par événement (sa - raw)",
+      "diffsHint": "({{count}} événements divergent ; 20 principaux par écart absolu)",
+      "onlyInOne": "Présent d'un seul côté (0 de l'autre côté)",
+      "skipped": "Plages nettoyées (exclues des alertes)"
+    },
+    "skipped": "Ignoré",
+    "skippedReason": {
+      "cleaned": "Nettoyé"
+    },
+    "ignored": {
+      "title": "{{count}} événements exclus par la liste d'ignorés"
+    },
+    "trigger": {
+      "auto": "Planifié",
+      "manual": "Manuel",
+      "cli": "Script d'exploitation"
+    },
+    "stale": {
+      "warnTitle": "Le rapprochement commence à dater",
+      "errorTitle": "Le rapprochement est obsolète",
+      "desc": "Le dernier rapprochement a eu lieu le {{time}} (il y a {{hours}} h, au-delà du seuil de {{warn}} h) : la conclusion peut ne plus refléter la réalité — relancez-le ou vérifiez la planification."
+    },
+    "config": {
+      "button": "Réglages du rapprochement",
+      "title": "Réglages du rapprochement (planification hors pointe et seuil)",
+      "save": "Enregistrer",
+      "enabled": "Activer le rapprochement planifié",
+      "enabledOn": "Activé",
+      "enabledOff": "Désactivé",
+      "runAt": "Heure d'exécution",
+      "runAtHint": "Fuseau de la plateforme, HH:mm ; exécution au cycle de contrôle suivant (≤ 5 min) après cette heure",
+      "runAtInvalid": "Format attendu : HH:mm",
+      "threshold": "Seuil d'écart (%)",
+      "thresholdHint": "Un jour est signalé lorsque |écart| dépasse ce pourcentage ; commencez autour de 3–5 % jusqu'à convergence des calibrages",
+      "ignoreEvents": "Événements ignorés",
+      "ignoreEventsHint": "Un nom d'événement par ligne ; isolez les écarts de calibrage connus pour éviter des alertes quotidiennes",
+      "skipEmpty": "Filtrer les event vides des deux côtés",
+      "skipEmptyHint": "Même calibrage des deux côtés (sa et version communautaire) : les lignes avec un event vide ne sont comptées ni d'un côté ni de l'autre",
+      "staleWarn": "Ancienneté avertissement (h)",
+      "staleError": "Ancienneté critique (h)",
+      "updatedAt": "Réglages mis à jour"
+    },
+    "changeType": {
+      "eventCreated": "Nouvel événement",
+      "propertyCreated": "Nouvelle propriété",
+      "propertyTypeChanged": "Type de propriété modifié",
+      "userPropertyCreated": "Nouvelle propriété utilisateur",
+      "userPropertyTypeChanged": "Type de propriété utilisateur modifié",
+      "userPropertyHidden": "Propriété utilisateur masquée",
+      "userPropertyActive": "Propriété utilisateur activée"
+    },
+    "outOfRetention": "Hors durée de rétention (non comparé)",
+    "outOfRetentionShort": "Hors rétention",
+    "guide": {
+      "title": "À quoi sert cette page ?",
+      "whatTitle": "Rôle",
+      "whatBody": "Ligne de contrôle latérale : rapproche sa_events (écrit par notre ingestor) et log_analysis (écrit par le Flink communautaire) jour par jour, pour détecter l'arrêt de consommation, la perte silencieuse de données et les doublons. Lecture seule, aucune donnée métier modifiée ; par défaut la veille est vérifiée automatiquement une fois par jour hors pointe (03:30, fuseau de la plateforme) et le résultat est conservé comme instantané.",
+      "termsTitle": "Termes clés",
+      "terms": {
+        "range": "Plage : la veille par défaut ; jusqu'à 3 jours en manuel (garde-fou mémoire mono-nœud après des OOM passés).",
+        "threshold": "Seuil : un jour n'est signalé que si |écart| le dépasse ; valeur actuelle dans la ligne de configuration ci-dessus (en %).",
+        "crc": "Unicité CRC : déduplication approximative côté interne uniquement ; signalée au-delà de 0,5 % de lignes en double (l'algorithme approximatif a une erreur propre).",
+        "trusted": "Plage fiable : comparable uniquement dans la plus courte des deux rétentions ; au-delà, les jours sont marqués « hors rétention » et exclus des anomalies.",
+        "skipped": "Plages nettoyées : les périodes supprimées volontairement via DROP PARTITION / TTL sont marquées « nettoyé » et exclues des alertes.",
+        "stale": "Fraîcheur de l'instantané : s'il est ancien (jaune/rouge), la conclusion ne reflète plus la réalité — relancez le rapprochement ou vérifiez la planification.",
+        "events": "Principaux écarts par événement : événements présents des deux côtés avec des comptages différents, top 20 par écart absolu ; « un seul côté » liste ceux où l'autre est à 0."
+      },
+      "howTitle": "Comment lire le résultat",
+      "how": {
+        "step1": "Un écart quotidien durable de +1 % à +2 % est une différence de calibrage structurelle connue (la version communautaire sous-compte les événements d'erreur/reprise Android, voir le livre blanc) — pas une perte de données.",
+        "step2": "À investiguer immédiatement : écart négatif (nous en avons moins que la version communautaire), comptage d'un événement tombé à zéro, ou apparition soudaine d'un nouveau type d'événement dans les écarts.",
+        "step3": "Les jours « hors rétention » ou « nettoyé » ne comptent pas comme anomalies ; un CRC en échec signale d'éventuels doublons de notre côté.",
+        "step4": "La limite manuelle de 3 jours est un garde-fou mémoire volontaire ; pour de plus longues périodes, utilisez la tâche grand périmètre hors pointe (scripts/reconcile.sh --type=range sur le serveur)."
+      },
+      "whoTitle": "Qui fait quoi",
+      "who": {
+        "admin": "Super administrateur : modifier seuil / liste d'ignorés / seuils d'ancienneté via « Réglages du rapprochement » (en haut à droite) et traiter les notifications d'échec ou d'obsolescence.",
+        "oncall": "Astreinte : consulter d'abord « Principaux écarts par événement » pour distinguer un nouveau type d'événement d'un événement qui disparaît, puis la tendance des totaux quotidiens des deux côtés.",
+        "analyst": "Analystes : cette page n'est pas destinée à l'analyse métier ; la santé du pipeline se lit dans Exploitation → Gestion des données → Santé des données."
+      },
+      "footnote": "Conclusions et mesures : docs/product/research-clklog-reconcile-caliber-v1.md (dépôt)."
+    }
+  },
+  "dataCleanup": {
+    "unregisteredTitle": "Données ↔ métadonnées",
+    "refresh": "Actualiser",
+    "unregisteredHint": "Depuis {{from}} : {{data}} en données / {{meta}} enregistrés ; non enregistrés ci-dessous",
+    "colEvent": "Événement",
+    "colRows": "Lignes",
+    "colRange": "Plage",
+    "colFuture": "Dates futures",
+    "futureYes": "futur",
+    "useEvent": "Nettoyer par événement",
+    "useFuture": "Nettoyer le futur",
+    "ghostTitle": "{{count}} enregistrements fantômes (métadonnées seulement)",
+    "deleteTitle": "Suppression ciblée (ALTER DELETE)",
+    "deleteHint": "Prévisualisez, puis saisissez le nom de la table. Sauvegarde et audit automatiques. Les tables communautaires ne sont pas supprimables.",
+    "kind.event": "Par événement",
+    "kind.project": "Par projet",
+    "kind.before": "Avant une date",
+    "kind.future": "Horodatages futurs",
+    "eventPlaceholder": "Nom d'événement (ex. $SignUp)",
+    "beforePlaceholder": "Avant AAAA-MM-JJ",
+    "preview": "Aperçu",
+    "previewResult": "Environ {{rows}} lignes ({{from}} ~ {{to}})",
+    "backupHint": "Rapprochement préalable réussi ; sauvegarde vers {{backup}}",
+    "preflightBlocked": "Rapprochement préalable non satisfait ({{reason}}) : lancez-le d’abord sur la page Qualité des données",
+    "cleanupMissing": "Compte de nettoyage non configuré : suppression ciblée indisponible",
+    "rowsExceeded": "Lignes au-delà de la limite {{max}} par exécution ; découpez",
+    "confirmPlaceholder": "Saisissez le nom de la table : {{table}}",
+    "execute": "Supprimer {{rows}} lignes",
+    "done": "Suppression lancée (~{{rows}} lignes)",
+    "doneDetail": "Sauvegarde {{backup}} | mutation {{mutation}} ; suppression en arrière-plan, plage marquée comme nettoyée",
+    "colAction": "Action",
+    "unregisteredFailed": "Échec du chargement des événements non enregistrés : {{message}}",
+    "window": "Fenêtre",
+    "windowDays": "{{days}} jours"
+  },
+  "projectRetire": {
+    "title": "Aperçu de retrait du projet",
+    "communityNote": "Les tables communautaires (clklog.log_analysis et 18 agrégats) n’ont pas de dimension projet ; utilisez la rétention/TTL pour les réduire",
+    "step": {
+      "stopWrites": "Arrêtez d'abord la collecte du projet (désactiver la clé API / le SDK) et vérifiez que les écritures sur 24 h tombent à zéro",
+      "execution": "Exécuter le retrait : suppression table par table côté sa (DROP PARTITION pour les tables de membres, sinon ALTER DELETE) et dans MySQL",
+      "backupAudit": "Les lignes à supprimer sont d'abord exportées dans un fichier de sauvegarde, et l'action est auditée (action=project_retire)"
+    },
+    "result": {
+      "saDone": "Côté sa terminé ({{tables}} tables)",
+      "saPartial": "Côté sa partiellement traité : une grande table dépasse le budget par exécution ; relancez",
+      "mysqlDone": "Côté MySQL : {{rows}} lignes supprimées"
+    },
+    "getToken": "Obtenir le jeton"
+  }
+}

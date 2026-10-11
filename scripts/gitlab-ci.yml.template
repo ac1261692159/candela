@@ -1,0 +1,102 @@
+# GitLab CI 模板（公开仓库不自动启用）
+#
+# 用法：
+#   1. 复制本文件为仓库根目录的 .gitlab-ci.yml
+#   2. 把 variables 里的主机、端口、rsync 前缀换成你自己的
+#   3. 把每个 job 的 tags 换成你的 GitLab Runner 标签
+#   4. 不要把填好的真实主机或 runner 标签推回公开分支
+#
+# 公开仓库的检查走 .github/workflows/ci.yml。
+# 本模板保留的是「构建产物并用 rsync 推到自己的机器」这条 GitLab 发版路径。
+# 构建脚本仍是 scripts/build.sh。changes 规则里已去掉不存在的 puppet/ 路径。
+
+default:
+  tags: []
+
+stages:
+  - build
+
+variables:
+  # 改成你的 rsync 目标。示例只是占位，不是可用地址。
+  DEV_HOST: "user@dev-host"
+  DEV_HOST_PORT: "873"
+  RELEASE_HOST: "user@release-host"
+  RELEASE_HOST_PORT: "873"
+  RSYNC_PREFIX: "candela"
+
+# GitLab cache:key:files 最多 2 个文件，前后端与 Harness 必须拆成两组。
+.build_cache: &build_cache
+  - key:
+      prefix: "${CI_JOB_NAME}-app-"
+      files:
+        - apps/analytics-server/package-lock.json
+        - apps/analytics-web/package-lock.json
+    paths:
+      - apps/analytics-server/node_modules/
+      - apps/analytics-web/node_modules/
+    policy: pull-push
+  - key:
+      prefix: "${CI_JOB_NAME}-harness-"
+      files:
+        - apps/analytics-harness-host/package-lock.json
+    paths:
+      - apps/analytics-harness-host/node_modules/
+    policy: pull-push
+  # Node 运行时：use-node24.sh 只在 .runtime/ 缺失时才去 nodejs.org 下载。
+  # 这里只缓存归档文件。key 绑定 use-node24.sh：版本或校验和一变，缓存失效。
+  - key:
+      prefix: "${CI_JOB_NAME}-node-runtime-"
+      files:
+        - scripts/use-node24.sh
+    paths:
+      - .runtime/*.tar.xz
+      - .runtime/*.tar.gz
+    policy: pull-push
+
+before_script:
+  - source scripts/use-node24.sh
+  - node -v
+  - npm -v
+  - 'echo "开始构建 ${CI_COMMIT_REF_NAME} 分支 (pipeline: ${CI_PIPELINE_ID})"'
+
+build-dev:
+  stage: build
+  only:
+    - dev
+  # 换成你的开发 runner 标签后再启用。不要使用他人环境的标签。
+  tags:
+    - your-dev-runner-tag
+  cache: *build_cache
+  script:
+    - echo "${CI_COMMIT_REF_NAME}分支开始build..."
+    - pwd
+    - /bin/bash -x scripts/build.sh
+    - ls -la ./target
+    - echo "推送到${DEV_HOST}"
+    - rsync -vrlptD --port ${DEV_HOST_PORT} ./target/* ./target/.version  ${DEV_HOST}::${RSYNC_PREFIX}-${CI_PROJECT_NAME}/${CI_COMMIT_REF_NAME}
+
+build-main:
+  stage: build
+  # 换成你的发布 runner 标签后再启用。
+  tags:
+    - your-release-runner-tag
+  cache: *build_cache
+  # 不能与 only: 并用（GitLab 会直接报错），因此分支限制改由 rules 表达。
+  rules:
+    - if: '$CI_COMMIT_BRANCH !~ /^(pre|master|main)$/'
+      when: never
+    # 只改了与产物无关的文件时跳过整条构建。
+    # 无更早提交可比时 GitLab 把 changes 视为真，仍会构建。
+    - changes:
+        - ".gitlab-ci.yml"
+        - "apps/**/*"
+        - "scripts/**/*"
+        - "deploy-assets/**/*"
+        - "ai_workspace/**/*"
+  script:
+    - echo "${CI_COMMIT_REF_NAME}分支开始build..."
+    - pwd
+    - /bin/bash -x scripts/build.sh
+    - ls -la ./target
+    - echo "推送到${RELEASE_HOST}"
+    - rsync -vrlptD --port ${RELEASE_HOST_PORT} ./target/* ./target/.version  ${RELEASE_HOST}::${RSYNC_PREFIX}-${CI_PROJECT_NAME}/${CI_COMMIT_REF_NAME}

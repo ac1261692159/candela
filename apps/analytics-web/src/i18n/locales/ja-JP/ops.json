@@ -1,0 +1,492 @@
+{
+  "range": {
+    "last1Hour": "直近 1 時間",
+    "last6Hours": "直近 6 時間",
+    "last24Hours": "直近 24 時間",
+    "last3Days": "直近 3 日間",
+    "last90Days": "直近 90 日間",
+    "last180Days": "直近 180 日間"
+  },
+  "message": {
+    "executeFailed": "実行に失敗しました",
+    "updateFailed": "更新に失敗しました",
+    "setFailed": "設定に失敗しました"
+  },
+  "slowQuery": {
+    "title": "スロークエリ",
+    "minDuration": "最小実行時間",
+    "status": "実行ステータス",
+    "generatedAt": "データ生成日時 {{time}}",
+    "fromCache": "（キャッシュで即時表示。最新データをバックグラウンドで再読み込み済み）",
+    "empty": "現在の期間に {{ms}} ms を超えるクエリはありません",
+    "expandSql": "SQL を展開",
+    "collapseSql": "SQL を折りたたむ",
+    "column": {
+      "time": "時刻",
+      "duration": "実行時間",
+      "readRows": "読み取り行数",
+      "readBytes": "読み取りバイト数",
+      "memory": "メモリ",
+      "user": "アカウント"
+    },
+    "retentionNote": "データは ClickHouse のクエリログ（system.query_log）から取得しており、直近約 {{days}} 日分のみ保持されます"
+  },
+  "serverStatus": {
+    "title": "サーバー状態",
+    "appVersion": "アプリバージョン",
+    "uptime": "稼働時間 {{value}}",
+    "uptimeDays": "{{days}} 日 {{hours}} 時間",
+    "uptimeHours": "{{hours}} 時間 {{minutes}} 分",
+    "uptimeMinutes": "{{minutes}} 分",
+    "hostMemory": "ホストメモリ",
+    "cpuLoad1m": "CPU 負荷（1 分）",
+    "loadDetail": "5 分 {{load5}} · 15 分 {{load15}} · {{cores}} コア",
+    "diskPath": "ディスク {{path}}",
+    "diskUsed": "使用中 {{used}} / {{total}}",
+    "unavailable": "利用不可",
+    "readFailed": "読み取りに失敗しました",
+    "dependencies": "依存関係とデータ経路",
+    "connected": "接続済み · v{{version}}",
+    "unreachable": "到達不可",
+    "unreachableError": "到達不可：{{error}}",
+    "eventRowsLabel": "イベント量（sa_events）",
+    "eventRowsCount": "{{rows}} 行 · {{size}}",
+    "lastWrite": "データ経路の最終書き込み",
+    "maybeStalled": "（停止の可能性）",
+    "justNow": "たった今",
+    "minutesAgo": "{{minutes}} 分前",
+    "processMemory": "プロセスメモリ（ヒープ / RSS）",
+    "diskDetail": "ディスク明細"
+  },
+  "diskTrend": {
+    "title": "ディスク使用量の予測",
+    "pathWholeDisk": "ディスク全体 /data",
+    "pathReceiver": "receiver ログフォルダー",
+    "noSamples": "サンプルなし",
+    "accumulating": "サンプルデータを収集中：現在 {{count}}/3 サンプル。3 点そろうと予測できます（1 時間ごとにサンプリング）",
+    "flat": "現在、明確な増加傾向はないため予測しません",
+    "forecast": "最近の増加ペースでは、{{date}} にディスクが満杯になる見込みです。残り {{days}} 日",
+    "seriesUsed": "使用済み容量",
+    "seriesPredicted": "予測（破線）",
+    "seriesTotal": "ディスク総量",
+    "totalMark": "総量",
+    "tooltipValue": "{{size}}（{{gb}} GB）",
+    "hint": "サンプルが不足している場合は予測線を表示しません（誤解を避けるため）。定義：使用量が増加している場合のみ最大 30 日間を線形外挿し、Y 軸は 0 からディスク総量までです。"
+  },
+  "logCleanup": {
+    "title": "ログフォルダーの整理",
+    "hint": "期限切れの .log ファイルを毎時自動で削除します（元のメッセージは ClickHouse データのテキストミラーであり、安全に削除できます）",
+    "column": {
+      "path": "フォルダー",
+      "current": "現在の使用量",
+      "lastRun": "前回の自動整理",
+      "retainDays": "保持日数",
+      "autoClean": "自動整理"
+    },
+    "currentUsage": "{{count}} ファイル · {{size}}",
+    "notRunYet": "未実行",
+    "lastRun": "{{time}}（{{count}} 件削除 / {{size}}）",
+    "cleanNow": "今すぐ整理",
+    "confirmTitle": "ログファイルの整理を確認",
+    "confirmOk": "整理を実行",
+    "confirmMessage": "{{path}} 配下の保持期間を超えた .log ファイルを削除します：約 {{count}} 件 / {{size}}",
+    "confirmDescription": "これらのファイルは取り込み済みデータのテキストミラーで、削除しても機能に影響しません。現在アクティブなログ（今日分）は削除されません。",
+    "auditHint": "この操作は整理の監査記録に書き込まれます。保持日数は上の表で変更できます。",
+    "deletedFiles": "{{count}} 件のファイルを削除し、{{size}} を解放しました",
+    "retentionUpdated": "保持期間を {{days}} 日に更新しました"
+  },
+  "dataMgmt": {
+    "readonlyNotice": "本ページの内容：概要 / トレンド / データヘルス / クリーンアップの予行と実行 / TTL と保持ポリシー。クリーンアップと TTL は動作操作で、二重確認と事前突合の通過が必要で、監査と「クリーンアップ済み範囲」の登録を行います。未来日時のゴミデータ（時刻ずれ端末）は検出・通知のみで自動削除はしません。",
+    "loadingOverview": "ストレージ概要を読み込み中...",
+    "statTables": "管理対象テーブル数",
+    "statRows": "総行数",
+    "statCompressed": "圧縮後サイズ",
+    "rowsTenThousand": "{{value}} 万",
+    "rowsHundredMillion": "{{value}} 億",
+    "overview": "ストレージ概要",
+    "column": {
+      "table": "テーブル",
+      "rows": "行数",
+      "compressed": "圧縮後",
+      "raw": "元データ",
+      "partitions": "パーティション",
+      "lastWrite": "最終書き込み",
+      "time": "時刻",
+      "action": "アクション",
+      "targetTable": "対象テーブル",
+      "detail": "明細",
+      "operator": "実行者"
+    },
+    "trend": "テーブルストレージの推移（1 時間ごとのサンプリング）",
+    "ttlDays": "{{days}} 日",
+    "trendAccumulating": "サンプルデータを収集中：{{count}} 点（1 時間ごとにサンプリング、約 1 時間後にトレンドラインが出ます）",
+    "compressedBytes": "{{name}} の圧縮バイト数",
+    "health": "データヘルス（突合スナップショット）",
+    "gotoQuality": "データ品質ページで手動突合する",
+    "lastReconcile": "前回の突合",
+    "reconcileRange": "突合範囲",
+    "reconcileStatus": "突合ステータス",
+    "hasAlert": "アラートあり",
+    "normal": "正常",
+    "alertDays": "アラート日数",
+    "dupCrcRows": "CRC 重複行（概算）",
+    "noSnapshot": "突合スナップショットがまだありません。データ品質ページで一度突合を実行すると自動生成されます",
+    "preview": "削除ドライラン（DROP PARTITION 候補の棚卸し）",
+    "selectTable": "テーブルを選択",
+    "previewPrefix": "保持期間 ",
+    "previewSuffix": " 日を超えたデータを削除（月単位のパーティション）",
+    "previewRun": "ドライラン",
+    "previewImpact": "{{count}} か月分のパーティションに影響します：{{rows}} 行 / 約 {{size}} を解放（{{cutoff}} 時点まで）",
+    "previewNone": "条件に一致するパーティションはありません（{{cutoff}} 時点まで）",
+    "previewWarning": "DROP PARTITION は元に戻せません。実行前にドライラン結果をもう一度確認してください。",
+    "previewFailed": "ドライランに失敗しました：{{error}}",
+    "executeCleanup": "削除を実行（上記 {{count}} 個のパーティションを削除）",
+    "deletedPartitions": "{{count}} 個のパーティションを削除しました",
+    "ttl": "TTL 設定（自動ライフサイクル）",
+    "ttlHint": "TTL はテーブル定義のみ変更し、クリックするとすぐ有効になります（履歴データは書き換えません）。期限切れデータは ClickHouse のバックグラウンド merge で段階的に削除されるため、ディスク容量はすぐには解放されません。現在の棚卸し結果は上部のストレージ概要の TTL 列を参照してください。",
+    "ttlSet": "TTL を設定",
+    "ttlTitle": "TTL を設定（バックグラウンドで期限切れデータを段階的に削除）",
+    "ttlTarget": "対象テーブル：",
+    "ttlRetain": "、保持期間",
+    "ttlRetainSuffix": "日（期限切れデータは CH のバックグラウンド merge で段階的に削除されます）",
+    "ttlNoteBefore": "テーブル定義のみ変更し、履歴データは書き換えません（materialize_ttl_after_modify は明示的に無効化済み）。期限切れデータは以降の merge で段階的に削除され、",
+    "ttlNoteBold": "ディスクはすぐには解放されません",
+    "ttlNoteAfter": "。すぐに容量を解放したい場合は「削除ドライラン → パーティション削除」を使用してください。",
+    "ttlSetDone": "TTL を {{days}} 日に設定しました（バックグラウンドで段階的に有効）",
+    "confirmTypeHint": "確認のため対象テーブル名を入力してください：",
+    "audit": "削除操作の監査（直近 10 件）",
+    "noActions": "削除操作はありません",
+    "actionDropPartition": "パーティション削除",
+    "actionSetTtl": "TTL 設定",
+    "statusDone": "完了",
+    "statusPartial": "一部完了",
+    "confirmDropTitle": "⚠️ パーティション削除の確認（元に戻せません）",
+    "confirmDropOk": "削除を実行",
+    "dropWarning": "{{table}} から {{count}} か月分のパーティション（約 {{rows}} 行）を物理削除します。元に戻せません",
+    "executeDone": "{{count}} 件完了",
+    "executeDonePartial": "{{count}} 件完了、{{failed}} 件失敗（失敗時に停止。再ドライラン後に再試行できます）",
+    "snapshotStaleWarn": "{{hours}} 時間更新なし",
+    "snapshotStaleError": "{{hours}} 時間更新なし（要確認）",
+    "preflight": {
+      "blocked": "クリーンアップ前の突合が未達です（{{reason}}）。その日付を含む突合を先に実行してください",
+      "ok": "クリーンアップ前の突合は通過済み（{{date}} を包含）",
+      "hint": "条件：{{max}} 時間以内に取得した、{{date}} を含む通過済みスナップショット。データ品質ページから実行できます",
+      "reason": {
+        "noSnapshot": "スナップショット未取得",
+        "notCovered": "スナップショットがその日付を包含していない",
+        "snapshotFailed": "直近のスナップショットにアラートあり",
+        "snapshotStale": "スナップショットが古すぎる"
+      }
+    }
+  },
+  "error": {
+    "admin": {
+      "forbidden": "運用パネルにアクセスできるのはプラットフォーム管理者のみです"
+    },
+    "trend": {
+      "hoursInvalid": "hours は数値である必要があります"
+    },
+    "cleanup": {
+      "previewParamsRequired": "table と older_than_days は必須です",
+      "executeParamsRequired": "table / partitions / confirmed_table は必須です",
+      "tooManyPartitions": "1 回あたり最大 {{max}} 個のパーティションです（IO ピークを抑えるため分割して実行）"
+    },
+    "ttl": {
+      "paramsRequired": "table / days / confirmed_table は必須です"
+    },
+    "mutation": {
+      "tableRequired": "table は必須です"
+    },
+    "dataMgmt": {
+      "tableNotInventoried": "テーブルが棚卸し対象外です（許可：{{allowed}}）",
+      "tableNameInvalid": "テーブル名は db.table 形式である必要があります",
+      "tableConfirmMismatch": "確認用テーブル名が一致しません：入力「{{confirmed}}」≠ 対象「{{table}}」",
+      "noExecutablePartition": "実行可能なパーティションがありません（すべて拒否：{{rejected}}）",
+      "ttlTimeColumnMissing": "テーブルに TTL 時間列が登録されていません（許可：{{allowed}}）",
+      "ttlDaysInvalid": "TTL の日数は 1〜3650 の整数である必要があります",
+      "ttlSetFailed": "TTL の設定に失敗しました：{{message}}",
+      "preflight": "クリーンアップ前に {{required_to}} を含む通過済みの突合が必要です。現在の状態：{{reason}}"
+    },
+    "logCleanup": {
+      "retainDaysInvalid": "保持日数は 1〜365 の整数である必要があります",
+      "pathNotAllowed": "フォルダーが管理ホワイトリストにありません：{{path}}",
+      "pathRequired": "path は必須です"
+    },
+    "reconcile": {
+      "forbidden": "突合設定を変更できるのはプラットフォーム管理者のみです",
+      "runAtInvalid": "実行時刻は HH:mm 形式で指定してください（プラットフォームのタイムゾーン）",
+      "thresholdInvalid": "偏差しきい値は 0〜100 のパーセントで指定してください",
+      "staleOrderInvalid": "期限切れ（赤）しきい値は古い（黄）しきい値より大きい必要があります",
+      "staleHoursInvalid": "期限切れしきい値は 1〜720 の整数時間で指定してください"
+    },
+    "retention": {
+      "tableNotInventoried": "保持ポリシーの対象外のテーブルです（許可：{{allowed}}）",
+      "keepDaysInvalid": "保持日数は 1〜3650 の整数で指定してください",
+      "keepDaysRequired": "keep_days は必須です"
+    },
+    "dataDelete": {
+      "paramsRequired": "kind / table / project は必須です",
+      "executeParamsRequired": "kind / table / project / confirm_table / confirm_token は必須です",
+      "tableConfirmMismatch": "確認した表名が一致しません：入力 \"{{confirmed}}\" ≠ 対象 \"{{table}}\"",
+      "cleanupAccountMissing": "クリーンアップアカウントが未設定です（CLICKHOUSE_CLEANUP_PASSWORD 未注入）。実行を拒否しました",
+      "rowsExceeded": "影響行数は約 {{rows}} 行で、1 回の上限 {{max}} を超えています。イベント単位または期間を狭めて分割実行してください",
+      "tokenInvalid": "確認トークンが無効または期限切れです（条件または行数が変化。再度予行してください）",
+      "preflight": "削除前に {{required_to}} を含む通過済みの突合が必要です。現在の状態：{{reason}}",
+      "nothingToDelete": "条件に一致する行がありません",
+      "backupFailed": "削除前のバックアップに失敗し中止しました（データは削除されていません）：{{message}}",
+      "executeFailed": "削除に失敗しました：{{message}}（バックアップ表から復元可能）",
+      "tableNotAllowed": "表はポイント削除の許可リストにありません：{{table}}",
+      "communityRefused": "コミュニティ版の表は削除できません（レッドライン 1）：{{table}}",
+      "kindNotAllowed": "この表はその削除条件に対応していません：{{kind}}",
+      "projectInvalid": "プロジェクト名の形式が不正です：{{project}}",
+      "eventInvalid": "イベント名の形式が不正です：{{event}}",
+      "beforeRequired": "before は必須です（その日付より前の stat_date を削除）",
+      "beforeInFuture": "before は今日より後にできません（未来データは「未来日時」条件を使用）",
+      "toInFuture": "to は今日より後にできません（未来データは「未来日時」条件を使用）",
+      "rangeInvalid": "from は to より後にできません",
+      "dateInvalid": "{{field}} は YYYY-MM-DD 形式で指定してください",
+      "mutationRunning": "{{table}} に未完了の mutation があります。完了してから削除してください（IO 保護）"
+    },
+    "metaReconcile": {
+      "windowTooWide": "{{days}} 日のウィンドウは ClickHouse の見積り上限を超えています。window_days を小さく（既定 7 日）するか、より古い履歴は scripts/reconcile.sh を使用してください"
+    },
+    "projectRetire": {
+      "projectRequired": "project は必須です",
+      "notRegistered": "プロジェクトが未登録です：{{project}}（綴りを確認）",
+      "stillWriting": "直近 24 時間に {{rows}} 行の書き込みがあります。先にこのプロジェクトの上报を停止してください",
+      "executeParamsRequired": "project / step / confirm_token は必須です"
+    }
+  },
+  "retention": {
+    "title": "保持ポリシー（想定 × 実態 × 突合の信頼範囲）",
+    "hint": "想定保持期間は手動登録（未登録時は推奨値：sa_events 540 日、コミュニティ版 180 日）。実態は各表の TTL から取得します。",
+    "trusted": "突合の信頼範囲：{{from}} ~ {{to}}（両側の保持期間の小さい方 = {{days}} 日）",
+    "trustedUnbounded": "突合の信頼範囲：どちら側も保持期間が未設定のため、実際のデータ範囲で比較します",
+    "trustedBoundBy": "{{table}} の {{days}} 日保持によって制限（どの表を整理してもその期間の比較は不正確になります）",
+    "suspicious": "疑わしい日付パーティションが {{count}} 件（未来パーティション / 信頼範囲より古い履歴ゴミ）。既定では通知のみで自動削除しません",
+    "suspiciousKind": {
+      "future": "未来パーティション",
+      "ancient": "履歴ゴミ"
+    },
+    "column": {
+      "table": "テーブル",
+      "expected": "想定保持",
+      "actual": "実態保持（TTL）",
+      "status": "状態"
+    },
+    "suggested": "（推奨値）",
+    "actualUnset": "未設定（リスク）",
+    "status": {
+      "ok": "ポリシー適合",
+      "unset": "未設定（リスク）",
+      "deviates": "ポリシー逸脱",
+      "disabled": "ポリシー無効"
+    },
+    "register": "登録",
+    "dialogTitle": "想定保持の登録：{{table}}",
+    "save": "保存",
+    "fieldKeepDays": "保持日数",
+    "fieldKeepDaysHint": "登録するのは「目標」です。実際に効くのは表の TTL（下の TTL 設定で適用）です",
+    "fieldEnabled": "ポリシーを有効化",
+    "fieldRemark": "メモ"
+  },
+  "quality": {
+    "title": "データ品質 / 整合性の突合",
+    "runningHint": "突合中：1 日分の全件カウントには約 20〜40 秒かかります。ページを閉じないでください…",
+    "idleHint": "sa_events と log_analysis を突合します（デフォルトは昨日、最大 3 日、約 30 秒）",
+    "start": "突合を開始",
+    "cachedTag": "キャッシュ結果 · 前回の突合 {{time}}",
+    "justFinishedTag": "突合が完了しました {{time}}",
+    "cachedHint": "表示中は**最新スナップショット**です（日次総量・イベント単位の差異・クリーンアップ済み範囲）。メタデータ検出ログは別途最新 50 件を直接読み込みます。最新の結果は「突合を開始」で取得してください。",
+    "emptyHint": "突合結果がまだありません。右上の「突合を開始」をクリックして初回の突合を実行してください（約 30 秒）。以降はページを開くとキャッシュ結果がすぐに表示されます。",
+    "reportEmpty": "突合データがありません。期間を選択して「突合を開始」をクリックしてください",
+    "normal": "正常",
+    "abnormal": "異常",
+    "pass": "合格",
+    "column": {
+      "date": "日付",
+      "saRows": "sa_events 行数",
+      "crcUniq": "CRC ユニーク数",
+      "rawRows": "log_analysis 行数",
+      "deviation": "偏差 %",
+      "source": "ソース",
+      "rows": "行数",
+      "changeType": "変更タイプ",
+      "prop": "プロパティ",
+      "change": "変更内容",
+      "discoveredAt": "検出日時",
+      "diff": "差（sa - raw）",
+      "skippedRange": "クリーンアップ範囲",
+      "skippedWhy": "理由",
+      "skippedSource": "操作と日時"
+    },
+    "change": {
+      "eventCreated": "イベント新規作成",
+      "propertyCreated": "新規プロパティ（{{value}}）",
+      "userPropertyCreated": "新規ユーザープロパティ ({{value}})",
+      "userPropertyHidden": "ユーザープロパティを非表示にしました",
+      "userPropertyActive": "ユーザープロパティを有効化しました"
+    },
+    "alert": {
+      "title": "データ整合性の異常を検出しました",
+      "desc": "{{days}}/{{total}} 日でしきい値（{{threshold}}%）を超える偏差、または {{dup}} 行の重複 CRC が見つかりました。ingestor のデータ欠落や定義の差異を確認してください。"
+    },
+    "ok": {
+      "title": "データ整合性は正常です",
+      "desc": "{{from}} 〜 {{to}} の突合偏差はすべてしきい値 {{threshold}}% 以内で、CRC の重複はありません。"
+    },
+    "stat": {
+      "days": "突合日数",
+      "daysSuffix": "日 / 異常 {{count}} 日",
+      "dupCrc": "重複 CRC",
+      "rowsSuffix": "行",
+      "crcUnique": "CRC ユニーク性",
+      "skippedDays": "クリーンアップ日数",
+      "outOfRetention": "保持期間外の日数"
+    },
+    "scope": {
+      "range": "突合範囲",
+      "threshold": "偏差しきい値",
+      "total": "総量",
+      "trigger": "実行契機",
+      "ignored": "無視イベント数"
+    },
+    "table": {
+      "daily": "日次総量の突合",
+      "events": "イベント単位の件数比較（sa_events vs log_analysis）",
+      "discovery": "最近のメタデータ変更",
+      "discoveryHint": "（自動検出された新規イベント / プロパティ / プロパティタイプ変更、計 {{count}} 件）",
+      "diffs": "イベント単位の差異 Top（sa - raw）",
+      "diffsHint": "（計数が一致しないイベントは {{count}} 件、差分の絶対値で上位 20 件）",
+      "onlyInOne": "片側にのみ存在（反対側は 0 件）",
+      "skipped": "クリーンアップ範囲（アラート対象外）"
+    },
+    "skipped": "スキップ",
+    "skippedReason": {
+      "cleaned": "クリーンアップ済み"
+    },
+    "ignored": {
+      "title": "無視リストにより {{count}} 件のイベントを除外しました"
+    },
+    "trigger": {
+      "auto": "定時実行",
+      "manual": "手動実行",
+      "cli": "運用スクリプト"
+    },
+    "stale": {
+      "warnTitle": "突合スナップショットが古くなっています",
+      "errorTitle": "突合スナップショットが期限切れです",
+      "desc": "直近の突合は {{time}}（{{hours}} 時間前、{{warn}} 時間を超過）。結論が現状を表していない可能性があります。再実行するか、定期実行を確認してください。"
+    },
+    "config": {
+      "button": "突合設定",
+      "title": "突合設定（低負荷時間帯の定期実行としきい値）",
+      "save": "保存",
+      "enabled": "定期突合を有効化",
+      "enabledOn": "有効",
+      "enabledOff": "無効",
+      "runAt": "実行時刻",
+      "runAtHint": "プラットフォームのタイムゾーンで HH:mm。時刻到達後の次のチェック周期（5 分以内）に実行します。",
+      "runAtInvalid": "HH:mm 形式で入力してください",
+      "threshold": "偏差しきい値（%）",
+      "thresholdHint": "その日の |偏差| がこの割合を超えるとアラート。口径が収束するまでは 3〜5% 程度から始めることを推奨します。",
+      "ignoreEvents": "無視イベント一覧",
+      "ignoreEventsHint": "1 行に 1 つのイベント名。既知の口径差があるイベントは先に除外して毎日のアラートを避けます。",
+      "skipEmpty": "空の event を両側で対称に除外",
+      "skipEmptyHint": "sa 側とコミュニティ版側を同じ口径に：event が空の行はどちらも集計しません",
+      "staleWarn": "古い（黄）時間",
+      "staleError": "期限切れ（赤）時間",
+      "updatedAt": "設定更新"
+    },
+    "changeType": {
+      "eventCreated": "新規イベント",
+      "propertyCreated": "新規プロパティ",
+      "propertyTypeChanged": "プロパティ型の変更",
+      "userPropertyCreated": "新規ユーザープロパティ",
+      "userPropertyTypeChanged": "ユーザープロパティ型の変更",
+      "userPropertyHidden": "ユーザープロパティ非表示",
+      "userPropertyActive": "ユーザープロパティ有効化"
+    },
+    "outOfRetention": "保持期間外（比較対象外）",
+    "outOfRetentionShort": "保持期間外",
+    "guide": {
+      "title": "このページの役割",
+      "whatTitle": "役割",
+      "whatBody": "これはサイドパスの整合性検証です。当方 ingestor が書き込む sa_events と、コミュニティ版 Flink が書き込む log_analysis を日単位で突合し、消費停止・静默なデータ欠落・重複書き込みを検出します。すべて読み取り専用で業務データは変更しません。既定では毎日低負荷時間帯（プラットフォーム時点 03:30）に前日分を自動で突合し、結果をスナップショットとして保存します。",
+      "termsTitle": "主な用語",
+      "terms": {
+        "range": "突合範囲：既定は前日 1 日。手動でも最大 3 日（単一ノードのメモリ保護のため。過去の OOM 事故後に設定）。",
+        "threshold": "しきい値：その日の |偏差| がこれを超えたときだけ異常と判定します（単位は %）。現在値は上の設定行を参照。",
+        "crc": "CRC 一意性：当方データ内のみで近似重複排除。重複行が 0.5% を超えたときだけ異常（近似アルゴリズムには誤差があります）。",
+        "trusted": "信頼範囲：両側の保持期間の小さい方の内側だけが比較対象。外れた日付は「保持期間外」として異常に数えません。",
+        "skipped": "クリーンアップ済み範囲：DROP PARTITION / TTL で意図的に削除した期間は「クリーンアップ済み」としてアラート対象外。",
+        "stale": "スナップショットの鮮度：古い（黄）/期限切れ（赤）の場合、表示内容は現状を表しません。再実行するか定期実行を確認してください。",
+        "events": "イベント単位の差異 Top：両側に存在し計数が異なるイベントを差分の絶対値で上位 20 件。「片側のみ」は反対側が 0 のイベント。"
+      },
+      "howTitle": "結果の読み方",
+      "how": {
+        "step1": "日次偏差が長期に +1%〜+2% にあるのは既知の構造的な口径差です（コミュニティ版が Android のエラー/再試行系イベントを少なく計上。口径ホワイトペーパー参照）。データ欠落ではありません。",
+        "step2": "すぐ調査すべき兆候：偏差が負に転じる（当方が少ない）、あるイベントの計数がゼロになる、差異一覧に新しいイベント種別が突然現れる。",
+        "step3": "「保持期間外」「クリーンアップ済み」の日付は異常日数に数えません。CRC が異常なら当方に重複書き込みの可能性があります。",
+        "step4": "手動の上限 3 日は意図的なメモリ保護です。より長い期間は低負荷の大範囲ジョブ（サーバーで scripts/reconcile.sh --type=range）を使ってください。"
+      },
+      "whoTitle": "誰が何をするか",
+      "who": {
+        "admin": "プラットフォーム管理者：右上「突合設定」でしきい値・無視リスト・期限しきい値を変更し、失敗/期限切れ通知に対応します。",
+        "oncall": "オンコール：まず「イベント単位の差異 Top」で「新しいイベント種別」か「あるイベントの全体消失」かを判断し、次に両側の日次総量トレンドを見ます。",
+        "analyst": "アナリスト：このページは業務分析向けではありません。連携の健全性は「運用 → データ運用 → データヘルス」で確認します。"
+      },
+      "footnote": "帰属の結論と実測データはリポジトリの docs/product/research-clklog-reconcile-caliber-v1.md を参照。"
+    }
+  },
+  "dataCleanup": {
+    "unregisteredTitle": "データ ↔ メタデータ突合",
+    "refresh": "更新",
+    "unregisteredHint": "{{from}} 以降：データ {{data}} / メタデータ {{meta}}。未登録は下記",
+    "colEvent": "イベント",
+    "colRows": "行数",
+    "colRange": "日付範囲",
+    "colFuture": "未来日付",
+    "futureYes": "未来あり",
+    "useEvent": "このイベントで削除",
+    "useFuture": "未来日付を削除",
+    "ghostTitle": "ゴースト登録 {{count}} 件（メタデータにありデータに無い）",
+    "deleteTitle": "ポイント削除（ALTER DELETE）",
+    "deleteHint": "まず予行で影響を確認し、表名を入力して実行します。実行前にバックアップし監査を記録します。コミュニティ版の表は削除できません。",
+    "kind.event": "イベントで",
+    "kind.project": "プロジェクトで",
+    "kind.before": "指定日より前",
+    "kind.future": "未来日時",
+    "eventPlaceholder": "イベント名（例：$SignUp）",
+    "beforePlaceholder": "この日付より前 YYYY-MM-DD",
+    "preview": "予行",
+    "previewResult": "約 {{rows}} 行（{{from}} ~ {{to}}）",
+    "backupHint": "事前突合は通過。実行前に {{backup}} へ自動バックアップします",
+    "preflightBlocked": "事前突合が未達（{{reason}}）。データ品質ページで先に実行してください",
+    "cleanupMissing": "クリーンアップアカウント未設定のためポイント削除は使えません",
+    "rowsExceeded": "影響行数が 1 回の上限 {{max}} を超えています。分割してください",
+    "confirmPlaceholder": "確認のため表名を入力：{{table}}",
+    "execute": "削除を実行（{{rows}} 行）",
+    "done": "削除を受け付けました（約 {{rows}} 行）",
+    "doneDetail": "バックアップ {{backup}}｜mutation {{mutation}}。バックグラウンドで削除中。突合では「クリーンアップ済み」に登録済み",
+    "colAction": "操作",
+    "unregisteredFailed": "未登録イベントの取得に失敗：{{message}}",
+    "window": "突合期間",
+    "windowDays": "{{days}} 日"
+  },
+  "projectRetire": {
+    "title": "プロジェクト退役の予行",
+    "communityNote": "コミュニティ版 clklog.*（log_analysis と集計 18 表）には project の概念がないため、プロジェクト単位の削除はできません。使用量を減らすには保持ポリシー/TTL で期間を絞ってください",
+    "step": {
+      "stopWrites": "先にこのプロジェクトの上报を停止し（API キー無効化／SDK 停止）、直近 24 時間の書き込みがゼロになることを確認します",
+      "execution": "退役を実行：sa 側は表ごとに削除（メンバー表は DROP PARTITION、それ以外は ALTER DELETE）、MySQL は表ごとに削除",
+      "backupAudit": "実行前に削除対象行をバックアップファイルへ書き出し、監査を記録します（action=project_retire）"
+    },
+    "result": {
+      "saDone": "sa 側は完了（{{tables}} 表）",
+      "saPartial": "sa 側は一部完了：大きな表が 1 回の予算を超えました。再実行してください",
+      "mysqlDone": "MySQL 側で {{rows}} 行を削除しました"
+    },
+    "getToken": "確認トークンを取得"
+  }
+}

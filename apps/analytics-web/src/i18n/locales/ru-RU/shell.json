@@ -1,0 +1,58 @@
+{
+  "document": {
+    "title": "Аналитика Candela"
+  },
+  "menu": {
+    "report": "Отчёты",
+    "dashboards": "Дашборды",
+    "cards": "Карточки анализа",
+    "analysis": "Анализ",
+    "event": "Анализ событий",
+    "funnel": "Анализ воронки",
+    "retention": "Анализ удержания",
+    "sql": "Свой SQL",
+    "user": "Пользователи",
+    "cohorts": "Когорты",
+    "tags": "Теги",
+    "subjects": "Субъекты анализа",
+    "meta": "План трекинга",
+    "events": "События",
+    "virtualProperties": "Виртуальные свойства",
+    "eventAttributes": "Атрибуты событий",
+    "userProperties": "Свойства",
+    "virtualEvents": "Виртуальные события",
+    "data": "Управление данными",
+    "onboarding": "Подключение",
+    "metrics": "Метрики",
+    "debug": "Debug",
+    "quality": "Качество данных",
+    "datatables": "Таблицы данных",
+    "iam": "Доступ к проекту",
+    "members": "Участники",
+    "groups": "Группы участников",
+    "roles": "Роли",
+    "dataPolicies": "Права на данные",
+    "ops": "Эксплуатация",
+    "slowQueries": "Медленные SQL",
+    "serverStatus": "Состояние сервера",
+    "alerts": "Оповещения",
+    "dataManagement": "Операции с данными",
+    "settings": "Настройки",
+    "profile": "Профиль",
+    "projectOwners": "Настройки проекта",
+    "apiKeys": "API Key",
+    "aiWorkspace": "AI Workspace",
+    "logout": "Выйти",
+    "users": "Пользователи",
+    "userTimeline": "Хронология"
+  },
+  "header": {
+    "collapseMenu": "Свернуть меню",
+    "expandMenu": "Развернуть меню",
+    "openMenu": "Открыть меню",
+    "menu": "Меню"
+  },
+  "drawer": {
+    "title": "Аналитика Candela"
+  }
+}

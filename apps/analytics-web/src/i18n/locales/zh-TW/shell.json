@@ -1,0 +1,58 @@
+{
+  "document": {
+    "title": "Candela 分析平台"
+  },
+  "menu": {
+    "report": "報表",
+    "dashboards": "看板清單",
+    "cards": "分析卡片",
+    "analysis": "分析",
+    "event": "事件分析",
+    "funnel": "漏斗分析",
+    "retention": "留存分析",
+    "sql": "自訂 SQL",
+    "user": "使用者",
+    "cohorts": "使用者分群",
+    "tags": "使用者標籤",
+    "subjects": "分析主體",
+    "meta": "埋點管理",
+    "events": "元事件",
+    "virtualProperties": "虛擬屬性",
+    "eventAttributes": "事件屬性",
+    "userProperties": "使用者屬性",
+    "virtualEvents": "虛擬事件",
+    "data": "資料管理",
+    "onboarding": "接入指南",
+    "metrics": "指標",
+    "debug": "Debug",
+    "quality": "資料品質",
+    "datatables": "資料表",
+    "iam": "專案權限",
+    "members": "成員管理",
+    "groups": "成員群組",
+    "roles": "角色管理",
+    "dataPolicies": "資料權限",
+    "ops": "運維",
+    "slowQueries": "慢 SQL",
+    "serverStatus": "伺服器狀態",
+    "alerts": "監控告警",
+    "dataManagement": "資料運維",
+    "settings": "設定",
+    "profile": "個人設定",
+    "projectOwners": "專案設定",
+    "apiKeys": "API Key 管理",
+    "aiWorkspace": "AI Workspace",
+    "logout": "登出",
+    "users": "用戶管理",
+    "userTimeline": "使用者行為序列"
+  },
+  "header": {
+    "collapseMenu": "收起選單",
+    "expandMenu": "展開選單",
+    "openMenu": "開啟選單",
+    "menu": "選單"
+  },
+  "drawer": {
+    "title": "Candela 分析"
+  }
+}

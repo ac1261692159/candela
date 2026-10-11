@@ -1,0 +1,542 @@
+{
+  "tab": {
+    "overview": "Ringkasan",
+    "rules": "Strategi",
+    "history": "Riwayat",
+    "mute": "Bisukan",
+    "notifications": "Catatan notifikasi",
+    "templates": "Templat notifikasi",
+    "channels": "Konfigurasi saluran",
+    "contacts": "Kontak",
+    "audits": "Catatan perubahan"
+  },
+  "workbench": {
+    "title": "Peringatan pemantauan",
+    "firing": "Saat ini ada {{count}} peringatan yang terpicu",
+    "noContact": "Tidak ada kontak aktif sehingga peringatan tidak dikirim keluar",
+    "noContactHint": "Tambahkan kontak di tab “Kontak” dan biarkan aktif; jika aturan tidak mengikat kontak, peringatan dikirim ke semua kontak aktif.",
+    "brokenRules": "{{count}} aturan saat ini tidak valid",
+    "brokenRulesHint": "{{names}}: metrik yang terikat sudah dihapus atau evaluasi gagal beberapa siklus berturut-turut, sehingga aturan ini tidak akan terpicu (lihat kolom kesehatan di tab “Strategi”).",
+    "notifyFail24h": "Dalam 24 jam terakhir ada {{count}} pengiriman notifikasi yang gagal",
+    "notifyFail24hHint": "Hanya dicatat setelah tiga kali percobaan ulang masih gagal; lihat alasan kegagalan di tab “Catatan notifikasi”."
+  },
+  "overview": {
+    "firedToday": "Terpicu hari ini",
+    "unresolved": "Belum pulih",
+    "notifyFailToday": "Notifikasi gagal hari ini",
+    "firingEmpty": "Saat ini tidak ada peringatan yang terpicu",
+    "topRules": "Aturan paling sering terpicu hari ini",
+    "topRulesEmpty": "Belum ada pemicuan hari ini",
+    "fireCount": "Jumlah pemicuan"
+  },
+  "status": {
+    "firing": "Terpicu",
+    "normal": "Normal",
+    "resolved": "Sudah pulih"
+  },
+  "severity": {
+    "label": "Tingkat",
+    "alertLevel": "Tingkat peringatan",
+    "critical": "Kritis",
+    "warning": "Peringatan",
+    "info": "Informasi"
+  },
+  "kind": {
+    "fire": "Peringatan terpicu",
+    "resolve": "Peringatan pulih"
+  },
+  "rule": {
+    "label": "Aturan",
+    "createMetric": "Buat peringatan metrik",
+    "editTitle": "Ubah kondisi pemicuan",
+    "editTitleNamed": "Ubah kondisi pemicuan · {{name}}",
+    "saving": "Menyimpan",
+    "editorHint": "Siklus pemeriksaan tetap setiap 60 detik. Jendela × durasi anomali = jumlah pelanggaran berurutan sebelum peringatan dikirim. Aturan bawaan tidak dapat dihapus.",
+    "editorMetricHint": "Nilai metrik dievaluasi secara waktu nyata melalui jalur kueri yang sama dengan workbench.",
+    "targetMetric": "Metrik yang dipantau",
+    "target": "Objek pemantauan",
+    "metricTag": "Metrik manajemen data",
+    "comparator": "Relasi perbandingan",
+    "threshold": "Ambang",
+    "statWindow": "Jendela statistik",
+    "statWindowHint": "Analisis peristiwa disaring per hari (stat_date) sehingga jendelanya dalam satuan hari, bukan menit; “Hari ini” adalah nilai akumulatif hari berjalan",
+    "windowMinutesLabel": "Granularitas statistik titik data",
+    "windowMinutesOption": "Statistik {{minutes}} menit",
+    "windowTimes": "{{window}} × {{times}} kali",
+    "windowMinutesTimes": "{{minutes}} menit × {{times}}",
+    "windowDays": "{{days}} hari",
+    "forWindows": "Durasi anomali",
+    "forWindowsHint": "Berapa kali pemeriksaan berturut-turut melewati ambang sebelum terpicu (interval 60 detik)",
+    "timesSuffix": "kali",
+    "repeatInterval": "Interval notifikasi berulang saat terpicu (menit)",
+    "notifyOnResolve": "Kirim notifikasi saat pulih",
+    "timeSourceHint": "Ikuti metrik = pakai waktu kueri milik metrik; ditentukan aturan ini = pakai jendela statistik di bawah",
+    "timeSourceHintMetric": "Jika metrik memiliki waktu kueri sendiri, bawaan mengikuti metrik; aturan ini juga dapat menentukan jendelanya sendiri",
+    "timeFromMetric": "Ikuti metrik",
+    "timeFromMetricWith": "Ikuti metrik ({{window}})",
+    "timeFromRule": "Ditentukan aturan ini",
+    "timeFromRuleNoWindow": "Ditentukan aturan ini (metrik tidak mengatur waktu kueri)",
+    "name": "Nama aturan",
+    "defaultName": "Peringatan {{metric}}",
+    "created": "Peringatan metrik telah dibuat",
+    "metricSource": "Objek peringatan adalah metrik tersimpan di “Manajemen data → Metrik”",
+    "metricSourceHint": "Siklus pemeriksaan 60 detik; peringatan baru terpicu setelah pelanggaran berurutan mencapai jumlah “durasi anomali”. Jendela dihitung per hari (hari ini / N hari terakhir); nilai metrik dievaluasi waktu nyata melalui jalur kueri yang sama dengan workbench dan tidak bergantung pada cache kartu.",
+    "probe": "Uji nilai",
+    "probeFailedPrefix": "Gagal mengambil nilai",
+    "probeFailed": "Gagal mengambil nilai: {{error}}",
+    "probeResult": "Nilai saat ini: {{value}} ({{window}}{{pick}}, waktu {{ms}}ms)",
+    "probePick": " · {{pick}}",
+    "editCondition": "Edit kondisi",
+    "muteQuick": "Bisukan cepat",
+    "allContacts": "Semua kontak aktif",
+    "checkInterval": "Diperiksa setiap 60 detik",
+    "source": {
+      "metric": "Metrik: {{name}}",
+      "builtin": "Operasional"
+    },
+    "column": {
+      "health": "Kesehatan",
+      "condition": "Kondisi",
+      "window": "Jendela / durasi",
+      "currentValue": "Nilai saat ini"
+    },
+    "health": {
+      "metricMissing": "Metrik sudah dihapus",
+      "evalFailed": "Evaluasi gagal",
+      "noContact": "Tanpa kontak"
+    }
+  },
+  "event": {
+    "filterLabel": "Status peristiwa",
+    "firedAt": "Waktu terpicu",
+    "value": "Nilai saat terpicu",
+    "lastSeen": "Pengamatan terakhir"
+  },
+  "notification": {
+    "time": "Waktu",
+    "kindFire": "Terpicu",
+    "kindRepeat": "Berulang",
+    "kindResolve": "Pulih",
+    "result": "Hasil",
+    "error": "Kesalahan"
+  },
+  "contact": {
+    "label": "Kontak",
+    "hint": "Pilih saluran lalu isi sesuai petunjuk; webhook robot grup sudah merupakan kredensial, sedangkan saluran berkredensial (email/SMS/Telegram/WhatsApp) memerlukan kredensial platform yang diisi di halaman “Konfigurasi saluran”. Aturan dapat mengikat **beberapa** kontak (dikirim ke beberapa saluran sekaligus); jika aturan tidak mengikat kontak, peringatan dikirim ke **semua kontak aktif**.",
+    "updated": "Kontak telah diperbarui",
+    "editTitle": "Edit kontak",
+    "editTitleNamed": "Edit kontak · {{name}}",
+    "maskedHint": "Alamat dan kunci ditampilkan tersamarkan di daftar sehingga **tidak diisi ulang**: biarkan kosong untuk mempertahankan nilai lama, dan hanya isi nilai baru untuk menimpanya.",
+    "webhookUrl": "Alamat Webhook",
+    "webhookRequired": "Isi alamat Webhook",
+    "address": "Alamat",
+    "addressLabel": "Alamat penerima",
+    "addressEmail": "Email",
+    "addressChatId": "chat_id (misalnya -1001234567890)",
+    "addressWhatsapp": "Nomor (E.164, misalnya 8613800138000)",
+    "addressSms": "Nomor ponsel (misalnya +8613800138000)",
+    "secret": "Kunci",
+    "secretOptional": "Kunci (opsional)",
+    "secretHint": "Kunci tanda tangan Feishu/DingTalk; biarkan kosong jika robot tidak mengaktifkan verifikasi tanda tangan",
+    "smsProvider": "Penyedia SMS",
+    "smsProviderHint": "Biarkan kosong untuk memakai penyedia aktif bawaan platform",
+    "disableHint": "Jika dinonaktifkan, tidak dikirim",
+    "bodyTemplateHint": "Templat body dengan placeholder yang sama seperti templat peringatan, ditambah {{text}} dan {{textJson}}",
+    "bodyTemplatePlaceholder": "Templat body (opsional, bawaan {\"text\":\"{{textJson}}\"})",
+    "alertContacts": "Kontak peringatan",
+    "multiHint": "Bisa memilih beberapa; saat aturan terpicu, peringatan dikirim ke semua kontak yang terikat. Jika tidak dipilih, dikirim ke semua kontak aktif",
+    "multiExtra": "Bisa memilih beberapa (dikirim ke beberapa saluran sekaligus); tidak dipilih = dikirim ke semua kontak aktif",
+    "noneSelected": "Tidak dipilih = semua kontak aktif",
+    "disabledName": "{{name}} (nonaktif)",
+    "locale": "Bahasa",
+    "localeDefault": "Bawaan platform",
+    "localeHint": "Notifikasi dirender menurut bahasa penerima; biarkan kosong untuk memakai bahasa bawaan platform",
+    "timezone": "Zona waktu",
+    "timezoneHint": "Waktu terpicu/pulih pada notifikasi dirender menurut zona waktu ini; kosong = zona waktu proyek/platform",
+    "timezoneDefault": "Ikuti proyek/platform"
+  },
+  "channel": {
+    "label": "Saluran",
+    "feishu": "Feishu",
+    "dingtalk": "DingTalk",
+    "wecom": "WeCom",
+    "webhook": "Webhook umum",
+    "email": "Email",
+    "sms": "SMS",
+    "telegram": "Telegram",
+    "whatsapp": "WhatsApp",
+    "configMissing": "Belum dikonfigurasi: {{names}}",
+    "unavailable": "Saluran ini saat ini tidak tersedia",
+    "pageHint": {
+      "title": "Yang dikonfigurasi di sini adalah saluran “berkredensial”",
+      "body": "Webhook robot grup (Feishu / DingTalk / WeCom / Webhook umum) sudah merupakan kredensial sehingga diisi di halaman “Kontak”; halaman ini mengonfigurasi SMTP, penyedia SMS, Telegram, dan WhatsApp. Kunci hanya ditulis dan tidak dapat dibaca; setelah disimpan, gunakan “Kirim uji” untuk memverifikasi konektivitas."
+    },
+    "envOnly": "Variabel lingkungan",
+    "notEnabled": "Belum diaktifkan",
+    "pausedTag": "Dijeda",
+    "muted": "Kanal ini dijeda",
+    "mutedOn": "{{channel}} dijeda",
+    "mutedOff": "{{channel}} dilanjutkan",
+    "platformFallbackTag": "Kanal email platform",
+    "platformFallbackNote": "Email dikirim dengan akun SMTP dari “Pengaturan → Pengguna → Kanal email”; tidak perlu mengisi ulang di sini.",
+    "secretTag": "Kunci {{hint}}",
+    "secretTitle": "Kredensial (hanya tulis, tidak baca)",
+    "secretTitleConfigured": "Kredensial (hanya tulis, tidak baca; sudah dikonfigurasi {{hint}})",
+    "pageNote": "Catatan: batas laju resmi DingTalk / WeCom / Telegram semuanya 20 pesan/menit, dan platform telah mengantrekan serta menggabungkan secara otomatis per saluran; tanda tangan dan templat SMS domestik perlu didaftarkan dan disetujui lebih dulu di konsol penyedia, sedangkan AWS SNS tidak memiliki wilayah Tiongkok daratan dan pengiriman ke nomor Tiongkok perlu pendaftaran.",
+    "enableFirst": "Buka “{{channel}}”, isi dan simpan konfigurasinya terlebih dahulu, lalu aktifkan",
+    "enabled": "{{channel}} telah diaktifkan",
+    "disabled": "{{channel}} telah dinonaktifkan",
+    "saved": "Konfigurasi {{channel}} telah disimpan",
+    "sendTest": "Kirim uji",
+    "testSmtp": "Email penerima uji",
+    "testChatId": "chat_id uji",
+    "testPhone": "Nomor penerima uji",
+    "testTarget": "Target uji (tidak disimpan ke database)",
+    "testOk": "Uji berhasil",
+    "testFail": "Uji gagal",
+    "testError": "{{detail}}: {{error}}",
+    "lastModified": "Terakhir diubah oleh {{user}}"
+  },
+  "channelGroup": {
+    "chat": "Robot grup dan IM",
+    "email": "Email",
+    "sms": "SMS"
+  },
+  "channelConfig": {
+    "helpTitle": "Cara mengonfigurasi {{channel}}",
+    "muteLabel": "Jeda pengiriman",
+    "muteHint": "Menjeda tetap menyimpan konfigurasi dan secret, tetapi kanal ini tidak mengirim peringatan apa pun (fallback email platform juga diblokir). \"Kirim uji\" tetap bisa dipakai memverifikasi kredensial.",
+    "smtp": {
+      "label": "Email (SMTP)",
+      "hint": "Sebaiknya gunakan akun pengirim khusus beserta kode otorisasi; setelah disimpan, “Kirim uji” akan memeriksa konektivitas lalu benar-benar mengirim satu email.",
+      "field": {
+        "host": "Server SMTP",
+        "port": "Port",
+        "secure": "SSL/TLS (biasanya aktif pada 465)",
+        "user": "Nama pengguna",
+        "from": "Pengirim",
+        "fromPlaceholder": "Peringatan Candela <alerts@example.com>",
+        "pass": "Kata sandi / kode otorisasi"
+      },
+      "help": "1. Persiapan: pakai kotak surat khusus pengirim, aktifkan SMTP di panel penyedia, lalu buat **kata sandi aplikasi** — sebagian besar penyedia menolak pengiriman dengan kata sandi login.\n2. Isi: host + port (465 dengan SSL/TLS aktif; 587 dengan STARTTLS). Alamat pengirim harus sama dengan pengguna SMTP, jika tidak penyedia menolak surat.\n3. Verifikasi: \"Kirim uji\" memeriksa koneksi lalu benar-benar mengirim satu surel; bila gagal akan tampil error mentah penyedia (autentikasi gagal / pengirim tidak cocok / kena batas laju). Cukup sekali atur untuk seluruh platform: simpan akun yang sama di \"Pengaturan → Pengguna → Kanal email\", peringatan akan memakai akun itu sebagai cadangan."
+    },
+    "telegram": {
+      "label": "Telegram",
+      "hint": "Buat bot lewat @BotFather untuk mendapatkan Token; di sisi kontak cukup isi chat_id. Tiongkok daratan memerlukan proksi keluar; api_base dapat diarahkan ke layanan Bot API mandiri.",
+      "help": "1. Persiapan: cari @BotFather di Telegram → kirim /newbot (nama pengguna harus berakhiran \"bot\") → tempel Token ke \"Bot Token\" di bawah lalu simpan; setelah itu **buka bot ini di Telegram Anda dan tekan START** — bot tidak bisa memulai percakapan sendiri, melewati langkah ini membuat uji kirim gagal dengan chat not found.\n2. Isi: chat_id kontak adalah ID numerik yang dibalas @userinfobot (pada chat pribadi itu ID pengguna Anda); untuk grup, masukkan bot ke grup dulu lalu matikan mode privasi lewat /setprivacy di BotFather, kalau tidak bot tidak melihat pesan grup.\n3. Verifikasi: \"Kirim uji\" benar-benar mengirim satu pesan dan menampilkan error mentah Telegram bila gagal (mis. chat not found); bila server tidak bisa menjangkau Telegram, ubah \"Alamat API\" menjadi server Bot API sendiri (kosong = api.telegram.org resmi).",
+      "field": {
+        "apiBase": "Alamat API (boleh kosong; bawaan resmi)",
+        "botToken": "Bot Token"
+      }
+    },
+    "whatsapp": {
+      "label": "WhatsApp (Cloud API)",
+      "hint": "Memerlukan verifikasi Meta Business + pendaftaran nomor + peninjauan templat; peringatan bersifat business-initiated sehingga di luar jendela hanya pesan templat yang dapat dikirim, dan templat harus memuat 1–4 variabel (aturan/nilai saat ini/kondisi/proyek).",
+      "field": {
+        "phoneNumberId": "Phone Number ID",
+        "templateName": "Nama templat",
+        "templateLang": "Bahasa templat",
+        "paramCount": "Jumlah variabel templat (1–4)",
+        "apiVersion": "Versi Graph API",
+        "accessToken": "System User Token"
+      },
+      "help": "1. Persiapan: akun Meta Business terverifikasi dan nomor WhatsApp Business terdaftar; ambil Phone Number ID di panel Meta.\n2. Isi: Phone Number ID, nama template, bahasa template (mis. zh_CN), dan jumlah parameter (1–4). Peringatan bersifat dimulai bisnis: teks bebas hanya dalam 24 jam sejak pesan terakhir penerima, di luar itu wajib template yang sudah disetujui.\n3. Verifikasi: nomor kontak format E.164 tanpa \"+\"; \"Kirim uji\" mengirim satu pesan dengan variabel contoh dan bila gagal menampilkan kode error mentah dari Meta (template belum disetujui / jumlah parameter salah / nomor tidak ada di daftar uji)."
+    },
+    "smsAliyun": {
+      "label": "SMS Alibaba Cloud",
+      "hint": "Tanda tangan dan templat harus didaftarkan serta disetujui lebih dulu di konsol Alibaba Cloud; templat memerlukan satu variabel untuk menerima ringkasan (contoh ${content}).",
+      "field": {
+        "signName": "Nama tanda tangan",
+        "templateCode": "Code templat",
+        "endpoint": "Endpoint (boleh kosong)",
+        "accessKeyId": "AccessKey ID",
+        "accessKeySecret": "AccessKey Secret"
+      },
+      "help": "1. Persiapan: aktifkan Aliyun SMS dan **ajukan persetujuan tanda tangan serta template**; cukup AccessKey RAM dengan izin khusus SMS.\n2. Isi: AccessKey ID / Secret, nama tanda tangan, CODE template (seperti SMS_xxxxxxx), dan region. Isi pesan dibatasi template; platform hanya mengirim ringkasan satu baris.\n3. Verifikasi: nomor penerima format E.164 (mis. 8613800138000); bila gagal akan tampil kode error mentah Aliyun (tanda tangan belum disetujui / parameter salah / saldo kurang) — cek di dokumentasi Aliyun."
+    },
+    "smsTencent": {
+      "label": "SMS Tencent Cloud",
+      "hint": "Memerlukan aplikasi konsol (SmsSdkAppId) beserta tanda tangan dan templat yang sudah ditinjau; templat memerlukan satu variabel untuk menerima ringkasan.",
+      "field": {
+        "sdkAppId": "SmsSdkAppId",
+        "signName": "Nama tanda tangan",
+        "templateId": "ID templat",
+        "region": "Wilayah",
+        "secretId": "SecretId",
+        "secretKey": "SecretKey"
+      },
+      "help": "1. Persiapan: aktifkan Tencent Cloud SMS, buat **tanda tangan** dan **template isi**, lalu tunggu persetujuan; sebaiknya pakai kunci sub-akun dengan izin minimal.\n2. Isi: SDK AppID, SecretId / SecretKey, isi tanda tangan, ID template, dan region (mis. ap-guangzhou). Platform hanya mengirim ringkasan satu baris.\n3. Verifikasi: bila gagal akan tampil kode error mentah Tencent (tanda tangan atau template belum disetujui / jumlah parameter salah / saldo kurang)."
+    },
+    "smsAws": {
+      "label": "AWS SNS",
+      "hint": "SMS SNS tidak memiliki wilayah cn-* (Tiongkok daratan tidak dapat dikirimi); pengiriman ke nomor Tiongkok perlu didaftarkan ke AWS Support; sandbox bawaan hanya dapat mengirim ke nomor yang sudah diverifikasi.",
+      "field": {
+        "region": "Region",
+        "accessKeyId": "AccessKey ID",
+        "secretAccessKey": "Secret Access Key"
+      },
+      "help": "1. Persiapan: aktifkan SNS di akun AWS. SNS **dimulai dalam mode sandbox**: tambahkan nomor penerima ke allowlist atau minta akses produksi. Catatan: SNS tidak punya region cn-* — mengirim ke nomor Tiongkok perlu pengajuan terpisah.\n2. Isi: AccessKey / Secret, region (mis. ap-southeast-1), dan Sender ID (wajib di sebagian region).\n3. Verifikasi: bila gagal akan tampil error mentah SNS (sandbox belum dibuka / region tidak didukung / izin kurang / nomor belum diverifikasi)."
+    },
+    "smsTwilio": {
+      "label": "Twilio",
+      "hint": "Saluran luar negeri/disaster recovery tanpa batasan wilayah; nomor From perlu diverifikasi atau dibeli di sisi Twilio.",
+      "field": {
+        "fromNumber": "Nomor From (E.164)",
+        "accountSid": "Account SID",
+        "authToken": "Auth Token"
+      },
+      "help": "1. Persiapan: beli atau minta nomor pengirim (Sender) di akun Twilio; akun uji hanya bisa mengirim ke nomor terverifikasi.\n2. Isi: Account SID, Auth Token, dan nomor From (E.164 dengan \"+\").\n3. Verifikasi: bila gagal akan tampil kode error Twilio beserta keterangannya (nomor tidak mendukung tujuan / penerima belum diverifikasi / saldo kurang)."
+    }
+  },
+  "template": {
+    "kindFire": "Peringatan terpicu",
+    "kindResolve": "Peringatan pulih",
+    "channelChat": "Obrolan grup / Webhook",
+    "saved": "Templat telah disimpan",
+    "reset": "Templat bawaan telah dipulihkan",
+    "hint": {
+      "title": "Isi notifikasi ditentukan oleh templat",
+      "lead": "Templat dikonfigurasi per “jenis peristiwa × grup saluran” (chat mencakup robot grup/IM/Webhook/WhatsApp) dan berlaku untuk semua aturan di proyek ini. Placeholder ditulis di dalam kurung kurawal ganda dan diganti dengan nilai sebenarnya saat notifikasi dikirim; mendukung",
+      "tail": "kondisi. SMS yang dirender dipadatkan spasinya dan dipotong pada 40 karakter."
+    },
+    "isDefault": "Templat bawaan",
+    "customized": "Sudah disesuaikan · {{user}}",
+    "subject": "Subjek email",
+    "body": "Isi notifikasi",
+    "variables": "Placeholder (klik untuk menyisipkan di posisi kursor)",
+    "varTooltip": "{{label}} (contoh: {{sample}})",
+    "refreshPreview": "Segarkan pratinjau",
+    "preview": "Pratinjau",
+    "sampleHint": "Data contoh · tidak dikirim",
+    "previewFailed": "Pratinjau gagal",
+    "previewSubject": "Subjek",
+    "smsNote": "Pengiriman sebenarnya memampatkan spasi dan memotong pada 40 karakter; saat ini {{count}} karakter.",
+    "rendering": "Merender…",
+    "previewEmpty": "Setelah konten di kiri diedit, pratinjau di sini akan disegarkan otomatis."
+  },
+  "mute": {
+    "scope": "Cakupan",
+    "allRules": "Semua aturan",
+    "duration": "Durasi cepat",
+    "pickDuration": "Pilih durasi",
+    "orRange": "Atau rentang",
+    "reason": "Alasan",
+    "reasonPlaceholder": "Opsional",
+    "add": "Tambahkan pembisuan",
+    "added": "Pembisuan telah ditambahkan",
+    "needDuration": "Pilih durasi cepat atau rentang khusus",
+    "presetHours": "{{count}} jam",
+    "presetDays": "{{count}} hari",
+    "muted": "Dibisukan {{duration}}",
+    "start": "Mulai",
+    "end": "Selesai",
+    "release": "Akhiri"
+  },
+  "retention": {
+    "title": "Kebijakan penyimpanan data",
+    "hint": "Tiga cakupan dapat diatur terpisah; dikosongkan berarti **disimpan selamanya**. Pembersihan dijalankan per hari (diperiksa setiap 6 jam) dan tindakan penghapusan dicatat di riwayat perubahan. Menghapus “riwayat peringatan” juga menghapus catatan notifikasinya.",
+    "scope": "Cakupan",
+    "days": "Hari penyimpanan",
+    "keepForever": "Kosong = selamanya",
+    "current": "Saat ini",
+    "forever": "Disimpan selamanya",
+    "daysValue": "{{days}} hari",
+    "saved": "Kebijakan penyimpanan telah disimpan",
+    "scopeLabel": {
+      "events": "Riwayat peringatan",
+      "notifications": "Catatan notifikasi",
+      "audits": "Catatan perubahan"
+    }
+  },
+  "audit": {
+    "hint": "Perubahan pada aturan, kontak, dan pembisuan semuanya tercatat (hanya dapat dilihat super admin); alamat kontak hanya dicatat dalam bentuk tersamarkan.",
+    "empty": "Belum ada catatan perubahan",
+    "column": {
+      "time": "Waktu",
+      "operator": "Pelaku",
+      "action": "Tindakan",
+      "target": "Objek",
+      "detail": "Isi perubahan"
+    },
+    "change": "{{field}}: {{from}} → {{to}}",
+    "fieldEntry": "{{field}}={{value}}",
+    "noChange": "(tanpa perubahan)",
+    "valueOn": "Aktif",
+    "valueOff": "Nonaktif",
+    "field": {
+      "code": "Kode aturan",
+      "comparator": "Operator perbandingan",
+      "windowMinutes": "Granularitas (menit)",
+      "windowDays": "Jendela (hari)",
+      "forWindows": "Jendela durasi",
+      "repeatMinutes": "Interval berulang (menit)",
+      "notifyOnResolve": "Notifikasi pemulihan",
+      "metricName": "Nama metrik",
+      "bodyLength": "Panjang templat",
+      "deleted": "Jumlah data dihapus",
+      "wasDefault": "Sebelumnya bawaan",
+      "enabledContacts": "Kontak aktif"
+    },
+    "action": {
+      "ruleUpdate": "Ubah aturan",
+      "ruleCreate": "Buat aturan",
+      "ruleDelete": "Hapus aturan",
+      "contactCreate": "Buat kontak",
+      "contactDelete": "Hapus kontak",
+      "contactDefault": "Jadikan kontak bawaan (histori)",
+      "muteCreate": "Buat pembisuan",
+      "muteDelete": "Akhiri pembisuan",
+      "contactUpdate": "Ubah kontak",
+      "retentionUpdate": "Ubah kebijakan penyimpanan",
+      "retentionCleanup": "Bersihkan menurut kebijakan penyimpanan",
+      "templateUpdate": "Ubah templat notifikasi",
+      "templateReset": "Pulihkan templat bawaan"
+    }
+  },
+  "field": {
+    "enabled": "Aktifkan",
+    "enabledAria": "Aktifkan {{name}}",
+    "switchOn": "Aktifkan",
+    "switchOff": "Nonaktifkan",
+    "booleanOn": "Aktif",
+    "booleanOff": "Nonaktif",
+    "unit": "Satuan",
+    "unitPlaceholder": "Misalnya kali / orang",
+    "keepBlank": "Kosong berarti tidak diubah",
+    "keepCurrent": "Kosong berarti tidak diubah (saat ini {{value}})",
+    "keepSavedValue": "Kosong berarti nilai yang tersimpan tidak diubah",
+    "keepSavedAddress": "Kosong berarti alamat yang tersimpan tidak diubah",
+    "keepSavedSecret": "Kosong berarti kunci yang tersimpan tidak diubah"
+  },
+  "metric": {
+    "label": "Metrik",
+    "project": "Proyek",
+    "select": "Pilih metrik",
+    "noneInProject": "Proyek ini belum memiliki metrik; buat dulu di “Manajemen data → Metrik”",
+    "option": "{{name}} ({{kind}})",
+    "optionDisabled": "{{name}} ({{kind}} · {{reason}})",
+    "unavailable": "Tidak tersedia"
+  },
+  "validate": {
+    "required": "Isi {{field}}",
+    "select": "Pilih {{field}}"
+  },
+  "separator": {
+    "list": ", ",
+    "pair": "; ",
+    "entry": ", ",
+    "slash": " / "
+  },
+  "window": {
+    "last2Days": "2 hari terakhir"
+  },
+  "templateVar": {
+    "ruleName": "Nama aturan",
+    "ruleCode": "Kode aturan",
+    "level": "Tingkat (Inggris)",
+    "levelFmt": "Tingkat (Mandarin)",
+    "status": "Status (Mandarin)",
+    "statusCode": "Kode status (fire/repeat/resolve)",
+    "value": "Nilai saat ini (dengan satuan)",
+    "valueRaw": "Nilai saat ini (angka mentah)",
+    "unit": "Satuan",
+    "comparator": "Operator perbandingan (Inggris)",
+    "comparatorFmt": "Operator perbandingan (Mandarin)",
+    "threshold": "Ambang (dengan satuan)",
+    "metricName": "Nama metrik",
+    "metricKind": "Jenis metrik",
+    "windowDays": "Jumlah hari jendela",
+    "windowFmt": "Jendela (Mandarin)",
+    "project": "Nama proyek",
+    "time": "Waktu terpicu/pulih",
+    "detectInterval": "Siklus pemeriksaan",
+    "contactName": "Kontak"
+  },
+  "ruleHealth": {
+    "ok": "Normal",
+    "metricMissing": "Metrik sudah dihapus",
+    "evalFailed": "Evaluasi gagal",
+    "noContact": "Tanpa kontak",
+    "detailNoMetric": "Aturan tidak mengikat metrik",
+    "detailMetricDeleted": "Metrik {{metricId}} sudah dihapus",
+    "detailEvalFailed": "Evaluasi gagal {{times}} siklus berturut-turut: {{message}}",
+    "detailNoContact": "Tanpa kontak: aturan tidak mengikat kontak dan tidak ada kontak aktif di sistem"
+  },
+  "unit": {
+    "times": "kali",
+    "rows": "data",
+    "pieces": "buah",
+    "percent": "%"
+  },
+  "error": {
+    "rule": {
+      "notFound": "Aturan tidak ada: {{code}}",
+      "noFields": "Tidak ada kolom yang perlu diperbarui",
+      "builtinNotDeletable": "Aturan bawaan tidak dapat dihapus",
+      "metricMissing": "Metrik tidak ada (buat dulu di “Manajemen data → Metrik”)",
+      "metricLimit": "Peringatan metrik maksimal {{max}}"
+    },
+    "contact": {
+      "idInvalid": "contact_id tidak valid",
+      "notFound": "Kontak tidak ada",
+      "localeInvalid": "Bahasa tidak didukung: {{locale}}",
+      "timezoneInvalid": "Zona waktu tidak valid (harus nama IANA, misalnya Asia/Shanghai)"
+    },
+    "channel": {
+      "unsupported": "Jenis saluran tidak didukung: {{kind}}",
+      "unavailable": "Saluran {{channel}} saat ini tidak tersedia",
+      "unknown": "Saluran tidak diketahui: {{channel}}"
+    },
+    "channelConfig": {
+      "unsupported": "Konfigurasi saluran tidak didukung: {{channel}}",
+      "masterKeyMissing": "Kunci utama tidak ada: atur variabel lingkungan {{env}} (base64 32 bita) yang dipakai untuk mengenkripsi kredensial saluran"
+    },
+    "template": {
+      "syntaxError": "Kesalahan sintaks templat: {{error}}",
+      "subjectSyntaxError": "Kesalahan sintaks subjek email: {{error}}",
+      "kindInvalid": "Jenis peristiwa tidak valid (fire / resolve)",
+      "channelInvalid": "Saluran tidak valid (chat / email / sms)"
+    },
+    "mute": {
+      "notFound": "Pembisuan tidak ada",
+      "windowInvalid": "Waktu pembisuan tidak valid"
+    },
+    "retention": {
+      "scopeInvalid": "Cakupan penyimpanan tidak didukung: {{scope}}",
+      "daysInvalid": "Jumlah hari penyimpanan harus bilangan bulat 1–{{max}}; kosong berarti disimpan selamanya"
+    },
+    "metric": {
+      "notFound": "Metrik tidak ada"
+    },
+    "validate": {
+      "failed": "Validasi tidak lulus",
+      "required": "Isi “{{field}}”",
+      "number": "“{{field}}” harus berupa angka",
+      "portRange": "Rentang port harus 1–65535",
+      "paramCount": "Jumlah variabel templat harus 1–4",
+      "apiBaseHttp": "Alamat API harus diawali http(s)://",
+      "fromFormat": "Format pengirim salah (boleh ditulis name <mail@example.com>)",
+      "webhookRequired": "Isi alamat Webhook",
+      "webhookHttps": "Alamat Webhook harus diawali https://",
+      "webhookHttp": "Alamat Webhook harus diawali http(s)://",
+      "feishuWebhook": "Sepertinya bukan webhook robot Feishu (seharusnya berbentuk https://open.feishu.cn/open-apis/bot/v2/hook/…)",
+      "dingtalkWebhook": "Sepertinya bukan webhook robot DingTalk (seharusnya berbentuk https://oapi.dingtalk.com/robot/send?access_token=…)",
+      "dingtalkSecret": "Kunci tanda tangan terlalu pendek (SEC… yang dibuat konsol DingTalk)",
+      "wecomWebhook": "Sepertinya bukan webhook robot grup WeCom (seharusnya berbentuk https://qyapi.weixin.qq.com/cgi-bin/webhook/send?key=…)",
+      "telegramChatIdRequired": "Isi chat_id (ID percakapan grup atau pribadi; dapat diperoleh lewat @userinfobot)",
+      "telegramChatIdFormat": "chat_id harus berupa angka (ID grup diawali -100)",
+      "emailRequired": "Isi email penerima",
+      "emailFormat": "Format email salah",
+      "smsRequired": "Isi nomor ponsel penerima",
+      "smsFormat": "Format nomor ponsel salah (sebaiknya dengan kode negara, misalnya +8613800138000)",
+      "smsProvider": "Penyedia SMS tidak valid (pilihan: {{allowed}})",
+      "whatsappRequired": "Isi nomor penerima (E.164, misalnya 8613800138000)",
+      "whatsappFormat": "Jumlah digit nomor salah (E.164 tanpa +, 8–15 digit)",
+      "headersJson": "Header permintaan kustom harus JSON yang valid (misalnya {\"Authorization\":\"Bearer xxx\"})",
+      "bodyTemplate": "Kesalahan sintaks templat body: {{error}}"
+    },
+    "ops": {
+      "forbidden": "Hanya super admin platform yang dapat mengakses panel operasional"
+    }
+  }
+}

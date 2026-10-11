@@ -1,0 +1,271 @@
+{
+  "kind": {
+    "event": "Ereignismetrik",
+    "retention": "Retention-Metrik"
+  },
+  "list": {
+    "title": "Metriken",
+    "create": "Neue Metrik",
+    "kindEvent": "Ereignis",
+    "kindRetention": "Retention",
+    "intro": "Ereignismetriken lassen sich direkt über „Neue Metrik“ anlegen oder aus einem Ereignisanalyse-Ergebnis speichern (dabei wird die aktuelle Definition vollständig übernommen); Retention-Metriken werden weiterhin im Ergebnis der Retention-Analyse erstellt. Metriken können **Abfragezeit** und **Wertauswahl** mitbringen; Alarmregeln folgen standardmäßig dem Zeitraum der Metrik (kann in der Regel überschrieben werden, siehe Betrieb → Alarme → Neue Metrik-Alarmregel). Klicken Sie auf den Anzeigenamen, um die vollständige Definition zu sehen; Bearbeiten und Löschen (mit zweiter Bestätigung) erfolgen im Detail-Drawer. Metrikname und -typ sind unveränderlich (die Kennung bleibt gleich, vorhandene Referenzen und Alarm-Bindungen sind nicht betroffen).",
+    "column": {
+      "displayName": "Anzeigename",
+      "name": "Metrikname",
+      "kind": "Typ",
+      "definition": "Definition",
+      "remark": "Bemerkung"
+    }
+  },
+  "label": {
+    "subject": "Analyse-Subjekt",
+    "event": "Ereignis",
+    "analysis": "Berechnungsmethode",
+    "percentile": "Perzentil",
+    "prop": "Eigenschaft",
+    "transform": "Zahlen-Transformation",
+    "decimals": "Dezimalstellen",
+    "valuePick": "Wertauswahl",
+    "timeRange": "Abfragezeit",
+    "conditionGroup": "Bedingungsgruppe",
+    "filters": "Filterbedingungen",
+    "displayName": "Anzeigename",
+    "metricName": "Metrikname",
+    "metricNameReadonly": "Metrikname (unveränderlich)",
+    "kindReadonly": "Typ (unveränderlich)",
+    "type": "Typ",
+    "format": "Format",
+    "definition": "Definition",
+    "definitionPick": "Metrikdefinition",
+    "startEvent": "Start-Ereignis",
+    "retainEvent": "Rückkehrereignis",
+    "period": "Periode",
+    "measure": "Messgröße",
+    "cohort": "Kohorte",
+    "cohortRange": "Kohortenbereich",
+    "granularity": "Granularität",
+    "remarkOptional": "Bemerkung (optional)"
+  },
+  "format": {
+    "number": "Zahl",
+    "percent": "Prozent"
+  },
+  "measure": {
+    "rate": "Retentionsrate",
+    "count": "Retentionsnutzer"
+  },
+  "cohort": {
+    "all": "Alle Nutzer",
+    "firstDay": "Nutzer mit Erstauslösung"
+  },
+  "granularity": {
+    "day": "Nach Tag",
+    "week": "Nach Woche",
+    "month": "Nach Monat"
+  },
+  "period": {
+    "day": "{{n}} Tage",
+    "day_one": "{{n}} Tag",
+    "day_other": "{{n}} Tage",
+    "week": "{{n}} Wochen",
+    "week_one": "{{n}} Woche",
+    "week_other": "{{n}} Wochen",
+    "month": "{{n}} Monate",
+    "month_one": "{{n}} Monat",
+    "month_other": "{{n}} Monate"
+  },
+  "value": {
+    "notNeeded": "(Nicht erforderlich)",
+    "none": "(Keine)"
+  },
+  "filters": {
+    "count": "{{total}} Einträge",
+    "count_one": "{{total}} Eintrag",
+    "count_other": "{{total}} Einträge"
+  },
+  "valuePick": {
+    "sum": "Kumuliert",
+    "avg": "Tagesdurchschnitt",
+    "max": "Maximum",
+    "min": "Minimum",
+    "lastDay": "Letzter Tag",
+    "firstDay": "Erster Tag",
+    "uniqTotal": "Gesamtsumme (dedupliziert)",
+    "weighted": "Gewichteter Mittelwert",
+    "auto": "Automatisch (nach Berechnungsmethode)",
+    "autoShort": "Automatische Auswahl",
+    "extra": "Keine Auswahl = automatisch (nach Berechnungsmethode empfohlen), konsistent mit der bestehenden Alarmdefinition",
+    "label": {
+      "sum": "Kumuliert",
+      "avg": "Tagesdurchschnitt",
+      "max": "Maximum",
+      "min": "Minimum",
+      "weighted": "Gewichteter Mittelwert",
+      "lastDay": "Letzter Tag",
+      "firstDay": "Erster Tag",
+      "uniqTotal": "Gesamtsumme (dedupliziert)"
+    },
+    "hint": {
+      "sum": "Summe der Tageswerte im Fenster; Tage ohne Daten zählen als 0",
+      "avg": "Summe der Tageswerte ÷ Anzahl der Tage im Fenster; Tage ohne Daten zählen als 0",
+      "max": "Größter Wert der Tage mit Daten im Fenster",
+      "min": "Kleinster Wert der Tage mit Daten im Fenster",
+      "weighted": "Gewichtung nach Nenner (einzige korrekte Variante für Pro-Kopf-Werte)",
+      "lastDay": "Wert des jüngsten Tages mit Daten im Fenster (häufig für „heute bis jetzt“)",
+      "firstDay": "Wert des frühesten Tages mit Daten im Fenster",
+      "uniqTotal": "Auswertung über den gesamten Zeitraum statt Addition der Tageswerte (einzige korrekte Variante für deduplizierte Zahlen)"
+    },
+    "note": {
+      "sum": "Summe der Tageswerte im Fenster; Tage ohne Daten zählen als 0",
+      "avg": "Summe der Tageswerte ÷ Anzahl der Tage im Fenster; Tage ohne Daten zählen als 0",
+      "max": "Größter Wert der Tage mit Daten im Fenster (ganz ohne Daten → dieser Lauf wird übersprungen)",
+      "min": "Kleinster Wert der Tage mit Daten im Fenster (ganz ohne Daten → dieser Lauf wird übersprungen)",
+      "weighted": "Gewichtung nach Nenner (einzige korrekte Auswahl für Pro-Kopf-Anzahl und Pro-Kopf-Wert), Auswertung über den gesamten Zeitraum",
+      "lastDay": "Wert des jüngsten Tages mit Daten im Fenster (häufig für „heute bis jetzt“)",
+      "firstDay": "Wert des frühesten Tages mit Daten im Fenster",
+      "uniqTotal": "Auswertung über den gesamten Zeitraum statt Addition der Tageswerte (einzige korrekte Auswahl für deduplizierte Zahlen und auslösende Nutzer)"
+    },
+    "warning": {
+      "nonAdditivePickedAdditive": "Die aktuelle Berechnungsmethode lässt sich nicht tageweise addieren; wählen Sie besser „Gesamtsumme (dedupliziert)“ oder „Gewichteter Mittelwert“, sonst fallen die Ergebnisse zu hoch aus",
+      "additivePickedOverall": "Die aktuelle Berechnungsmethode ist addierbar; „Kumuliert/Tagesdurchschnitt“ ist anschaulicher. Die deduplizierte Gesamtsumme ist nur für Deduplizierungs- oder Pro-Kopf-Werte sinnvoll"
+    }
+  },
+  "window": {
+    "fixed": "Festes Datum",
+    "today": "Heute",
+    "yesterday": "Gestern",
+    "recentN": "Letzte {{n}} Tage (inkl. heute)",
+    "recentN_one": "Letzter {{n}} Tag (inkl. heute)",
+    "recentN_other": "Letzte {{n}} Tage (inkl. heute)",
+    "pastN": "Vergangene {{n}} Tage (ohne heute)",
+    "pastN_one": "Vergangener {{n}} Tag (ohne heute)",
+    "pastN_other": "Vergangene {{n}} Tage (ohne heute)",
+    "thisWeek": "Diese Woche",
+    "lastWeek": "Letzte Woche",
+    "thisMonth": "Dieser Monat",
+    "lastMonth": "Letzter Monat",
+    "customOffsets": "Dynamischer Bereich D-{{from}} ~ D-{{to}}",
+    "fromDateToToday": "Vom gewählten Tag bis heute",
+    "fromDateToYesterday": "Vom gewählten Tag bis gestern",
+    "lastNDays": "Letzte {{n}} Tage",
+    "lastNDays_one": "Letzter {{n}} Tag",
+    "lastNDays_other": "Letzte {{n}} Tage",
+    "cohortWindow": "Kohorte {{window}}",
+    "followAlert": "Alarmfenster folgen"
+  },
+  "summary": {
+    "event": "Ereignis {{event}} · Berechnung {{analysis}}{{prop}}{{window}}{{pick}}",
+    "propSegment": " · {{prop}}",
+    "windowSegment": " · {{window}}",
+    "pickSegment": " · {{pick}}",
+    "retention": "Retention {{start}} → {{retain}} · {{period}} · {{measure}}",
+    "periodDays": "{{n}} Tage",
+    "periodDays_one": "{{n}} Tag",
+    "periodDays_other": "{{n}} Tage",
+    "noEvent": "(Kein Ereignis gewählt)",
+    "measureCount": "Nutzerzahl"
+  },
+  "timeRange": {
+    "extra": "Bringt eine Metrik einen eigenen Zeitraum mit, folgen Alarmregeln standardmäßig diesem; unterstützt werden nur relative Zeiträume (täglich wiederholbar auswertbar), maximal 90 Tage",
+    "followAlert": "Stattdessen dem Alarmfenster folgen"
+  },
+  "conditionGroup": {
+    "extra": "Ereignisattribute / Benutzereigenschaften / Kohorten / Tags; gleiche Semantik wie die Bedingungsgruppen der Ereignisanalyse"
+  },
+  "prop": {
+    "groupEvent": "Ereignisattribut",
+    "groupUser": "Benutzereigenschaft",
+    "eventPlaceholder": "Eigenschaft auswählen",
+    "eventDisabledPlaceholder": "Die aktuelle Methode benötigt keine Eigenschaft",
+    "tooltip": "Pflichtfeld, wenn die Berechnungsmethode eine Eigenschaft benötigt; der Eigenschaftstyp bestimmt die möglichen Berechnungsmethoden",
+    "eventWithType": "{{name}} ({{type}})",
+    "userWithType": "{{name}} (Benutzer·{{type}})",
+    "userOnly": "{{name}} (Benutzer)"
+  },
+  "event": {
+    "searchPlaceholder": "Ereignis suchen oder auswählen",
+    "optionWithName": "{{key}} ({{name}})",
+    "staleOption": "{{event}} (nicht in der Ereignisliste, ursprünglicher Wert bleibt erhalten)"
+  },
+  "transform": {
+    "tooltip": "Zuerst die Grundrechenart ausführen, dann auf die Dezimalstellen runden (wie in der Ereignisanalyse)",
+    "valuePlaceholder": "Operand (optional)"
+  },
+  "decimals": {
+    "placeholder": "Optional 0-6"
+  },
+  "trial": {
+    "run": "Testrechnung",
+    "hint": "Führt mit der aktuellen Definition eine echte Auswertung durch (dieselbe Implementierung wie die Alarmprüfung), ohne zu speichern",
+    "failed": "Testrechnung fehlgeschlagen",
+    "result": "Aktueller Wert {{value}} · {{window}} ({{start}} ~ {{end}}) · {{pick}}{{auto}}",
+    "autoSuffix": "(Automatisch)",
+    "note": "{{note}}; Dauer {{ms}} ms"
+  },
+  "validation": {
+    "eventRequired": "Bitte Ereignis auswählen",
+    "analysisRequired": "Bitte Berechnungsmethode auswählen",
+    "displayNameRequired": "Bitte Anzeigenamen eingeben",
+    "metricNameRequired": "Bitte Metriknamen eingeben",
+    "metricNamePattern": "Beginnt mit einem Kleinbuchstaben; nur Kleinbuchstaben/Ziffern/Unterstriche, maximal 80",
+    "metricNamePatternShort": "Format entspricht nicht den Regeln",
+    "metricRequired": "Bitte Metrik auswählen",
+    "periodRequired": "Bitte Periode auswählen",
+    "periodFilled": "Bitte Periode ausfüllen",
+    "startEventRequired": "Bitte Start-Ereignis auswählen",
+    "retainEventRequired": "Bitte Rückkehrereignis auswählen"
+  },
+  "create": {
+    "title": "Neue Ereignismetrik",
+    "displayNamePlaceholder": "z. B. Tagesdurchschnitt Bestellwert der letzten 7 Tage",
+    "metricNamePlaceholder": "z. B. order_amount_daily_avg_7d",
+    "metricNameExtra": "Eindeutiger Schlüssel des Assets, nach dem Erstellen unveränderlich; Analyse und Alarme referenzieren ihn darüber",
+    "definitionHint": "Definition (gleiche Tiefe wie die Ereignisanalyse; vor dem Speichern empfiehlt sich eine „Testrechnung“)"
+  },
+  "modal": {
+    "title": "Metrik erstellen",
+    "metricNameExtra": "Beginnt mit einem Kleinbuchstaben; Kleinbuchstaben/Ziffern/Unterstriche erlaubt, höchstens 80 Zeichen",
+    "metricFallback": "Metrik",
+    "summaryEvent": "{{event}} · {{metric}}",
+    "summaryEventEmpty": "Bitte zuerst eine Ereignismetrik konfigurieren und abfragen",
+    "summaryRetention": "Start {{start}} → Rückkehr {{end}}",
+    "summaryRetentionEmpty": "Bitte zuerst eine Retention-Abfrage durchführen",
+    "summaryNote": ". Maßgeblich ist der Zeitraum zum Zeitpunkt der Abfrage; er wird nicht in die Metrik geschrieben."
+  },
+  "apply": {
+    "trigger": "Aus Metrik hinzufügen",
+    "ok": "Übernehmen",
+    "placeholder": "Gespeicherte Metrik auswählen",
+    "empty": "Für diesen Typ gibt es noch keine Metriken"
+  },
+  "detail": {
+    "title": "Metrikdetails",
+    "titleNamed": "Metrikdetails · {{name}}",
+    "meta": "Erstellt von {{owner}} · Erstellt {{created}} · Aktualisiert {{updated}}",
+    "readonlyNote": "Der Metrikname ist der eindeutige Schlüssel des Assets und der Typ bestimmt das Definitionsmodell; Änderungen würden bestehende Analyse- und Alarmreferenzen brechen, daher schreibgeschützt.",
+    "saving": "Wird gespeichert",
+    "createCard": "Dashboard-Karte erstellen",
+    "cardName": "{{name}} (Metrikkarte)",
+    "alertTitle": "Hinweis zur Definition",
+    "alertBody": "Metriken bringen eigene Abfragezeit und Wertauswahl mit; ist keine Abfragezeit gesetzt, wertet der Alarm nach dem Regel-Fenster aus (bisheriges Verhalten). Bei der Übernahme in eine Analyse gilt der Zeitraum der Analyseseite. Wird die Metrik von Alarmregeln referenziert, ändert eine Definitionsänderung zugleich die Alarmbedingungen (Betrieb → Alarme → Richtlinien).",
+    "retentionFiltersTitle": "Filterbedingungen der Retention-Metrik",
+    "retentionFiltersBody": "Filterbedingungen der Start- und Rückkehrereignisse bleiben beim Ereignis erhalten; Kohortenbereich und Periode lassen sich hier direkt anpassen.",
+    "cohortRangeTooltip": "Zeitbereich der ausgereiften Kohorten der Retention; ohne Einstellung wird er aus der Periode abgeleitet (≥ Periode + 1 Tag, maximal 180 Tage)",
+    "deriveFromCycle": "Stattdessen aus Periode ableiten",
+    "derivedFromCycle": "Aus Periode abgeleitet",
+    "cohortRangeDerived": "Aus Periode abgeleitet ({{days}} Tage)"
+  },
+  "message": {
+    "deleted": "Gelöscht",
+    "updated": "Metrik aktualisiert",
+    "created": "Metrik erstellt",
+    "cardCreated": "Karte „{{name}}“ erstellt; sie kann im Dashboard-Studio zu einem Dashboard hinzugefügt werden",
+    "noEventMetric": "Keine speicherbare Ereignismetrik vorhanden",
+    "queryRetentionFirst": "Bitte zuerst die Retention abfragen"
+  },
+  "confirm": {
+    "deleteTitle": "Metrik „{{name}}“ löschen?",
+    "deleteEditing": "Die Metrik wird gelöscht; nicht gespeicherte Änderungen gehen dabei verloren. Analysen und Alarme, die sie referenzieren, werden ungültig.",
+    "deleteContent": "Analysen und Alarme, die sie referenzieren, werden ungültig; nach dem Löschen ist keine Wiederherstellung möglich."
+  }
+}

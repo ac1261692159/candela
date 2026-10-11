@@ -1,0 +1,542 @@
+{
+  "tab": {
+    "overview": "概覽",
+    "rules": "策略",
+    "history": "歷史",
+    "mute": "靜音",
+    "notifications": "通知記錄",
+    "templates": "通知範本",
+    "channels": "通道配置",
+    "contacts": "聯絡人",
+    "audits": "變更記錄"
+  },
+  "workbench": {
+    "title": "監控告警",
+    "firing": "當前有 {{count}} 條告警處於觸發中",
+    "noContact": "沒有啟用中的聯絡人，告警不會外發",
+    "noContactHint": "到「聯絡人」Tab 新增聯絡人並保持啟用；規則未綁定聯絡人時會發給全部啟用聯絡人。",
+    "brokenRules": "{{count}} 條規則當前無效",
+    "brokenRulesHint": "{{names}}：綁定的指標已刪除或連續多輪求值失敗，這些規則不會觸發（詳見「策略」Tab 的健康欄）。",
+    "notifyFail24h": "近 24 小時有 {{count}} 次通知投遞失敗",
+    "notifyFail24hHint": "三次重試後仍失敗才會記錄；可在「通知記錄」Tab 檢視失敗原因。"
+  },
+  "overview": {
+    "firedToday": "今日觸發",
+    "unresolved": "未恢復",
+    "notifyFailToday": "今日通知失敗",
+    "firingEmpty": "當前沒有觸發中的告警",
+    "topRules": "今日觸發最多的規則",
+    "topRulesEmpty": "今日尚無觸發",
+    "fireCount": "觸發次數"
+  },
+  "status": {
+    "firing": "觸發中",
+    "normal": "正常",
+    "resolved": "已恢復"
+  },
+  "severity": {
+    "label": "級別",
+    "alertLevel": "告警級別",
+    "critical": "緊急",
+    "warning": "警告",
+    "info": "提示"
+  },
+  "kind": {
+    "fire": "告警觸發",
+    "resolve": "告警恢復"
+  },
+  "rule": {
+    "label": "規則",
+    "createMetric": "新增指標告警",
+    "editTitle": "修改觸發條件",
+    "editTitleNamed": "修改觸發條件 · {{name}}",
+    "saving": "儲存中",
+    "editorHint": "檢測週期固定每 60 秒一次。視窗 × 異常持續 = 連續越線次數後才告警。內建規則不可刪除。",
+    "editorMetricHint": "指標值由與工作台相同的查詢鏈路即時求值。",
+    "targetMetric": "觀測指標",
+    "target": "觀測物件",
+    "metricTag": "資料管理指標",
+    "comparator": "比較關係",
+    "threshold": "閾值",
+    "statWindow": "統計視窗",
+    "statWindowHint": "事件分析按天過濾（stat_date），因此視窗是天而不是分鐘；「今天」為當日累計值",
+    "windowMinutesLabel": "資料點統計粒度",
+    "windowMinutesOption": "統計{{minutes}}分鐘",
+    "windowTimes": "{{window}} × {{times}} 次",
+    "windowMinutesTimes": "{{minutes}} 分鐘 × {{times}}",
+    "windowDays": "{{days}} 天",
+    "forWindows": "異常持續",
+    "forWindowsHint": "連續多少次檢測越線才觸發（每次間隔 60 秒）",
+    "timesSuffix": "次",
+    "repeatInterval": "觸發中重複通知間隔（分鐘）",
+    "notifyOnResolve": "恢復時通知",
+    "timeSourceHint": "跟隨指標 = 用指標自帶的查詢時間；由本規則指定 = 用下面的統計視窗",
+    "timeSourceHintMetric": "指標自帶查詢時間時預設跟隨指標；也可以由本規則單獨指定視窗",
+    "timeFromMetric": "跟隨指標",
+    "timeFromMetricWith": "跟隨指標（{{window}}）",
+    "timeFromRule": "由本規則指定",
+    "timeFromRuleNoWindow": "由本規則指定（該指標未設查詢時間）",
+    "name": "規則名稱",
+    "defaultName": "{{metric}} 告警",
+    "created": "已建立指標告警",
+    "metricSource": "告警物件是「資料管理 → 指標」裡已儲存的指標",
+    "metricSourceHint": "檢測週期 60 秒，連續越線達到「異常持續」次數才觸發。視窗按天計算（今天 / 近 N 天）， 指標值由與工作台相同的查詢鏈路即時求值，不依賴卡片快取。",
+    "probe": "測試取值",
+    "probeFailedPrefix": "取值失敗",
+    "probeFailed": "取值失敗：{{error}}",
+    "probeResult": "當前值：{{value}}（{{window}}{{pick}}，耗時 {{ms}}ms）",
+    "probePick": " · {{pick}}",
+    "editCondition": "編輯條件",
+    "muteQuick": "快捷靜音",
+    "allContacts": "全部啟用聯絡人",
+    "checkInterval": "每 60 秒檢測",
+    "source": {
+      "metric": "指標：{{name}}",
+      "builtin": "運維"
+    },
+    "column": {
+      "health": "健康",
+      "condition": "條件",
+      "window": "視窗 / 持續",
+      "currentValue": "當前值"
+    },
+    "health": {
+      "metricMissing": "指標已刪除",
+      "evalFailed": "求值失敗",
+      "noContact": "無聯絡人"
+    }
+  },
+  "event": {
+    "filterLabel": "事件狀態",
+    "firedAt": "觸發時間",
+    "value": "觸發時值",
+    "lastSeen": "最近觀測"
+  },
+  "notification": {
+    "time": "時間",
+    "kindFire": "觸發",
+    "kindRepeat": "重複",
+    "kindResolve": "恢復",
+    "result": "結果",
+    "error": "錯誤"
+  },
+  "contact": {
+    "label": "聯絡人",
+    "hint": "選擇通道後按提示填寫；群組機器人的 webhook 本身就是憑證，憑證級通道（郵件/簡訊/Telegram/WhatsApp） 先在「通道配置」頁填平台憑證。規則可以綁定**多個**聯絡人（多渠道同時傳送）；規則未綁定聯絡人時， 告警會發給**全部啟用聯絡人**。",
+    "updated": "聯絡人已更新",
+    "editTitle": "編輯聯絡人",
+    "editTitleNamed": "編輯聯絡人 · {{name}}",
+    "maskedHint": "地址與金鑰在清單裡是去識別化的，因此**不回填**：留空即保持原值，只有填寫新值才會覆蓋。",
+    "webhookUrl": "Webhook 地址",
+    "webhookRequired": "請填寫 Webhook 地址",
+    "address": "地址",
+    "addressLabel": "接收地址",
+    "addressEmail": "郵箱",
+    "addressChatId": "chat_id（如 -1001234567890）",
+    "addressWhatsapp": "號碼（E.164，如 8613800138000）",
+    "addressSms": "手機號（如 +8613800138000）",
+    "secret": "金鑰",
+    "secretOptional": "金鑰（可選）",
+    "secretHint": "飛書/釘釘的加簽金鑰；機器人沒開簽名校驗就留空",
+    "smsProvider": "簡訊廠商",
+    "smsProviderHint": "留空使用平台預設已啟用廠商",
+    "disableHint": "停用後不投遞",
+    "bodyTemplateHint": "body 範本，佔位符同告警範本，另有 {{text}} 與 {{textJson}}",
+    "bodyTemplatePlaceholder": "body 範本（可選，預設 {\"text\":\"{{textJson}}\"}）",
+    "alertContacts": "告警聯絡人",
+    "multiHint": "可多選，規則觸發時向綁定的全部聯絡人傳送；不選則發給全部啟用聯絡人",
+    "multiExtra": "可多選（多渠道同時傳送）；不選 = 發給全部啟用聯絡人",
+    "noneSelected": "不選 = 全部啟用聯絡人",
+    "disabledName": "{{name}}（已停用）",
+    "locale": "語言",
+    "localeDefault": "平台預設",
+    "localeHint": "通知按收件人語言渲染；留空使用平台預設語言",
+    "timezone": "時區",
+    "timezoneHint": "通知裡的觸發/恢復時間按此時區渲染；留空 = 專案/平台時區",
+    "timezoneDefault": "跟隨專案/平台"
+  },
+  "channel": {
+    "label": "通道",
+    "feishu": "飛書",
+    "dingtalk": "釘釘",
+    "wecom": "企業微信",
+    "webhook": "通用 Webhook",
+    "email": "郵件",
+    "sms": "簡訊",
+    "telegram": "Telegram",
+    "whatsapp": "WhatsApp",
+    "configMissing": "未配置：{{names}}",
+    "unavailable": "該通道當前不可用",
+    "pageHint": {
+      "title": "這裡配置的是「憑證級」通道",
+      "body": "群組機器人（飛書 / 釘釘 / 企業微信 / 通用 Webhook）的 webhook 本身就是憑證，請在「聯絡人」頁填寫；本頁配置 SMTP、簡訊廠商、Telegram 與 WhatsApp。 金鑰只寫不讀，儲存後可用「傳送測試」驗證連通性。"
+    },
+    "envOnly": "環境變數",
+    "notEnabled": "未啟用",
+    "pausedTag": "已暫停",
+    "muted": "該通道已暫停投遞",
+    "mutedOn": "{{channel}} 已暫停投遞",
+    "mutedOff": "{{channel}} 已恢復投遞",
+    "platformFallbackTag": "平台郵件通道",
+    "platformFallbackNote": "郵件將由「設定 → 用戶管理 → 郵件通道」的 SMTP 帳號寄送，此處無需重複填寫。",
+    "secretTag": "金鑰 {{hint}}",
+    "secretTitle": "憑證（只寫不讀）",
+    "secretTitleConfigured": "憑證（只寫不讀，已配置 {{hint}}）",
+    "pageNote": "提示：釘釘 / 企業微信 / Telegram 官方限流均為 20 條/分鐘，平台已按通道自動排隊與合併； 國內簡訊的簽名與範本需先在廠商主控台報備審核，AWS SNS 無大陸區域、發中國號碼需報備。",
+    "enableFirst": "請先展開「{{channel}}」填寫並儲存配置，再啟用",
+    "enabled": "{{channel}} 已啟用",
+    "disabled": "{{channel}} 已停用",
+    "saved": "{{channel}} 配置已儲存",
+    "sendTest": "傳送測試",
+    "testSmtp": "測試收件郵箱",
+    "testChatId": "測試 chat_id",
+    "testPhone": "測試接收號碼",
+    "testTarget": "測試目標（不落庫）",
+    "testOk": "測試通過",
+    "testFail": "測試失敗",
+    "testError": "{{detail}}：{{error}}",
+    "lastModified": "最後修改 {{user}}"
+  },
+  "channelGroup": {
+    "chat": "群組機器人與 IM",
+    "email": "郵件",
+    "sms": "簡訊"
+  },
+  "channelConfig": {
+    "helpTitle": "{{channel}} 設定方法",
+    "muteLabel": "暫停投遞",
+    "muteHint": "暫停後保留設定與密鑰，但此通道不參與任何告警投遞（平台郵件兜底同樣會被擋住）；「傳送測試」仍可用於驗證憑證。",
+    "smtp": {
+      "label": "郵件（SMTP）",
+      "hint": "建議用專用發信帳號 + 授權碼；儲存後「傳送測試」會先做連通性校驗再實發一封。",
+      "field": {
+        "host": "SMTP 伺服器",
+        "port": "連線埠",
+        "secure": "SSL/TLS（465 通常開啟）",
+        "user": "使用者名稱",
+        "from": "發件人",
+        "fromPlaceholder": "Candela 告警 <alerts@example.com>",
+        "pass": "密碼 / 授權碼"
+      },
+      "help": "1. 準備：使用專用寄信信箱，在服務商後台開啟 SMTP 並產生**授權碼**——多數服務商不允許用登入密碼寄信。\n2. 填寫：主機 + 連接埠（465 搭配「SSL/TLS 開啟」；587 搭配 STARTTLS）；「寄件人」必須與 SMTP 使用者名稱一致，否則會被服務商拒信。\n3. 驗證：「傳送測試」會先做連線檢查再實寄一封，失敗會顯示服務商原始錯誤（驗證失敗／寄件人不一致／被限流）。只設定一次可全站重用：填到「設定 → 使用者管理 → 郵件通道」，告警端會自動回落到它。"
+    },
+    "telegram": {
+      "label": "Telegram",
+      "hint": "用 @BotFather 建機器人拿 Token；聯絡人側只填 chat_id。大陸需代理出口，可把 api_base 指到自建 Bot API 服務。",
+      "help": "1. 準備：在 Telegram 裡搜 @BotFather → 傳送 /newbot（使用者名稱必須以 bot 結尾）→ 把它回傳的 Token 填到下方「Bot Token」並儲存；**再用你自己的 Telegram 開啟這個機器人並點「START」**——機器人無法主動發起對話，漏了這步傳送測試會回報 chat not found。\n2. 填寫：聯絡人的 chat_id 填 @userinfobot 回給你的數字 ID（私聊即你的使用者 ID）；要傳到群組，先把機器人拉進群組，再用 BotFather 的 /setprivacy 關閉隱私模式，否則它收不到群組訊息。\n3. 驗證：「傳送測試」會實傳一則，失敗顯示 Telegram 原始錯誤（如 chat not found）；伺服器連外受限時把「API 位址」指向自架 Bot API 服務，留空即官方 api.telegram.org。",
+      "field": {
+        "apiBase": "API 地址（可空，預設官方）",
+        "botToken": "Bot Token"
+      }
+    },
+    "whatsapp": {
+      "label": "WhatsApp（Cloud API）",
+      "hint": "需 Meta Business 驗證 + 號碼註冊 + 範本審核；告警屬 business-initiated，視窗外只能發範本訊息，範本需含 1~4 個變數（規則/當前值/條件/專案）。",
+      "field": {
+        "phoneNumberId": "Phone Number ID",
+        "templateName": "範本名稱",
+        "templateLang": "範本語言",
+        "paramCount": "範本變數個數（1~4）",
+        "apiVersion": "Graph API 版本",
+        "accessToken": "System User Token"
+      },
+      "help": "1. 準備：Meta Business 帳號完成驗證，並有一個已註冊的 WhatsApp Business 號碼；在 Meta 後台取得 Phone Number ID。\n2. 填寫：Phone Number ID、範本名稱、範本語言（如 zh_CN）、範本變數個數（1~4）。告警屬「業務主動發起」：對方 24 小時內回過訊息才能傳自由文字，否則只能傳已審核的範本。\n3. 驗證：聯絡人號碼填 E.164（不含「+」）；「傳送測試」會帶範例變數實傳一則，失敗顯示 Meta 原始錯誤碼（範本未審核／變數個數不符／號碼不在測試名單）。"
+    },
+    "smsAliyun": {
+      "label": "阿里雲簡訊",
+      "hint": "簽名與範本必須先在阿里雲主控台報備審核通過；範本裡需要一個變數接收摘要（範例 ${content}）。",
+      "field": {
+        "signName": "簽名名稱",
+        "templateCode": "範本 Code",
+        "endpoint": "接入點（可空）",
+        "accessKeyId": "AccessKey ID",
+        "accessKeySecret": "AccessKey Secret"
+      },
+      "help": "1. 準備：開通阿里雲簡訊服務，並**報備簽名與範本**（兩者都要審核通過）；建議在 RAM 建一組只授簡訊權限的 AccessKey。\n2. 填寫：AccessKey ID／Secret、簽名名稱、範本 CODE（形如 SMS_xxxxxxx）、區域。簡訊內容受範本限制，平台只送一行摘要。\n3. 驗證：接收號碼填 E.164（如 8613800138000）；「傳送測試」失敗會顯示阿里雲原始錯誤碼（簽名未審核／參數不符／餘額不足），可依碼在阿里雲文件查詢。"
+    },
+    "smsTencent": {
+      "label": "騰訊雲簡訊",
+      "hint": "需要主控台應用（SmsSdkAppId）+ 已審核的簽名與範本；範本裡需要一個變數接收摘要。",
+      "field": {
+        "sdkAppId": "SmsSdkAppId",
+        "signName": "簽名名稱",
+        "templateId": "範本 ID",
+        "region": "地域",
+        "secretId": "SecretId",
+        "secretKey": "SecretKey"
+      },
+      "help": "1. 準備：開通騰訊雲簡訊，建立**簽名**與**內文範本**並等待審核通過；建議使用子帳號的最小權限金鑰。\n2. 填寫：SDK AppID、SecretId／SecretKey、簽名內容、範本 ID、區域（如 ap-guangzhou）。平台只送一行摘要。\n3. 驗證：「傳送測試」失敗會顯示騰訊雲原始錯誤碼（簽名或範本未審核／參數個數不符／餘額不足），可依碼在騰訊雲文件查詢。"
+    },
+    "smsAws": {
+      "label": "AWS SNS",
+      "hint": "SNS 簡訊沒有 cn-* 區域（大陸不可發）；發中國號碼需先向 AWS Support 報備；預設沙箱只能發已驗證號碼。",
+      "field": {
+        "region": "Region",
+        "accessKeyId": "AccessKey ID",
+        "secretAccessKey": "Secret Access Key"
+      },
+      "help": "1. 準備：AWS 帳號開通 SNS；SNS **預設在沙箱**，需先把接收號碼加入沙箱白名單或申請解除限制。注意 SNS 沒有 cn-* 區域，傳給中國號碼需另行申請。\n2. 填寫：AccessKey／Secret、區域（如 ap-southeast-1）、Sender ID（部分區域要求）。\n3. 驗證：「傳送測試」失敗會顯示 SNS 原始錯誤（沙箱未放行／區域不支援／權限不足／號碼未驗證）。"
+    },
+    "smsTwilio": {
+      "label": "Twilio",
+      "hint": "海外/容災通道，無區域限制；From 號碼需在 Twilio 側驗證或購買。",
+      "field": {
+        "fromNumber": "From 號碼（E.164）",
+        "accountSid": "Account SID",
+        "authToken": "Auth Token"
+      },
+      "help": "1. 準備：Twilio 帳號購號或申請一個發訊號碼（Sender）；試用帳號只能傳到已驗證號碼。\n2. 填寫：Account SID、Auth Token、From 號碼（E.164，帶「+」）。\n3. 驗證：「傳送測試」失敗會顯示 Twilio 錯誤碼與說明（號碼不支援該目的地／收件號碼未驗證／餘額不足）。"
+    }
+  },
+  "template": {
+    "kindFire": "告警觸發",
+    "kindResolve": "告警恢復",
+    "channelChat": "群聊 / Webhook",
+    "saved": "範本已儲存",
+    "reset": "已恢復預設範本",
+    "hint": {
+      "title": "通知內容由範本決定",
+      "lead": "範本按「事件類型 × 通道組」配置（chat 覆蓋群組機器人/IM/Webhook/WhatsApp），作用於本專案全部規則。佔位符寫在雙花括號裡，通知發出時會被替換成 實際值；支援",
+      "tail": "條件。簡訊渲染後壓縮空白並按 40 字元截斷。"
+    },
+    "isDefault": "預設範本",
+    "customized": "已自訂 · {{user}}",
+    "subject": "郵件主題",
+    "body": "通知內容",
+    "variables": "佔位符（點選插入到游標處）",
+    "varTooltip": "{{label}}（範例：{{sample}}）",
+    "refreshPreview": "重新整理預覽",
+    "preview": "預覽",
+    "sampleHint": "範例資料 · 不會傳送",
+    "previewFailed": "預覽失敗",
+    "previewSubject": "主題",
+    "smsNote": "實際下發會壓縮空白並截斷到 40 字元，當前共 {{count}} 字元。",
+    "rendering": "正在渲染…",
+    "previewEmpty": "編輯左側內容後，這裡會自動重新整理預覽。"
+  },
+  "mute": {
+    "scope": "範圍",
+    "allRules": "全部規則",
+    "duration": "快捷時長",
+    "pickDuration": "選時長",
+    "orRange": "或時段",
+    "reason": "原因",
+    "reasonPlaceholder": "可選",
+    "add": "新增靜音",
+    "added": "已新增靜音",
+    "needDuration": "請選擇快捷時長或自訂時段",
+    "presetHours": "{{count}} 小時",
+    "presetDays": "{{count}} 天",
+    "muted": "已靜音 {{duration}}",
+    "start": "開始",
+    "end": "結束",
+    "release": "解除"
+  },
+  "retention": {
+    "title": "資料保留策略",
+    "hint": "三個範圍可分別設定；留空表示**永久保留**。清理按天執行（每 6 小時檢查一次），刪除動作會寫變更記錄。 刪除「告警歷史」會同時清掉它對應的通知記錄。",
+    "scope": "範圍",
+    "days": "保留天數",
+    "keepForever": "留空 = 永久",
+    "current": "當前",
+    "forever": "永久保留",
+    "daysValue": "{{days}} 天",
+    "saved": "保留策略已儲存",
+    "scopeLabel": {
+      "events": "告警歷史",
+      "notifications": "通知記錄",
+      "audits": "變更記錄"
+    }
+  },
+  "audit": {
+    "hint": "規則、聯絡人、靜音的變更都會留痕（僅超管可查）；聯絡人地址只記去識別化值。",
+    "empty": "暫無變更記錄",
+    "column": {
+      "time": "時間",
+      "operator": "操作者",
+      "action": "動作",
+      "target": "物件",
+      "detail": "變更內容"
+    },
+    "change": "{{field}}：{{from}} → {{to}}",
+    "fieldEntry": "{{field}}={{value}}",
+    "noChange": "（無變化）",
+    "valueOn": "開",
+    "valueOff": "關",
+    "field": {
+      "code": "規則碼",
+      "comparator": "比較符",
+      "windowMinutes": "粒度(分鐘)",
+      "windowDays": "視窗(天)",
+      "forWindows": "持續視窗",
+      "repeatMinutes": "重複間隔(分鐘)",
+      "notifyOnResolve": "恢復通知",
+      "metricName": "指標名",
+      "bodyLength": "範本長度",
+      "deleted": "刪除條數",
+      "wasDefault": "原為預設",
+      "enabledContacts": "啟用聯絡人"
+    },
+    "action": {
+      "ruleUpdate": "修改規則",
+      "ruleCreate": "新增規則",
+      "ruleDelete": "刪除規則",
+      "contactCreate": "新增聯絡人",
+      "contactDelete": "刪除聯絡人",
+      "contactDefault": "設為預設聯絡人（歷史）",
+      "muteCreate": "新增靜音",
+      "muteDelete": "解除靜音",
+      "contactUpdate": "修改聯絡人",
+      "retentionUpdate": "修改保留策略",
+      "retentionCleanup": "按保留策略清理",
+      "templateUpdate": "修改通知範本",
+      "templateReset": "恢復預設範本"
+    }
+  },
+  "field": {
+    "enabled": "啟用",
+    "enabledAria": "啟用 {{name}}",
+    "switchOn": "啟用",
+    "switchOff": "停用",
+    "booleanOn": "開",
+    "booleanOff": "關",
+    "unit": "單位",
+    "unitPlaceholder": "如 次 / 人",
+    "keepBlank": "留空表示不修改",
+    "keepCurrent": "留空不修改（當前 {{value}}）",
+    "keepSavedValue": "留空表示不修改已儲存的值",
+    "keepSavedAddress": "留空表示不修改已儲存的地址",
+    "keepSavedSecret": "留空表示不修改已儲存的金鑰"
+  },
+  "metric": {
+    "label": "指標",
+    "project": "專案",
+    "select": "選擇指標",
+    "noneInProject": "該專案暫無指標，請先到「資料管理 → 指標」建立",
+    "option": "{{name}}（{{kind}}）",
+    "optionDisabled": "{{name}}（{{kind}} · {{reason}}）",
+    "unavailable": "不可用"
+  },
+  "validate": {
+    "required": "請填寫{{field}}",
+    "select": "請選擇{{field}}"
+  },
+  "separator": {
+    "list": "、",
+    "pair": "；",
+    "entry": "，",
+    "slash": " / "
+  },
+  "window": {
+    "last2Days": "近 2 天"
+  },
+  "templateVar": {
+    "ruleName": "規則名",
+    "ruleCode": "規則碼",
+    "level": "級別（英文）",
+    "levelFmt": "級別（中文）",
+    "status": "狀態（中文）",
+    "statusCode": "狀態碼（fire/repeat/resolve）",
+    "value": "當前值（帶單位）",
+    "valueRaw": "當前值（原始數字）",
+    "unit": "單位",
+    "comparator": "比較符（英文）",
+    "comparatorFmt": "比較符（中文）",
+    "threshold": "閾值（帶單位）",
+    "metricName": "指標名",
+    "metricKind": "指標類型",
+    "windowDays": "視窗天數",
+    "windowFmt": "視窗（中文）",
+    "project": "專案名",
+    "time": "觸發/恢復時間",
+    "detectInterval": "檢測週期",
+    "contactName": "聯絡人"
+  },
+  "ruleHealth": {
+    "ok": "正常",
+    "metricMissing": "指標已刪除",
+    "evalFailed": "求值失敗",
+    "noContact": "無聯絡人",
+    "detailNoMetric": "規則未綁定指標",
+    "detailMetricDeleted": "指標 {{metricId}} 已刪除",
+    "detailEvalFailed": "連續 {{times}} 輪求值失敗：{{message}}",
+    "detailNoContact": "無聯絡人：規則未綁定聯絡人，且系統裡沒有啟用中的聯絡人"
+  },
+  "unit": {
+    "times": "次",
+    "rows": "條",
+    "pieces": "個",
+    "percent": "%"
+  },
+  "error": {
+    "rule": {
+      "notFound": "規則不存在: {{code}}",
+      "noFields": "沒有需要更新的欄位",
+      "builtinNotDeletable": "內建規則不可刪除",
+      "metricMissing": "指標不存在（請在「資料管理 → 指標」中先建立）",
+      "metricLimit": "指標告警最多 {{max}} 條"
+    },
+    "contact": {
+      "idInvalid": "contact_id 非法",
+      "notFound": "聯絡人不存在",
+      "localeInvalid": "不支援的語言：{{locale}}",
+      "timezoneInvalid": "不合法的時區（須為 IANA 名，如 Asia/Shanghai）"
+    },
+    "channel": {
+      "unsupported": "不支援的通道類型：{{kind}}",
+      "unavailable": "通道 {{channel}} 當前不可用",
+      "unknown": "未知通道：{{channel}}"
+    },
+    "channelConfig": {
+      "unsupported": "不支援的通道配置：{{channel}}",
+      "masterKeyMissing": "缺少主金鑰：請設定環境變數 {{env}}（32 位元組 base64），用於加密儲存通道憑證"
+    },
+    "template": {
+      "syntaxError": "範本語法錯誤：{{error}}",
+      "subjectSyntaxError": "郵件主題語法錯誤：{{error}}",
+      "kindInvalid": "事件類型非法（fire / resolve）",
+      "channelInvalid": "通道非法（chat / email / sms）"
+    },
+    "mute": {
+      "notFound": "靜音不存在",
+      "windowInvalid": "靜音時間無效"
+    },
+    "retention": {
+      "scopeInvalid": "不支援的保留範圍：{{scope}}",
+      "daysInvalid": "保留天數須為 1~{{max}} 的整數，留空表示永久保留"
+    },
+    "metric": {
+      "notFound": "指標不存在"
+    },
+    "validate": {
+      "failed": "校驗未通過",
+      "required": "請填寫「{{field}}」",
+      "number": "「{{field}}」必須是數字",
+      "portRange": "連線埠範圍應為 1~65535",
+      "paramCount": "範本變數個數應為 1~4",
+      "apiBaseHttp": "API 地址必須以 http(s):// 開頭",
+      "fromFormat": "發件人格式不正確（可寫 name <mail@example.com>）",
+      "webhookRequired": "請填寫 Webhook 地址",
+      "webhookHttps": "Webhook 地址必須是 https:// 開頭",
+      "webhookHttp": "Webhook 地址必須以 http(s):// 開頭",
+      "feishuWebhook": "看起來不是飛書機器人 webhook（應形如 https://open.feishu.cn/open-apis/bot/v2/hook/…）",
+      "dingtalkWebhook": "看起來不是釘釘機器人 webhook（應形如 https://oapi.dingtalk.com/robot/send?access_token=…）",
+      "dingtalkSecret": "加簽金鑰過短（釘釘主控台生成的 SEC…）",
+      "wecomWebhook": "看起來不是企業微信群組機器人 webhook（應形如 https://qyapi.weixin.qq.com/cgi-bin/webhook/send?key=…）",
+      "telegramChatIdRequired": "請填寫 chat_id（群組或私訊的聊天室 ID，可透過 @userinfobot 獲取）",
+      "telegramChatIdFormat": "chat_id 應為數字（群 ID 以 -100 開頭）",
+      "emailRequired": "請填寫收件郵箱",
+      "emailFormat": "郵箱格式不正確",
+      "smsRequired": "請填寫接收手機號",
+      "smsFormat": "手機號格式不正確（建議帶國家碼，如 +8613800138000）",
+      "smsProvider": "簡訊廠商無效（可選：{{allowed}}）",
+      "whatsappRequired": "請填寫接收號碼（E.164，如 8613800138000）",
+      "whatsappFormat": "號碼位數不正確（E.164 不含 +，8~15 位）",
+      "headersJson": "自訂請求頭必須是合法 JSON（如 {\"Authorization\":\"Bearer xxx\"}）",
+      "bodyTemplate": "body 範本語法錯誤：{{error}}"
+    },
+    "ops": {
+      "forbidden": "僅平台超級管理員可存取運維面板"
+    }
+  }
+}

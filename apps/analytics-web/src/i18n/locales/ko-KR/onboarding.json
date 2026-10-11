@@ -1,0 +1,421 @@
+{
+  "page": {
+    "paramsTitle": "연동 파라미터",
+    "projectName": "프로젝트 이름",
+    "reportEndpoint": "전송 주소",
+    "projectToken": "프로젝트 token",
+    "tokenHint": "프로젝트 관리자에게 요청하세요(보안상 페이지에 표시하지 않습니다). 환경 변수나 서버 설정으로 주입하세요",
+    "prereqTitle": "연동 전 필독",
+    "prereqLead": "전송 방식은 POST +",
+    "prereqTail": "로 통일되며 세 가지 폼 필드 구성은 아래와 같습니다. 전체 규격은 저장소의 데이터 전송 규격 문서를 참고하세요.",
+    "descColumn": "설명",
+    "pitfall": "가장 흔한 함정: receiver는 base64 + urlencode된 데이터만 받습니다. 원본 JSON body를 그대로 POST하면 'data가 비어 있음'으로 파싱되어 HTTP는 200을 반환하지만 데이터는 조용히 유실됩니다.",
+    "curlLabel": "최소 요청(curl)",
+    "curlTokenPlaceholder": "<프로젝트 token>",
+    "curlDataPlaceholder": "<base64(JSON 배열)>",
+    "plannedTitle": "{{name}}: 아직 개발되지 않음",
+    "gotIt": "확인",
+    "plannedBody": "이 SDK는 아직 ClkLog 전송 프로토콜을 지원하지 않아 연동 문서와 예제를 제공하지 않습니다.",
+    "plannedHint": "지금은 '기타 연동 방식 → HTTP / RESTful API'로 직접 연동하거나(모든 언어에 적용 가능) 플랫폼 담당자에게 필요한 SDK를 알려 주시면 요구 사항에 따라 일정을 조정해 지원합니다.",
+    "copied": "{{label}} 복사됨"
+  },
+  "drawer": {
+    "title": "{{name}} 연동 문서",
+    "titleFallback": "연동 문서",
+    "faqTitle": "자주 묻는 질문({{count}})",
+    "downloadDemo": "데모 프로젝트 다운로드(zip)",
+    "downloadDemoHint": "패키지에는 {{contents}}와 실행 안내(README)가 포함되어 있습니다. 자격 증명은 포함되지 않습니다."
+  },
+  "code": {
+    "copied": "코드가 복사되었습니다",
+    "copyFailed": "복사 실패. 직접 선택해 주세요"
+  },
+  "group": {
+    "client": "클라이언트 SDK",
+    "server": "서버 SDK",
+    "other": "기타 연동 방식"
+  },
+  "groupHint": {
+    "client": "App / 웹 / 미니프로그램 / 게임 엔진에서 트래킹 데이터 수집",
+    "server": "백엔드 서비스에서 비즈니스 이벤트(주문, 결제, 가입 등) 전송",
+    "other": "특정 언어에 의존하지 않고 HTTP 프로토콜로 직접 연동하거나 과거 데이터를 일괄 보정"
+  },
+  "status": {
+    "ready": "실측 완료",
+    "planned": "아직 개발되지 않음",
+    "partial": "언어 수준 실측 완료"
+  },
+  "protocol": {
+    "project": "프로젝트 이름(= 아래 '프로젝트 이름', 프로젝트 표시 이름이 아님)",
+    "token": "프로젝트 토큰. 프로젝트 관리자에게 요청하세요. 프런트엔드 코드나 저장소에 기록하지 마세요",
+    "data": "이벤트 배열: JSON 배열 → Base64 → URL 인코딩(단일 이벤트도 배열로 감싸야 합니다)"
+  },
+  "encodingSample": "원본 이벤트 배열(단일 이벤트도 배열로 감싸기)\n[{\"type\":\"track\",\"event\":\"PageView\",\"distinct_id\":\"u_1001\",\"time\":1785228036000,\"properties\":{\"channel\":\"app_store\"}}]\n   ↓ JSON.stringify + Base64\nW3sidHlwZSI6InRyYWNrIiwiZXZlbnQiOiJQYWdlVmlldyIsImRpc3RpbmN0X2lkIjoidV8xMDAxIiwidGltZSI6MTc4NTIyODAzNjAwMCwicHJvcGVydGllcyI6eyJjaGFubmVsIjoiYXBwX3N0b3JlIn19XQ==\n   ↓ URL 인코딩 후 폼 필드 data에 넣기\ndata=W3sidHlwZSI6InRyYWNrIiwiZXZlbnQiOiJQYWdlVmlldyIsImRpc3RpbmN0X2lkIjoidV8xMDAxIiwidGltZSI6MTc4NTIyODAzNjAwMCwicHJvcGVydGllcyI6eyJjaGFubmVsIjoiYXBwX3N0b3JlIn19XQ%3D%3D",
+  "guide": {
+    "http": {
+      "name": "HTTP / RESTful API",
+      "platform": "공통 프로토콜 · 모든 언어 사용 가능",
+      "summary": "모든 SDK가 최종적으로 이 프로토콜을 사용합니다. 해당 SDK가 없는 언어는 이 방식으로 바로 연동할 수 있습니다",
+      "step1Title": "1. 요청 방식과 주소",
+      "step1Body": "전송 주소로 POST하며 Content-Type은 application/x-www-form-urlencoded를 사용합니다. 세 가지 폼 필드가 프로토콜의 3요소입니다. GET도 지원하지만 이벤트 내용이 URL에 들어가므로 권장하지 않습니다.",
+      "step1Code1Label": "최소 요청(curl)",
+      "step1Code1": "curl -X POST '<전송 주소>' \\\n  -H 'Content-Type: application/x-www-form-urlencoded' \\\n  --data-urlencode 'project=<프로젝트 이름>' \\\n  --data-urlencode 'token=<프로젝트 token>' \\\n  --data-urlencode 'data=<base64(JSON 배열)>'",
+      "step1Note1": "HTTP 200은 형식 파싱이 통과했다는 의미일 뿐이며 비즈니스 검증과 적재는 비동기로 처리됩니다. 성공 여부를 응답 본문으로 판단하지 마세요.",
+      "step1Note2": "주소에는 /receiver 접두사가 반드시 포함되어야 합니다(게이트웨이가 이 접두사로 receiver에 전달합니다).",
+      "step2Title": "2. 이벤트 메시지 구조",
+      "step2Body": "data의 각 요소가 하나의 이벤트 객체입니다. 필드 의미: type(track 행동 이벤트 / user_set 사용자 속성 / track_signup 로그인 연결), event(이벤트 이름, track 필수), distinct_id(방문자 ID, 전 구간에서 안정적), time(밀리초 타임스탬프), identities(신원 확장), properties(사용자 정의 속성, $ 접두사는 기본 제공 속성).",
+      "step2Code1Label": "행동 이벤트 하나",
+      "step3Title": "3. 인코딩 요구 사항(가장 흔한 함정)",
+      "step3Body": "이벤트 배열을 JSON 문자열로 직렬화한 후 Base64로 인코딩하고, 전체를 URL 인코딩해 data 필드에 넣습니다. 원본 JSON body를 그대로 POST하면 'data가 비어 있음'으로 파싱됩니다. HTTP는 여전히 200을 반환하지만 데이터는 조용히 유실됩니다.",
+      "step3Code1Label": "인코딩 체인",
+      "step3Note1": "단일 이벤트도 반드시 배열로 감싸야 합니다([{...}]).",
+      "step3Note2": "Base64 결과의 + / =는 반드시 URL 인코딩해야 합니다. 그렇지 않으면 폼 파싱 과정에서 깨집니다.",
+      "step4Title": "4. 사용자 신원과 로그인 연결",
+      "step4Body": "익명 단계에서는 기기 또는 방문자 식별자를 distinct_id로 사용합니다. 사용자가 로그인하면 track_signup을 한 건 전송해 로그인 ID를 identities.user_key에, 기존 익명 ID를 properties.$track_signup_original_id에 기록합니다. 이후 모든 이벤트에 identities.user_key가 자동으로 포함되어 플랫폼이 같은 사용자의 전후 행동을 병합할 수 있습니다.",
+      "step4Code1Label": "로그인 연결 이벤트",
+      "step5Title": "5. 배치와 재시도",
+      "step5Body": "여러 이벤트를 같은 배열에 담아 한 번에 전송하세요(배치당 10~50건 권장). 배치 안의 한 건이 비정상이어도 다른 건에는 영향이 없습니다. 실패 시 3회 재시도하고 500ms×횟수만큼 백오프하면 됩니다. 계속 실패하면 데이터를 로컬 큐에 저장했다가 나중에 재전송해 이벤트 유실을 피하세요.",
+      "step6Title": "6. 전송 결과 검증",
+      "step6Body": "전송 후 '데이터 관리 → Debug'에서 이벤트 이름으로 최근 전송을 조회할 수 있습니다(속성 상세와 수신 시간 확인 가능). 이벤트 분석에서 해당 이벤트를 선택해 데이터가 있는지 확인할 수도 있습니다. 일반적인 지연은 초 단위이며 Flink 집계 지표는 분 단위 지연이 있을 수 있습니다.",
+      "faq1Q": "인터페이스가 200을 반환하는데 플랫폼에서 데이터가 조회되지 않습니다.",
+      "faq1A": "먼저 data가 'Base64 + URL 인코딩'된 내용인지 확인하세요(JSON을 그대로 보내면 200이지만 data는 비어 있습니다). 그런 다음 project와 token이 일치하는지, 이벤트 이름에 공백이나 대소문자 오류가 없는지 확인하세요.",
+      "faq2Q": "time은 초와 밀리초 중 무엇을 사용하나요?",
+      "faq2A": "밀리초(13자리)입니다. 초(10자리)를 보내면 1970년으로 파싱되며, 보내지 않으면 서버 수신 시간이 사용됩니다.",
+      "faq3Q": "단일 이벤트를 JSON 객체로 바로 보낼 수 있나요?",
+      "faq3A": "안 됩니다. data를 디코딩한 결과는 반드시 배열이어야 하므로 단일 이벤트도 [{...}]로 작성하세요.",
+      "faq4Q": "token을 프런트엔드에 두어도 안전한가요?",
+      "faq4A": "권장하지 않습니다. 전송 토큰은 데이터를 쓸 수 있으므로 클라이언트는 서버를 경유해 전송하거나 전송만 허용하는 제한 토큰을 사용하세요."
+    },
+    "php": {
+      "name": "PHP",
+      "platform": "서버 · PHP 7.4+(curl 확장 필요)",
+      "summary": "비즈니스 코드에서 주문, 결제, 가입 등의 이벤트 전송",
+      "step1Title": "1. 사전 조건",
+      "step1Body": "PHP 7.4 이상, curl 확장 활성화(php -m | grep curl). 서드파티 의존성은 없습니다.",
+      "step1Code1Label": "환경 확인",
+      "step2Title": "2. 클라이언트 초기화",
+      "step2Body": "세 가지 파라미터: 전송 주소, 프로젝트 이름, 프로젝트 token. token은 환경 변수에서 읽고 코드에 기록하지 마세요.",
+      "step2Code1Label": "생성과 설정",
+      "step2Code1": "final class ClkLogClient\n{\n    private array $queue = [];\n    private ?string $loginId = null; // 로그인 후 identities.user_key에 자동 포함\n\n    public function __construct(\n        private readonly string $endpoint,\n        private readonly string $project,\n        private readonly string $token,\n        private readonly int $batchSize = 10,\n    ) {}\n\n    public static function fromEnv(): self\n    {\n        return new self(\n            getenv('CLKLOG_ENDPOINT') ?: '<전송 주소>',\n            getenv('CLKLOG_PROJECT') ?: '<프로젝트 이름>',\n            getenv('CLKLOG_TOKEN') ?: throw new RuntimeException('CLKLOG_TOKEN이 없습니다'),\n            10,\n        );\n    }\n}",
+      "step3Title": "3. 행동 이벤트 전송",
+      "step3Body": "track()은 이벤트를 큐에 넣고 배치 개수에 도달하면 자동으로 전송합니다. time은 밀리초 타임스탬프를 사용합니다.",
+      "step3Code1Label": "track과 큐 적재",
+      "step3Code1": "public function track(string $distinctId, string $event, array $properties = []): void\n{\n    $this->enqueue($this->withIdentity([\n        'type'        => 'track',\n        'event'       => $event,\n        'distinct_id' => $distinctId,\n        'time'        => (int) (microtime(true) * 1000), // 밀리초\n        'properties'  => (object) $properties,\n    ]));\n}\n\n$cli = ClkLogClient::fromEnv();\n$cli->track('u_1001', 'Purchase', ['order_id' => 'O20260915001', 'amount' => 99.5]);",
+      "step4Title": "4. 사용자 속성과 로그인 연결",
+      "step4Body": "profileSet()은 사용자 속성을 덮어쓰기 방식으로 기록합니다. login()은 track_signup을 전송해 익명 ID와 로그인 ID를 병합하며 이후 모든 이벤트에 identities.user_key가 자동으로 포함됩니다.",
+      "step4Code1Label": "profileSet / login",
+      "step4Code1": "public function profileSet(string $distinctId, array $properties): void\n{\n    $this->enqueue($this->withIdentity([\n        'type'        => 'user_set',\n        'distinct_id' => $distinctId,\n        'time'        => (int) (microtime(true) * 1000),\n        'properties'  => (object) $properties,\n    ]));\n}\n\npublic function login(string $loginId, string $anonymousId): void\n{\n    $this->loginId = $loginId;\n    $this->enqueue([\n        'type'        => 'track_signup',\n        'event'       => '$SignUp',\n        'distinct_id' => $loginId,\n        'identities'  => ['user_key' => $loginId],\n        'properties'  => ['$track_signup_original_id' => $anonymousId],\n        'time'        => (int) (microtime(true) * 1000),\n    ]);\n}\n\n$cli->profileSet('u_1001', ['vip_level' => 3, 'register_channel' => 'app_store']);\n$cli->login('user_9527', 'u_1001');",
+      "step5Title": "5. 배치 전송과 실패 재시도",
+      "step5Body": "flush()는 큐를 JSON으로 직렬화하고 Base64, URL 인코딩한 뒤 폼으로 제출합니다. 실패하면 3회 재시도하며 백오프합니다. 프로세스 종료 전에 한 번 더 flush하세요.",
+      "step5Code1Label": "flush",
+      "step5Code1": "public function flush(): void\n{\n    if ($this->queue === []) {\n        return;\n    }\n    $payload = base64_encode(json_encode($this->queue, JSON_UNESCAPED_UNICODE));\n\n    for ($attempt = 1; $attempt <= 3; $attempt++) {\n        $ch = curl_init($this->endpoint);\n        curl_setopt_array($ch, [\n            CURLOPT_POST           => true,\n            CURLOPT_POSTFIELDS     => http_build_query([\n                'project' => $this->project,\n                'token'   => $this->token,\n                'data'    => $payload,\n            ]),\n            CURLOPT_HTTPHEADER     => ['Content-Type: application/x-www-form-urlencoded'],\n            CURLOPT_RETURNTRANSFER => true,\n            CURLOPT_TIMEOUT        => 10,\n        ]);\n        $body = curl_exec($ch);\n        $code = curl_getinfo($ch, CURLINFO_RESPONSE_CODE);\n        if ($code === 200) {\n            $this->queue = [];\n            return;\n        }\n        usleep($attempt * 500_000); // 백오프\n    }\n    throw new RuntimeException('upstream flush failed after 3 attempts');\n}",
+      "step5Note1": "http_build_query가 URL 인코딩을 처리하므로 urlencode를 다시 호출하지 마세요.",
+      "step5Note2": "상주 프로세스(큐 컨슈머, 예약 작업)는 매 라운드 끝에 명시적으로 flush해 이벤트가 메모리에 오래 남지 않게 하세요.",
+      "step6Title": "6. 검증",
+      "step6Body": "전송을 한 번 실행한 후 '데이터 관리 → Debug'에서 이벤트 이름으로 조회하면 방금 보낸 이벤트와 속성을 볼 수 있습니다. 예상 지연은 몇 초 이내입니다.",
+      "faq1Q": "200이 반환되는데 데이터가 없나요?",
+      "faq1A": "data가 Base64로 인코딩된 후 http_build_query로 다시 인코딩된 결과인지 확인하고, token과 project가 같은 프로젝트에 속하는지 확인하세요.",
+      "faq2Q": "time은 어떤 단위를 사용하나요?",
+      "faq2A": "밀리초입니다. PHP에서는 (int)(microtime(true) * 1000)을 사용하세요.",
+      "faq3Q": "이벤트의 한글이 깨지나요?",
+      "faq3A": "json_encode 시 JSON_UNESCAPED_UNICODE를 추가하고 문자열이 UTF-8인지 확인하세요.",
+      "faq4Q": "웹 요청 안에서 동기로 전송할 수 있나요?",
+      "faq4A": "가능하지만 로컬 큐(Redis / 데이터베이스 테이블)에 넣고 백그라운드 작업으로 배치 전송해 API 응답 지연을 피하는 것이 좋습니다."
+    },
+    "go": {
+      "name": "Go",
+      "platform": "서버 · Go 1.18+(표준 라이브러리만)",
+      "summary": "고동시성 백엔드 서비스에서 비즈니스 이벤트 전송, 서드파티 의존성 없음",
+      "step1Title": "1. 사전 조건",
+      "step1Body": "Go 1.18 이상, 표준 라이브러리만 사용(net/http, encoding/json, encoding/base64, net/url)하며 SDK 모듈을 추가할 필요가 없습니다.",
+      "step1Code1Label": "모듈 초기화",
+      "step2Title": "2. 이벤트와 클라이언트 정의",
+      "step2Body": "Event 구조체가 프로토콜 필드에 대응하고 Identities가 user_key 신원 확장을 담습니다.",
+      "step2Code1Label": "구조체와 생성",
+      "step2Code1": "type Event struct {\n    Type       string         `json:\"type\"`                 // track / track_signup / user_set\n    Event      string         `json:\"event,omitempty\"`      // 이벤트 이름(track 필수)\n    DistinctID string         `json:\"distinct_id\"`          // 방문자 ID\n    Time       int64          `json:\"time\"`                 // 밀리초 타임스탬프\n    Identities map[string]any `json:\"identities,omitempty\"` // {\"user_key\": 로그인 ID}\n    Properties map[string]any `json:\"properties,omitempty\"`\n}\n\ntype ClkLogClient struct {\n    Endpoint, Project, Token string\n    BatchSize                int\n    loginID                  string\n    queue                    []Event\n    http                     *http.Client\n}\n\nfunc NewClkLogClient(endpoint, project, token string) *ClkLogClient {\n    return &ClkLogClient{\n        Endpoint: endpoint, Project: project, Token: token, BatchSize: 10,\n        http: &http.Client{Timeout: 10 * time.Second},\n    }\n}",
+      "step3Title": "3. 행동 이벤트 전송",
+      "step3Body": "Track은 큐에 넣고 배치 개수에 도달하면 자동으로 Flush합니다. 로그인 후에는 identities.user_key가 자동으로 포함됩니다.",
+      "step3Code1Label": "Track",
+      "step3Code1": "func (c *ClkLogClient) Track(distinctID, event string, props map[string]any) error {\n    e := Event{\n        Type: \"track\", Event: event, DistinctID: distinctID,\n        Time: time.Now().UnixMilli(), Properties: props,\n    }\n    if c.loginID != \"\" {\n        e.Identities = map[string]any{\"user_key\": c.loginID}\n    }\n    c.queue = append(c.queue, e)\n    if len(c.queue) >= c.BatchSize {\n        return c.Flush()\n    }\n    return nil\n}\n\n// 호출\ncli.Track(\"u_1001\", \"Purchase\", map[string]any{\"order_id\": \"O20260915001\", \"amount\": 99.5})",
+      "step4Title": "4. 로그인 연결과 사용자 속성",
+      "step4Body": "Login은 track_signup을 전송해 신원을 병합하고 ProfileSet은 사용자 속성을 덮어쓰기 방식으로 기록합니다.",
+      "step4Code1Label": "Login / ProfileSet",
+      "step4Code1": "func (c *ClkLogClient) Login(loginID, anonymousID string) error {\n    c.loginID = loginID\n    c.queue = append(c.queue, Event{\n        Type: \"track_signup\", Event: \"$SignUp\", DistinctID: loginID,\n        Identities: map[string]any{\"user_key\": loginID},\n        Properties: map[string]any{\"$track_signup_original_id\": anonymousID},\n        Time:       time.Now().UnixMilli(),\n    })\n    if len(c.queue) >= c.BatchSize {\n        return c.Flush()\n    }\n    return nil\n}\n\nfunc (c *ClkLogClient) ProfileSet(distinctID string, props map[string]any) error {\n    e := Event{Type: \"user_set\", DistinctID: distinctID, Time: time.Now().UnixMilli(), Properties: props}\n    if c.loginID != \"\" {\n        e.Identities = map[string]any{\"user_key\": c.loginID}\n    }\n    c.queue = append(c.queue, e)\n    return nil\n}",
+      "step5Title": "5. 배치 전송과 실패 재시도",
+      "step5Body": "Flush는 큐를 JSON 직렬화 → Base64 → 폼 인코딩 순서로 전송합니다. 실패 시 3회 재시도하며 매번 500ms×횟수만큼 백오프합니다.",
+      "step5Code1Label": "Flush",
+      "step5Code1": "func (c *ClkLogClient) Flush() error {\n    if len(c.queue) == 0 {\n        return nil\n    }\n    payload, err := json.Marshal(c.queue)\n    if err != nil {\n        return fmt.Errorf(\"marshal: %w\", err)\n    }\n    form := url.Values{}\n    form.Set(\"project\", c.Project)\n    form.Set(\"token\", c.Token)\n    form.Set(\"data\", base64.StdEncoding.EncodeToString(payload))\n\n    var lastErr error\n    for attempt := 1; attempt <= 3; attempt++ {\n        req, _ := http.NewRequest(http.MethodPost, c.Endpoint, bytes.NewBufferString(form.Encode()))\n        req.Header.Set(\"Content-Type\", \"application/x-www-form-urlencoded\")\n        resp, err := c.http.Do(req)\n        if err == nil && resp.StatusCode == http.StatusOK {\n            io.Copy(io.Discard, resp.Body)\n            resp.Body.Close()\n            c.queue = c.queue[:0]\n            return nil\n        }\n        if err == nil {\n            body, _ := io.ReadAll(resp.Body)\n            resp.Body.Close()\n            lastErr = fmt.Errorf(\"http %d: %s\", resp.StatusCode, string(body))\n        } else {\n            lastErr = err\n        }\n        time.Sleep(time.Duration(attempt) * 500 * time.Millisecond) // 백오프\n    }\n    return fmt.Errorf(\"flush failed after 3 attempts: %w\", lastErr)\n}",
+      "step5Note1": "동시 전송 시 queue에 sync.Mutex를 추가하거나 고루틴마다 클라이언트 인스턴스를 두세요.",
+      "step5Note2": "서비스가 정상 종료(signal → shutdown)될 때 Flush를 한 번 호출해 마지막 배치를 잃지 않도록 하세요.",
+      "step6Title": "6. 검증",
+      "step6Body": "전송을 한 번 실행한 후 '데이터 관리 → Debug'에서 이벤트 이름으로 조회하세요. 플랫폼의 이벤트 분석에서 해당 이벤트 수가 늘어나는지 확인할 수도 있습니다.",
+      "faq1Q": "200이 반환되는데 데이터가 없나요?",
+      "faq1A": "form의 data가 Base64 문자열인지 확인하세요(Go의 url.Values가 한 번 더 인코딩하는 것은 정상입니다). project/token이 일치하는지도 확인하세요.",
+      "faq2Q": "time은 어떤 단위를 사용하나요?",
+      "faq2A": "밀리초이며 Go에서는 time.Now().UnixMilli()를 사용하세요.",
+      "faq3Q": "배치 안에 필드가 잘못된 이벤트가 있으면 다른 이벤트에 영향이 있나요?",
+      "faq3A": "없습니다. 배치는 건별로 처리되며 잘못된 건은 건너뜁니다.",
+      "faq4Q": "응답 본문을 처리해야 하나요?",
+      "faq4A": "비즈니스 결과를 파싱할 필요가 없습니다. HTTP 200이면 수신 성공으로 보고 200이 아닐 때만 재시도하세요."
+    },
+    "unity": {
+      "name": "Unity (C#)",
+      "platform": "클라이언트 · Unity 2021+ / .NET Standard 2.1(같은 코드를 .NET 콘솔에서도 사용 가능)",
+      "summary": "게임과 C# 클라이언트 트래킹: 로그인 연결, 사용자 속성, 배치 전송",
+      "step1Title": "1. 사전 조건",
+      "step1Body": "Unity 2021 이상(.NET Standard 2.1, HttpClient 포함). JSON 직렬화: Unity 6에는 System.Text.Json이 내장되어 있고, 이전 버전은 Newtonsoft.Json을 사용하거나 NuGetForUnity로 System.Text.Json을 설치할 수 있습니다.",
+      "step1Code1Label": "의존성 안내(Unity 버전에 따라 택 1)",
+      "step1Code1": "// Unity 6 내장: 그대로 using System.Text.Json;\n// 이전 버전: Package Manager에서 com.unity.nuget.newtonsoft-json을 설치하고 JsonConvert.SerializeObject 사용",
+      "step2Title": "2. 클라이언트 초기화",
+      "step2Body": "세 가지 파라미터: 전송 주소, 프로젝트 이름, 프로젝트 token. 클라이언트 token은 자사 서버에서 내려주거나 서버를 통해 전송하는 것을 권장하며 패키지에 하드코딩하지 마세요.",
+      "step2Code1Label": "생성",
+      "step2Code1": "public sealed class ClkLogClient\n{\n    private readonly HttpClient _http;\n    private readonly string _endpoint, _project, _token;\n    private readonly int _batchSize;\n    private readonly List<Dictionary<string, object?>> _queue = new();\n    private string? _loginId;\n\n    public ClkLogClient(string endpoint, string project, string token, int batchSize = 10)\n    {\n        _endpoint = endpoint;\n        _project = project;\n        _token = token;\n        _batchSize = batchSize > 0 ? batchSize : 10;\n        _http = new HttpClient { Timeout = TimeSpan.FromSeconds(10) };\n    }\n}",
+      "step3Title": "3. 행동 이벤트 전송",
+      "step3Body": "Track은 큐에 넣고 배치 개수에 도달하면 자동으로 전송합니다. time은 밀리초 타임스탬프를 사용합니다. 로그인 후 이벤트에는 identities.user_key가 자동으로 포함됩니다.",
+      "step3Code1Label": "Track",
+      "step3Code1": "public void Track(string distinctId, string eventName, Dictionary<string, object?>? properties = null)\n{\n    var e = new Dictionary<string, object?>\n    {\n        [\"type\"] = \"track\",\n        [\"event\"] = eventName,\n        [\"distinct_id\"] = distinctId,\n        [\"time\"] = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds(), // 밀리초\n        [\"properties\"] = properties ?? new Dictionary<string, object?>(),\n    };\n    Enqueue(WithIdentity(e));\n}\n\n// 호출\nclient.Track(\"u_1001\", \"Purchase\", new() { [\"order_id\"] = \"O20260915001\", [\"amount\"] = 99.5 });",
+      "step4Title": "4. 로그인 연결과 사용자 속성",
+      "step4Body": "Login은 track_signup을 전송해 로그인 ID와 익명 ID를 연결하며 이후 모든 이벤트에 user_key가 포함됩니다. ProfileSet은 사용자 속성을 덮어쓰기 방식으로 기록합니다.",
+      "step4Code1Label": "Login / ProfileSet",
+      "step4Code1": "public void Login(string loginId, string anonymousId)\n{\n    _loginId = loginId;\n    Enqueue(new Dictionary<string, object?>\n    {\n        [\"type\"] = \"track_signup\",\n        [\"event\"] = \"$SignUp\",\n        [\"distinct_id\"] = loginId,\n        [\"identities\"] = new Dictionary<string, object?> { [\"user_key\"] = loginId },\n        [\"properties\"] = new Dictionary<string, object?> { [\"$track_signup_original_id\"] = anonymousId },\n        [\"time\"] = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds(),\n    });\n}\n\nprivate Dictionary<string, object?> WithIdentity(Dictionary<string, object?> e)\n{\n    if (_loginId is not null)\n    {\n        e[\"identities\"] = new Dictionary<string, object?> { [\"user_key\"] = _loginId };\n    }\n    return e;\n}\n\npublic void ProfileSet(string distinctId, Dictionary<string, object?> properties)\n{\n    Enqueue(WithIdentity(new Dictionary<string, object?>\n    {\n        [\"type\"] = \"user_set\",\n        [\"distinct_id\"] = distinctId,\n        [\"time\"] = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds(),\n        [\"properties\"] = properties,\n    }));\n}",
+      "step5Title": "5. 배치 전송과 재시도",
+      "step5Body": "FlushAsync는 큐를 직렬화 → Base64 → 폼 인코딩 후 POST합니다. 실패 시 3회 재시도하며 백오프합니다. 게임에서는 씬 전환, 정산, 종료 전에 한 번 호출하세요.",
+      "step5Code1Label": "FlushAsync",
+      "step5Code1": "public async Task FlushAsync()\n{\n    if (_queue.Count == 0) return;\n    var json = JsonSerializer.Serialize(_queue);\n    var payload = Convert.ToBase64String(Encoding.UTF8.GetBytes(json));\n\n    for (var attempt = 1; attempt <= 3; attempt++)\n    {\n        try\n        {\n            using var content = new FormUrlEncodedContent(new Dictionary<string, string>\n            {\n                [\"project\"] = _project,\n                [\"token\"] = _token,\n                [\"data\"] = payload,\n            });\n            var res = await _http.PostAsync(_endpoint, content);\n            if (res.IsSuccessStatusCode)\n            {\n                _queue.Clear();\n                return;\n            }\n        }\n        catch (Exception) when (attempt < 3)\n        {\n            // 네트워크 오류는 백오프로 재시도\n        }\n        await Task.Delay(attempt * 500);\n    }\n    // 3회 모두 실패: 큐를 유지하고 다음 트리거를 기다림(로컬 파일로 저장해 영속화 가능)\n}",
+      "step5Note1": "Unity 메인 스레드에서 네트워크를 동기 대기하지 마세요. async/await를 사용하거나 코루틴에서 Task를 시작해 프레임 끊김을 피하세요.",
+      "step5Note2": "약한 네트워크 환경에서 안정성이 필요하면 큐를 Application.persistentDataPath 파일에 저장하고 다음 실행 시 재전송하세요.",
+      "step6Title": "6. 검증",
+      "step6Body": "에디터나 실제 기기에서 전송을 한 번 실행한 후 '데이터 관리 → Debug'에서 이벤트 이름으로 최근 전송을 조회하세요(속성과 수신 시간 포함). 로그인 후 같은 player 이벤트에 user_key가 포함되는지 확인하세요.",
+      "faq1Q": "200이 반환되는데 플랫폼에 데이터가 없나요?",
+      "faq1A": "가장 흔한 원인은 Base64를 하지 않았거나(JSON을 그대로 전송) token/project가 일치하지 않는 것입니다. data 필드 내용을 먼저 확인한 후 네트워크를 점검하세요.",
+      "faq2Q": "time은 어떤 단위를 사용하나요?",
+      "faq2A": "밀리초이며 C#에서는 DateTimeOffset.UtcNow.ToUnixTimeMilliseconds()를 사용하세요.",
+      "faq3Q": "Unity에서 System.Text.Json이 없다고 나오나요?",
+      "faq3A": "Unity 6에는 내장되어 있습니다. 이전 버전은 com.unity.nuget.newtonsoft-json을 설치하고 직렬화를 JsonConvert.SerializeObject로 바꾸세요.",
+      "faq4Q": "클라이언트에 token을 두어도 안전한가요?",
+      "faq4A": "권장하지 않습니다. 자사 서버가 전송을 대행하거나 전송만 허용하는 제한 토큰을 사용하고 주기적으로 교체하세요."
+    },
+    "javascript": {
+      "platform": "클라이언트 · 브라우저 H5(최신 브라우저, 의존성 없음)",
+      "summary": "웹 페이지 트래킹: 페이지 조회와 클릭 수집 + 언로드 전 큐 재전송. 실제 브라우저에서 5단계 이벤트 체인이 적재되는 것까지 실측했습니다.",
+      "note1": "함정: 페이지 언로드 시 재전송하려면 `navigator.sendBeacon` 또는 `fetch(..., {keepalive:true})`를 사용해야 하고 `URLSearchParams`를 넘겨야 합니다 —— 문자열을 넘기면 text/plain으로 전송되어 receiver가 `data`를 파싱하지 못합니다.",
+      "faq1Q": "페이지를 닫을 때 이벤트가 유실되는 이유는 무엇인가요?",
+      "faq1A": "언로드 전에 `navigator.sendBeacon(new URLSearchParams(form))`로 재전송하세요. 문자열을 그대로 sendBeacon에 넘기면 text/plain으로 전송되어 HTTP 200이지만 적재되지 않습니다."
+    },
+    "miniprogram": {
+      "platform": "클라이언트 · WeChat 미니프로그램(기본 라이브러리 2.x, 의존성 없음)",
+      "summary": "미니프로그램 내 트래킹: `wx.request` 전송 + 로컬 캐시 큐 + `wx.onAppHide` 재전송. 언어 수준 구현은 실측 완료했습니다(실기기에서는 개발자 도구로 가져와야 합니다).",
+      "note1": "함정: `wx.getStorageSync`는 키가 없을 때 null이 아니라 빈 문자열을 반환하므로 storage 어댑터 계층에서 정규화해야 합니다. 그렇지 않으면 익명 ID가 빈 문자열이 되어 사용자 병합이 되지 않습니다.",
+      "faq1Q": "미니프로그램에서 request의 data는 객체와 문자열 중 무엇을 전달하나요?",
+      "faq1A": "미리 인코딩한 urlencoded 문자열을 전달하고 `header[\"content-type\"]`를 명시적으로 설정하세요. 기본 라이브러리마다 객체 직렬화 동작이 달라 문자열이 가장 안정적입니다."
+    },
+    "reactNative": {
+      "platform": "클라이언트 · React Native(JS/TS, Hermes)",
+      "summary": "RN 앱 트래킹: 전역 `fetch` 전송 + 주입식 storage(AsyncStorage) + 백그라운드 전환 시 재전송. 전송과 큐 코어는 실측 완료했습니다.",
+      "note1": "함정: Hermes에는 `btoa` / `Buffer` / `TextEncoder`가 없고 `URLSearchParams.toString()`도 RN에서는 사용할 수 없습니다 —— base64와 urlencode는 직접 만든 순수 JS 구현을 사용해야 합니다.",
+      "faq1Q": "RN에서 base64와 urlencode는 어떻게 작성하나요?",
+      "faq1A": "`btoa`나 `Buffer`에 의존하지 마세요(Hermes에는 둘 다 없습니다). base64를 직접 구현하고 `encodeURIComponent`로 구간별 퍼센트 인코딩해 `+` `/` `=`가 모두 인코딩되도록 하세요."
+    },
+    "android": {
+      "platform": "클라이언트 · Android 네이티브(Java / Kotlin, HTTP 전송)",
+      "summary": "Android 트래킹 클라이언트 코어: 기기 ID 영속화, 세션, 배치, 백오프 재시도, 백그라운드 전환 시 재전송. JVM(Java 8)에서 5단계 이벤트 체인을 실측했지만 APK 패키징 검증은 하지 않았습니다.",
+      "note1": "함정: `Base64.getMimeEncoder()`는 76자마다 줄을 바꾸므로 반드시 `getEncoder()`를 사용해야 합니다. `java.util.Base64`는 API 26 이상이 필요하며 그보다 낮은 버전은 `android.util.Base64`를 사용하세요.",
+      "faq1Q": "Android 프로덕션 환경에서는 무엇으로 전송하나요?",
+      "faq1A": "폼 제출을 OkHttp로 바꾸면 됩니다(`RequestBody.create(form, MediaType.parse(\"application/x-www-form-urlencoded\"))`). 인코딩과 신원 필드 로직은 전혀 바뀌지 않으며 Kotlin 호출 형태도 동일합니다."
+    },
+    "ios": {
+      "platform": "클라이언트 · iOS 네이티브(Swift / Objective-C, URLSession)",
+      "summary": "iOS 트래킹 클라이언트 코어: 익명 ID를 UserDefaults에 저장, 배치, 백오프 재시도, 백그라운드 진입 시 재전송. iOS와 동일한 Foundation URLSession으로 5단계 이벤트 체인을 실측했지만 App 패키징 검증은 하지 않았습니다.",
+      "note1": "함정: `addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)`는 `+` `&` `=`를 인코딩하지 않아 base64의 `+`가 서버에서 공백으로 해석되어 데이터가 손상됩니다 —— RFC3986에 따라 UTF-8 바이트를 직접 인코딩해야 합니다.",
+      "faq1Q": "iOS에서는 App에 어떻게 연동하나요?",
+      "faq1A": "클라이언트 클래스를 프로젝트에 추가하고 `applicationDidEnterBackground`에서 flush를 호출해 재전송하세요. `URLSessionConfiguration`은 세션 생성 시 복사되므로 타임아웃을 바꾸려면 세션을 다시 만들어야 합니다."
+    },
+    "cocos2dX": {
+      "platform": "클라이언트 · C++(Cocos2d-x, 엔진 측 패키징 검증은 하지 않음)",
+      "summary": "엔진 내 C++ 전송 코어(JSON / 한 줄 base64 / 폼 POST / 큐)는 실측 완료했습니다. 연동할 때는 전송 계층만 엔진 내장 HttpRequest로 바꾸면 됩니다.",
+      "note1": "함정: libcurl을 `cocos2d::network::HttpRequest`(비동기 + 콜백)로 바꾸면 되지만, base64와 urlencode는 한 줄 유지와 모든 문자 인코딩을 직접 보장해야 합니다.",
+      "faq1Q": "엔진에서 libcurl을 직접 사용하지 않는 이유는 무엇인가요?",
+      "faq1A": "사용할 수 있지만 권장하지 않습니다. 엔진 내장 HttpRequest는 플랫폼 네트워크 스택을 재사용하고 메인 스레드에서 콜백을 처리합니다. 프로토콜, 인코딩, 배치, 신원 필드는 이 페이지의 코드와 완전히 동일합니다."
+    },
+    "java": {
+      "platform": "서버 · Java(JDK 8+, 표준 라이브러리만)",
+      "summary": "비즈니스 서비스에서 주문, 결제, 가입 등의 이벤트를 전송합니다. JDK 8은 HttpURLConnection, JDK 11+는 java.net.http로 바꿀 수 있습니다.",
+      "note1": "함정: `Base64.getMimeEncoder()`는 줄을 바꾸므로 반드시 `getEncoder()`를 사용해야 합니다. base64를 폼에 넣을 때는 urlencode를 한 번 더 해야 하며, 그렇지 않으면 `+`가 공백으로 해석됩니다.",
+      "faq1Q": "JDK 11+에서는 HttpClient로 바꿀 수 있나요?",
+      "faq1A": "가능합니다. 전송을 `HttpClient.newHttpClient().send(...)`로 바꾸고 body는 `BodyPublishers.ofString(form)`을 사용하며 Content-Type을 명시적으로 설정하세요. 인코딩과 신원 로직은 그대로입니다."
+    },
+    "python": {
+      "platform": "서버 · Python 3.7+(표준 라이브러리만)",
+      "summary": "백엔드 서비스나 스크립트에서 비즈니스 이벤트를 전송합니다. `urllib` + `json` + `base64`만으로 충분하며 서드파티 의존성이 없습니다.",
+      "note1": "함정: `data`는 `urlencode`한 뒤 body로 전송해야 합니다(dict를 urlopen에 그대로 넘길 수 없습니다). 재시도할 때는 Request 객체를 다시 만들어야 합니다.",
+      "faq1Q": "속성 값의 한글이 깨지나요?",
+      "faq1A": "`json.dumps(..., ensure_ascii=False).encode(\"utf-8\")` 후 base64로 인코딩하세요. 한글은 그대로 전달되므로 추가 변환이 필요하지 않습니다."
+    },
+    "nodejs": {
+      "platform": "서버 · Node.js 18+(내장 fetch, 의존성 없음)",
+      "summary": "Node 백엔드에서 비즈니스 이벤트를 전송합니다. 내장 `fetch` + `URLSearchParams`를 사용하면 axios / undici 같은 의존성이 필요 없습니다.",
+      "note1": "함정: fetch의 body에는 `URLSearchParams` 인스턴스를 넘기세요(urlencoded Content-Type이 자동으로 붙습니다). 일반 객체를 넘기면 JSON으로 직렬화됩니다.",
+      "faq1Q": "타임아웃은 어떻게 제어하나요?",
+      "faq1A": "`fetch(url, { signal: AbortSignal.timeout(10000) })`를 사용하세요. 실패 시 0.5s / 1s / 2s 백오프로 재시도하고 HTTP 200일 때만 로컬 큐를 비우세요."
+    },
+    "csharp": {
+      "platform": "서버 · .NET 6+ / 8+(HttpClient)",
+      "summary": "C# 백엔드에서 비즈니스 이벤트를 전송합니다. `HttpClient` + `FormUrlEncodedContent`를 사용하며 Unity 클라이언트와 동일한 프로토콜 정의를 공유합니다.",
+      "note1": "함정: 같은 저장소에 Unity 클라이언트와 서버 측 예제가 함께 있으면 SDK 스타일 프로젝트의 기본 와일드카드가 하위 디렉터리 소스를 두 프로젝트에 모두 포함합니다(CS8802 / CS0579). `Directory.Build.targets`로 제외하세요(`.props`는 기본 Include에 덮어써집니다).",
+      "faq1Q": "문자열의 `$`는 어떻게 처리하나요?",
+      "faq1A": "C#의 `$\"...\"`는 보간 문자열입니다. JSON을 만들 때 `$SignUp`, `$track_signup_original_id` 같은 필드 이름을 일반 문자열에 넣거나 명시적으로 `\\$`로 이스케이프하세요. 그렇지 않으면 변수로 해석됩니다."
+    },
+    "ruby": {
+      "platform": "서버 · Ruby 2.6+(표준 라이브러리만)",
+      "summary": "Ruby 백엔드에서 비즈니스 이벤트를 전송합니다. `net/http` + `json` + `base64`만 사용하며 gem 의존성이 없습니다.",
+      "note1": "함정: `Base64.encode64`는 60자마다 줄바꿈을 삽입합니다(`strict_encode64`를 사용하세요). 큰따옴표 문자열의 `$SignUp`은 전역 변수로 보간되어 빈 문자열이 되므로 작은따옴표를 사용하세요.",
+      "faq1Q": "이벤트 이름이 빈 값으로 전달되는 이유는 무엇인가요?",
+      "faq1A": "Ruby의 큰따옴표는 `$`로 시작하는 전역 변수를 보간하므로 `\"$SignUp\"`은 빈 문자열이 됩니다. 이벤트 이름과 `$track_signup_original_id`는 작은따옴표로 감싸거나 `\\$`로 이스케이프하세요."
+    },
+    "c": {
+      "platform": "서버 · C11(libcurl)",
+      "summary": "C / C++ 서비스에서 비즈니스 이벤트를 전송합니다: JSON 직접 작성 + 한 줄 base64 직접 구현 + libcurl 폼 POST.",
+      "note1": "함정: libcurl은 쓰기 콜백을 반드시 설정해야 합니다(`CURLOPT_WRITEDATA`만 설정하면 FILE*로 취급됩니다). base64는 직접 구현해 한 줄을 보장하고 `+` `/` `=`를 모두 퍼센트 인코딩하세요.",
+      "faq1Q": "컴파일할 때 curl.h를 찾을 수 없나요?",
+      "faq1A": "macOS의 curl 헤더는 SDK 안에 있습니다: `-I$(xcrun --show-sdk-path)/usr/include -L…/usr/lib -lcurl`. Linux에서는 `libcurl4-openssl-dev`를 설치하면 됩니다."
+    },
+    "lua": {
+      "platform": "서버 · Lua 5.4+ / 5.5(luasocket + luasec)",
+      "summary": "Lua 스크립트와 OpenResty 환경에서 비즈니스 이벤트를 전송합니다. OpenResty에서는 전송 계층을 resty.http로 바꾸기만 하면 되고 프로토콜 로직은 그대로입니다.",
+      "note1": "함정: luasec은 기본적으로 인증서를 검증하지 않으므로 `verify=\"peer\"`를 명시하고 `cafile`을 지정해야 합니다. 또한 밑줄이 있는 프로토콜 이름(`tlsv1_2`)만 인식하므로 `tlsv12`로 쓰면 바로 invalid protocol 오류가 납니다.",
+      "faq1Q": "Lua에는 os.setenv가 없는데 설정은 어떻게 전달하나요?",
+      "faq1A": "설정을 메모리 테이블로 읽은 뒤 값을 꺼내거나 외부에서 환경 변수를 내보내세요. OpenResty에서는 `ngx.var`나 `lua_shared_dict`로 설정을 전달합니다."
+    },
+    "flutter": {
+      "platform": "클라이언트 · Flutter 3.x / Dart 3.8+(http 패키지 사용)",
+      "summary": "Flutter 앱 트래킹: Web 빌드는 완료했고 실제 브라우저에서 세 단계를 모두 클릭해 적재까지 검증했습니다. iOS / Android는 패키징하지 않았습니다(이 환경에 해당 SDK가 없습니다).",
+      "note1": "함정: Dart의 내장 인코딩 함수는 두 가지 모두 그대로 쓸 수 없습니다 —— `Uri.encodeFull`은 `+` `/` `=`를 예약 문자로 보고 그대로 남기며, `Uri.encodeQueryComponent`는 공백을 `+`로 인코딩합니다(base64의 `+`와 충돌). RFC3986에 따라 직접 인코딩하고, 전송 전에 `data` 필드에 원시 `+` / `=`가 없는지 검증해야 합니다.",
+      "faq1Q": "Flutter Web 산출물이 최신인지 어떻게 확인하나요?",
+      "faq1A": "dart2js는 비 ASCII 리터럴을 `\\uXXXX`로 이스케이프하므로 중국어를 직접 grep하면 항상 0건입니다(오래된 산출물로 오판하기 쉽습니다). 이스케이프 형식으로 검색하거나 `main.dart.js`의 크기와 빌드 시간을 비교하세요."
+    },
+    "batchImport": {
+      "platform": "기타 · 명령줄 도구(Python 3, 표준 라이브러리만)",
+      "summary": "과거 로그 / CSV를 이벤트로 일괄 보정합니다(기존 주문, 결제, 가입 등 데이터 보정). 드라이런, 속도 제한, 중단 지점 재개를 지원합니다. 120행으로 실측했습니다 — 120행이 적재되었고 재개 시 재전송이나 행 누락이 없었습니다.",
+      "step1Title": "1. 과거 파일 준비",
+      "step1Body": "아래 열 규격에 맞춰 CSV를 정리하세요(한 줄에 이벤트 객체 하나인 JSONL도 가능합니다). `time`은 원본 밀리초 타임스탬프여야 과거 시각을 복원할 수 있습니다. 로그인 상태 이벤트에는 `user_key`를 넣고, 익명 ID 바인딩에는 `original_id` 열을 사용합니다.",
+      "step1Code1Label": "CSV 열 규격과 예시",
+      "step2Title": "2. 먼저 드라이런(네트워크 없음)",
+      "step2Body": "`--dry-run`은 읽기, 정규화, 인코딩, 용량 검증만 수행하며 전송도 진행 파일 기록도 하지 않습니다. 열 매핑이 올바른지, 어떤 행이 어떤 이유로 건너뛰어지는지 먼저 확인하세요.",
+      "step2Code1Label": "드라이런 명령",
+      "step3Title": "3. 소량 배치로 실제 실행",
+      "step3Body": "`--dry-run`을 빼면 실제로 전송됩니다. 먼저 `--limit`으로 소량 배치를 보내 파이프라인을 확인하고, 그다음 `--rate`로 속도를 제한해 수신 측을 보호하세요. 도구는 이번 run 식별자(`backfill-<시간>`)를 출력하고 각 이벤트의 `properties.backfill_run_id`에 기록하므로 run 단위로 대조하기 편합니다.",
+      "step3Code1Label": "보정 명령과 자주 쓰는 파라미터",
+      "step4Title": "4. 중단 지점 재개",
+      "step4Body": "진행 상황은 `<입력 파일>.backfill-progress.json`에 기록됩니다. 중단 후 `--resume`을 붙이면 이어서 진행되며, 완료된 배치는 재전송되지 않습니다. 실패한 행은 행 번호와 함께 `<입력 파일>.failed.jsonl`에 기록되므로 수정한 뒤 해당 행만 다시 실행할 수 있습니다.",
+      "note1": "중요: 이 도구는 **중복 제거를 하지 않습니다** — 같은 과거 이벤트를 끝까지 두 번 보정하면 두 번 적재됩니다. 항상 `--resume`으로 이어서 실행하거나, 먼저 `--dry-run` / `--limit`으로 검증하세요. 입력 파일의 내용이나 수정 시간이 바뀌면 `--force-resume`을 명시하지 않는 한 `--resume`은 실행을 거부합니다.",
+      "step5Title": "5. 적재 결과 대조",
+      "step5Body": "run 식별자별로 적재 행 수와 이벤트 분포를 집계해 파일의 전송 건수와 맞춰 보세요. 데이터 파이프라인은 1~3분 지연되므로 필요하면 여러 번 조회하세요.",
+      "step5Code1Label": "대조 SQL",
+      "faq1Q": "보정한 이벤트의 시간이 바뀌나요?",
+      "faq1A": "아니요. 도구는 파일의 `time`을 그대로(밀리초) 이벤트에 전달하고 분석 측은 이벤트 시간으로 집계합니다. **현재 시간으로 과거 시간을 바꾸지 마세요**. 그러면 과거 추세가 모두 보정 당일로 몰립니다.",
+      "faq2Q": "파일이 매우 클 때(수십만 행)는 어떻게 실행하나요?",
+      "faq2A": "나눠서 실행하세요. `--limit`으로 1회 건수, `--rate`로 속도를 제어하고 `--resume`으로 중단 지점부터 재개합니다. 요청당 50건 / 1MB 상한은 도구가 자동으로 분할하므로 파일을 직접 나눌 필요가 없습니다."
+    }
+  },
+  "planned": {
+    "android": {
+      "name": "Android",
+      "platform": "클라이언트 · Java / Kotlin",
+      "summary": "Android 네이티브 앱 트래킹(OkHttp 기반 래퍼로 제공 예정)"
+    },
+    "ios": {
+      "name": "iOS",
+      "platform": "클라이언트 · Swift / Objective-C",
+      "summary": "iOS 네이티브 앱 트래킹(URLSession 기반 래퍼로 제공 예정)"
+    },
+    "javascript": {
+      "name": "JavaScript / Web",
+      "platform": "클라이언트 · 브라우저 H5",
+      "summary": "웹 페이지 트래킹, 페이지 조회와 클릭 자동 수집"
+    },
+    "miniprogram": {
+      "name": "WeChat 미니프로그램",
+      "platform": "클라이언트 · 미니프로그램 / 미니게임",
+      "summary": "미니프로그램 트래킹(wx.request와 로컬 캐시 큐에 맞춰 제공 예정)"
+    },
+    "flutter": {
+      "name": "Flutter",
+      "platform": "클라이언트 · Dart",
+      "summary": "크로스 플랫폼 앱 트래킹(http 패키지 기반 래퍼로 제공 예정)"
+    },
+    "reactNative": {
+      "name": "React Native",
+      "platform": "클라이언트 · JS / TS",
+      "summary": "RN 앱 트래킹(JS 수집 코어 재사용 예정)"
+    },
+    "cocos2dX": {
+      "name": "Cocos2d-x",
+      "platform": "클라이언트 · C++ / Lua",
+      "summary": "Cocos 게임 트래킹(HttpClient 기반 래퍼로 제공 예정)"
+    },
+    "unreal": {
+      "name": "Unreal Engine",
+      "platform": "클라이언트 · C++ / 블루프린트",
+      "summary": "UE 게임 트래킹(Http 모듈 기반 래퍼로 제공 예정)"
+    },
+    "java": {
+      "name": "Java",
+      "platform": "서버 · JDK 8+",
+      "summary": "Java 백엔드 전송(HttpClient 기반 래퍼로 제공 예정)"
+    },
+    "python": {
+      "name": "Python",
+      "platform": "서버 · Python 3.7+",
+      "summary": "Python 백엔드 전송(requests 기반 래퍼로 제공 예정)"
+    },
+    "nodejs": {
+      "name": "Node.js",
+      "platform": "서버 · Node 16+",
+      "summary": "Node 백엔드 전송(undici / fetch 기반 래퍼로 제공 예정)"
+    },
+    "csharp": {
+      "name": "C#",
+      "platform": "서버 · .NET 6+",
+      "summary": "서버 C# 전송(현재는 Unity(C#) 문서의 클라이언트 구현을 참고하거나 HTTP 프로토콜을 직접 사용)"
+    },
+    "ruby": {
+      "name": "Ruby",
+      "platform": "서버 · Ruby 2.6+",
+      "summary": "Ruby 백엔드 전송(Net::HTTP 기반 래퍼로 제공 예정)"
+    },
+    "c": {
+      "name": "C",
+      "platform": "서버 · C / C++",
+      "summary": "C/C++ 서비스 전송(libcurl 기반 래퍼로 제공 예정)"
+    },
+    "lua": {
+      "name": "Lua",
+      "platform": "서버 · Lua 5.3+ / OpenResty",
+      "summary": "Lua와 OpenResty 환경 전송"
+    },
+    "batchImport": {
+      "name": "일괄 보정(파일 가져오기)",
+      "platform": "기타 · 과거 데이터 가져오기",
+      "summary": "과거 로그/CSV를 이벤트로 일괄 보정(명령줄 도구 제공 예정)"
+    }
+  },
+  "guideCommon": {
+    "step1Title": "1. 사전 조건",
+    "step1Body": "연동 파라미터(이 페이지 상단 참고: 전송 주소, 프로젝트 이름, 프로젝트 token)가 준비되었는지 확인하세요. 프로토콜은 폼 POST로 고정되며 `data` 필드 = base64(JSON 배열)를 urlencode한 값입니다. 원본 JSON을 그대로 POST하면 200이 반환되지만 데이터는 버려집니다.",
+    "step2Title": "2. 실행 환경 준비",
+    "step2Body": "아래 명령으로 해당 언어의 실행 환경을 준비하세요. 표준 라이브러리만 사용하는 구현은 의존성 설치를 건너뛸 수 있습니다.",
+    "step2Code1Label": "실행 환경",
+    "step3Title": "3. 초기화 및 이벤트 전송",
+    "step3Body": "해당 언어의 최소 전송 구현: 이벤트 JSON → base64 + urlencode 폼 → POST. 이벤트 시간은 밀리초 타임스탬프여야 합니다. 로그인 후에도 `distinct_id`는 항상 익명 ID이고 로그인 ID는 `identities.user_key`로 전달합니다.",
+    "step3Code1Label": "전송 핵심 코드(실측한 구현)",
+    "step4Title": "4. 로그인 연결과 사용자 속성",
+    "step4Body": "로그인 성공 시 `track_signup`을 한 건 전송(`properties.$track_signup_original_id` = 익명 ID)해 신원을 바인딩하고, 사용자 속성은 `user_set`을 사용합니다. 이후 모든 이벤트에 `identities.user_key`가 포함되어 분석 측에서 동일 사용자로 병합됩니다.",
+    "step5Title": "5. 적재 검증",
+    "step5Body": "이벤트를 발생시킨 후 `clklog.log_analysis`를 조회해 5개 행(익명 track / track_signup / user_set / 로그인 후 track ×2)을 확인하세요. 데이터 파이프라인은 1~3분 지연되며 HTTP 200은 형식 파싱 통과만 의미하므로 반드시 테이블을 확인해야 합니다.",
+    "step5Code1Label": "검증 SQL(ClickHouse)",
+    "faq1Q": "전송이 HTTP 200을 반환하는데 데이터베이스에 데이터가 없는 이유는 무엇인가요?",
+    "faq1A": "`data`는 base64(JSON 배열)를 urlencode한 폼 필드여야 합니다. 원본 JSON을 그대로 POST하거나, base64에 줄바꿈이 있거나, `+`가 퍼센트 인코딩되지 않으면 모두 200이 반환되지만 데이터는 조용히 버려집니다.",
+    "faq2Q": "이벤트 시간이 뒤섞이거나 로그인 전후로 두 사용자로 나뉘나요?",
+    "faq2A": "시간은 밀리초 타임스탬프여야 합니다(초 단위는 1970년으로 계산됩니다). 로그인 ID는 최상위 `identities.user_key`에(login_id 아님), 바인딩할 익명 ID는 `properties.$track_signup_original_id`에(original_id 아님) 넣고, 로그인 후에도 `distinct_id`는 변경하지 마세요."
+  }
+}

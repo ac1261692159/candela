@@ -1,0 +1,115 @@
+{
+  "alert": {
+    "level": {
+      "critical": "Crítica",
+      "warning": "Advertencia",
+      "info": "Aviso"
+    },
+    "status": {
+      "fire": "Activada",
+      "repeat": "Continua",
+      "resolve": "Recuperada"
+    },
+    "kind": {
+      "retention": "Métrica de retención",
+      "event": "Métrica de evento",
+      "builtin": "Métrica integrada"
+    },
+    "window": {
+      "today": "Hoy",
+      "lastDays": "Últimos {{days}} días",
+      "minutes": "Ventana de {{minutes}} minutos",
+      "cohort": "Cohorte {{label}}"
+    },
+    "varSample": {
+      "ruleName": "Volumen de envío de hoy demasiado bajo",
+      "ruleCode": "metric_ab12cd34",
+      "level": "critical",
+      "levelFmt": "Crítica",
+      "status": "Activada",
+      "statusCode": "fire",
+      "value": "1.204 veces",
+      "valueRaw": "1204",
+      "unit": "veces",
+      "comparator": "gt",
+      "comparatorFmt": "mayor que",
+      "threshold": "1.000 veces",
+      "metricName": "Envíos de hoy",
+      "metricKind": "Métrica de evento",
+      "windowDays": "1",
+      "windowFmt": "Hoy",
+      "project": "clklogapp",
+      "time": "2026-09-15 21:03:11",
+      "detectInterval": "60s",
+      "contactName": "Grupo de operaciones"
+    },
+    "channelName": {
+      "feishu_webhook": "Feishu",
+      "dingtalk": "DingTalk",
+      "wecom": "WeCom",
+      "telegram": "Telegram",
+      "webhook": "Webhook genérico",
+      "email": "Correo",
+      "sms": "SMS",
+      "whatsapp": "WhatsApp"
+    },
+    "channelTest": {
+      "text": "[PRUEBA] Comprobación de conectividad del canal de alertas de Candela\nCanal: {{channel}}\nHora: {{time}}",
+      "subject": "Prueba del canal de alertas de Candela ({{channel}})",
+      "ruleName": "Prueba de conectividad del canal",
+      "detailTargetInvalid": "El destino no ha superado la validación",
+      "detailSendFailed": "Fallo en la entrega (el error es la respuesta original del proveedor)",
+      "detailSent": "Mensaje de prueba enviado"
+    }
+  },
+  "units": {
+    "times": "veces",
+    "items": "registros",
+    "users": "usuarios",
+    "sec": "s",
+    "ms": "ms",
+    "min": "min",
+    "h": "h",
+    "days": "días",
+    "percent": "%"
+  },
+  "mail": {
+    "reset": {
+      "subject": "[Candela] Restablecer contraseña",
+      "body": "Hola:\n\nUsa este enlace para restablecer tu contraseña (válido {{minutes}} minutos, un solo uso):\n{{link}}\n\nSi no lo solicitaste, ignora este correo.\n\nCandela Analytics"
+    },
+    "setup": {
+      "subject": "[Candela] Configura la contraseña de tu cuenta",
+      "body": "Hola:\n\nUn administrador te creó una cuenta de Candela Analytics. Establece tu contraseña con este enlace (válido {{hours}} horas, un solo uso):\n{{link}}\n\nDespués podrás iniciar sesión.\n\nCandela Analytics"
+    },
+    "invite": {
+      "subject": "[Candela] Invitación al proyecto {{project}}",
+      "body": "Hola:\n\n{{inviter}} te invitó al proyecto {{project}} de Candela Analytics con el rol {{role}}.\n\nSigue este enlace para registrarte y unirte (válido {{days}} días):\n{{link}}\n\nSi no esperabas esta invitación, ignora este correo.\n\nCandela Analytics"
+    },
+    "inviteNotify": {
+      "subject": "[Candela] Te añadieron al proyecto {{project}}",
+      "body": "Hola:\n\n{{inviter}} te añadió al proyecto {{project}} de Candela Analytics con el rol {{role}}.\n\nInicia sesión con tu cuenta actual para acceder.\n\nCandela Analytics"
+    },
+    "roles": {
+      "analyst": "analista",
+      "member": "miembro",
+      "external": "externo"
+    },
+    "test": {
+      "subject": "[Candela] Prueba del canal de correo",
+      "body": "Este es un correo de prueba de Candela Analytics.\n\nSi lo recibiste, la configuración SMTP está activa: los correos de restablecimiento, configuración e invitaciones ya funcionan.\n\nCandela Analytics"
+    }
+  },
+  "reconcile": {
+    "notify": {
+      "dayAlertSubject": "[Candela] Cotejo {{date}}: desviación por encima del umbral (umbral {{threshold}} %)",
+      "failedSubject": "[Candela] Falló el cotejo de {{date}}",
+      "lineProject": "Proyecto: {{project}}",
+      "lineRange": "Rango: {{from}} ~ {{to}}",
+      "lineThreshold": "Umbral: {{threshold}} %; días con anomalía: {{days}}",
+      "lineDay": "{{date}}: sa {{sa}} / raw {{raw}} ({{deviation}} %)",
+      "lineReport": "Informe: {{path}}",
+      "lineReason": "Causa: {{reason}}"
+    }
+  }
+}

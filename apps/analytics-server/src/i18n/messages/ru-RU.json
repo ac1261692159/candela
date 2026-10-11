@@ -1,0 +1,115 @@
+{
+  "alert": {
+    "level": {
+      "critical": "Критический",
+      "warning": "Предупреждение",
+      "info": "Информация"
+    },
+    "status": {
+      "fire": "Срабатывание",
+      "repeat": "Продолжается",
+      "resolve": "Восстановление"
+    },
+    "kind": {
+      "retention": "Метрика удержания",
+      "event": "Метрика события",
+      "builtin": "Встроенная метрика"
+    },
+    "window": {
+      "today": "Сегодня",
+      "lastDays": "Последние {{days}} дн.",
+      "minutes": "Окно {{minutes}} мин",
+      "cohort": "Когорта {{label}}"
+    },
+    "varSample": {
+      "ruleName": "Объём отправки сегодня слишком низкий",
+      "ruleCode": "metric_ab12cd34",
+      "level": "critical",
+      "levelFmt": "Критический",
+      "status": "Срабатывание",
+      "statusCode": "fire",
+      "value": "1 204 раза",
+      "valueRaw": "1204",
+      "unit": "раз",
+      "comparator": "gt",
+      "comparatorFmt": "больше",
+      "threshold": "1 000 раз",
+      "metricName": "Число отправок сегодня",
+      "metricKind": "Метрика события",
+      "windowDays": "1",
+      "windowFmt": "Сегодня",
+      "project": "clklogapp",
+      "time": "2026-09-15 21:03:11",
+      "detectInterval": "60s",
+      "contactName": "Группа эксплуатации"
+    },
+    "channelName": {
+      "feishu_webhook": "Feishu",
+      "dingtalk": "DingTalk",
+      "wecom": "WeCom",
+      "telegram": "Telegram",
+      "webhook": "Универсальный Webhook",
+      "email": "Почта",
+      "sms": "SMS",
+      "whatsapp": "WhatsApp"
+    },
+    "channelTest": {
+      "text": "[Тест] Проверка связи с каналом оповещений Candela\nКанал: {{channel}}\nВремя: {{time}}",
+      "subject": "Тест канала оповещений Candela ({{channel}})",
+      "ruleName": "Проверка связи с каналом",
+      "detailTargetInvalid": "Проверка получателя не пройдена",
+      "detailSendFailed": "Доставка не удалась (возвращена исходная ошибка поставщика)",
+      "detailSent": "Тестовое сообщение отправлено"
+    }
+  },
+  "units": {
+    "times": "раз",
+    "items": "шт.",
+    "users": "чел.",
+    "sec": "с",
+    "ms": "мс",
+    "min": "мин",
+    "h": "ч",
+    "days": "дн.",
+    "percent": "%"
+  },
+  "mail": {
+    "reset": {
+      "subject": "[Candela] Сброс пароля",
+      "body": "Здравствуйте!\n\nПерейдите по ссылке, чтобы сбросить пароль (действует {{minutes}} минут, одноразовая):\n{{link}}\n\nЕсли вы не запрашивали сброс, проигнорируйте это письмо.\n\nCandela Analytics"
+    },
+    "setup": {
+      "subject": "[Candela] Установите пароль аккаунта",
+      "body": "Здравствуйте!\n\nАдминистратор создал для вас аккаунт Candela Analytics. Установите пароль по ссылке (действует {{hours}} часов, одноразовая):\n{{link}}\n\nПосле этого можно сразу войти.\n\nCandela Analytics"
+    },
+    "invite": {
+      "subject": "[Candela] Приглашение в проект {{project}}",
+      "body": "Здравствуйте!\n\n{{inviter}} пригласил вас в проект {{project}} Candela Analytics с ролью {{role}}.\n\nПерейдите по ссылке, чтобы зарегистрироваться и присоединиться (действует {{days}} дней):\n{{link}}\n\nЕсли вы не ждали приглашения, проигнорируйте это письмо.\n\nCandela Analytics"
+    },
+    "inviteNotify": {
+      "subject": "[Candela] Вас добавили в проект {{project}}",
+      "body": "Здравствуйте!\n\n{{inviter}} добавил вас в проект {{project}} Candela Analytics с ролью {{role}}.\n\nВойдите под своим аккаунтом, чтобы получить доступ.\n\nCandela Analytics"
+    },
+    "roles": {
+      "analyst": "аналитик",
+      "member": "обычный участник",
+      "external": "внешний участник"
+    },
+    "test": {
+      "subject": "[Candela] Тест почтового канала",
+      "body": "Это тестовое письмо от Candela Analytics.\n\nЕсли вы его получили, SMTP-настройки аккаунтов работают: письма сброса пароля, настройки пароля и приглашений будут доставляться.\n\nCandela Analytics"
+    }
+  },
+  "reconcile": {
+    "notify": {
+      "dayAlertSubject": "[Candela] Сверка данных за {{date}}: отклонение выше порога (порог {{threshold}}%)",
+      "failedSubject": "[Candela] Сверка данных за {{date}} не выполнена",
+      "lineProject": "Проект: {{project}}",
+      "lineRange": "Диапазон: {{from}} ~ {{to}}",
+      "lineThreshold": "Порог: {{threshold}}%; дней с отклонением: {{days}}",
+      "lineDay": "{{date}}: sa {{sa}} / raw {{raw}} ({{deviation}}%)",
+      "lineReport": "Отчёт: {{path}}",
+      "lineReason": "Причина: {{reason}}"
+    }
+  }
+}

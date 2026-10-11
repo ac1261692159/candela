@@ -1,0 +1,45 @@
+{
+  "serviceUnavailable": "分析サービスに接続できません。しばらくしてから再試行してください。改善しない場合は管理者にお問い合わせください。",
+  "dataUnavailable": "データクエリサービスは一時的に利用できません。しばらくしてから再試行してください。改善しない場合は管理者にお問い合わせください。",
+  "requestTimeout": "リクエストがタイムアウトしました。クエリの期間を狭めるか、しばらくしてから再試行してください。",
+  "genericUnavailable": "サービスは一時的に利用できません。しばらくしてから再試行してください。改善しない場合は管理者にお問い合わせください。",
+  "requestFailed": "リクエストに失敗しました",
+  "status401": "ログインの有効期限が切れました。再度ログインしてください",
+  "status403": "この操作を行う権限がありません",
+  "status404": "リクエストされたリソースが存在しません",
+  "status429": "リクエストが多すぎます。しばらくしてから再試行してください",
+  "unknown": "不明なエラー",
+  "queryFailed": "クエリに失敗しました",
+  "validation": {
+    "selectTimeRange": "期間を選択してください",
+    "atLeastOneMetric": "指標を少なくとも 1 つ設定してください",
+    "tooManyMetrics": "指標は最大 {{max}} 個までです",
+    "atLeastOneEventMetric": "イベント指標を少なくとも 1 つ設定してください",
+    "metricEventRequired": "各指標にイベントを選択してください",
+    "perCapitaNeedsNumber": "ユーザーあたりの値には数値プロパティを選択してください",
+    "minuteSpanTooLong": "分単位のクエリでは期間を 1 日以内にしてください",
+    "funnelMinSteps": "ファネルは少なくとも {{min}} ステップ必要です",
+    "funnelMaxSteps": "ファネルは最大 {{max}} ステップまでです",
+    "startEventRequired": "開始イベントを選択してください",
+    "returnEventRequired": "再訪イベントを選択してください",
+    "retentionPeriodRequired": "リテンション期間を少なくとも 1 つ選択してください"
+  },
+  "apiKey": {
+    "missing": "API Key がありません（X-API-Key または Authorization: Bearer で指定してください）"
+  },
+  "rbac": {
+    "forbidden": "このリソースへのアクセス権がありません"
+  },
+  "attribute": {
+    "datatableUserUnsupported": "データテーブルのディメンションはユーザープロパティに未対応です",
+    "datatableInVirtualExpression": "ディメンションテーブルのプロパティは仮想プロパティの式に使用できません",
+    "datatableStale": "プロパティ {{prop}} が参照するデータテーブルは無効になっています",
+    "datatableMultiple": "プロパティ {{prop}} に複数のデータテーブルがバインドされています"
+  },
+  "analysis": {
+    "timeRange": {
+      "timezoneInvalid": "タイムゾーンが不正です（Asia/Shanghai のような IANA タイムゾーン名を指定してください）"
+    }
+  },
+  "status413": "アップロードが大きすぎます。行数を減らして再試行してください"
+}

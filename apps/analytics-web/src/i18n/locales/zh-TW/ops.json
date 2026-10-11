@@ -1,0 +1,492 @@
+{
+  "range": {
+    "last1Hour": "近 1 小時",
+    "last6Hours": "近 6 小時",
+    "last24Hours": "近 24 小時",
+    "last3Days": "近 3 天",
+    "last90Days": "近 90 天",
+    "last180Days": "近 180 天"
+  },
+  "message": {
+    "executeFailed": "執行失敗",
+    "updateFailed": "更新失敗",
+    "setFailed": "設定失敗"
+  },
+  "slowQuery": {
+    "title": "慢 SQL",
+    "minDuration": "最小耗時",
+    "status": "執行狀態",
+    "generatedAt": "資料生成於 {{time}}",
+    "fromCache": "（快取立即開啟，已在背景重新整理最新資料）",
+    "empty": "當前時間範圍內沒有超過 {{ms}} ms 的查詢",
+    "expandSql": "展開 SQL",
+    "collapseSql": "收起 SQL",
+    "column": {
+      "time": "時間",
+      "duration": "耗時",
+      "readRows": "讀取列數",
+      "readBytes": "讀取位元組",
+      "memory": "記憶體",
+      "user": "帳號"
+    },
+    "retentionNote": "資料來自 ClickHouse 查詢日誌（system.query_log），僅保留最近約 {{days}} 天"
+  },
+  "serverStatus": {
+    "title": "伺服器狀態",
+    "appVersion": "應用版本",
+    "uptime": "已執行 {{value}}",
+    "uptimeDays": "{{days}} 天 {{hours}} 小時",
+    "uptimeHours": "{{hours}} 小時 {{minutes}} 分",
+    "uptimeMinutes": "{{minutes}} 分鐘",
+    "hostMemory": "主機記憶體",
+    "cpuLoad1m": "CPU 負載（1 分鐘）",
+    "loadDetail": "5 分鐘 {{load5}} · 15 分鐘 {{load15}} · {{cores}} 核",
+    "diskPath": "磁碟 {{path}}",
+    "diskUsed": "已用 {{used}} / {{total}}",
+    "unavailable": "不可用",
+    "readFailed": "讀取失敗",
+    "dependencies": "依賴與資料鏈路",
+    "connected": "連通 · v{{version}}",
+    "unreachable": "不可達",
+    "unreachableError": "不可達：{{error}}",
+    "eventRowsLabel": "事件量（sa_events）",
+    "eventRowsCount": "{{rows}} 列 · {{size}}",
+    "lastWrite": "資料鏈路最近寫入",
+    "maybeStalled": "（可能停滯）",
+    "justNow": "剛剛",
+    "minutesAgo": "{{minutes}} 分鐘前",
+    "processMemory": "行程記憶體（堆 / RSS）",
+    "diskDetail": "磁碟明細"
+  },
+  "diskTrend": {
+    "title": "磁碟使用量預估",
+    "pathWholeDisk": "整盤 /data",
+    "pathReceiver": "receiver 日誌目錄",
+    "noSamples": "暫無取樣",
+    "accumulating": "正在積累取樣資料：當前 {{count}}/3 個取樣點，滿 3 點後可預測（每小時取樣一次）",
+    "flat": "當前無明顯增長趨勢，暫不預測",
+    "forecast": "按近期增速，預計 {{date}} 磁碟用盡，剩餘 {{days}} 天",
+    "seriesUsed": "已用空間",
+    "seriesPredicted": "預測（虛線）",
+    "seriesTotal": "磁碟總量",
+    "totalMark": "總量",
+    "tooltipValue": "{{size}}（{{gb}} GB）",
+    "hint": "樣本不足時不會給出預測線（避免誤導）。口徑：僅在用量上升時線性外推，最多 30 天；Y 軸從 0 到磁碟總量。"
+  },
+  "logCleanup": {
+    "title": "日誌目錄治理",
+    "hint": "每小時自動清理過期 .log 檔案（原始報文為 ClickHouse 資料的文字鏡像，可安全刪除）",
+    "column": {
+      "path": "目錄",
+      "current": "當前佔用",
+      "lastRun": "上次自動清理",
+      "retainDays": "保留天數",
+      "autoClean": "自動清理"
+    },
+    "currentUsage": "{{count}} 個檔案 · {{size}}",
+    "notRunYet": "尚未執行",
+    "lastRun": "{{time}}（刪 {{count}} 個 / {{size}}）",
+    "cleanNow": "立即清理",
+    "confirmTitle": "確認清理日誌檔案",
+    "confirmOk": "執行清理",
+    "confirmMessage": "將刪除 {{path}} 下超過保留期的 .log 檔案：約 {{count}} 個 / {{size}}",
+    "confirmDescription": "這些檔案是已入庫資料的文字鏡像，刪除不影響任何功能；當前活躍日誌（今天）不會被刪除。",
+    "auditHint": "該操作會寫入清理稽核記錄。保留天數可在上方表格中調整。",
+    "deletedFiles": "已刪除 {{count}} 個檔案，釋放 {{size}}",
+    "retentionUpdated": "保留期已更新為 {{days}} 天"
+  },
+  "dataMgmt": {
+    "readonlyNotice": "本頁已含：概覽 / 趨勢 / 資料健康 / 清理預演與執行 / TTL 與保留策略。清理與 TTL 屬動作類：需二次確認、清理前置對帳通過，並寫審計與「已清理區間」登記；未來時間戳髒資料（時鐘錯亂裝置）目前僅檢測提示，不自動刪除。",
+    "loadingOverview": "載入儲存概覽...",
+    "statTables": "盤點表數",
+    "statRows": "總列數",
+    "statCompressed": "壓縮後總量",
+    "rowsTenThousand": "{{value}} 萬",
+    "rowsHundredMillion": "{{value}} 億",
+    "overview": "儲存概覽",
+    "column": {
+      "table": "表",
+      "rows": "列數",
+      "compressed": "壓縮後",
+      "raw": "原始",
+      "partitions": "分割區",
+      "lastWrite": "最近寫入",
+      "time": "時間",
+      "action": "動作",
+      "targetTable": "目標表",
+      "detail": "明細",
+      "operator": "操作人"
+    },
+    "trend": "表儲存趨勢（小時取樣）",
+    "ttlDays": "{{days}} 天",
+    "trendAccumulating": "正在積累取樣資料：{{count}} 個點（每小時取樣一次，約 1 小時後出趨勢線）",
+    "compressedBytes": "{{name}} 壓縮位元組",
+    "health": "資料健康（對帳快照）",
+    "gotoQuality": "前往資料品質頁手動對帳",
+    "lastReconcile": "上次對帳",
+    "reconcileRange": "對帳範圍",
+    "reconcileStatus": "對帳狀態",
+    "hasAlert": "有告警",
+    "normal": "正常",
+    "alertDays": "告警天數",
+    "dupCrcRows": "CRC 重複列（近似）",
+    "noSnapshot": "尚無對帳快照：到資料品質頁執行一次對帳後自動生成",
+    "preview": "清理預演（DROP PARTITION 候選盤點）",
+    "selectTable": "選擇表",
+    "previewPrefix": "清理",
+    "previewSuffix": "天前的資料（按月分割區）",
+    "previewRun": "預演",
+    "previewImpact": "將影響 {{count}} 個月分割區：{{rows}} 列 / 釋放約 {{size}}（截止 {{cutoff}}）",
+    "previewNone": "無滿足條件的分割區（截止 {{cutoff}}）",
+    "previewWarning": "DROP PARTITION 不可恢復；執行前請再次確認預演清單。",
+    "previewFailed": "預演失敗：{{error}}",
+    "executeCleanup": "執行清理（刪除以上 {{count}} 個分割區）",
+    "deletedPartitions": "已刪除 {{count}} 個分割區",
+    "ttl": "TTL 設定（自動生命週期）",
+    "ttlHint": "TTL 只改表定義，點選即生效（不重寫歷史資料）；過期資料由 ClickHouse 背景 merge 逐步清理，磁碟空間不會立即釋放。 當前盤點結果見上方儲存概覽的 TTL 列。",
+    "ttlSet": "設定 TTL",
+    "ttlTitle": "設定 TTL（背景漸進清理過期資料）",
+    "ttlTarget": "目標表：",
+    "ttlRetain": "，保留",
+    "ttlRetainSuffix": "天（超期資料由 CH 背景 merge 時逐步刪除）",
+    "ttlNoteBefore": "只修改表定義、不重寫歷史資料（已顯式關閉 materialize_ttl_after_modify）：過期資料在後續 merge 時逐步清理，",
+    "ttlNoteBold": "不會立即釋放磁碟",
+    "ttlNoteAfter": "。需立即釋放空間請用「清理預演 → 刪除分割區」。",
+    "ttlSetDone": "TTL 已設定為 {{days}} 天（背景漸進生效）",
+    "confirmTypeHint": "請輸入目標表名以確認：",
+    "audit": "清理動作稽核（最近 10 條）",
+    "noActions": "暫無清理動作",
+    "actionDropPartition": "刪除分割區",
+    "actionSetTtl": "設定 TTL",
+    "statusDone": "完成",
+    "statusPartial": "部分完成",
+    "confirmDropTitle": "⚠️ 確認刪除分割區（不可恢復）",
+    "confirmDropOk": "執行刪除",
+    "dropWarning": "將從 {{table}} 物理刪除 {{count}} 個月分割區（約 {{rows}} 列），不可恢復",
+    "executeDone": "完成 {{count}} 個",
+    "executeDonePartial": "完成 {{count}} 個，失敗 {{failed}} 個（失敗即停，可重新預演後重試）",
+    "snapshotStaleWarn": "已 {{hours}} 小時未更新",
+    "snapshotStaleError": "已 {{hours}} 小時未更新（需排查）",
+    "preflight": {
+      "blocked": "清理前置對帳未通過（{{reason}}）：先跑一次覆蓋該日期的對帳再執行",
+      "ok": "前置對帳已通過（覆蓋 {{date}}）",
+      "hint": "要求：存在通過且 {{max}} 小時內、覆蓋 {{date}} 的對帳快照；到資料品質頁跑一次即可",
+      "reason": {
+        "noSnapshot": "尚無對帳快照",
+        "notCovered": "快照未覆蓋該日期",
+        "snapshotFailed": "最近快照存在告警",
+        "snapshotStale": "快照已過期"
+      }
+    }
+  },
+  "error": {
+    "admin": {
+      "forbidden": "僅平台超級管理員可存取運維面板"
+    },
+    "trend": {
+      "hoursInvalid": "hours 須為數字"
+    },
+    "cleanup": {
+      "previewParamsRequired": "table 與 older_than_days 必填",
+      "executeParamsRequired": "table / partitions / confirmed_table 必填",
+      "tooManyPartitions": "單次最多 {{max}} 個分割區（分批執行，降低 IO 峰值）"
+    },
+    "ttl": {
+      "paramsRequired": "table / days / confirmed_table 必填"
+    },
+    "mutation": {
+      "tableRequired": "table 必填"
+    },
+    "dataMgmt": {
+      "tableNotInventoried": "表不在盤點範圍（允許：{{allowed}}）",
+      "tableNameInvalid": "表名格式須為 db.table",
+      "tableConfirmMismatch": "確認表名不匹配：輸入 \"{{confirmed}}\" ≠ 目標 \"{{table}}\"",
+      "noExecutablePartition": "無可執行分割區（全部被拒：{{rejected}}）",
+      "ttlTimeColumnMissing": "表未登記 TTL 時間列（允許：{{allowed}}）",
+      "ttlDaysInvalid": "TTL 天數須為 1-3650 的整數",
+      "ttlSetFailed": "TTL 設定失敗：{{message}}",
+      "preflight": "清理前需先通過對帳（覆蓋 {{required_to}}）；目前快照狀態：{{reason}}"
+    },
+    "logCleanup": {
+      "retainDaysInvalid": "保留天數須為 1-365 的整數",
+      "pathNotAllowed": "目錄不在治理白名單：{{path}}",
+      "pathRequired": "path 必填"
+    },
+    "reconcile": {
+      "forbidden": "僅平台超級管理員可修改對帳設定",
+      "runAtInvalid": "執行時刻格式應為 HH:mm（平台時區）",
+      "thresholdInvalid": "偏差閾值須為 0~100 的百分比",
+      "staleOrderInvalid": "過期（紅）閾值必須大於偏舊（黃）閾值",
+      "staleHoursInvalid": "過期閾值須為 1~720 的整數小時"
+    },
+    "retention": {
+      "tableNotInventoried": "表不在保留策略範圍（允許：{{allowed}}）",
+      "keepDaysInvalid": "保留天數須為 1-3650 的整數",
+      "keepDaysRequired": "keep_days 必填"
+    },
+    "dataDelete": {
+      "paramsRequired": "kind / table / project 必填",
+      "executeParamsRequired": "kind / table / project / confirm_table / confirm_token 必填",
+      "tableConfirmMismatch": "確認表名不符：輸入 \"{{confirmed}}\" ≠ 目標 \"{{table}}\"",
+      "cleanupAccountMissing": "清洗帳號未設定（CLICKHOUSE_CLEANUP_PASSWORD 未注入），已拒絕執行",
+      "rowsExceeded": "預計影響 {{rows}} 行，超過單次上限 {{max}}；請按事件或縮小時間範圍分批執行",
+      "tokenInvalid": "確認權杖無效或已過期（條件或行數已變，請重新預演）",
+      "preflight": "刪除前需先通過對帳（覆蓋 {{required_to}}）；目前快照狀態：{{reason}}",
+      "nothingToDelete": "條件未命中任何行，無需執行",
+      "backupFailed": "刪除前備份失敗，已中止（未刪除任何資料）：{{message}}",
+      "executeFailed": "刪除執行失敗：{{message}}（備份表可回復）",
+      "tableNotAllowed": "表不在定點刪除白名單：{{table}}",
+      "communityRefused": "社群版表不允許刪除（紅線 1）：{{table}}",
+      "kindNotAllowed": "該表不支援此刪除條件：{{kind}}",
+      "projectInvalid": "專案名格式不合法：{{project}}",
+      "eventInvalid": "事件名格式不合法：{{event}}",
+      "beforeRequired": "before 必填（刪除 stat_date 早於該日期的資料）",
+      "beforeInFuture": "before 不得晚於今天（要刪未來資料請用「未來時間戳」條件）",
+      "toInFuture": "to 不得晚於今天（要刪未來資料請用「未來時間戳」條件）",
+      "rangeInvalid": "from 不得晚於 to",
+      "dateInvalid": "{{field}} 須為 YYYY-MM-DD",
+      "mutationRunning": "{{table}} 上有未完成的 mutation，請等待完成後再發起刪除（IO 保護）"
+    },
+    "metaReconcile": {
+      "windowTooWide": "視窗 {{days}} 天超出 ClickHouse 估算上限：請縮小 window_days（預設 7 天），更早的歷史事件用 scripts/reconcile.sh"
+    },
+    "projectRetire": {
+      "projectRequired": "project 必填",
+      "notRegistered": "專案未登記：{{project}}（請檢查拼字）",
+      "stillWriting": "最近 24 小時仍有 {{rows}} 行寫入：請先停該專案的上報",
+      "executeParamsRequired": "project / step / confirm_token 必填"
+    }
+  },
+  "retention": {
+    "title": "保留策略（預期 × 實際 × 對帳可信區間）",
+    "hint": "預期保留由人工登記（未登記用建議值：sa_events 540 天，社群版 180 天）；實際保留取自表上的 TTL。",
+    "trusted": "對帳可信區間：{{from}} ~ {{to}}（兩側保留期較小者 = {{days}} 天）",
+    "trustedUnbounded": "對帳可信區間：兩側都未設定保留期，依資料實際範圍比對",
+    "trustedBoundBy": "由 {{table}} 的 {{days}} 天保留期決定（任一表被清理都會讓那段時間的對照失真）",
+    "suspicious": "發現 {{count}} 個可疑日期分割區（未來分割區 / 早於可信區間的歷史髒資料）；預設只提示，不自動清理",
+    "suspiciousKind": {
+      "future": "未來分割區",
+      "ancient": "歷史髒資料"
+    },
+    "column": {
+      "table": "表",
+      "expected": "預期保留",
+      "actual": "實際保留（TTL）",
+      "status": "狀態"
+    },
+    "suggested": "（建議值）",
+    "actualUnset": "未設定（風險）",
+    "status": {
+      "ok": "符合策略",
+      "unset": "未設定（風險）",
+      "deviates": "偏離策略",
+      "disabled": "策略已停用"
+    },
+    "register": "登記",
+    "dialogTitle": "登記預期保留：{{table}}",
+    "save": "儲存",
+    "fieldKeepDays": "保留天數",
+    "fieldKeepDaysHint": "登記的是「目標」；實際生效要看表上的 TTL（可用下方 TTL 設定套用）",
+    "fieldEnabled": "啟用該策略",
+    "fieldRemark": "備註"
+  },
+  "quality": {
+    "title": "資料品質 / 一致性對帳",
+    "runningHint": "對帳中：單日全量計數約 20-40 秒，請勿關閉頁面…",
+    "idleHint": "比對 sa_events 與 log_analysis（預設對帳昨天，最大 3 天，約 30 秒）",
+    "start": "開始對帳",
+    "cachedTag": "快取結果 · 上次對帳 {{time}}",
+    "justFinishedTag": "剛完成對帳 {{time}}",
+    "cachedHint": "下方顯示的是**最近一次快照**（含按日總量、事件級差異與已清理區間）；中繼資料發現記錄單獨直讀最新 50 條。要看目前時刻的結果請點「開始對拍」。",
+    "emptyHint": "尚無對帳結果：點選右上角「開始對帳」執行首次對帳（約 30 秒），之後頁面將立即開啟快取結果。",
+    "reportEmpty": "暫無對帳資料，請選擇時間範圍後點選「開始對帳」",
+    "normal": "正常",
+    "abnormal": "異常",
+    "pass": "通過",
+    "column": {
+      "date": "日期",
+      "saRows": "sa_events 列數",
+      "crcUniq": "CRC 唯一數",
+      "rawRows": "log_analysis 列數",
+      "deviation": "偏差 %",
+      "source": "來源",
+      "rows": "列數",
+      "changeType": "變化類型",
+      "prop": "屬性",
+      "change": "變化內容",
+      "discoveredAt": "發現時間",
+      "diff": "差（sa - raw）",
+      "skippedRange": "清理區間",
+      "skippedWhy": "原因",
+      "skippedSource": "動作與時間"
+    },
+    "change": {
+      "eventCreated": "新增事件",
+      "propertyCreated": "新屬性 ({{value}})",
+      "userPropertyCreated": "新使用者屬性 ({{value}})",
+      "userPropertyHidden": "使用者屬性已隱藏",
+      "userPropertyActive": "使用者屬性已啟用"
+    },
+    "alert": {
+      "title": "發現資料一致性異常",
+      "desc": "在 {{days}}/{{total}} 天中發現偏差超過閾值（{{threshold}}%），或有 {{dup}} 列重複 CRC，請排查 ingestor 是否丟資料或口徑差異。"
+    },
+    "ok": {
+      "title": "資料一致性正常",
+      "desc": "{{from}} ~ {{to}} 對帳偏差均在閾值 {{threshold}}% 內，CRC 無重複。"
+    },
+    "stat": {
+      "days": "對帳天數",
+      "daysSuffix": "天 / 異常 {{count}} 天",
+      "dupCrc": "重複 CRC",
+      "rowsSuffix": "列",
+      "crcUnique": "CRC 唯一性",
+      "skippedDays": "已清理天數",
+      "outOfRetention": "超保留期天數"
+    },
+    "scope": {
+      "range": "對帳範圍",
+      "threshold": "偏差閾值",
+      "total": "總量",
+      "trigger": "觸發方式",
+      "ignored": "忽略事件數"
+    },
+    "table": {
+      "daily": "每日總量對帳",
+      "events": "事件級計數對照（sa_events vs log_analysis）",
+      "discovery": "近期中繼資料變化",
+      "discoveryHint": "（自動發現的新增事件/屬性/屬性類型變更，共 {{count}} 條）",
+      "diffs": "事件級差異 Top（sa - raw）",
+      "diffsHint": "（共 {{count}} 個事件計數不一致，按差值絕對值取前 20）",
+      "onlyInOne": "僅一側存在（對側計數為 0）",
+      "skipped": "已清理區間（不參與告警）"
+    },
+    "skipped": "已跳過",
+    "skippedReason": {
+      "cleaned": "已清理"
+    },
+    "ignored": {
+      "title": "已依忽略清單排除 {{count}} 個事件"
+    },
+    "trigger": {
+      "auto": "定時自動",
+      "manual": "頁面手動",
+      "cli": "運維指令碼"
+    },
+    "stale": {
+      "warnTitle": "對帳快照偏舊",
+      "errorTitle": "對帳快照已過期",
+      "desc": "最近一次對帳在 {{time}}（{{hours}} 小時前，已超過 {{warn}} 小時）：結論可能不再代表現況，請重新對帳或檢查定時任務。"
+    },
+    "config": {
+      "button": "對帳設定",
+      "title": "對帳設定（離峰定時 + 閾值）",
+      "save": "儲存",
+      "enabled": "啟用定時對帳",
+      "enabledOn": "已啟用",
+      "enabledOff": "已停用",
+      "runAt": "執行時刻",
+      "runAtHint": "平台時區 HH:mm；到點後的下一個檢查週期（≤5 分鐘）執行",
+      "runAtInvalid": "格式應為 HH:mm",
+      "threshold": "偏差閾值（%）",
+      "thresholdHint": "單日 |偏差| 超過該百分比即告警；口徑收斂前建議先從 3~5% 起步",
+      "ignoreEvents": "忽略事件清單",
+      "ignoreEventsHint": "每行一個事件名；已知口徑差異的事件先隔離，避免天天告警",
+      "skipEmpty": "空 event 兩側對稱過濾",
+      "skipEmptyHint": "sa 側與社群版側口徑一致：都不統計 event 為空的行",
+      "staleWarn": "偏舊（黃）小時",
+      "staleError": "過期（紅）小時",
+      "updatedAt": "設定更新"
+    },
+    "changeType": {
+      "eventCreated": "新增事件",
+      "propertyCreated": "新增屬性",
+      "propertyTypeChanged": "屬性類型變更",
+      "userPropertyCreated": "新增使用者屬性",
+      "userPropertyTypeChanged": "使用者屬性類型變更",
+      "userPropertyHidden": "隱藏使用者屬性",
+      "userPropertyActive": "啟用使用者屬性"
+    },
+    "outOfRetention": "超保留期不比對",
+    "outOfRetentionShort": "超保留期",
+    "guide": {
+      "title": "這個頁面在做什麼？",
+      "whatTitle": "作用",
+      "whatBody": "這是一條旁路校驗線：把我方 ingestor 寫入的 sa_events 與社群版 Flink 寫入的 log_analysis 按天對帳，用來發現消費停滯、靜默丟數、重複寫入。全程唯讀，不改任何業務資料；預設每天離峰（03:30 平台時區）自動核對昨天一天，結果落成「快照」。",
+      "termsTitle": "關鍵術語",
+      "terms": {
+        "range": "對帳範圍：預設昨天一天；手動最多 3 天（單機記憶體護欄，歷史 OOM 事故後定的上限）。",
+        "threshold": "偏差閾值：單日 |偏差| 超過它才判異常；目前值見上方設定列（單位是百分比）。",
+        "crc": "CRC 唯一性：在我方資料內做近似去重，重複行超過 0.5% 才判異常（近似演算法本身有誤差）。",
+        "trusted": "可信區間：兩側保留期較小者以內才可比；超出的日期標「超保留期不比對」，不計入異常。",
+        "skipped": "已清理區間：被 DROP PARTITION / TTL 主動刪掉的那段時間標「已清理」，不參與告警。",
+        "stale": "快照新鮮度：快照偏舊（黃）/過期（紅）時，頁面結論不代表現況——先重新對帳或檢查定時任務。",
+        "events": "事件級差異 Top：兩側都存在但計數不同的事件，按差值絕對值排前 20；另有「僅一側存在」列出對側為 0 的事件。"
+      },
+      "howTitle": "結果怎麼讀",
+      "how": {
+        "step1": "日偏差長期在 +1%~+2%：屬已知結構性口徑差（社群版對錯誤/重試類 Android 事件少計，見口徑白皮書），不是丟數。",
+        "step2": "需要立刻排查的訊號：偏差轉負（我方少於社群版）、某事件計數歸零、或事件級差異裡突然出現新事件類型。",
+        "step3": "標「超保留期」「已清理」的日期不計入異常天數；CRC 若判異常，說明我方可能存在重複寫入。",
+        "step4": "手動對帳單次上限 3 天是刻意的記憶體護欄；要看更長跨度，用離峰大範圍專項（伺服器上 scripts/reconcile.sh --type=range）。"
+      },
+      "whoTitle": "誰該做什麼",
+      "who": {
+        "admin": "平台超管：在右上「對帳設定」改閾值/忽略清單/過期閾值，並處理失敗與過期通知。",
+        "oncall": "值班：先看「事件級差異 Top」判斷是「新出現的事件類型」還是「某事件整體消失」，再看兩側日總量趨勢。",
+        "analyst": "分析師：本頁不面向業務分析；鏈路是否健康看「運維 → 資料運維 → 資料健康」。"
+      },
+      "footnote": "歸因結論與實測資料見倉庫文件 docs/product/research-clklog-reconcile-caliber-v1.md。"
+    }
+  },
+  "dataCleanup": {
+    "unregisteredTitle": "資料 ↔ 中繼資料對帳",
+    "refresh": "重新整理",
+    "unregisteredHint": "自 {{from}} 起：資料 {{data}} 個 / 中繼資料 {{meta}} 個；下列為資料有、中繼資料未登記者",
+    "colEvent": "事件",
+    "colRows": "行數",
+    "colRange": "日期範圍",
+    "colFuture": "未來日期",
+    "futureYes": "含未來",
+    "useEvent": "依此事件清理",
+    "useFuture": "清理未來日期",
+    "ghostTitle": "另有 {{count}} 個幽靈登記（中繼資料有、資料沒有）",
+    "deleteTitle": "定點刪除（ALTER DELETE）",
+    "deleteHint": "先預演看影響面，再輸入表名確認執行；執行前自動備份並寫審計與已清理登記。社群版表不可刪除。",
+    "kind.event": "依事件",
+    "kind.project": "依專案",
+    "kind.before": "早於某日",
+    "kind.future": "未來時間戳",
+    "eventPlaceholder": "事件名（如 $SignUp）",
+    "beforePlaceholder": "早於該日期 YYYY-MM-DD",
+    "preview": "預演",
+    "previewResult": "預計影響 {{rows}} 行（{{from}} ~ {{to}}）",
+    "backupHint": "前置對帳已通過；執行前會自動備份到 {{backup}}",
+    "preflightBlocked": "前置對帳未通過（{{reason}}）：先到資料品質頁跑一次對帳",
+    "cleanupMissing": "清洗帳號未設定，定點刪除暫不可用",
+    "rowsExceeded": "影響行數超過單次上限 {{max}}，請分批",
+    "confirmPlaceholder": "輸入表名確認：{{table}}",
+    "execute": "執行刪除（{{rows}} 行）",
+    "done": "已提交刪除（約 {{rows}} 行）",
+    "doneDetail": "備份表 {{backup}}｜mutation {{mutation}}；背景刪除中，對帳已登記為「已清理」",
+    "colAction": "操作",
+    "unregisteredFailed": "未登記事件查詢失敗：{{message}}",
+    "window": "對帳視窗",
+    "windowDays": "{{days}} 天"
+  },
+  "projectRetire": {
+    "title": "專案退役預演",
+    "communityNote": "社群版 clklog.*（log_analysis 與 18 張聚合表）沒有 project 概念，無法依專案清理；如需減少占用請用「保留策略 / TTL」依時間收斂",
+    "step": {
+      "stopWrites": "先停該專案的上報（停用 API Key／停 SDK），確認「最近 24 小時寫入」歸零",
+      "execution": "執行退役：sa 側逐表刪除（成員表走 DROP PARTITION，其餘 ALTER DELETE）+ MySQL 逐表刪除",
+      "backupAudit": "執行前會匯出待刪列到備份檔，並寫審計（action=project_retire）"
+    },
+    "result": {
+      "saDone": "sa 側已完成（{{tables}} 張表）",
+      "saPartial": "sa 側部分完成：有大表超出單次預算，請重複執行繼續",
+      "mysqlDone": "MySQL 側已刪除 {{rows}} 列"
+    },
+    "getToken": "取確認權杖"
+  }
+}

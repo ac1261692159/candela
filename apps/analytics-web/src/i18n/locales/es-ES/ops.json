@@ -1,0 +1,518 @@
+{
+  "range": {
+    "last1Hour": "Última hora",
+    "last6Hours": "Últimas 6 horas",
+    "last24Hours": "Últimas 24 horas",
+    "last3Days": "Últimos 3 días",
+    "last90Days": "Últimos 90 días",
+    "last180Days": "Últimos 180 días"
+  },
+  "message": {
+    "executeFailed": "Error de ejecución",
+    "updateFailed": "Error de actualización",
+    "setFailed": "Error al definir"
+  },
+  "slowQuery": {
+    "title": "Consultas lentas",
+    "minDuration": "Duración mínima",
+    "status": "Estado de ejecución",
+    "generatedAt": "Datos generados el {{time}}",
+    "fromCache": "(apertura instantánea desde la caché; los datos más recientes se actualizan en segundo plano)",
+    "empty": "No hay consultas de más de {{ms}} ms en el rango de tiempo actual",
+    "expandSql": "Expandir SQL",
+    "collapseSql": "Contraer SQL",
+    "column": {
+      "time": "Hora",
+      "duration": "Duración",
+      "readRows": "Filas leídas",
+      "readBytes": "Bytes leídos",
+      "memory": "Memoria",
+      "user": "Cuenta"
+    },
+    "retentionNote": "Los datos provienen del registro de consultas de ClickHouse (system.query_log) y solo se conservan los últimos {{days}} días aproximadamente"
+  },
+  "serverStatus": {
+    "title": "Estado del servidor",
+    "appVersion": "Versión de la aplicación",
+    "uptime": "En funcionamiento desde hace {{value}}",
+    "uptimeDays": "{{days}} d {{hours}} h",
+    "uptimeHours": "{{hours}} h {{minutes}} min",
+    "uptimeMinutes": "{{minutes}} min",
+    "hostMemory": "Memoria del host",
+    "cpuLoad1m": "Carga de CPU (1 minuto)",
+    "loadDetail": "5 minutos {{load5}} · 15 minutos {{load15}} · {{cores}} núcleos",
+    "diskPath": "Disco {{path}}",
+    "diskUsed": "Usado {{used}} / {{total}}",
+    "unavailable": "No disponible",
+    "readFailed": "Error de lectura",
+    "dependencies": "Dependencias y cadena de datos",
+    "connected": "Conectado · v{{version}}",
+    "unreachable": "Inaccesible",
+    "unreachableError": "Inaccesible: {{error}}",
+    "eventRowsLabel": "Volumen de eventos (sa_events)",
+    "eventRowsCount": "{{rows}} filas · {{size}}",
+    "lastWrite": "Última escritura de la cadena de datos",
+    "maybeStalled": "(posible estancamiento)",
+    "justNow": "Ahora mismo",
+    "minutesAgo": "Hace {{minutes}} minutos",
+    "processMemory": "Memoria del proceso (heap / RSS)",
+    "diskDetail": "Detalle del disco"
+  },
+  "diskTrend": {
+    "title": "Estimación del uso de disco",
+    "pathWholeDisk": "Disco completo /data",
+    "pathReceiver": "Directorio de registros del receiver",
+    "noSamples": "Sin muestras",
+    "accumulating": "Acumulando datos de muestreo: {{count}}/3 puntos en este momento; a partir de 3 puntos se puede predecir (se muestrea cada hora)",
+    "accumulating_one": "Acumulando datos de muestreo: {{count}}/3 punto en este momento; a partir de 3 puntos se puede predecir (se muestrea cada hora)",
+    "accumulating_other": "Acumulando datos de muestreo: {{count}}/3 puntos en este momento; a partir de 3 puntos se puede predecir (se muestrea cada hora)",
+    "flat": "Ahora mismo no hay una tendencia de crecimiento clara; no se hace previsión",
+    "forecast": "Según el crecimiento reciente, se prevé que el disco se agote el {{date}}; quedan {{days}} días",
+    "seriesUsed": "Espacio usado",
+    "seriesPredicted": "Previsión (línea discontinua)",
+    "seriesTotal": "Capacidad total del disco",
+    "totalMark": "Total",
+    "tooltipValue": "{{size}} ({{gb}} GB)",
+    "hint": "Cuando hay pocas muestras no se ofrece línea de previsión (para no inducir a error). Criterio: solo se extrapola linealmente si el uso crece, con un máximo de 30 días; el eje Y va de 0 a la capacidad total del disco."
+  },
+  "logCleanup": {
+    "title": "Gestión del directorio de registros",
+    "hint": "Cada hora se eliminan automáticamente los archivos .log caducados (los mensajes originales son una copia de texto de los datos de ClickHouse y se pueden borrar sin riesgo)",
+    "column": {
+      "path": "Directorio",
+      "current": "Uso actual",
+      "lastRun": "Última limpieza automática",
+      "retainDays": "Días de retención",
+      "autoClean": "Limpieza automática"
+    },
+    "currentUsage": "{{count}} archivo(s) · {{size}}",
+    "currentUsage_one": "{{count}} archivo · {{size}}",
+    "currentUsage_other": "{{count}} archivos · {{size}}",
+    "notRunYet": "Todavía no se ha ejecutado",
+    "lastRun": "{{time}} ({{count}} eliminados / {{size}})",
+    "lastRun_one": "{{time}} ({{count}} eliminado / {{size}})",
+    "lastRun_other": "{{time}} ({{count}} eliminados / {{size}})",
+    "cleanNow": "Limpiar ahora",
+    "confirmTitle": "Confirmar la limpieza de archivos de registro",
+    "confirmOk": "Ejecutar limpieza",
+    "confirmMessage": "Se eliminarán los archivos .log de {{path}} que superan la retención: aproximadamente {{count}} archivo(s) / {{size}}",
+    "confirmMessage_one": "Se eliminarán los archivos .log de {{path}} que superan la retención: aproximadamente {{count}} archivo / {{size}}",
+    "confirmMessage_other": "Se eliminarán los archivos .log de {{path}} que superan la retención: aproximadamente {{count}} archivos / {{size}}",
+    "confirmDescription": "Estos archivos son una copia de texto de los datos ya almacenados; eliminarlos no afecta a ninguna función. Los registros activos (los de hoy) no se eliminan.",
+    "auditHint": "Esta operación quedará registrada en la auditoría de limpiezas. Los días de retención se pueden ajustar en la tabla superior.",
+    "deletedFiles": "Se han eliminado {{count}} archivo(s) y se han liberado {{size}}",
+    "deletedFiles_one": "Se ha eliminado {{count}} archivo y se han liberado {{size}}",
+    "deletedFiles_other": "Se han eliminado {{count}} archivos y se han liberado {{size}}",
+    "retentionUpdated": "La retención se ha actualizado a {{days}} días"
+  },
+  "dataMgmt": {
+    "readonlyNotice": "Esta página cubre: resumen / tendencia / salud de datos / previsualización y ejecución de limpieza / TTL y política de retención. La limpieza y el TTL son acciones: requieren doble confirmación y un cotejo previo superado, y escriben auditoría y registro de «rango limpiado». Los datos con marca de tiempo futura (reloj desajustado) solo se detectan, nunca se borran solos.",
+    "loadingOverview": "Cargando el resumen de almacenamiento...",
+    "statTables": "Tablas inventariadas",
+    "statRows": "Filas totales",
+    "statCompressed": "Total comprimido",
+    "rowsTenThousand": "{{value}} ×10.000",
+    "rowsHundredMillion": "{{value}} ×100.000.000",
+    "overview": "Resumen de almacenamiento",
+    "column": {
+      "table": "Tabla",
+      "rows": "Filas",
+      "compressed": "Comprimido",
+      "raw": "Sin comprimir",
+      "partitions": "Particiones",
+      "lastWrite": "Última escritura",
+      "time": "Hora",
+      "action": "Acción",
+      "targetTable": "Tabla de destino",
+      "detail": "Detalle",
+      "operator": "Operador"
+    },
+    "trend": "Tendencia de almacenamiento por tabla (muestreo por hora)",
+    "ttlDays": "{{days}} días",
+    "trendAccumulating": "Acumulando datos de muestreo: {{count}} puntos (se muestrea cada hora; la línea de tendencia aparecerá en aproximadamente 1 hora)",
+    "trendAccumulating_one": "Acumulando datos de muestreo: {{count}} punto (se muestrea cada hora; la línea de tendencia aparecerá en aproximadamente 1 hora)",
+    "trendAccumulating_other": "Acumulando datos de muestreo: {{count}} puntos (se muestrea cada hora; la línea de tendencia aparecerá en aproximadamente 1 hora)",
+    "compressedBytes": "Bytes comprimidos de {{name}}",
+    "health": "Salud de los datos (instantánea del cotejo)",
+    "gotoQuality": "Ir a la página de calidad de datos para cotejar manualmente",
+    "lastReconcile": "Último cotejo",
+    "reconcileRange": "Rango del cotejo",
+    "reconcileStatus": "Estado del cotejo",
+    "hasAlert": "Con alertas",
+    "normal": "Normal",
+    "alertDays": "Días con alerta",
+    "dupCrcRows": "Filas con CRC duplicado (aproximado)",
+    "noSnapshot": "Aún no hay instantánea de cotejo: se genera automáticamente tras ejecutar un cotejo en la página de calidad de datos",
+    "preview": "Simulación de limpieza (inventario de candidatos a DROP PARTITION)",
+    "selectTable": "Seleccionar tabla",
+    "previewPrefix": "Limpiar datos de hace",
+    "previewSuffix": "días (particiones mensuales)",
+    "previewRun": "Simular",
+    "previewImpact": "Afectará a {{count}} partición(es) mensual(es): {{rows}} filas / se liberarán unos {{size}} (hasta {{cutoff}})",
+    "previewImpact_one": "Afectará a {{count}} partición mensual: {{rows}} filas / se liberarán unos {{size}} (hasta {{cutoff}})",
+    "previewImpact_other": "Afectará a {{count}} particiones mensuales: {{rows}} filas / se liberarán unos {{size}} (hasta {{cutoff}})",
+    "previewNone": "No hay particiones que cumplan las condiciones (hasta {{cutoff}})",
+    "previewWarning": "DROP PARTITION no se puede recuperar; confirme de nuevo la lista de la simulación antes de ejecutar.",
+    "previewFailed": "Error en la simulación: {{error}}",
+    "executeCleanup": "Ejecutar limpieza (eliminar las {{count}} particiones anteriores)",
+    "executeCleanup_one": "Ejecutar limpieza (eliminar la {{count}} partición anterior)",
+    "executeCleanup_other": "Ejecutar limpieza (eliminar las {{count}} particiones anteriores)",
+    "deletedPartitions": "Se han eliminado {{count}} partición(es)",
+    "deletedPartitions_one": "Se ha eliminado {{count}} partición",
+    "deletedPartitions_other": "Se han eliminado {{count}} particiones",
+    "ttl": "Configuración de TTL (ciclo de vida automático)",
+    "ttlHint": "El TTL solo modifica la definición de la tabla y se aplica al hacer clic (no reescribe los datos históricos); ClickHouse va eliminando los datos caducados con sus merges en segundo plano, por lo que el espacio en disco no se libera de inmediato. El inventario actual aparece en la columna TTL del resumen de almacenamiento de arriba.",
+    "ttlSet": "Definir TTL",
+    "ttlTitle": "Definir TTL (limpieza progresiva en segundo plano de los datos caducados)",
+    "ttlTarget": "Tabla de destino:",
+    "ttlRetain": ", conservar",
+    "ttlRetainSuffix": "días (los datos caducados se van eliminando en los merges en segundo plano de ClickHouse)",
+    "ttlNoteBefore": "Solo modifica la definición de la tabla y no reescribe los datos históricos (materialize_ttl_after_modify está desactivado explícitamente): los datos caducados se limpian progresivamente en los siguientes merges y",
+    "ttlNoteBold": "no se libera disco de inmediato",
+    "ttlNoteAfter": ". Si necesita liberar espacio ya, use «Simulación de limpieza → Eliminar particiones».",
+    "ttlSetDone": "TTL definido en {{days}} días (se aplica progresivamente en segundo plano)",
+    "confirmTypeHint": "Escriba el nombre de la tabla de destino para confirmar:",
+    "audit": "Auditoría de acciones de limpieza (últimas 10)",
+    "noActions": "Aún no hay acciones de limpieza",
+    "actionDropPartition": "Eliminar particiones",
+    "actionSetTtl": "Definir TTL",
+    "statusDone": "Completado",
+    "statusPartial": "Completado parcialmente",
+    "confirmDropTitle": "⚠️ Confirmar la eliminación de particiones (no se puede recuperar)",
+    "confirmDropOk": "Ejecutar eliminación",
+    "dropWarning": "Se eliminarán físicamente {{count}} partición(es) mensual(es) de {{table}} (unas {{rows}} filas); no se puede recuperar",
+    "dropWarning_one": "Se eliminará físicamente {{count}} partición mensual de {{table}} (unas {{rows}} filas); no se puede recuperar",
+    "dropWarning_other": "Se eliminarán físicamente {{count}} particiones mensuales de {{table}} (unas {{rows}} filas); no se puede recuperar",
+    "executeDone": "Completadas: {{count}}",
+    "executeDone_one": "Completada: {{count}}",
+    "executeDone_other": "Completadas: {{count}}",
+    "executeDonePartial": "Completadas: {{count}}, fallidas: {{failed}} (se detiene al primer fallo; puede volver a simular y reintentar)",
+    "executeDonePartial_one": "Completada: {{count}}, fallidas: {{failed}} (se detiene al primer fallo; puede volver a simular y reintentar)",
+    "executeDonePartial_other": "Completadas: {{count}}, fallidas: {{failed}} (se detiene al primer fallo; puede volver a simular y reintentar)",
+    "snapshotStaleWarn": "Sin actualizar desde hace {{hours}} h",
+    "snapshotStaleError": "Sin actualizar desde hace {{hours}} h (requiere revisión)",
+    "preflight": {
+      "blocked": "Cotejo previo no satisfactorio ({{reason}}): ejecute primero un cotejo que cubra esa fecha",
+      "ok": "Cotejo previo satisfactorio (cubre {{date}})",
+      "hint": "Requisito: una instantánea correcta de menos de {{max}} h que cubra {{date}}; ejecútela desde la página de calidad de datos",
+      "reason": {
+        "noSnapshot": "sin instantánea",
+        "notCovered": "la instantánea no cubre esa fecha",
+        "snapshotFailed": "la última instantánea tuvo alertas",
+        "snapshotStale": "instantánea obsoleta"
+      }
+    }
+  },
+  "error": {
+    "admin": {
+      "forbidden": "Solo el superadministrador de la plataforma puede acceder al panel de operación"
+    },
+    "trend": {
+      "hoursInvalid": "hours debe ser un número"
+    },
+    "cleanup": {
+      "previewParamsRequired": "table y older_than_days son obligatorios",
+      "executeParamsRequired": "table / partitions / confirmed_table son obligatorios",
+      "tooManyPartitions": "Máximo {{max}} particiones por vez (ejecución por lotes para reducir picos de IO)"
+    },
+    "ttl": {
+      "paramsRequired": "table / days / confirmed_table son obligatorios"
+    },
+    "mutation": {
+      "tableRequired": "table es obligatorio"
+    },
+    "dataMgmt": {
+      "tableNotInventoried": "La tabla no está inventariada (permitidas: {{allowed}})",
+      "tableNameInvalid": "El nombre de la tabla debe tener el formato db.table",
+      "tableConfirmMismatch": "El nombre de tabla confirmado no coincide: se escribió \"{{confirmed}}\" ≠ destino \"{{table}}\"",
+      "noExecutablePartition": "No hay particiones ejecutables (todas rechazadas: {{rejected}})",
+      "ttlTimeColumnMissing": "La tabla no tiene registrada una columna de tiempo para el TTL (permitidas: {{allowed}})",
+      "ttlDaysInvalid": "Los días de TTL deben ser un entero de 1 a 3650",
+      "ttlSetFailed": "Error al definir el TTL: {{message}}",
+      "preflight": "Se requiere un cotejo correcto que cubra {{required_to}} antes de limpiar; estado de la instantánea: {{reason}}"
+    },
+    "logCleanup": {
+      "retainDaysInvalid": "Los días de retención deben ser un entero de 1 a 365",
+      "pathNotAllowed": "El directorio no está en la lista blanca de gestión: {{path}}",
+      "pathRequired": "path es obligatorio"
+    },
+    "reconcile": {
+      "forbidden": "Solo el superadministrador de la plataforma puede cambiar la configuración del cotejo",
+      "runAtInvalid": "La hora de ejecución debe tener el formato HH:mm (zona horaria de la plataforma)",
+      "thresholdInvalid": "El umbral de desviación debe ser un porcentaje entre 0 y 100",
+      "staleOrderInvalid": "El umbral de obsoleta (rojo) debe ser mayor que el de aviso (amarillo)",
+      "staleHoursInvalid": "Los umbrales de antigüedad deben ser horas enteras entre 1 y 720"
+    },
+    "retention": {
+      "tableNotInventoried": "Tabla fuera del ámbito de retención (permitidas: {{allowed}})",
+      "keepDaysInvalid": "Los días de retención deben ser un entero entre 1 y 3650",
+      "keepDaysRequired": "keep_days es obligatorio"
+    },
+    "dataDelete": {
+      "paramsRequired": "kind / table / project son obligatorios",
+      "executeParamsRequired": "kind / table / project / confirm_table / confirm_token son obligatorios",
+      "tableConfirmMismatch": "Confirmación de tabla no coincide: introducido \"{{confirmed}}\" ≠ objetivo \"{{table}}\"",
+      "cleanupAccountMissing": "Cuenta de limpieza no configurada (CLICKHOUSE_CLEANUP_PASSWORD no inyectada); ejecución rechazada",
+      "rowsExceeded": "Se afectarían unas {{rows}} filas, por encima del límite de {{max}} por ejecución; divida por evento o reduzca el rango",
+      "tokenInvalid": "Token de confirmación inválido o caducado (cambió la condición o el número de filas); repita la previsualización",
+      "preflight": "Se requiere un cotejo correcto que cubra {{required_to}} antes de borrar; estado de la instantánea: {{reason}}",
+      "nothingToDelete": "La condición no coincide con ninguna fila",
+      "backupFailed": "Falló la copia de seguridad previa al borrado; abortado (no se borró nada): {{message}}",
+      "executeFailed": "Falló la eliminación: {{message}} (la tabla de copia permite revertir)",
+      "tableNotAllowed": "Tabla fuera de la lista permitida para borrado puntual: {{table}}",
+      "communityRefused": "Las tablas de la versión comunitaria no se pueden borrar (línea roja 1): {{table}}",
+      "kindNotAllowed": "Esta tabla no admite esa condición de borrado: {{kind}}",
+      "projectInvalid": "Nombre de proyecto no válido: {{project}}",
+      "eventInvalid": "Nombre de evento no válido: {{event}}",
+      "beforeRequired": "before es obligatorio (borrar datos con stat_date anterior a esa fecha)",
+      "beforeInFuture": "before no puede ser posterior a hoy (use la condición de marca de tiempo futura)",
+      "toInFuture": "to no puede ser posterior a hoy (use la marca de tiempo futura)",
+      "rangeInvalid": "from no puede ser posterior a to",
+      "dateInvalid": "{{field}} debe ser YYYY-MM-DD",
+      "mutationRunning": "{{table}} tiene una mutation en curso; espere a que termine (protección de IO)"
+    },
+    "metaReconcile": {
+      "windowTooWide": "Una ventana de {{days}} días supera el límite estimado de ClickHouse: reduzca window_days (por defecto 7) o use scripts/reconcile.sh"
+    },
+    "projectRetire": {
+      "projectRequired": "project es obligatorio",
+      "notRegistered": "Proyecto no registrado: {{project}} (revise la ortografía)",
+      "stillWriting": "Se escribieron {{rows}} filas en las últimas 24 h: detenga primero la recolección del proyecto",
+      "executeParamsRequired": "project / step / confirm_token son obligatorios"
+    }
+  },
+  "retention": {
+    "title": "Política de retención (previsto × real × rango fiable del cotejo)",
+    "hint": "La retención prevista se registra a mano (valores por defecto: sa_events 540 días, tablas comunitarias 180 días); la real proviene del TTL de cada tabla.",
+    "trusted": "Rango fiable del cotejo: {{from}} ~ {{to}} (el menor de los dos lados = {{days}} días)",
+    "trustedUnbounded": "Rango fiable del cotejo: ningún lado tiene retención definida, se usa el rango real de los datos",
+    "trustedBoundBy": "Limitado por la retención de {{days}} días de {{table}} (limpiar cualquier tabla distorsiona la comparación de ese periodo)",
+    "suspicious": "{{count}} particiones de fecha sospechosas (futuras / datos antiguos anteriores al rango fiable); solo se informa, nunca se limpian solas",
+    "suspiciousKind": {
+      "future": "partición futura",
+      "ancient": "datos antiguos"
+    },
+    "column": {
+      "table": "Tabla",
+      "expected": "Retención prevista",
+      "actual": "Retención real (TTL)",
+      "status": "Estado"
+    },
+    "suggested": "(sugerido)",
+    "actualUnset": "Sin definir (riesgo)",
+    "status": {
+      "ok": "Conforme",
+      "unset": "Sin definir (riesgo)",
+      "deviates": "Discrepa de la política",
+      "disabled": "Política desactivada"
+    },
+    "register": "Registrar",
+    "dialogTitle": "Registrar retención prevista: {{table}}",
+    "save": "Guardar",
+    "fieldKeepDays": "Días de retención",
+    "fieldKeepDaysHint": "Aquí se registra el objetivo; lo que aplica realmente es el TTL de la tabla (use el ajuste TTL de abajo)",
+    "fieldEnabled": "Política activada",
+    "fieldRemark": "Nota"
+  },
+  "quality": {
+    "title": "Calidad de datos / Cotejo de coherencia",
+    "runningHint": "Cotejando: el recuento completo de un día tarda entre 20 y 40 segundos; no cierre la página…",
+    "idleHint": "Compara sa_events con log_analysis (por defecto se coteja ayer, máximo 3 días, unos 30 segundos)",
+    "start": "Iniciar cotejo",
+    "cachedTag": "Resultado en caché · Último cotejo {{time}}",
+    "justFinishedTag": "Cotejo recién terminado {{time}}",
+    "cachedHint": "Abajo se muestra la **última instantánea** (totales diarios, diferencias por evento y rangos limpiados). Los registros de descubrimiento se leen aparte (últimos 50). Pulse «Iniciar cotejo» para un resultado actual.",
+    "emptyHint": "Aún no hay resultados de cotejo: pulse «Iniciar cotejo» en la esquina superior derecha para ejecutar el primer cotejo (unos 30 segundos); después la página abrirá el resultado en caché al instante.",
+    "reportEmpty": "Aún no hay datos de cotejo; seleccione el rango de tiempo y pulse «Iniciar cotejo»",
+    "normal": "Normal",
+    "abnormal": "Anomalía",
+    "pass": "Correcto",
+    "column": {
+      "date": "Fecha",
+      "saRows": "Filas de sa_events",
+      "crcUniq": "CRC únicos",
+      "rawRows": "Filas de log_analysis",
+      "deviation": "Desviación %",
+      "source": "Origen",
+      "rows": "Filas",
+      "changeType": "Tipo de cambio",
+      "prop": "Propiedad",
+      "change": "Contenido del cambio",
+      "discoveredAt": "Fecha de detección",
+      "diff": "Diferencia (sa - raw)",
+      "skippedRange": "Rango limpiado",
+      "skippedWhy": "Motivo",
+      "skippedSource": "Acción y hora"
+    },
+    "change": {
+      "eventCreated": "Evento nuevo",
+      "propertyCreated": "Propiedad nueva ({{value}})",
+      "userPropertyCreated": "Propiedad de usuario nueva ({{value}})",
+      "userPropertyHidden": "Propiedad de usuario oculta",
+      "userPropertyActive": "Propiedad de usuario activada"
+    },
+    "alert": {
+      "title": "Se han detectado anomalías de coherencia de datos",
+      "desc": "En {{days}}/{{total}} días se ha detectado una desviación superior al umbral ({{threshold}} %) o hay {{dup}} filas con CRC duplicado; compruebe si el ingestor pierde datos o si hay diferencias de criterio."
+    },
+    "ok": {
+      "title": "La coherencia de los datos es correcta",
+      "desc": "Las desviaciones del cotejo entre {{from}} y {{to}} están dentro del umbral {{threshold}} % y no hay CRC duplicados."
+    },
+    "stat": {
+      "days": "Días cotejados",
+      "daysSuffix": "días / {{count}} día(s) con anomalía",
+      "daysSuffix_one": "días / {{count}} día con anomalía",
+      "daysSuffix_other": "días / {{count}} días con anomalía",
+      "dupCrc": "CRC duplicados",
+      "rowsSuffix": "filas",
+      "crcUnique": "Unicidad de CRC",
+      "skippedDays": "Días limpiados",
+      "outOfRetention": "Días fuera de retención"
+    },
+    "scope": {
+      "range": "Rango del cotejo",
+      "threshold": "Umbral de desviación",
+      "total": "Total",
+      "trigger": "Origen",
+      "ignored": "Eventos omitidos"
+    },
+    "table": {
+      "daily": "Cotejo del total diario",
+      "events": "Comparación del recuento por evento (sa_events vs log_analysis)",
+      "discovery": "Cambios recientes de metadatos",
+      "discoveryHint": "(eventos, propiedades y cambios de tipo de propiedad detectados automáticamente; {{count}} en total)",
+      "diffs": "Principales diferencias por evento (sa - raw)",
+      "diffsHint": "({{count}} eventos difieren; 20 principales por diferencia absoluta)",
+      "onlyInOne": "Solo en un lado (el otro lado es 0)",
+      "skipped": "Rangos limpiados (excluidos de alertas)"
+    },
+    "skipped": "Omitido",
+    "skippedReason": {
+      "cleaned": "Limpiado"
+    },
+    "ignored": {
+      "title": "{{count}} eventos excluidos por la lista de omisión"
+    },
+    "trigger": {
+      "auto": "Programado",
+      "manual": "Manual",
+      "cli": "Script de operación"
+    },
+    "stale": {
+      "warnTitle": "La instantánea del cotejo se está quedando antigua",
+      "errorTitle": "La instantánea del cotejo está obsoleta",
+      "desc": "El último cotejo se ejecutó el {{time}} (hace {{hours}} h, por encima del umbral de {{warn}} h): la conclusión puede ya no reflejar la realidad; vuelva a ejecutarlo o revise la programación."
+    },
+    "config": {
+      "button": "Configuración del cotejo",
+      "title": "Configuración del cotejo (programación fuera de pico y umbral)",
+      "save": "Guardar",
+      "enabled": "Activar cotejo programado",
+      "enabledOn": "Activado",
+      "enabledOff": "Desactivado",
+      "runAt": "Hora de ejecución",
+      "runAtHint": "Zona horaria de la plataforma, HH:mm; se ejecuta en el siguiente ciclo de comprobación (≤ 5 min)",
+      "runAtInvalid": "El formato debe ser HH:mm",
+      "threshold": "Umbral de desviación (%)",
+      "thresholdHint": "Un día se marca cuando |desviación| supera este porcentaje; empiece en 3–5 % hasta que converjan los criterios",
+      "ignoreEvents": "Eventos omitidos",
+      "ignoreEventsHint": "Un nombre de evento por línea; aísle las diferencias de criterio conocidas para evitar alertas diarias",
+      "skipEmpty": "Filtrar eventos vacíos en ambos lados",
+      "skipEmptyHint": "Mismo criterio en ambos lados (sa y versión comunitaria): las filas con event vacío no se cuentan",
+      "staleWarn": "Aviso de antigüedad (h)",
+      "staleError": "Obsoleta (h)",
+      "updatedAt": "Configuración actualizada"
+    },
+    "changeType": {
+      "eventCreated": "Evento nuevo",
+      "propertyCreated": "Propiedad nueva",
+      "propertyTypeChanged": "Tipo de propiedad cambiado",
+      "userPropertyCreated": "Propiedad de usuario nueva",
+      "userPropertyTypeChanged": "Tipo de propiedad de usuario cambiado",
+      "userPropertyHidden": "Propiedad de usuario oculta",
+      "userPropertyActive": "Propiedad de usuario activada"
+    },
+    "outOfRetention": "Fuera de retención (sin comparar)",
+    "outOfRetentionShort": "Fuera de retención",
+    "guide": {
+      "title": "¿Para qué sirve esta página?",
+      "whatTitle": "Propósito",
+      "whatBody": "Es una línea de verificación lateral: coteja sa_events (lo escribe nuestro ingestor) con log_analysis (lo escribe el Flink comunitario) día a día, para detectar consumo detenido, pérdida silenciosa y escrituras duplicadas. Solo lectura, no modifica datos de negocio; por defecto verifica ayer una vez al día fuera de pico (03:30, zona horaria de la plataforma) y guarda el resultado como instantánea.",
+      "termsTitle": "Términos clave",
+      "terms": {
+        "range": "Rango: ayer por defecto; hasta 3 días en manual (protección de memoria de un solo nodo tras incidentes OOM previos).",
+        "threshold": "Umbral: un día se marca solo si |desviación| lo supera; el valor actual está en la fila de configuración de arriba (en %).",
+        "crc": "Unicidad CRC: deduplicación aproximada solo en nuestro lado; se marca si las filas duplicadas superan el 0,5 % (el algoritmo aproximado tiene error propio).",
+        "trusted": "Rango fiable: comparable solo dentro del menor de los dos periodos de retención; las fechas fuera se marcan como «fuera de retención» y no cuentan como anomalía.",
+        "skipped": "Rangos limpiados: los periodos eliminados a propósito con DROP PARTITION / TTL se marcan como «limpiado» y quedan fuera de las alertas.",
+        "stale": "Frescura de la instantánea: si está antigua (amarillo) u obsoleta (rojo), la conclusión ya no refleja la realidad; vuelva a ejecutar el cotejo o revise la programación.",
+        "events": "Principales diferencias por evento: eventos presentes en ambos lados con conteos distintos, top 20 por diferencia absoluta; «solo un lado» lista los que están a 0 en el otro."
+      },
+      "howTitle": "Cómo leer el resultado",
+      "how": {
+        "step1": "Una desviación diaria sostenida de +1 % a +2 % es una diferencia estructural conocida (la versión comunitaria cuenta de menos los eventos de error/reintento de Android; véase el libro blanco), no una pérdida de datos.",
+        "step2": "Requiere revisión inmediata: la desviación pasa a negativa (tenemos menos que la versión comunitaria), el conteo de un evento cae a cero, o aparece de golpe un tipo de evento nuevo en las diferencias.",
+        "step3": "Los días marcados como «fuera de retención» o «limpiado» no cuentan como anomalías; un CRC fallido sugiere escrituras duplicadas en nuestro lado.",
+        "step4": "El límite manual de 3 días es una protección de memoria deliberada; para periodos más largos use la tarea de gran rango fuera de pico (scripts/reconcile.sh --type=range en el servidor)."
+      },
+      "whoTitle": "Quién hace qué",
+      "who": {
+        "admin": "Superadministrador: cambie umbral, lista de omisión y umbrales de antigüedad en «Configuración del cotejo» (arriba a la derecha) y atienda avisos de fallo u obsolescencia.",
+        "oncall": "Guardia: mire primero «Principales diferencias por evento» para distinguir un tipo de evento nuevo de un evento que desaparece, y luego la tendencia de totales diarios de ambos lados.",
+        "analyst": "Analistas: esta página no es para análisis de negocio; la salud del pipeline se ve en Operación → Gestión de datos → Salud de datos."
+      },
+      "footnote": "Conclusiones y mediciones: docs/product/research-clklog-reconcile-caliber-v1.md (repositorio)."
+    }
+  },
+  "dataCleanup": {
+    "unregisteredTitle": "Datos ↔ metadatos",
+    "refresh": "Actualizar",
+    "unregisteredHint": "Desde {{from}}: {{data}} en datos / {{meta}} registrados; no registrados abajo",
+    "colEvent": "Evento",
+    "colRows": "Filas",
+    "colRange": "Rango",
+    "colFuture": "Fechas futuras",
+    "futureYes": "futuras",
+    "useEvent": "Limpiar por evento",
+    "useFuture": "Limpiar futuras",
+    "ghostTitle": "{{count}} registros fantasma (solo metadatos)",
+    "deleteTitle": "Borrado puntual (ALTER DELETE)",
+    "deleteHint": "Previsualice y escriba el nombre de la tabla. Copia y auditoría automáticas. Las tablas comunitarias no se pueden borrar.",
+    "kind.event": "Por evento",
+    "kind.project": "Por proyecto",
+    "kind.before": "Antes de fecha",
+    "kind.future": "Futuras",
+    "eventPlaceholder": "Nombre del evento (p. ej. $SignUp)",
+    "beforePlaceholder": "Antes de AAAA-MM-DD",
+    "preview": "Previsualizar",
+    "previewResult": "Unas {{rows}} filas ({{from}} ~ {{to}})",
+    "backupHint": "Cotejo previo superado; copia en {{backup}}",
+    "preflightBlocked": "Cotejo previo no satisfactorio ({{reason}}): ejecútelo en la página de calidad de datos",
+    "cleanupMissing": "Cuenta de limpieza no configurada: borrado puntual no disponible",
+    "rowsExceeded": "Filas por encima del límite {{max}} por ejecución; divida",
+    "confirmPlaceholder": "Escriba el nombre de la tabla: {{table}}",
+    "execute": "Borrar {{rows}} filas",
+    "done": "Borrado enviado (~{{rows}} filas)",
+    "doneDetail": "Copia {{backup}} | mutation {{mutation}}; borrado en segundo plano y rango marcado como limpiado",
+    "colAction": "Acción",
+    "unregisteredFailed": "No se pudieron cargar los eventos no registrados: {{message}}",
+    "window": "Ventana",
+    "windowDays": "{{days}} días"
+  },
+  "projectRetire": {
+    "title": "Vista previa de retirada del proyecto",
+    "communityNote": "Las tablas comunitarias (clklog.log_analysis y 18 agregados) no tienen dimensión de proyecto; use retención/TTL para reducirlas",
+    "step": {
+      "stopWrites": "Detenga primero la recolección del proyecto (desactive su API key / el SDK) y confirme que las escrituras de 24 h bajan a cero",
+      "execution": "Ejecutar la retirada: borrado por tabla en el lado sa (DROP PARTITION para tablas de miembros, si no ALTER DELETE) y tabla por tabla en MySQL",
+      "backupAudit": "Las filas a borrar se exportan primero a un archivo de copia y la acción se audita (action=project_retire)"
+    },
+    "result": {
+      "saDone": "Lado sa completado ({{tables}} tablas)",
+      "saPartial": "Lado sa parcial: una tabla grande superó el presupuesto por ejecución; vuelva a ejecutar",
+      "mysqlDone": "Lado MySQL: {{rows}} filas borradas"
+    },
+    "getToken": "Obtener token"
+  }
+}

@@ -1,0 +1,290 @@
+{
+  "role": {
+    "analysisAdmin": "Analysis admin",
+    "analyst": "Analyst",
+    "member": "Member",
+    "external": "External",
+    "projectOwner": "Project owner"
+  },
+  "label": {
+    "role": "Role",
+    "user": "User"
+  },
+  "message": {
+    "created": "Created",
+    "minLength": "At least 6 characters"
+  },
+  "dataPolicy": {
+    "title": "Data policies",
+    "column": "Data policy",
+    "unrestricted": "Unrestricted",
+    "create": "New policy",
+    "reference": "Used by",
+    "referenceCount": "{{members}} members / {{groups}} groups",
+    "deleteConfirm": "Delete this policy?",
+    "definition": "Definition JSON (optional; all data visible by default)",
+    "detail": "Policy details",
+    "scopeEvents": "Visible events",
+    "scopeEventProperties": "Visible event properties",
+    "scopeUserProperties": "Visible user properties",
+    "scopeRowFilter": "Row filter",
+    "scopeAll": "Unrestricted",
+    "scopeNone": "None (all hidden)",
+    "rowFilterNone": "None",
+    "rowFilterAnd": "and",
+    "rowFilterItem": "{{prop}} {{op}} {{value}}"
+  },
+  "members": {
+    "title": "Members",
+    "add": "Add member",
+    "added": "Member added",
+    "removeConfirm": "Remove from this project?",
+    "remove": "Remove",
+    "seed": "Seed demo members",
+    "seedSuccess": "Created analyst1 / member1 / external1 and added them to the matching member groups",
+    "seedHint": "Creates three demo accounts in the current project and adds them to the analyst / member / external groups. Existing accounts with the same name keep their current password.",
+    "demoPassword": "Demo account password"
+  },
+  "subjectGrant": {
+    "action": "Dashboard access",
+    "title": "Dashboard access · {{name}}",
+    "hint": "Check to grant view access. Granting a folder covers every dashboard inside it, including ones created later. Assets with edit access are read-only here.",
+    "searchPlaceholder": "Search folders or dashboards",
+    "folders": "Folders",
+    "dashboards": "Dashboards",
+    "ungrouped": "Ungrouped",
+    "editable": "Can edit",
+    "saved": "Access saved",
+    "empty": "No folders or dashboards to grant"
+  },
+  "groups": {
+    "title": "Member groups",
+    "create": "New group",
+    "createTitle": "New member group",
+    "memberCount": "Members",
+    "members": "Members",
+    "membersTitle": "Group members · {{name}}",
+    "membersUpdated": "Group members updated",
+    "membersHint": "Only people who are already members of this project can be added. Groups cannot be bound to the owner.",
+    "membersEmpty": "No members yet"
+  },
+  "roles": {
+    "title": "Roles",
+    "ownerNotice": "Each project has at most one owner, assigned only by a platform super admin. Analysis admins cannot change this definition.",
+    "preset": "Preset",
+    "adjusted": "Adjusted",
+    "editDefinition": "Edit role definition",
+    "saveSuccess": "Analysis admin definition saved",
+    "readonlyHint": "Preset roles cannot be customized. Only the project owner can change the analysis admin definition.",
+    "feature": "Feature",
+    "op": "Operation",
+    "detail": "Details",
+    "granted": "Granted"
+  },
+  "apiKeys": {
+    "title": "API keys",
+    "create": "New API key",
+    "hintLead": "External AI and automation tools can use",
+    "hintTail": "to run read-only ClickHouse queries. Create one in a single click with \"New API key\" (auto-named, project scope defaults to clklogapp, never expires). The plaintext key is shown only once at creation, so store it somewhere safe.",
+    "projectScope": "Project scope",
+    "active": "Active",
+    "revoked": "Revoked",
+    "expiresAt": "Expires at",
+    "lastUsedAt": "Last used",
+    "revokeConfirm": "Revoke this key? It stops working immediately",
+    "revoke": "Revoke",
+    "deleteConfirm": "Delete this key? This cannot be undone",
+    "created": "API key generated",
+    "revokedMsg": "Revoked",
+    "deleted": "Deleted",
+    "copied": "Copied to clipboard",
+    "createSuccess": "API key created",
+    "plaintextWarning": "This key is shown only once. After you close this dialog the plaintext cannot be viewed again, so save it now.",
+    "saved": "I've saved it"
+  },
+  "projectSettings": {
+    "title": "Project settings",
+    "createProject": "New project",
+    "createAccount": "New sign-in account",
+    "ownerNotice": "Each project has exactly one owner. Only a platform super admin can create projects and assign or replace the owner; the previous owner is downgraded to analysis admin. Creating a project only registers the analysis space name — no ClickHouse database is created.",
+    "projectName": "Project name",
+    "displayName": "Display name",
+    "currentOwner": "Current owner",
+    "projectOwner": "Project owner",
+    "unassigned": "Unassigned",
+    "assign": "Assign / replace",
+    "selectUser": "Select a user",
+    "userOption": "{{name}} ({{username}})",
+    "ownerUpdated": "Owner of {{name}} updated",
+    "projectCreated": "Project created",
+    "nameHint": "Starts with a lowercase letter; lowercase letters, digits and underscores only, 2–63 characters. The project_name reported by the SDK must match.",
+    "nameRequired": "Please enter a project name",
+    "nameInvalid": "Invalid format",
+    "namePlaceholder": "e.g. game_ios",
+    "displayNamePlaceholder": "Human-readable name; can be the same as the project name",
+    "ownerRequired": "Please assign an owner",
+    "accountCreated": "Account created; add it to a project under Members",
+    "accountHint": "Creates the sign-in identity only — it does not automatically become a member of any project. Add people to a project under Members.",
+    "username": "Username",
+    "password": "Password"
+  },
+  "error": {
+    "loadFailed": "Failed to load. Please retry.",
+    "grant": {
+      "subjectRequired": "subject_id is required",
+      "assetsMustBeArray": "asset_ids must be an array",
+      "subjectTypeInvalid": "subject_type must be user or group"
+    },
+    "asset": {
+      "cardNotFound": "Card not found: {{id}}",
+      "cohortNotFound": "Cohort not found",
+      "dashboardNotFound": "Dashboard not found: {{id}}",
+      "editGrantAnalystGroupOnly": "Edit grants can only be given to member groups with the analyst role",
+      "editGrantAnalystOnly": "Edit grants can only be given to analysts of this project",
+      "folderNotFound": "Folder not found",
+      "tagNotFound": "Tag not found",
+      "unlockBeforeGrant": "Unlock the asset before granting",
+      "viewGrantDashboardOnly": "View grants apply to dashboards and folders only",
+      "withdrawGrantBeforeLock": "Withdraw the edit grant before locking"
+    },
+    "dataPolicy": {
+      "inUse": "Still referenced by members or groups",
+      "notFound": "Policy not found"
+    },
+    "dataScope": {
+      "eventForbidden": "No permission to query event: {{event}}",
+      "invalidProp": "Invalid user property name",
+      "propertyForbidden": "No permission to use property: {{property}}",
+      "unsupportedOperator": "Row-level data policies do not support operator: {{op}}"
+    },
+    "demo": {
+      "passwordTooShort": "Demo account password must be at least 6 characters"
+    },
+    "forbidden": "No permission to access this resource",
+    "group": {
+      "bindingForbidden": "A member group cannot be bound to the owner or an invalid role",
+      "memberRequired": "The user must already be a project member",
+      "notFound": "Member group not found",
+      "ownerForbidden": "A member group cannot be bound to the owner"
+    },
+    "member": {
+      "notFound": "Member not found",
+      "notMember": "Not a member of this project",
+      "ownerAssignForbidden": "The owner cannot be assigned through member management",
+      "ownerRoleForbidden": "The owner's project role cannot be changed",
+      "promoteToOwnerForbidden": "A member cannot be promoted to owner",
+      "removeOwnerForbidden": "The project owner cannot be removed",
+      "expiryOwnerForbidden": "A project owner cannot have an expiration",
+      "expiryInvalid": "The expiration is not a valid time"
+    },
+    "project": {
+      "exists": "Project already exists",
+      "fieldsRequired": "name and owner_user_id are required",
+      "nameInvalid": "Project name must start with a lowercase letter and contain only lowercase letters, digits and underscores, 2-63 characters",
+      "timezoneInvalid": "Invalid time zone (must be an IANA name such as Asia/Shanghai)"
+    },
+    "role": {
+      "grantsMustBeArray": "grants must be an array",
+      "invalid": "Invalid role"
+    },
+    "user": {
+      "notFound": "User not found",
+      "unavailable": "User unavailable"
+    },
+    "invite": {
+      "emailInvalid": "Invalid email format",
+      "alreadyMember": "The account for this email is already a project member",
+      "notFound": "Invitation not found or already closed",
+      "emailMismatch": "The signed-in account’s email does not match the invitation"
+    }
+  },
+  "permission": {
+    "feature": {
+      "projectAccess": "Project access",
+      "dataPolicy": "Data policies",
+      "opsAccount": "Operations · Accounts",
+      "opsProjectSettings": "Operations · Project settings",
+      "opsApiKey": "Operations · API keys",
+      "opsAiWorkspace": "Operations · AI Workspace",
+      "opsRuntime": "Operations · Runtime (future)",
+      "subject": "Analysis subjects",
+      "cohort": "Cohorts",
+      "tag": "User tags",
+      "meta": "Tracking / metadata",
+      "modelUsage": "Analysis models",
+      "dashboard": "Dashboards",
+      "metric": "Metrics",
+      "timeline": "User timeline"
+    },
+    "op": {
+      "view": "View",
+      "edit": "Edit",
+      "manage": "Manage",
+      "use": "Use"
+    },
+    "detail": {
+      "iamMemberView": "View project members, member groups, role descriptions and data policies",
+      "iamMemberEdit": "Add/remove members and groups; assign non-owner roles",
+      "iamRoleEditAdmin": "Edit this project's \"analysis admin\" grants",
+      "iamDataPolicyManage": "Create, edit and delete policies and assign them to members or groups",
+      "opsUserManage": "Create, disable and enable accounts",
+      "opsOwnerAssign": "Create projects; assign or replace the single project owner",
+      "opsApikeyManage": "View, create and revoke keys",
+      "opsAiWorkspaceManage": "Templates and sync",
+      "opsRuntimeAccess": "Placeholder; no route in this release",
+      "subjectView": "Switch between existing subjects in analysis",
+      "subjectEdit": "View and edit this project's analysis subjects",
+      "cohortView": "View cohort list and member preview",
+      "cohortEditOwn": "Create, edit and delete own cohorts",
+      "cohortEditOthers": "Edit and delete other members' cohorts",
+      "tagView": "View tag list and member preview",
+      "tagEditOwn": "Create, edit and delete own tags",
+      "tagEditOthers": "Edit and delete other members' tags",
+      "metaView": "View events, properties, virtual objects, metrics, Debug and data quality",
+      "metaPickerView": "Read enabled events, properties and dimension-table fields for analysis pickers (read-only)",
+      "metaEdit": "Edit definitions, confirm/hide, Debug",
+      "modelQuery": "Event / funnel / retention queries",
+      "modelSql": "Custom SQL",
+      "modelCardSave": "Save cards",
+      "modelExport": "Export rendered query or dashboard data",
+      "dashboardView": "View accessible dashboards and their settings",
+      "dashboardViewAll": "View all dashboards in this project",
+      "dashboardEdit": "Create dashboards; attempt edits (AssetPolicy decides)",
+      "dashboardFilter": "Temporarily adjust dashboard filters",
+      "dashboardFolderManage": "Create, rename and delete folders",
+      "assetLock": "Lock/unlock folders, dashboards, cards, cohorts and tags",
+      "assetGrant": "Grant or withdraw edit rights and external view for dashboards, cards and folders",
+      "metricView": "View saved metrics",
+      "metricEditOwn": "Create, edit and delete own metrics",
+      "metricEditOthers": "Edit and delete other members' metrics",
+      "timelineView": "View all events a user reported within a chosen time range"
+    }
+  },
+  "invite": {
+    "userOrEmailHint": "Pick an existing account, or type a full email to invite someone not yet registered.",
+    "userOrEmailPlaceholder": "Select account or type email",
+    "addedDirect": "Email already has an account; added to the project directly",
+    "sent": "Invitation email sent",
+    "emailInvalid": "Select an account or enter a full email address",
+    "pendingTitle": "Pending invitations",
+    "colEmail": "Email",
+    "colInviter": "Invited by",
+    "colExpires": "Expires",
+    "revoke": "Revoke",
+    "revokeConfirm": "Revoke this invitation? The link will stop working."
+  },
+  "member": {
+    "colExpiry": "Expiry",
+    "expiryPermanent": "Permanent",
+    "expiryInDays": "Expires in {{days}} days",
+    "expiredTag": "Expired",
+    "renew": "Renew",
+    "renewTitle": "Set a new expiration time",
+    "renewed": "Renewed",
+    "expiryLabel": "Membership expiry (optional)",
+    "expiryHint": "After expiry the direct project role ends (group roles stay); empty = permanent."
+  },
+  "audit": {
+    "title": "Project audit"
+  }
+}

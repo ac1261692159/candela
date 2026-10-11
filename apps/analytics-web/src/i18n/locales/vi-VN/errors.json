@@ -1,0 +1,45 @@
+{
+  "serviceUnavailable": "Dịch vụ phân tích tạm thời không kết nối được. Vui lòng thử lại sau; nếu vẫn lỗi hãy liên hệ quản trị viên.",
+  "dataUnavailable": "Dịch vụ truy vấn dữ liệu tạm thời không khả dụng. Vui lòng thử lại sau; nếu vẫn lỗi hãy liên hệ quản trị viên.",
+  "requestTimeout": "Yêu cầu quá thời gian chờ. Vui lòng thu hẹp phạm vi truy vấn hoặc thử lại sau.",
+  "genericUnavailable": "Dịch vụ tạm thời không khả dụng. Vui lòng thử lại sau; nếu vẫn lỗi hãy liên hệ quản trị viên.",
+  "requestFailed": "Yêu cầu thất bại",
+  "status401": "Phiên đăng nhập đã hết hạn, vui lòng đăng nhập lại",
+  "status403": "Bạn không có quyền thực hiện thao tác này",
+  "status404": "Không tìm thấy tài nguyên được yêu cầu",
+  "status429": "Yêu cầu quá thường xuyên, vui lòng thử lại sau",
+  "unknown": "Lỗi không xác định",
+  "queryFailed": "Truy vấn thất bại",
+  "validation": {
+    "selectTimeRange": "Vui lòng chọn khoảng thời gian",
+    "atLeastOneMetric": "Vui lòng cấu hình ít nhất một chỉ số",
+    "tooManyMetrics": "Tối đa {{max}} chỉ số",
+    "atLeastOneEventMetric": "Vui lòng cấu hình ít nhất một chỉ số sự kiện",
+    "metricEventRequired": "Vui lòng chọn sự kiện cho mỗi chỉ số",
+    "perCapitaNeedsNumber": "Chỉ số bình quân cần chọn thuộc tính dạng số",
+    "minuteSpanTooLong": "Truy vấn theo phút không được vượt quá 1 ngày",
+    "funnelMinSteps": "Phễu cần ít nhất {{min}} bước",
+    "funnelMaxSteps": "Phễu tối đa {{max}} bước",
+    "startEventRequired": "Vui lòng chọn sự kiện bắt đầu",
+    "returnEventRequired": "Vui lòng chọn sự kiện quay lại",
+    "retentionPeriodRequired": "Vui lòng chọn ít nhất một chu kỳ giữ chân"
+  },
+  "apiKey": {
+    "missing": "Thiếu API Key (vui lòng cung cấp qua X-API-Key hoặc Authorization: Bearer)"
+  },
+  "rbac": {
+    "forbidden": "Không có quyền truy cập tài nguyên này"
+  },
+  "attribute": {
+    "datatableUserUnsupported": "Chiều từ bảng dữ liệu chưa hỗ trợ thuộc tính người dùng",
+    "datatableInVirtualExpression": "Thuộc tính bảng chiều không thể dùng trong biểu thức thuộc tính ảo",
+    "datatableStale": "Bảng dữ liệu mà thuộc tính {{prop}} phụ thuộc đã hết hiệu lực",
+    "datatableMultiple": "Thuộc tính {{prop}} đã liên kết nhiều bảng dữ liệu"
+  },
+  "analysis": {
+    "timeRange": {
+      "timezoneInvalid": "Múi giờ không hợp lệ (phải là tên múi giờ IANA, ví dụ Asia/Shanghai)"
+    }
+  },
+  "status413": "Nội dung tải lên quá lớn. Hãy giảm số dòng rồi thử lại"
+}

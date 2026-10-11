@@ -1,0 +1,290 @@
+{
+  "role": {
+    "analysisAdmin": "분석 관리자",
+    "analyst": "분석가",
+    "member": "일반 멤버",
+    "external": "외부 인원",
+    "projectOwner": "프로젝트 owner"
+  },
+  "label": {
+    "role": "역할",
+    "user": "사용자"
+  },
+  "message": {
+    "created": "생성됨",
+    "minLength": "6자 이상"
+  },
+  "dataPolicy": {
+    "title": "데이터 권한 정책",
+    "column": "데이터 권한",
+    "unrestricted": "제한 없음",
+    "create": "정책 새로 만들기",
+    "reference": "참조",
+    "referenceCount": "멤버 {{members}} / 그룹 {{groups}}",
+    "deleteConfirm": "정책을 삭제하시겠습니까?",
+    "definition": "정의 JSON(비워 둘 수 있으며 기본은 전체 공개)",
+    "detail": "정책 상세",
+    "scopeEvents": "표시 가능한 이벤트",
+    "scopeEventProperties": "표시 가능한 이벤트 속성",
+    "scopeUserProperties": "표시 가능한 사용자 속성",
+    "scopeRowFilter": "행 필터",
+    "scopeAll": "제한 없음",
+    "scopeNone": "없음(모두 숨김)",
+    "rowFilterNone": "없음",
+    "rowFilterAnd": "그리고",
+    "rowFilterItem": "{{prop}} {{op}} {{value}}"
+  },
+  "members": {
+    "title": "멤버 관리",
+    "add": "멤버 추가",
+    "added": "추가됨",
+    "removeConfirm": "프로젝트에서 제거하시겠습니까?",
+    "remove": "제거",
+    "seed": "데모 멤버 채우기",
+    "seedSuccess": "analyst1 / member1 / external1을 만들고 해당 멤버 그룹에 추가했습니다",
+    "seedHint": "현재 프로젝트에 데모 계정 세 개를 만들고 '분석가 그룹 / 일반 멤버 그룹 / 외부 인원 그룹'에 추가합니다. 같은 이름의 계정이 이미 있으면 비밀번호는 바꾸지 않습니다.",
+    "demoPassword": "데모 계정 비밀번호"
+  },
+  "subjectGrant": {
+    "action": "대시보드 권한",
+    "title": "대시보드 권한 · {{name}}",
+    "hint": "체크하면 보기 권한이 부여됩니다. 폴더에 부여하면 그 안의 모든 대시보드(이후 생성 포함)에 적용됩니다. 편집 권한이 있는 자산은 여기서 읽기 전용입니다.",
+    "searchPlaceholder": "폴더 또는 대시보드 검색",
+    "folders": "폴더",
+    "dashboards": "대시보드",
+    "ungrouped": "미분류",
+    "editable": "편집 가능",
+    "saved": "권한이 저장되었습니다",
+    "empty": "부여할 폴더나 대시보드가 없습니다"
+  },
+  "groups": {
+    "title": "멤버 그룹",
+    "create": "그룹 새로 만들기",
+    "createTitle": "멤버 그룹 새로 만들기",
+    "memberCount": "멤버 수",
+    "members": "멤버",
+    "membersTitle": "그룹 멤버 · {{name}}",
+    "membersUpdated": "그룹 멤버를 업데이트했습니다",
+    "membersHint": "이미 이 프로젝트의 멤버인 사람만 추가할 수 있습니다. 그룹에는 owner를 지정할 수 없습니다.",
+    "membersEmpty": "그룹원이 없습니다"
+  },
+  "roles": {
+    "title": "역할 관리",
+    "ownerNotice": "프로젝트마다 owner는 최대 1명이며 슈퍼 관리자만 지정할 수 있습니다. 분석 관리자는 이 정의를 변경할 수 없습니다.",
+    "preset": "기본 제공",
+    "adjusted": "조정됨",
+    "editDefinition": "역할 정의 편집",
+    "saveSuccess": "분석 관리자 정의를 저장했습니다",
+    "readonlyHint": "기본 제공 역할은 사용자 정의할 수 없습니다. 분석 관리자 정의는 프로젝트 owner만 변경할 수 있습니다.",
+    "feature": "기능",
+    "op": "작업 권한",
+    "detail": "기능 상세",
+    "granted": "보유"
+  },
+  "apiKeys": {
+    "title": "API Key 관리",
+    "create": "API Key 새로 만들기",
+    "hintLead": "외부 AI / 자동화 도구가",
+    "hintTail": "ClickHouse를 읽기 전용으로 조회할 때 사용합니다. 'API Key 새로 만들기'를 클릭하면 한 번에 생성됩니다(이름 자동 지정, 프로젝트 경계 기본값 clklogapp, 만료 없음). Key 평문은 생성할 때 한 번만 표시되므로 반드시 안전하게 보관하세요.",
+    "projectScope": "프로젝트 경계",
+    "active": "사용 중",
+    "revoked": "폐기됨",
+    "expiresAt": "만료 시간",
+    "lastUsedAt": "최근 사용",
+    "revokeConfirm": "이 Key를 폐기하시겠습니까? 폐기하면 즉시 무효화됩니다",
+    "revoke": "폐기",
+    "deleteConfirm": "이 Key를 삭제하시겠습니까? 이 작업은 되돌릴 수 없습니다",
+    "created": "API Key가 생성되었습니다",
+    "revokedMsg": "폐기되었습니다",
+    "deleted": "삭제되었습니다",
+    "copied": "클립보드에 복사되었습니다",
+    "createSuccess": "API Key가 생성되었습니다",
+    "plaintextWarning": "이 Key는 한 번만 표시되며 창을 닫으면 평문을 다시 볼 수 없으니 지금 바로 저장하세요.",
+    "saved": "저장했습니다"
+  },
+  "projectSettings": {
+    "title": "프로젝트 설정",
+    "createProject": "프로젝트 새로 만들기",
+    "createAccount": "로그인 계정 새로 만들기",
+    "ownerNotice": "프로젝트마다 owner는 정확히 한 명입니다. 프로젝트 새로 만들기와 owner 지정/교체는 슈퍼 관리자만 할 수 있으며 기존 owner는 분석 관리자로 내려갑니다. 새 프로젝트를 만들 때는 분석 공간 이름만 등록하고 ClickHouse에 데이터베이스를 만들지는 않습니다.",
+    "projectName": "프로젝트 이름",
+    "displayName": "표시 이름",
+    "currentOwner": "현재 owner",
+    "projectOwner": "프로젝트 owner",
+    "unassigned": "미지정",
+    "assign": "지정 / 교체",
+    "selectUser": "사용자 선택",
+    "userOption": "{{name}}({{username}})",
+    "ownerUpdated": "owner가 {{name}} 님으로 변경되었습니다",
+    "projectCreated": "프로젝트가 생성되었습니다",
+    "nameHint": "소문자로 시작하고 소문자, 숫자, 밑줄만 사용하는 2~63자여야 합니다. 데이터를 보고하는 SDK의 project_name과 일치해야 합니다.",
+    "nameRequired": "프로젝트 이름을 입력해 주세요",
+    "nameInvalid": "형식이 올바르지 않습니다",
+    "namePlaceholder": "예: game_ios",
+    "displayNamePlaceholder": "사람이 보기 위한 이름이며 프로젝트 이름과 같아도 됩니다",
+    "ownerRequired": "owner를 지정해 주세요",
+    "accountCreated": "계정이 생성되었습니다. 멤버 관리에서 프로젝트에 추가할 수 있습니다.",
+    "accountHint": "로그인 계정만 만들 뿐 어떤 프로젝트의 멤버도 자동으로 되지 않습니다. 사람을 프로젝트에 추가하려면 '멤버 관리'로 이동하세요.",
+    "username": "사용자 이름",
+    "password": "비밀번호"
+  },
+  "error": {
+    "loadFailed": "불러오지 못했습니다. 다시 시도하세요",
+    "grant": {
+      "subjectRequired": "subject_id가 필요합니다",
+      "assetsMustBeArray": "asset_ids는 배열이어야 합니다",
+      "subjectTypeInvalid": "subject_type은 user 또는 group이어야 합니다"
+    },
+    "asset": {
+      "folderNotFound": "폴더가 없습니다",
+      "dashboardNotFound": "대시보드가 없습니다: {{id}}",
+      "cardNotFound": "카드가 없습니다: {{id}}",
+      "cohortNotFound": "코호트가 없습니다",
+      "tagNotFound": "태그가 없습니다",
+      "viewGrantDashboardOnly": "보기는 대시보드와 폴더에만 부여할 수 있습니다",
+      "editGrantAnalystOnly": "편집 권한은 이 프로젝트의 분석가에게만 부여할 수 있습니다",
+      "editGrantAnalystGroupOnly": "편집 권한은 역할이 분석가인 멤버 그룹에만 부여할 수 있습니다",
+      "withdrawGrantBeforeLock": "잠그기 전에 편집 권한을 먼저 회수해야 합니다",
+      "unlockBeforeGrant": "잠금을 해제한 후에 권한을 부여해야 합니다"
+    },
+    "forbidden": "이 리소스에 접근할 권한이 없습니다",
+    "dataScope": {
+      "invalidProp": "올바르지 않은 사용자 속성 이름입니다",
+      "unsupportedOperator": "{{op}} 연산자는 데이터 권한 행 필터에서 아직 지원하지 않습니다",
+      "eventForbidden": "{{event}} 이벤트를 조회할 권한이 없습니다",
+      "propertyForbidden": "{{property}} 속성을 사용할 권한이 없습니다"
+    },
+    "project": {
+      "fieldsRequired": "name과 owner_user_id는 필수입니다",
+      "nameInvalid": "프로젝트 이름은 소문자로 시작하고 소문자, 숫자, 밑줄만 포함하는 2~63자여야 합니다",
+      "exists": "프로젝트가 이미 존재합니다",
+      "timezoneInvalid": "올바르지 않은 시간대입니다(IANA 이름이어야 합니다. 예: Asia/Shanghai)"
+    },
+    "demo": {
+      "passwordTooShort": "데모 계정 비밀번호는 6자 이상이어야 합니다"
+    },
+    "role": {
+      "grantsMustBeArray": "grants는 배열이어야 합니다",
+      "invalid": "올바르지 않은 역할입니다"
+    },
+    "member": {
+      "notMember": "이 프로젝트의 멤버가 아닙니다",
+      "ownerAssignForbidden": "멤버 관리로는 owner를 지정할 수 없습니다",
+      "notFound": "멤버가 없습니다",
+      "ownerRoleForbidden": "owner의 프로젝트 역할은 변경할 수 없습니다",
+      "promoteToOwnerForbidden": "멤버를 owner로 변경할 수 없습니다",
+      "removeOwnerForbidden": "프로젝트 owner는 제거할 수 없습니다",
+      "expiryOwnerForbidden": "프로젝트 소유자에게는 유효 기간을 설정할 수 없습니다",
+      "expiryInvalid": "유효 기간이 올바른 시간이 아닙니다"
+    },
+    "user": {
+      "unavailable": "사용자를 사용할 수 없습니다",
+      "notFound": "사용자가 없습니다"
+    },
+    "group": {
+      "bindingForbidden": "멤버 그룹에는 owner나 올바르지 않은 역할을 지정할 수 없습니다",
+      "notFound": "멤버 그룹이 없습니다",
+      "ownerForbidden": "멤버 그룹에는 owner를 지정할 수 없습니다",
+      "memberRequired": "사용자가 이미 프로젝트 멤버여야 합니다"
+    },
+    "dataPolicy": {
+      "notFound": "정책이 없습니다",
+      "inUse": "아직 멤버 또는 그룹에서 참조 중입니다"
+    },
+    "invite": {
+      "emailInvalid": "이메일 형식이 올바르지 않습니다",
+      "alreadyMember": "해당 이메일 계정은 이미 이 프로젝트의 멤버입니다",
+      "notFound": "초대가 없거나 이미 종료되었습니다",
+      "emailMismatch": "로그인한 계정의 이메일이 초대와 일치하지 않습니다"
+    }
+  },
+  "permission": {
+    "feature": {
+      "projectAccess": "프로젝트 권한 관리",
+      "dataPolicy": "데이터 권한",
+      "opsAccount": "운영 · 계정",
+      "opsProjectSettings": "운영 · 프로젝트 설정",
+      "opsApiKey": "운영 · API Key",
+      "opsAiWorkspace": "운영 · AI Workspace",
+      "opsRuntime": "운영 · 이후 운영 관리",
+      "subject": "분석 주체",
+      "cohort": "사용자 코호트 관리",
+      "tag": "사용자 태그 관리",
+      "meta": "트래킹 / 메타데이터",
+      "modelUsage": "모델 사용",
+      "dashboard": "대시보드 사용",
+      "metric": "지표 관리",
+      "timeline": "사용자 행동 시퀀스"
+    },
+    "op": {
+      "view": "보기",
+      "edit": "편집",
+      "manage": "관리",
+      "use": "기능 사용"
+    },
+    "detail": {
+      "iamMemberView": "이 프로젝트의 멤버, 멤버 그룹, 역할 설명, 데이터 권한 정책 보기",
+      "iamMemberEdit": "멤버와 그룹 추가/제거, owner가 아닌 역할 할당",
+      "iamRoleEditAdmin": "이 프로젝트의 '분석 관리자' 권한 정의 편집",
+      "iamDataPolicyManage": "정책을 만들고 편집, 삭제하며 멤버나 그룹에 할당",
+      "opsUserManage": "로그인 계정 생성, 비활성화, 활성화",
+      "opsOwnerAssign": "분석 프로젝트 생성, 프로젝트의 유일한 owner 지정 또는 교체",
+      "opsApikeyManage": "Key 조회, 생성, 폐기",
+      "opsAiWorkspaceManage": "템플릿과 동기화",
+      "opsRuntimeAccess": "자리 표시자이며 이번 버전에는 경로가 없습니다",
+      "subjectView": "분석에서 기존 주체 전환",
+      "subjectEdit": "이 프로젝트의 분석 주체 조회 및 편집",
+      "cohortView": "코호트 목록과 멤버 미리보기 보기",
+      "cohortEditOwn": "본인 코호트 생성, 편집, 삭제",
+      "cohortEditOthers": "다른 사람의 코호트 편집, 삭제",
+      "tagView": "태그 목록과 멤버 미리보기 보기",
+      "tagEditOwn": "본인 태그 생성, 편집, 삭제",
+      "tagEditOthers": "다른 사람의 태그 편집, 삭제",
+      "metaView": "이벤트, 속성, 가상 객체, 지표, Debug, 데이터 품질 보기",
+      "metaPickerView": "분석 선택기에서 활성화된 이벤트, 속성, 차원 테이블 필드 읽기(읽기 전용)",
+      "metaEdit": "정의 편집, 확인/숨김, Debug",
+      "modelQuery": "이벤트 / 퍼널 / 리텐션 조회",
+      "modelSql": "사용자 정의 SQL",
+      "modelCardSave": "카드 저장",
+      "modelExport": "표시된 조회 결과 또는 대시보드 데이터 내보내기",
+      "dashboardView": "접근 가능한 대시보드와 설정 보기",
+      "dashboardViewAll": "이 프로젝트의 모든 대시보드 보기",
+      "dashboardEdit": "대시보드 새로 만들기, 편집 시도(최종 권한은 AssetPolicy 기준)",
+      "dashboardFilter": "대시보드 필터 임시 조정",
+      "dashboardFolderManage": "폴더 생성/이름 변경/삭제",
+      "assetLock": "폴더, 대시보드, 카드, 코호트, 태그 잠금/잠금 해제",
+      "assetGrant": "대시보드/카드/폴더의 편집 권한과 외부 보기 권한 부여 또는 회수",
+      "metricView": "저장된 지표 보기",
+      "metricEditOwn": "본인 지표 생성, 편집, 삭제",
+      "metricEditOthers": "다른 사람의 지표 편집, 삭제",
+      "timelineView": "지정한 기간 동안 한 사용자의 모든 이벤트 조회"
+    }
+  },
+  "invite": {
+    "userOrEmailHint": "기존 계정을 선택하거나 전체 이메일을 입력해 미가입자를 초대할 수 있습니다.",
+    "userOrEmailPlaceholder": "계정 선택 또는 이메일 입력",
+    "addedDirect": "해당 이메일에 계정이 있어 프로젝트에 바로 추가했습니다",
+    "sent": "초대 메일이 발송되었습니다",
+    "emailInvalid": "기존 계정을 선택하거나 전체 이메일 주소를 입력하세요",
+    "pendingTitle": "수락 대기 중인 초대",
+    "colEmail": "이메일",
+    "colInviter": "초대한 사람",
+    "colExpires": "만료 시간",
+    "revoke": "취소",
+    "revokeConfirm": "이 초대를 취소할까요? 상대방은 더 이상 링크로 참여할 수 없습니다."
+  },
+  "member": {
+    "colExpiry": "유효 기간",
+    "expiryPermanent": "영구",
+    "expiryInDays": "{{days}}일 후 만료",
+    "expiredTag": "만료됨",
+    "renew": "갱신",
+    "renewTitle": "새 만료 시간 설정",
+    "renewed": "갱신되었습니다",
+    "expiryLabel": "멤버 유효 기간(선택)",
+    "expiryHint": "만료 후 이 프로젝트의 직접 역할은 상실됩니다(그룹 역할은 유지). 비우면 영구."
+  },
+  "audit": {
+    "title": "프로젝트 작업 감사"
+  }
+}

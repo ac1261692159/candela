@@ -1,0 +1,542 @@
+{
+  "tab": {
+    "overview": "概览",
+    "rules": "策略",
+    "history": "历史",
+    "mute": "屏蔽",
+    "notifications": "通知记录",
+    "templates": "通知模板",
+    "channels": "通道配置",
+    "contacts": "联系人",
+    "audits": "变更记录"
+  },
+  "workbench": {
+    "title": "监控告警",
+    "firing": "当前有 {{count}} 条告警处于触发中",
+    "noContact": "没有启用中的联系人，告警不会外发",
+    "noContactHint": "到「联系人」Tab 添加联系人并保持启用；规则未绑定联系人时会发给全部启用联系人。",
+    "brokenRules": "{{count}} 条规则当前无效",
+    "brokenRulesHint": "{{names}}：绑定的指标已删除或连续多轮求值失败，这些规则不会触发（详见「策略」Tab 的健康列）。",
+    "notifyFail24h": "近 24 小时有 {{count}} 次通知投递失败",
+    "notifyFail24hHint": "三次重试后仍失败才会记录；可在「通知记录」Tab 查看失败原因。"
+  },
+  "overview": {
+    "firedToday": "今日触发",
+    "unresolved": "未恢复",
+    "notifyFailToday": "今日通知失败",
+    "firingEmpty": "当前没有触发中的告警",
+    "topRules": "今日触发最多的规则",
+    "topRulesEmpty": "今日尚无触发",
+    "fireCount": "触发次数"
+  },
+  "status": {
+    "firing": "触发中",
+    "normal": "正常",
+    "resolved": "已恢复"
+  },
+  "severity": {
+    "label": "级别",
+    "alertLevel": "告警级别",
+    "critical": "紧急",
+    "warning": "警告",
+    "info": "提示"
+  },
+  "kind": {
+    "fire": "告警触发",
+    "resolve": "告警恢复"
+  },
+  "rule": {
+    "label": "规则",
+    "createMetric": "新建指标告警",
+    "editTitle": "修改触发条件",
+    "editTitleNamed": "修改触发条件 · {{name}}",
+    "saving": "保存中",
+    "editorHint": "检测周期固定每 60 秒一次。窗口 × 异常持续 = 连续越线次数后才告警。内置规则不可删除。",
+    "editorMetricHint": "指标值由与工作台相同的查询链路实时求值。",
+    "targetMetric": "观测指标",
+    "target": "观测对象",
+    "metricTag": "数据管理指标",
+    "comparator": "比较关系",
+    "threshold": "阈值",
+    "statWindow": "统计窗口",
+    "statWindowHint": "事件分析按天过滤（stat_date），因此窗口是天而不是分钟；「今天」为当日累计值",
+    "windowMinutesLabel": "数据点统计粒度",
+    "windowMinutesOption": "统计{{minutes}}分钟",
+    "windowTimes": "{{window}} × {{times}} 次",
+    "windowMinutesTimes": "{{minutes}} 分钟 × {{times}}",
+    "windowDays": "{{days}} 天",
+    "forWindows": "异常持续",
+    "forWindowsHint": "连续多少次检测越线才触发（每次间隔 60 秒）",
+    "timesSuffix": "次",
+    "repeatInterval": "触发中重复通知间隔（分钟）",
+    "notifyOnResolve": "恢复时通知",
+    "timeSourceHint": "跟随指标 = 用指标自带的查询时间；由本规则指定 = 用下面的统计窗口",
+    "timeSourceHintMetric": "指标自带查询时间时默认跟随指标；也可以由本规则单独指定窗口",
+    "timeFromMetric": "跟随指标",
+    "timeFromMetricWith": "跟随指标（{{window}}）",
+    "timeFromRule": "由本规则指定",
+    "timeFromRuleNoWindow": "由本规则指定（该指标未设查询时间）",
+    "name": "规则名称",
+    "defaultName": "{{metric}} 告警",
+    "created": "已创建指标告警",
+    "metricSource": "告警对象是「数据管理 → 指标」里已保存的指标",
+    "metricSourceHint": "检测周期 60 秒，连续越线达到「异常持续」次数才触发。窗口按天计算（今天 / 近 N 天）， 指标值由与工作台相同的查询链路实时求值，不依赖卡片缓存。",
+    "probe": "测试取值",
+    "probeFailedPrefix": "取值失败",
+    "probeFailed": "取值失败：{{error}}",
+    "probeResult": "当前值：{{value}}（{{window}}{{pick}}，耗时 {{ms}}ms）",
+    "probePick": " · {{pick}}",
+    "editCondition": "编辑条件",
+    "muteQuick": "快捷屏蔽",
+    "allContacts": "全部启用联系人",
+    "checkInterval": "每 60 秒检测",
+    "source": {
+      "metric": "指标：{{name}}",
+      "builtin": "运维"
+    },
+    "column": {
+      "health": "健康",
+      "condition": "条件",
+      "window": "窗口 / 持续",
+      "currentValue": "当前值"
+    },
+    "health": {
+      "metricMissing": "指标已删除",
+      "evalFailed": "求值失败",
+      "noContact": "无联系人"
+    }
+  },
+  "event": {
+    "filterLabel": "事件状态",
+    "firedAt": "触发时间",
+    "value": "触发时值",
+    "lastSeen": "最近观测"
+  },
+  "notification": {
+    "time": "时间",
+    "kindFire": "触发",
+    "kindRepeat": "重复",
+    "kindResolve": "恢复",
+    "result": "结果",
+    "error": "错误"
+  },
+  "contact": {
+    "label": "联系人",
+    "hint": "选择通道后按提示填写；群机器人的 webhook 本身就是凭证，凭证级通道（邮件/短信/Telegram/WhatsApp） 先在「通道配置」页填平台凭证。规则可以绑定**多个**联系人（多渠道同时发送）；规则未绑定联系人时， 告警会发给**全部启用联系人**。",
+    "updated": "联系人已更新",
+    "editTitle": "编辑联系人",
+    "editTitleNamed": "编辑联系人 · {{name}}",
+    "maskedHint": "地址与密钥在列表里是脱敏的，因此**不回填**：留空即保持原值，只有填写新值才会覆盖。",
+    "webhookUrl": "Webhook 地址",
+    "webhookRequired": "请填写 Webhook 地址",
+    "address": "地址",
+    "addressLabel": "接收地址",
+    "addressEmail": "邮箱",
+    "addressChatId": "chat_id（如 -1001234567890）",
+    "addressWhatsapp": "号码（E.164，如 8613800138000）",
+    "addressSms": "手机号（如 +8613800138000）",
+    "secret": "密钥",
+    "secretOptional": "密钥（可选）",
+    "secretHint": "飞书/钉钉的加签密钥；机器人没开签名校验就留空",
+    "smsProvider": "短信厂商",
+    "smsProviderHint": "留空使用平台默认已启用厂商",
+    "disableHint": "停用后不投递",
+    "bodyTemplateHint": "body 模板，占位符同告警模板，另有 {{text}} 与 {{textJson}}",
+    "bodyTemplatePlaceholder": "body 模板（可选，默认 {\"text\":\"{{textJson}}\"}）",
+    "alertContacts": "告警联系人",
+    "multiHint": "可多选，规则触发时向绑定的全部联系人发送；不选则发给全部启用联系人",
+    "multiExtra": "可多选（多渠道同时发送）；不选 = 发给全部启用联系人",
+    "noneSelected": "不选 = 全部启用联系人",
+    "disabledName": "{{name}}（已停用）",
+    "locale": "语言",
+    "localeDefault": "平台默认",
+    "localeHint": "通知按收件人语言渲染；留空使用平台默认语言",
+    "timezone": "时区",
+    "timezoneHint": "通知里的触发/恢复时间按此时区渲染；留空 = 项目/平台时区",
+    "timezoneDefault": "跟随项目/平台"
+  },
+  "channel": {
+    "label": "通道",
+    "feishu": "飞书",
+    "dingtalk": "钉钉",
+    "wecom": "企业微信",
+    "webhook": "通用 Webhook",
+    "email": "邮件",
+    "sms": "短信",
+    "telegram": "Telegram",
+    "whatsapp": "WhatsApp",
+    "configMissing": "未配置：{{names}}",
+    "unavailable": "该通道当前不可用",
+    "pageHint": {
+      "title": "这里配置的是「凭证级」通道",
+      "body": "群机器人（飞书 / 钉钉 / 企业微信 / 通用 Webhook）的 webhook 本身就是凭证，请在「联系人」页填写；本页配置 SMTP、短信厂商、Telegram 与 WhatsApp。 密钥只写不读，保存后可用「发送测试」验证连通性。"
+    },
+    "envOnly": "环境变量",
+    "notEnabled": "未启用",
+    "pausedTag": "已暂停",
+    "muted": "该通道已暂停投递",
+    "mutedOn": "{{channel}} 已暂停投递",
+    "mutedOff": "{{channel}} 已恢复投递",
+    "platformFallbackTag": "平台邮件通道",
+    "platformFallbackNote": "邮件将由「设置 → 用户管理 → 邮件通道」的 SMTP 账号发送，此处无需重复填写。",
+    "secretTag": "密钥 {{hint}}",
+    "secretTitle": "凭证（只写不读）",
+    "secretTitleConfigured": "凭证（只写不读，已配置 {{hint}}）",
+    "pageNote": "提示：钉钉 / 企业微信 / Telegram 官方限流均为 20 条/分钟，平台已按通道自动排队与合并； 国内短信的签名与模板需先在厂商控制台报备审核，AWS SNS 无大陆区域、发中国号码需报备。",
+    "enableFirst": "请先展开「{{channel}}」填写并保存配置，再启用",
+    "enabled": "{{channel}} 已启用",
+    "disabled": "{{channel}} 已停用",
+    "saved": "{{channel}} 配置已保存",
+    "sendTest": "发送测试",
+    "testSmtp": "测试收件邮箱",
+    "testChatId": "测试 chat_id",
+    "testPhone": "测试接收号码",
+    "testTarget": "测试目标（不落库）",
+    "testOk": "测试通过",
+    "testFail": "测试失败",
+    "testError": "{{detail}}：{{error}}",
+    "lastModified": "最后修改 {{user}}"
+  },
+  "channelGroup": {
+    "chat": "群机器人与 IM",
+    "email": "邮件",
+    "sms": "短信"
+  },
+  "channelConfig": {
+    "helpTitle": "{{channel}} 配置方法",
+    "muteLabel": "暂停投递",
+    "muteHint": "暂停后保留配置与密钥，但此通道不参与任何告警投递（平台邮件兜底同样被拦住）；「发送测试」仍可用于验证凭证。",
+    "smtp": {
+      "label": "邮件（SMTP）",
+      "hint": "建议用专用发信账号 + 授权码；保存后「发送测试」会先做连通性校验再实发一封。",
+      "field": {
+        "host": "SMTP 服务器",
+        "port": "端口",
+        "secure": "SSL/TLS（465 通常开启）",
+        "user": "用户名",
+        "from": "发件人",
+        "fromPlaceholder": "Candela 告警 <alerts@example.com>",
+        "pass": "密码 / 授权码"
+      },
+      "help": "1. 准备：用一个专用发信邮箱，在服务商后台开启 SMTP 并生成**授权码**——多数服务商不允许用登录密码发信。\n2. 填写：主机 + 端口（465 配「SSL/TLS 开」；587 配 STARTTLS）；「发件人」必须与 SMTP 用户名一致，否则会被服务商拒信。\n3. 验证：「发送测试」先做连通性校验再实发一封，失败会显示服务商原始错误（认证失败 / 发件人不一致 / 被限流）。只配一次可全站复用：填到「设置 → 用户管理 → 邮件通道」，告警侧会自动回落到它。"
+    },
+    "telegram": {
+      "label": "Telegram",
+      "hint": "用 @BotFather 建机器人拿 Token；联系人侧只填 chat_id。大陆需代理出口，可把 api_base 指到自建 Bot API 服务。",
+      "help": "1. 准备：在 Telegram 里搜 @BotFather → 发送 /newbot（用户名必须以 bot 结尾）→ 把它返回的 Token 填到下面「Bot Token」并保存；**再用你自己的 Telegram 打开这个机器人点「START」**——机器人不能主动发起会话，漏了这步发送测试会报 chat not found。\n2. 填写：联系人的 chat_id 填 @userinfobot 回给你的数字 ID（私聊即你的用户 ID）；要发到群，先把机器人拉进群，再用 BotFather 的 /setprivacy 关掉隐私模式，否则它收不到群消息。\n3. 验证：「发送测试」会真发一条，失败显示 Telegram 原始错误（如 chat not found）；服务器出海受限时把「API 地址」指向自建 Bot API 服务，留空即官方 api.telegram.org。",
+      "field": {
+        "apiBase": "API 地址（可空，默认官方）",
+        "botToken": "Bot Token"
+      }
+    },
+    "whatsapp": {
+      "label": "WhatsApp（Cloud API）",
+      "hint": "需 Meta Business 验证 + 号码注册 + 模板审核；告警属 business-initiated，窗口外只能发模板消息，模板需含 1~4 个变量（规则/当前值/条件/项目）。",
+      "field": {
+        "phoneNumberId": "Phone Number ID",
+        "templateName": "模板名称",
+        "templateLang": "模板语言",
+        "paramCount": "模板变量个数（1~4）",
+        "apiVersion": "Graph API 版本",
+        "accessToken": "System User Token"
+      },
+      "help": "1. 准备：Meta Business 账号完成验证，并有一个已注册的 WhatsApp Business 号码；在 Meta 后台取到 Phone Number ID。\n2. 填写：Phone Number ID、模板名、模板语言（如 zh_CN）、模板变量个数（1~4）。告警属「业务主动发起」：对方 24 小时内回过消息才能发自由文本，否则只能发已审核的模板。\n3. 验证：联系人号码填 E.164（不含「+」）；「发送测试」会带示例变量真发一条，失败显示 Meta 原始错误码（模板未审核 / 变量个数不符 / 号码未在测试名单）。"
+    },
+    "smsAliyun": {
+      "label": "阿里云短信",
+      "hint": "签名与模板必须先在阿里云控制台报备审核通过；模板里需要一个变量接收摘要（示例 ${content}）。",
+      "field": {
+        "signName": "签名名称",
+        "templateCode": "模板 Code",
+        "endpoint": "接入点（可空）",
+        "accessKeyId": "AccessKey ID",
+        "accessKeySecret": "AccessKey Secret"
+      },
+      "help": "1. 准备：开通阿里云短信服务，并**报备签名与模板**（两者都要审核通过）；建议在 RAM 建一对只授短信权限的 AccessKey。\n2. 填写：AccessKey ID / Secret、签名名称、模板 CODE（形如 SMS_xxxxxxx）、区域。短信正文受模板约束，平台只发一行摘要。\n3. 验证：接收号码填 E.164（如 8613800138000）；「发送测试」失败会显示阿里云原始错误码（签名未审核 / 参数不符 / 余额不足），按码在阿里云文档可查。"
+    },
+    "smsTencent": {
+      "label": "腾讯云短信",
+      "hint": "需要控制台应用（SmsSdkAppId）+ 已审核的签名与模板；模板里需要一个变量接收摘要。",
+      "field": {
+        "sdkAppId": "SmsSdkAppId",
+        "signName": "签名名称",
+        "templateId": "模板 ID",
+        "region": "地域",
+        "secretId": "SecretId",
+        "secretKey": "SecretKey"
+      },
+      "help": "1. 准备：开通腾讯云短信，创建**签名**与**正文模板**并等待审核通过；建议用子账号的最小权限密钥。\n2. 填写：SDK AppID、SecretId / SecretKey、签名内容、模板 ID、区域（如 ap-guangzhou）。平台只发一行摘要。\n3. 验证：「发送测试」失败会显示腾讯云原始错误码（签名或模板未审核 / 参数个数不符 / 余额不足），按码在腾讯云文档可查。"
+    },
+    "smsAws": {
+      "label": "AWS SNS",
+      "hint": "SNS 短信没有 cn-* 区域（大陆不可发）；发中国号码需先向 AWS Support 报备；默认沙箱只能发已验证号码。",
+      "field": {
+        "region": "Region",
+        "accessKeyId": "AccessKey ID",
+        "secretAccessKey": "Secret Access Key"
+      },
+      "help": "1. 准备：AWS 账号开通 SNS；SNS **默认处于沙箱**，需先把接收号码加入沙箱白名单或申请解除限制。注意 SNS 没有 cn-* 区域，发给中国号码需另行申请。\n2. 填写：AccessKey / Secret、区域（如 ap-southeast-1）、Sender ID（部分区域要求）。\n3. 验证：「发送测试」失败会显示 SNS 原始错误（沙箱未放行 / 区域不支持 / 权限不足 / 号码未验证）。"
+    },
+    "smsTwilio": {
+      "label": "Twilio",
+      "hint": "海外/容灾通道，无区域限制；From 号码需在 Twilio 侧验证或购买。",
+      "field": {
+        "fromNumber": "From 号码（E.164）",
+        "accountSid": "Account SID",
+        "authToken": "Auth Token"
+      },
+      "help": "1. 准备：Twilio 账号购号或申请一个发信号码（Sender）；试用账号只能发到已验证的号码。\n2. 填写：Account SID、Auth Token、From 号码（E.164，带「+」）。\n3. 验证：「发送测试」失败会显示 Twilio 错误码与说明（号码不支持该目的地 / 收件号码未验证 / 余额不足）。"
+    }
+  },
+  "template": {
+    "kindFire": "告警触发",
+    "kindResolve": "告警恢复",
+    "channelChat": "群聊 / Webhook",
+    "saved": "模板已保存",
+    "reset": "已恢复默认模板",
+    "hint": {
+      "title": "通知内容由模板决定",
+      "lead": "模板按「事件类型 × 通道组」配置（chat 覆盖群机器人/IM/Webhook/WhatsApp），作用于本项目全部规则。占位符写在双花括号里，通知发出时会被替换成 实际值；支持",
+      "tail": "条件。短信渲染后压缩空白并按 40 字符截断。"
+    },
+    "isDefault": "默认模板",
+    "customized": "已自定义 · {{user}}",
+    "subject": "邮件主题",
+    "body": "通知内容",
+    "variables": "占位符（点击插入到光标处）",
+    "varTooltip": "{{label}}（示例：{{sample}}）",
+    "refreshPreview": "刷新预览",
+    "preview": "预览",
+    "sampleHint": "示例数据 · 不会发送",
+    "previewFailed": "预览失败",
+    "previewSubject": "主题",
+    "smsNote": "实际下发会压缩空白并截断到 40 字符，当前共 {{count}} 字符。",
+    "rendering": "正在渲染…",
+    "previewEmpty": "编辑左侧内容后，这里会自动刷新预览。"
+  },
+  "mute": {
+    "scope": "范围",
+    "allRules": "全部规则",
+    "duration": "快捷时长",
+    "pickDuration": "选时长",
+    "orRange": "或时段",
+    "reason": "原因",
+    "reasonPlaceholder": "可选",
+    "add": "添加屏蔽",
+    "added": "已添加屏蔽",
+    "needDuration": "请选择快捷时长或自定义时段",
+    "presetHours": "{{count}} 小时",
+    "presetDays": "{{count}} 天",
+    "muted": "已屏蔽 {{duration}}",
+    "start": "开始",
+    "end": "结束",
+    "release": "解除"
+  },
+  "retention": {
+    "title": "数据保留策略",
+    "hint": "三个范围可分别设置；留空表示**永久保留**。清理按天执行（每 6 小时检查一次），删除动作会写变更记录。 删除「告警历史」会同时清掉它对应的通知记录。",
+    "scope": "范围",
+    "days": "保留天数",
+    "keepForever": "留空 = 永久",
+    "current": "当前",
+    "forever": "永久保留",
+    "daysValue": "{{days}} 天",
+    "saved": "保留策略已保存",
+    "scopeLabel": {
+      "events": "告警历史",
+      "notifications": "通知记录",
+      "audits": "变更记录"
+    }
+  },
+  "audit": {
+    "hint": "规则、联系人、屏蔽的变更都会留痕（仅超管可查）；联系人地址只记脱敏值。",
+    "empty": "暂无变更记录",
+    "column": {
+      "time": "时间",
+      "operator": "操作者",
+      "action": "动作",
+      "target": "对象",
+      "detail": "变更内容"
+    },
+    "change": "{{field}}：{{from}} → {{to}}",
+    "fieldEntry": "{{field}}={{value}}",
+    "noChange": "（无变化）",
+    "valueOn": "开",
+    "valueOff": "关",
+    "field": {
+      "code": "规则码",
+      "comparator": "比较符",
+      "windowMinutes": "粒度(分钟)",
+      "windowDays": "窗口(天)",
+      "forWindows": "持续窗口",
+      "repeatMinutes": "重复间隔(分钟)",
+      "notifyOnResolve": "恢复通知",
+      "metricName": "指标名",
+      "bodyLength": "模板长度",
+      "deleted": "删除条数",
+      "wasDefault": "原为默认",
+      "enabledContacts": "启用联系人"
+    },
+    "action": {
+      "ruleUpdate": "修改规则",
+      "ruleCreate": "新建规则",
+      "ruleDelete": "删除规则",
+      "contactCreate": "新建联系人",
+      "contactDelete": "删除联系人",
+      "contactDefault": "设为默认联系人（历史）",
+      "muteCreate": "新建屏蔽",
+      "muteDelete": "解除屏蔽",
+      "contactUpdate": "修改联系人",
+      "retentionUpdate": "修改保留策略",
+      "retentionCleanup": "按保留策略清理",
+      "templateUpdate": "修改通知模板",
+      "templateReset": "恢复默认模板"
+    }
+  },
+  "field": {
+    "enabled": "启用",
+    "enabledAria": "启用 {{name}}",
+    "switchOn": "启用",
+    "switchOff": "停用",
+    "booleanOn": "开",
+    "booleanOff": "关",
+    "unit": "单位",
+    "unitPlaceholder": "如 次 / 人",
+    "keepBlank": "留空表示不修改",
+    "keepCurrent": "留空不修改（当前 {{value}}）",
+    "keepSavedValue": "留空表示不修改已保存的值",
+    "keepSavedAddress": "留空表示不修改已保存的地址",
+    "keepSavedSecret": "留空表示不修改已保存的密钥"
+  },
+  "metric": {
+    "label": "指标",
+    "project": "项目",
+    "select": "选择指标",
+    "noneInProject": "该项目暂无指标，请先到「数据管理 → 指标」创建",
+    "option": "{{name}}（{{kind}}）",
+    "optionDisabled": "{{name}}（{{kind}} · {{reason}}）",
+    "unavailable": "不可用"
+  },
+  "validate": {
+    "required": "请填写{{field}}",
+    "select": "请选择{{field}}"
+  },
+  "separator": {
+    "list": "、",
+    "pair": "；",
+    "entry": "，",
+    "slash": " / "
+  },
+  "window": {
+    "last2Days": "近 2 天"
+  },
+  "templateVar": {
+    "ruleName": "规则名",
+    "ruleCode": "规则码",
+    "level": "级别（英文）",
+    "levelFmt": "级别（中文）",
+    "status": "状态（中文）",
+    "statusCode": "状态码（fire/repeat/resolve）",
+    "value": "当前值（带单位）",
+    "valueRaw": "当前值（原始数字）",
+    "unit": "单位",
+    "comparator": "比较符（英文）",
+    "comparatorFmt": "比较符（中文）",
+    "threshold": "阈值（带单位）",
+    "metricName": "指标名",
+    "metricKind": "指标类型",
+    "windowDays": "窗口天数",
+    "windowFmt": "窗口（中文）",
+    "project": "项目名",
+    "time": "触发/恢复时间",
+    "detectInterval": "检测周期",
+    "contactName": "联系人"
+  },
+  "ruleHealth": {
+    "ok": "正常",
+    "metricMissing": "指标已删除",
+    "evalFailed": "求值失败",
+    "noContact": "无联系人",
+    "detailNoMetric": "规则未绑定指标",
+    "detailMetricDeleted": "指标 {{metricId}} 已删除",
+    "detailEvalFailed": "连续 {{times}} 轮求值失败：{{message}}",
+    "detailNoContact": "无联系人：规则未绑定联系人，且系统里没有启用中的联系人"
+  },
+  "unit": {
+    "times": "次",
+    "rows": "条",
+    "pieces": "个",
+    "percent": "%"
+  },
+  "error": {
+    "rule": {
+      "notFound": "规则不存在: {{code}}",
+      "noFields": "没有需要更新的字段",
+      "builtinNotDeletable": "内置规则不可删除",
+      "metricMissing": "指标不存在（请在「数据管理 → 指标」中先创建）",
+      "metricLimit": "指标告警最多 {{max}} 条"
+    },
+    "contact": {
+      "idInvalid": "contact_id 非法",
+      "notFound": "联系人不存在",
+      "localeInvalid": "不支持的语言：{{locale}}",
+      "timezoneInvalid": "不合法的时区（须为 IANA 名，如 Asia/Shanghai）"
+    },
+    "channel": {
+      "unsupported": "不支持的通道类型：{{kind}}",
+      "unavailable": "通道 {{channel}} 当前不可用",
+      "unknown": "未知通道：{{channel}}"
+    },
+    "channelConfig": {
+      "unsupported": "不支持的通道配置：{{channel}}",
+      "masterKeyMissing": "缺少主密钥：请设置环境变量 {{env}}（32 字节 base64），用于加密保存通道凭证"
+    },
+    "template": {
+      "syntaxError": "模板语法错误：{{error}}",
+      "subjectSyntaxError": "邮件主题语法错误：{{error}}",
+      "kindInvalid": "事件类型非法（fire / resolve）",
+      "channelInvalid": "通道非法（chat / email / sms）"
+    },
+    "mute": {
+      "notFound": "屏蔽不存在",
+      "windowInvalid": "屏蔽时间无效"
+    },
+    "retention": {
+      "scopeInvalid": "不支持的保留范围：{{scope}}",
+      "daysInvalid": "保留天数须为 1~{{max}} 的整数，留空表示永久保留"
+    },
+    "metric": {
+      "notFound": "指标不存在"
+    },
+    "validate": {
+      "failed": "校验未通过",
+      "required": "请填写「{{field}}」",
+      "number": "「{{field}}」必须是数字",
+      "portRange": "端口范围应为 1~65535",
+      "paramCount": "模板变量个数应为 1~4",
+      "apiBaseHttp": "API 地址必须以 http(s):// 开头",
+      "fromFormat": "发件人格式不正确（可写 name <mail@example.com>）",
+      "webhookRequired": "请填写 Webhook 地址",
+      "webhookHttps": "Webhook 地址必须是 https:// 开头",
+      "webhookHttp": "Webhook 地址必须以 http(s):// 开头",
+      "feishuWebhook": "看起来不是飞书机器人 webhook（应形如 https://open.feishu.cn/open-apis/bot/v2/hook/…）",
+      "dingtalkWebhook": "看起来不是钉钉机器人 webhook（应形如 https://oapi.dingtalk.com/robot/send?access_token=…）",
+      "dingtalkSecret": "加签密钥过短（钉钉控制台生成的 SEC…）",
+      "wecomWebhook": "看起来不是企业微信群机器人 webhook（应形如 https://qyapi.weixin.qq.com/cgi-bin/webhook/send?key=…）",
+      "telegramChatIdRequired": "请填写 chat_id（群或私聊的会话 ID，可通过 @userinfobot 获取）",
+      "telegramChatIdFormat": "chat_id 应为数字（群 ID 以 -100 开头）",
+      "emailRequired": "请填写收件邮箱",
+      "emailFormat": "邮箱格式不正确",
+      "smsRequired": "请填写接收手机号",
+      "smsFormat": "手机号格式不正确（建议带国家码，如 +8613800138000）",
+      "smsProvider": "短信厂商无效（可选：{{allowed}}）",
+      "whatsappRequired": "请填写接收号码（E.164，如 8613800138000）",
+      "whatsappFormat": "号码位数不正确（E.164 不含 +，8~15 位）",
+      "headersJson": "自定义请求头必须是合法 JSON（如 {\"Authorization\":\"Bearer xxx\"}）",
+      "bodyTemplate": "body 模板语法错误：{{error}}"
+    },
+    "ops": {
+      "forbidden": "仅平台超管可访问运维面板"
+    }
+  }
+}

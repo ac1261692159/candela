@@ -1,0 +1,421 @@
+{
+  "page": {
+    "paramsTitle": "Параметры подключения",
+    "projectName": "Имя проекта",
+    "reportEndpoint": "Адрес отправки",
+    "projectToken": "Токен проекта",
+    "tokenHint": "Запросите у администратора проекта (из соображений безопасности не показывается на странице); передавайте через переменную окружения или серверную конфигурацию",
+    "prereqTitle": "Перед подключением",
+    "prereqLead": "Отправка данных всегда выполняется методом POST +",
+    "prereqTail": ", ниже перечислены три поля формы; полная спецификация — в документе о правилах отправки данных в репозитории.",
+    "descColumn": "Описание",
+    "pitfall": "Самая частая ошибка: receiver принимает только данные после base64 + urlencode. Если отправить исходное тело JSON напрямую, оно разберётся как «data пусто»: HTTP всё равно вернёт 200, но данные молча потеряются.",
+    "curlLabel": "Минимальный запрос (curl)",
+    "curlTokenPlaceholder": "<токен проекта>",
+    "curlDataPlaceholder": "<base64(массив JSON)>",
+    "plannedTitle": "{{name}}: пока не реализовано",
+    "gotIt": "Понятно",
+    "plannedBody": "Этот SDK пока не поддерживает протокол отправки ClkLog, поэтому документация и примеры подключения не предоставляются.",
+    "plannedHint": "Пока можно подключиться самостоятельно по протоколу через «Другие способы подключения → HTTP / RESTful API» (подходит для любого языка) или сообщить команде платформы, какой SDK нужен, — мы запланируем его адаптацию.",
+    "copied": "{{label}} скопировано"
+  },
+  "drawer": {
+    "title": "Документация по подключению {{name}}",
+    "titleFallback": "Документация по подключению",
+    "faqTitle": "Частые вопросы ({{count}})",
+    "downloadDemo": "Скачать демо-проект (zip)",
+    "downloadDemoHint": "В пакете — {{contents}} и инструкция по запуску (README); учётных данных внутри нет."
+  },
+  "code": {
+    "copied": "Код скопирован",
+    "copyFailed": "Не удалось скопировать, выделите текст вручную"
+  },
+  "group": {
+    "client": "Клиентские SDK",
+    "server": "Серверные SDK",
+    "other": "Другие способы подключения"
+  },
+  "groupHint": {
+    "client": "Сбор данных трекинга в приложениях, веб-страницах, мини-программах и игровых движках",
+    "server": "Отправка бизнес-событий (заказы, платежи, регистрации) из серверных сервисов",
+    "other": "Без привязки к языку: подключение напрямую по протоколу HTTP или массовое восстановление исторических данных"
+  },
+  "status": {
+    "ready": "Проверено на практике",
+    "planned": "Пока не реализовано",
+    "partial": "Язык проверен"
+  },
+  "protocol": {
+    "project": "Имя проекта (= «Имя проекта» ниже, а не отображаемое имя проекта)",
+    "token": "Токен проекта, запросите у администратора проекта; не встраивайте во фронтенд-код и не храните в репозитории",
+    "data": "Массив событий: массив JSON → Base64 → URL-кодирование (даже одно событие нужно обернуть в массив)"
+  },
+  "encodingSample": "Raw event array (wrap a single event in an array too)\n[{\"type\":\"track\",\"event\":\"PageView\",\"distinct_id\":\"u_1001\",\"time\":1785228036000,\"properties\":{\"channel\":\"app_store\"}}]\n   ↓ JSON.stringify + Base64\nW3sidHlwZSI6InRyYWNrIiwiZXZlbnQiOiJQYWdlVmlldyIsImRpc3RpbmN0X2lkIjoidV8xMDAxIiwidGltZSI6MTc4NTIyODAzNjAwMCwicHJvcGVydGllcyI6eyJjaGFubmVsIjoiYXBwX3N0b3JlIn19XQ==\n   ↓ URL-encode, then put it in the form field data\ndata=W3sidHlwZSI6InRyYWNrIiwiZXZlbnQiOiJQYWdlVmlldyIsImRpc3RpbmN0X2lkIjoidV8xMDAxIiwidGltZSI6MTc4NTIyODAzNjAwMCwicHJvcGVydGllcyI6eyJjaGFubmVsIjoiYXBwX3N0b3JlIn19XQ%3D%3D",
+  "guide": {
+    "http": {
+      "name": "HTTP / RESTful API",
+      "platform": "Универсальный протокол · доступен на любом языке",
+      "summary": "Все SDK в итоге используют этот протокол; для языков без SDK можно подключаться по нему напрямую",
+      "step1Title": "1. Метод и адрес запроса",
+      "step1Body": "POST на адрес отправки, Content-Type: application/x-www-form-urlencoded; три поля формы — три элемента протокола. GET тоже поддерживается, но содержимое события попадёт в URL, поэтому не рекомендуется.",
+      "step1Code1Label": "Минимальный запрос (curl)",
+      "step1Code1": "curl -X POST '<endpoint>' \\\n  -H 'Content-Type: application/x-www-form-urlencoded' \\\n  --data-urlencode 'project=<project name>' \\\n  --data-urlencode 'token=<project token>' \\\n  --data-urlencode 'data=<base64(JSON array)>'",
+      "step1Note1": "HTTP 200 означает лишь успешный разбор формата: бизнес-проверка и запись в хранилище выполняются асинхронно. Не определяйте успех по телу ответа.",
+      "step1Note2": "Адрес обязательно должен содержать префикс /receiver (шлюз перенаправляет по нему на receiver).",
+      "step2Title": "2. Структура сообщения события",
+      "step2Body": "Каждый элемент data — это объект события. Значения полей: type (track — событие поведения / user_set — свойства пользователя / track_signup — привязка при входе), event (имя события, обязательно для track), distinct_id (ID посетителя, стабильный на всём пути), time (временная метка в миллисекундах), identities (расширение идентичности), properties (пользовательские атрибуты; префикс $ — встроенные атрибуты).",
+      "step2Code1Label": "Одно событие поведения",
+      "step3Title": "3. Требования к кодированию (самая частая ошибка)",
+      "step3Body": "Сериализуйте массив событий в строку JSON, затем в Base64 и целиком URL-кодируйте в поле data. Если отправить исходное тело JSON напрямую, оно разберётся как «data пусто»: HTTP вернёт 200, но данные молча потеряются.",
+      "step3Code1Label": "Цепочка кодирования",
+      "step3Note1": "Одно событие тоже нужно обернуть в массив ([{...}]).",
+      "step3Note2": "Символы + / = в результате Base64 обязательно URL-кодировать, иначе разбор формы их испортит.",
+      "step4Title": "4. Идентификация пользователя и привязка при входе",
+      "step4Body": "На анонимном этапе в качестве distinct_id используйте идентификатор устройства или гостя; после входа отправьте событие track_signup, указав ID входа в identities.user_key, а прежний анонимный ID — в properties.$track_signup_original_id. После этого все события автоматически несут identities.user_key, и платформа сможет объединить поведение одного человека до и после входа.",
+      "step4Code1Label": "Событие привязки при входе",
+      "step5Title": "5. Пакеты и повторные попытки",
+      "step5Body": "Объединяйте несколько событий в один массив и отправляйте одним запросом (рекомендуется 10–50 событий в пакете); одна сбойная запись в пакете не влияет на остальные. При сбое достаточно 3 повторных попыток с задержкой 500 мс × номер попытки; если сбой не проходит, складывайте данные в локальную очередь и отправляйте позже, чтобы не терять события.",
+      "step6Title": "6. Проверка результата отправки",
+      "step6Body": "После отправки откройте «Управление данными → Debug» и найдите последние отправки по имени события (видны атрибуты и время приёма); также можно выбрать это событие в анализе событий и проверить, появились ли данные. Обычная задержка — секунды, у агрегированных метрик Flink — минуты.",
+      "faq1Q": "API возвращает 200, но в платформе нет данных?",
+      "faq1A": "Сначала убедитесь, что data — это результат «Base64 + URL-кодирование» (при прямой отправке JSON вернётся 200, но data будет пустым), затем проверьте, что project и token совпадают, а в имени события нет пробелов и ошибок в регистре.",
+      "faq2Q": "time указывается в секундах или миллисекундах?",
+      "faq2A": "В миллисекундах (13 цифр). Если передать секунды (10 цифр), время разберётся как 1970 год; если не передавать — берётся время приёма на сервере.",
+      "faq3Q": "Можно отправить одно событие как объект JSON?",
+      "faq3A": "Нет, после декодирования data должен быть массивом; одно событие записывается как [{...}].",
+      "faq4Q": "Безопасно ли размещать token во фронтенде?",
+      "faq4A": "Не рекомендуется. Токен отправки может записывать данные; в клиенте проксируйте отправку через свой сервер или используйте ограниченный токен только для отправки."
+    },
+    "php": {
+      "name": "PHP",
+      "platform": "Сервер · PHP 7.4+ (нужно расширение curl)",
+      "summary": "Отправка событий заказов, платежей и регистраций из бизнес-кода",
+      "step1Title": "1. Предварительные требования",
+      "step1Body": "PHP 7.4 или выше с включённым расширением curl (php -m | grep curl). Сторонние зависимости не нужны.",
+      "step1Code1Label": "Проверка окружения",
+      "step2Title": "2. Инициализация клиента",
+      "step2Body": "Три параметра: адрес отправки, имя проекта, токен проекта. Токен читайте из переменной окружения, не встраивайте в код.",
+      "step2Code1Label": "Конструктор и настройка",
+      "step2Code1": "final class ClkLogClient\n{\n    private array $queue = [];\n    private ?string $loginId = null; // после входа автоматически подставляется в identities.user_key\n\n    public function __construct(\n        private readonly string $endpoint,\n        private readonly string $project,\n        private readonly string $token,\n        private readonly int $batchSize = 10,\n    ) {}\n\n    public static function fromEnv(): self\n    {\n        return new self(\n            getenv('CLKLOG_ENDPOINT') ?: '<endpoint>',\n            getenv('CLKLOG_PROJECT') ?: '<project name>',\n            getenv('CLKLOG_TOKEN') ?: throw new RuntimeException('missing CLKLOG_TOKEN'),\n            10,\n        );\n    }\n}",
+      "step3Title": "3. Отправка событий поведения",
+      "step3Body": "track() помещает событие в очередь и отправляет при достижении размера пакета; time — временная метка в миллисекундах.",
+      "step3Code1Label": "track и постановка в очередь",
+      "step3Code1": "public function track(string $distinctId, string $event, array $properties = []): void\n{\n    $this->enqueue($this->withIdentity([\n        'type'        => 'track',\n        'event'       => $event,\n        'distinct_id' => $distinctId,\n        'time'        => (int) (microtime(true) * 1000), // миллисекунды\n        'properties'  => (object) $properties,\n    ]));\n}\n\n$cli = ClkLogClient::fromEnv();\n$cli->track('u_1001', 'Purchase', ['order_id' => 'O20260915001', 'amount' => 99.5]);",
+      "step4Title": "4. Свойства пользователя и привязка при входе",
+      "step4Body": "profileSet() записывает свойства пользователя (с перезаписью); login() отправляет track_signup и объединяет анонимный ID с ID входа, после чего все события автоматически несут identities.user_key.",
+      "step4Code1Label": "profileSet / login",
+      "step4Code1": "public function profileSet(string $distinctId, array $properties): void\n{\n    $this->enqueue($this->withIdentity([\n        'type'        => 'user_set',\n        'distinct_id' => $distinctId,\n        'time'        => (int) (microtime(true) * 1000),\n        'properties'  => (object) $properties,\n    ]));\n}\n\npublic function login(string $loginId, string $anonymousId): void\n{\n    $this->loginId = $loginId;\n    $this->enqueue([\n        'type'        => 'track_signup',\n        'event'       => '$SignUp',\n        'distinct_id' => $loginId,\n        'identities'  => ['user_key' => $loginId],\n        'properties'  => ['$track_signup_original_id' => $anonymousId],\n        'time'        => (int) (microtime(true) * 1000),\n    ]);\n}\n\n$cli->profileSet('u_1001', ['vip_level' => 3, 'register_channel' => 'app_store']);\n$cli->login('user_9527', 'u_1001');",
+      "step5Title": "5. Пакетная отправка и повторные попытки",
+      "step5Body": "flush() сериализует очередь в JSON, кодирует в Base64, затем в URL-кодирование и отправляет формой; при сбое выполняются 3 повторные попытки с задержкой. Перед завершением процесса вызовите flush один раз для страховки.",
+      "step5Code1Label": "flush",
+      "step5Code1": "public function flush(): void\n{\n    if ($this->queue === []) {\n        return;\n    }\n    $payload = base64_encode(json_encode($this->queue, JSON_UNESCAPED_UNICODE));\n\n    for ($attempt = 1; $attempt <= 3; $attempt++) {\n        $ch = curl_init($this->endpoint);\n        curl_setopt_array($ch, [\n            CURLOPT_POST           => true,\n            CURLOPT_POSTFIELDS     => http_build_query([\n                'project' => $this->project,\n                'token'   => $this->token,\n                'data'    => $payload,\n            ]),\n            CURLOPT_HTTPHEADER     => ['Content-Type: application/x-www-form-urlencoded'],\n            CURLOPT_RETURNTRANSFER => true,\n            CURLOPT_TIMEOUT        => 10,\n        ]);\n        $body = curl_exec($ch);\n        $code = curl_getinfo($ch, CURLINFO_RESPONSE_CODE);\n        if ($code === 200) {\n            $this->queue = [];\n            return;\n        }\n        usleep($attempt * 500_000); // задержка перед повтором\n    }\n    throw new RuntimeException('upstream flush failed after 3 attempts');\n}",
+      "step5Note1": "http_build_query уже выполняет URL-кодирование, не кодируйте повторно вручную.",
+      "step5Note2": "В долгоживущих процессах (обработчики очередей, планировщики) вызывайте flush явно в конце каждого цикла, чтобы события не задерживались в памяти.",
+      "step6Title": "6. Проверка",
+      "step6Body": "После одной отправки найдите событие по имени в «Управление данными → Debug» — событие и его атрибуты должны быть видны, обычно в течение нескольких секунд.",
+      "faq1Q": "Вернулся 200, но данных нет?",
+      "faq1A": "Проверьте, что data — это результат Base64, который затем закодировал http_build_query; убедитесь, что token и project относятся к одному проекту.",
+      "faq2Q": "В каких единицах указывается time?",
+      "faq2A": "В миллисекундах. В PHP используйте (int)(microtime(true) * 1000).",
+      "faq3Q": "Кириллица в событиях превращается в мусор?",
+      "faq3A": "Добавьте JSON_UNESCAPED_UNICODE в json_encode и убедитесь, что строка в кодировке UTF-8.",
+      "faq4Q": "Можно отправлять синхронно внутри веб-запроса?",
+      "faq4A": "Можно, но лучше складывать в локальную очередь (Redis или таблица БД) и отправлять пакетами фоновой задачей, чтобы не замедлять ответ API."
+    },
+    "go": {
+      "name": "Go",
+      "platform": "Сервер · Go 1.18+ (только стандартная библиотека)",
+      "summary": "Отправка бизнес-событий из высоконагруженных сервисов без сторонних зависимостей",
+      "step1Title": "1. Предварительные требования",
+      "step1Body": "Go 1.18 или выше, только стандартная библиотека (net/http, encoding/json, encoding/base64, net/url); подключать модуль SDK не нужно.",
+      "step1Code1Label": "Инициализация модуля",
+      "step2Title": "2. Описание события и клиента",
+      "step2Body": "Структура Event соответствует полям протокола; Identities несёт расширение идентичности user_key.",
+      "step2Code1Label": "Структуры и конструктор",
+      "step2Code1": "type Event struct {\n    Type       string         `json:\"type\"`                 // track / track_signup / user_set\n    Event      string         `json:\"event,omitempty\"`      // имя события (обязательно для track)\n    DistinctID string         `json:\"distinct_id\"`          // ID посетителя\n    Time       int64          `json:\"time\"`                 // временная метка в миллисекундах\n    Identities map[string]any `json:\"identities,omitempty\"` // {\"user_key\": ID входа}\n    Properties map[string]any `json:\"properties,omitempty\"`\n}\n\ntype ClkLogClient struct {\n    Endpoint, Project, Token string\n    BatchSize                int\n    loginID                  string\n    queue                    []Event\n    http                     *http.Client\n}\n\nfunc NewClkLogClient(endpoint, project, token string) *ClkLogClient {\n    return &ClkLogClient{\n        Endpoint: endpoint, Project: project, Token: token, BatchSize: 10,\n        http: &http.Client{Timeout: 10 * time.Second},\n    }\n}",
+      "step3Title": "3. Отправка событий поведения",
+      "step3Body": "Track помещает событие в очередь и автоматически выполняет Flush при достижении размера пакета; после входа события автоматически несут identities.user_key.",
+      "step3Code1Label": "Track",
+      "step3Code1": "func (c *ClkLogClient) Track(distinctID, event string, props map[string]any) error {\n    e := Event{\n        Type: \"track\", Event: event, DistinctID: distinctID,\n        Time: time.Now().UnixMilli(), Properties: props,\n    }\n    if c.loginID != \"\" {\n        e.Identities = map[string]any{\"user_key\": c.loginID}\n    }\n    c.queue = append(c.queue, e)\n    if len(c.queue) >= c.BatchSize {\n        return c.Flush()\n    }\n    return nil\n}\n\n// вызов\ncli.Track(\"u_1001\", \"Purchase\", map[string]any{\"order_id\": \"O20260915001\", \"amount\": 99.5})",
+      "step4Title": "4. Привязка при входе и свойства пользователя",
+      "step4Body": "Login отправляет track_signup и объединяет идентичности; ProfileSet записывает свойства пользователя с перезаписью.",
+      "step4Code1Label": "Login / ProfileSet",
+      "step4Code1": "func (c *ClkLogClient) Login(loginID, anonymousID string) error {\n    c.loginID = loginID\n    c.queue = append(c.queue, Event{\n        Type: \"track_signup\", Event: \"$SignUp\", DistinctID: loginID,\n        Identities: map[string]any{\"user_key\": loginID},\n        Properties: map[string]any{\"$track_signup_original_id\": anonymousID},\n        Time:       time.Now().UnixMilli(),\n    })\n    if len(c.queue) >= c.BatchSize {\n        return c.Flush()\n    }\n    return nil\n}\n\nfunc (c *ClkLogClient) ProfileSet(distinctID string, props map[string]any) error {\n    e := Event{Type: \"user_set\", DistinctID: distinctID, Time: time.Now().UnixMilli(), Properties: props}\n    if c.loginID != \"\" {\n        e.Identities = map[string]any{\"user_key\": c.loginID}\n    }\n    c.queue = append(c.queue, e)\n    return nil\n}",
+      "step5Title": "5. Пакетная отправка и повторные попытки",
+      "step5Body": "Flush сериализует очередь в JSON → Base64 → кодирование формы и отправляет; при сбое 3 повторные попытки с задержкой 500 мс × номер попытки.",
+      "step5Code1Label": "Flush",
+      "step5Code1": "func (c *ClkLogClient) Flush() error {\n    if len(c.queue) == 0 {\n        return nil\n    }\n    payload, err := json.Marshal(c.queue)\n    if err != nil {\n        return fmt.Errorf(\"marshal: %w\", err)\n    }\n    form := url.Values{}\n    form.Set(\"project\", c.Project)\n    form.Set(\"token\", c.Token)\n    form.Set(\"data\", base64.StdEncoding.EncodeToString(payload))\n\n    var lastErr error\n    for attempt := 1; attempt <= 3; attempt++ {\n        req, _ := http.NewRequest(http.MethodPost, c.Endpoint, bytes.NewBufferString(form.Encode()))\n        req.Header.Set(\"Content-Type\", \"application/x-www-form-urlencoded\")\n        resp, err := c.http.Do(req)\n        if err == nil && resp.StatusCode == http.StatusOK {\n            io.Copy(io.Discard, resp.Body)\n            resp.Body.Close()\n            c.queue = c.queue[:0]\n            return nil\n        }\n        if err == nil {\n            body, _ := io.ReadAll(resp.Body)\n            resp.Body.Close()\n            lastErr = fmt.Errorf(\"http %d: %s\", resp.StatusCode, string(body))\n        } else {\n            lastErr = err\n        }\n        time.Sleep(time.Duration(attempt) * 500 * time.Millisecond) // задержка перед повтором\n    }\n    return fmt.Errorf(\"flush failed after 3 attempts: %w\", lastErr)\n}",
+      "step5Note1": "При параллельной отправке защитите очередь с помощью sync.Mutex либо создайте отдельный экземпляр клиента на каждую горутину.",
+      "step5Note2": "При корректном завершении сервиса (signal → shutdown) вызовите Flush один раз, чтобы не потерять последний пакет.",
+      "step6Title": "6. Проверка",
+      "step6Body": "После одной отправки найдите событие по имени в «Управление данными → Debug»; также можно проверить в анализе событий, растёт ли число этих событий.",
+      "faq1Q": "Вернулся 200, но данных нет?",
+      "faq1A": "Убедитесь, что data в форме — строка Base64 (url.Values в Go закодирует её ещё раз, это правильно); проверьте совпадение project/token.",
+      "faq2Q": "В каких единицах указывается time?",
+      "faq2A": "В миллисекундах, в Go используйте time.Now().UnixMilli().",
+      "faq3Q": "Если в пакете одно событие с недопустимым полем, это повлияет на остальные?",
+      "faq3A": "Нет, пакет обрабатывается по одному событию, недопустимые пропускаются.",
+      "faq4Q": "Нужно ли обрабатывать тело ответа?",
+      "faq4A": "Нет, разбирать бизнес-результат не нужно: HTTP 200 считается успешным приёмом, повторная попытка — только при ответе, отличном от 200."
+    },
+    "unity": {
+      "name": "Unity (C#)",
+      "platform": "Клиент · Unity 2021+ / .NET Standard 2.1 (тот же код подходит и для консоли .NET)",
+      "summary": "Трекинг для игр и C#-клиентов: привязка при входе, свойства пользователя, пакетная отправка",
+      "step1Title": "1. Предварительные требования",
+      "step1Body": "Unity 2021 или выше (.NET Standard 2.1, включает HttpClient). Сериализация JSON: в Unity 6 встроен System.Text.Json; в более ранних версиях можно использовать Newtonsoft.Json или установить System.Text.Json через NuGetForUnity.",
+      "step1Code1Label": "Зависимости (выберите вариант по версии Unity)",
+      "step1Code1": "// Встроено в Unity 6: просто using System.Text.Json;\n// В более ранних версиях: установите com.unity.nuget.newtonsoft-json из Package Manager и перейдите на JsonConvert.SerializeObject",
+      "step2Title": "2. Инициализация клиента",
+      "step2Body": "Три параметра: адрес отправки, имя проекта, токен проекта. Токен для клиента лучше выдавать со своего сервера (или проксировать отправку через него), не встраивайте его в сборку.",
+      "step2Code1Label": "Конструктор",
+      "step2Code1": "public sealed class ClkLogClient\n{\n    private readonly HttpClient _http;\n    private readonly string _endpoint, _project, _token;\n    private readonly int _batchSize;\n    private readonly List<Dictionary<string, object?>> _queue = new();\n    private string? _loginId;\n\n    public ClkLogClient(string endpoint, string project, string token, int batchSize = 10)\n    {\n        _endpoint = endpoint;\n        _project = project;\n        _token = token;\n        _batchSize = batchSize > 0 ? batchSize : 10;\n        _http = new HttpClient { Timeout = TimeSpan.FromSeconds(10) };\n    }\n}",
+      "step3Title": "3. Отправка событий поведения",
+      "step3Body": "Track помещает событие в очередь и отправляет при достижении размера пакета; time — временная метка в миллисекундах. После входа события автоматически несут identities.user_key.",
+      "step3Code1Label": "Track",
+      "step3Code1": "public void Track(string distinctId, string eventName, Dictionary<string, object?>? properties = null)\n{\n    var e = new Dictionary<string, object?>\n    {\n        [\"type\"] = \"track\",\n        [\"event\"] = eventName,\n        [\"distinct_id\"] = distinctId,\n        [\"time\"] = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds(), // миллисекунды\n        [\"properties\"] = properties ?? new Dictionary<string, object?>(),\n    };\n    Enqueue(WithIdentity(e));\n}\n\n// вызов\nclient.Track(\"u_1001\", \"Purchase\", new() { [\"order_id\"] = \"O20260915001\", [\"amount\"] = 99.5 });",
+      "step4Title": "4. Привязка при входе и свойства пользователя",
+      "step4Body": "Login отправляет track_signup и связывает ID входа с анонимным ID; после этого все события несут user_key. ProfileSet записывает свойства пользователя с перезаписью.",
+      "step4Code1Label": "Login / ProfileSet",
+      "step4Code1": "public void Login(string loginId, string anonymousId)\n{\n    _loginId = loginId;\n    Enqueue(new Dictionary<string, object?>\n    {\n        [\"type\"] = \"track_signup\",\n        [\"event\"] = \"$SignUp\",\n        [\"distinct_id\"] = loginId,\n        [\"identities\"] = new Dictionary<string, object?> { [\"user_key\"] = loginId },\n        [\"properties\"] = new Dictionary<string, object?> { [\"$track_signup_original_id\"] = anonymousId },\n        [\"time\"] = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds(),\n    });\n}\n\nprivate Dictionary<string, object?> WithIdentity(Dictionary<string, object?> e)\n{\n    if (_loginId is not null)\n    {\n        e[\"identities\"] = new Dictionary<string, object?> { [\"user_key\"] = _loginId };\n    }\n    return e;\n}\n\npublic void ProfileSet(string distinctId, Dictionary<string, object?> properties)\n{\n    Enqueue(WithIdentity(new Dictionary<string, object?>\n    {\n        [\"type\"] = \"user_set\",\n        [\"distinct_id\"] = distinctId,\n        [\"time\"] = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds(),\n        [\"properties\"] = properties,\n    }));\n}",
+      "step5Title": "5. Пакетная отправка и повторные попытки",
+      "step5Body": "FlushAsync сериализует очередь → Base64 → кодирование формы и отправляет POST; при сбое 3 повторные попытки с задержкой. В игре вызывайте его при смене сцены, при расчётах и перед выходом.",
+      "step5Code1Label": "FlushAsync",
+      "step5Code1": "public async Task FlushAsync()\n{\n    if (_queue.Count == 0) return;\n    var json = JsonSerializer.Serialize(_queue);\n    var payload = Convert.ToBase64String(Encoding.UTF8.GetBytes(json));\n\n    for (var attempt = 1; attempt <= 3; attempt++)\n    {\n        try\n        {\n            using var content = new FormUrlEncodedContent(new Dictionary<string, string>\n            {\n                [\"project\"] = _project,\n                [\"token\"] = _token,\n                [\"data\"] = payload,\n            });\n            var res = await _http.PostAsync(_endpoint, content);\n            if (res.IsSuccessStatusCode)\n            {\n                _queue.Clear();\n                return;\n            }\n        }\n        catch (Exception) when (attempt < 3)\n        {\n            // сетевые ошибки повторяем с задержкой\n        }\n        await Task.Delay(attempt * 500);\n    }\n    // все три попытки неудачны: оставляем очередь и повторяем при следующем вызове (можно сохранить в локальный файл)\n}",
+      "step5Note1": "Не блокируйте главный поток Unity ожиданием сети: используйте async/await или запускайте Task из корутины, чтобы не терять кадры.",
+      "step5Note2": "Если нужна надёжность при плохой сети, сохраняйте очередь в файл в Application.persistentDataPath и досылайте её при следующем запуске.",
+      "step6Title": "6. Проверка",
+      "step6Body": "Выполните одну отправку в редакторе или на устройстве и найдите последние отправки по имени события в «Управление данными → Debug» (с атрибутами и временем приёма); убедитесь, что после входа события того же игрока несут user_key.",
+      "faq1Q": "Вернулся 200, но в платформе нет данных?",
+      "faq1A": "Чаще всего не выполнен шаг Base64 (отправлен JSON напрямую) или не совпадают token/project; сначала проверьте содержимое поля data, затем сеть.",
+      "faq2Q": "В каких единицах указывается time?",
+      "faq2A": "В миллисекундах, в C# используйте DateTimeOffset.UtcNow.ToUnixTimeMilliseconds().",
+      "faq3Q": "Unity сообщает об отсутствии System.Text.Json?",
+      "faq3A": "Он встроен в Unity 6; в более ранних версиях установите com.unity.nuget.newtonsoft-json и замените сериализацию на JsonConvert.SerializeObject.",
+      "faq4Q": "Безопасно ли размещать token в клиенте?",
+      "faq4A": "Не рекомендуется. Лучше проксировать отправку через свой сервер или использовать ограниченный токен только для отправки и регулярно его менять."
+    },
+    "javascript": {
+      "platform": "Клиент · Браузер H5 (современные браузеры, без зависимостей)",
+      "summary": "Трекинг веб-страниц: сбор просмотров и кликов + досылка очереди перед выгрузкой страницы; цепочка из 5 событий проверена в реальном браузере вплоть до записи в базу.",
+      "note1": "Подводный камень: при выгрузке страницы досылка должна идти через `navigator.sendBeacon` или `fetch(..., {keepalive:true})`, причём нужно передавать `URLSearchParams` — обычная строка уйдёт как text/plain, и receiver не разберёт `data`.",
+      "faq1Q": "Почему события теряются при закрытии страницы?",
+      "faq1A": "Перед выгрузкой досылайте через `navigator.sendBeacon(new URLSearchParams(form))`; если передать в sendBeacon обычную строку, она уйдёт как text/plain: HTTP вернёт 200, но в базу ничего не попадёт."
+    },
+    "miniprogram": {
+      "platform": "Клиент · Мини-программа WeChat (базовая библиотека 2.x, без зависимостей)",
+      "summary": "Трекинг в мини-программе: отправка через `wx.request` + локальная очередь с кэшем + досылка по `wx.onAppHide`; реализация на уровне языка проверена (на реальном устройстве её нужно подключить в инструменте разработчика).",
+      "note1": "Подводный камень: при отсутствии ключа `wx.getStorageSync` возвращает пустую строку, а не null, поэтому слой адаптации storage должен это нормализовать — иначе анонимный ID станет пустой строкой и пользователь не объединится.",
+      "faq1Q": "В мини-программе data в request передавать объектом или строкой?",
+      "faq1A": "Всегда передавайте заранее закодированную urlencoded-строку и явно задавайте `header[\"content-type\"]`: разные базовые библиотеки сериализуют объекты по-разному, строка надёжнее всего."
+    },
+    "reactNative": {
+      "platform": "Клиент · React Native (JS/TS, Hermes)",
+      "summary": "Трекинг в приложениях RN: отправка через глобальный `fetch` + внедряемый storage (AsyncStorage) + досылка при переходе в фон; ядро передачи и очереди проверено.",
+      "note1": "Подводный камень: в Hermes нет `btoa` / `Buffer` / `TextEncoder`, а `URLSearchParams.toString()` в RN тоже недоступен — base64 и urlencode нужно реализовать на чистом JS.",
+      "faq1Q": "Как в RN реализовать base64 и urlencode?",
+      "faq1A": "Не полагайтесь на `btoa` или `Buffer` (в Hermes их нет): реализуйте base64 сами и кодируйте по сегментам через `encodeURIComponent`, следя, чтобы `+` `/` `=` тоже кодировались."
+    },
+    "android": {
+      "platform": "Клиент · Нативный Android (Java / Kotlin, передача по HTTP)",
+      "summary": "Ядро Android-клиента трекинга: сохранение ID устройства, сессии, пакеты, повторные попытки с задержкой, досылка при уходе в фон; цепочка из 5 событий проверена на JVM (Java 8), сборка APK не проверялась.",
+      "note1": "Подводный камень: `Base64.getMimeEncoder()` переносит строки каждые 76 символов, нужен именно `getEncoder()`; `java.util.Base64` требует API 26+, в более старых версиях используйте `android.util.Base64`.",
+      "faq1Q": "Какую передачу использовать на Android в продакшене?",
+      "faq1A": "Достаточно заменить отправку формы на OkHttp (`RequestBody.create(form, MediaType.parse(\"application/x-www-form-urlencoded\"))`) — логика кодирования и полей идентичности не меняется; в Kotlin вызов выглядит так же."
+    },
+    "ios": {
+      "platform": "Клиент · Нативный iOS (Swift / Objective-C, URLSession)",
+      "summary": "Ядро iOS-клиента трекинга: анонимный ID в UserDefaults, пакеты, повторные попытки с задержкой, досылка при переходе в фон; цепочка из 5 событий проверена на той же Foundation URLSession, что используется в iOS, сборка приложения не проверялась.",
+      "note1": "Подводный камень: `addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)` не кодирует `+` `&` `=`, поэтому `+` из base64 декодируется на сервере в пробел и портит данные — кодируйте байты UTF-8 самостоятельно по RFC3986.",
+      "faq1Q": "Как подключить это в приложение iOS?",
+      "faq1A": "Добавьте класс клиента в проект и вызывайте flush в `applicationDidEnterBackground` для досылки; учтите, что `URLSessionConfiguration` копируется при создании session, поэтому для смены таймаута session нужно пересоздать."
+    },
+    "cocos2dX": {
+      "platform": "Клиент · C++ (Cocos2d-x; сторона движка не проверялась в собранном виде)",
+      "summary": "Ядро отправки на C++ (JSON / однострочный base64 / POST формой / очередь) проверено в движке; при подключении достаточно заменить слой передачи на встроенный HttpRequest движка.",
+      "note1": "Подводный камень: достаточно заменить libcurl на `cocos2d::network::HttpRequest` (асинхронно + колбэки), но однострочность base64 и полное кодирование символов в urlencode по-прежнему на вашей стороне.",
+      "faq1Q": "Почему в движке не использовать libcurl напрямую?",
+      "faq1A": "Можно, но не рекомендуется: встроенный HttpRequest использует сетевой стек платформы и вызывает колбэки в главном потоке; протокол, кодирование, пакеты и поля идентичности полностью совпадают с фрагментами на этой странице."
+    },
+    "java": {
+      "platform": "Сервер · Java (JDK 8+, только стандартная библиотека)",
+      "summary": "Отправка событий заказов, платежей и регистраций из бизнес-сервиса; в JDK 8 используется HttpURLConnection, в JDK 11+ можно перейти на java.net.http.",
+      "note1": "Подводный камень: `Base64.getMimeEncoder()` переносит строки, нужен `getEncoder()`; base64 в форме нужно ещё раз urlencode, иначе `+` декодируется в пробел.",
+      "faq1Q": "Можно ли в JDK 11+ заменить на HttpClient?",
+      "faq1A": "Да: замените отправку на `HttpClient.newHttpClient().send(...)`, в теле используйте `BodyPublishers.ofString(form)` и явно задайте Content-Type; кодирование и логика идентичности не меняются."
+    },
+    "python": {
+      "platform": "Сервер · Python 3.7+ (только стандартная библиотека)",
+      "summary": "Отправка бизнес-событий из бэкенд-сервиса или скрипта; достаточно `urllib` + `json` + `base64`, без сторонних зависимостей.",
+      "note1": "Подводный камень: `data` нужно сначала `urlencode`, а затем отправлять как body (нельзя передавать dict напрямую в urlopen); при повторных попытках создавайте объект Request заново.",
+      "faq1Q": "Кириллица в значениях свойств не превратится в мусор?",
+      "faq1A": "Используйте `json.dumps(..., ensure_ascii=False).encode(\"utf-8\")`, затем base64 — кириллица передаётся как есть, дополнительное перекодирование не нужно."
+    },
+    "nodejs": {
+      "platform": "Сервер · Node.js 18+ (встроенный fetch, без зависимостей)",
+      "summary": "Отправка бизнес-событий из бэкенда на Node; используйте встроенные `fetch` + `URLSearchParams`, зависимости вроде axios / undici не нужны.",
+      "note1": "Подводный камень: в body для fetch нужно передавать экземпляр `URLSearchParams` (он сам подставит urlencoded Content-Type); обычный объект сериализуется в JSON.",
+      "faq1Q": "Как управлять таймаутом?",
+      "faq1A": "`fetch(url, { signal: AbortSignal.timeout(10000) })`; при сбое повторяйте с задержкой 0.5s / 1s / 2s и очищайте локальную очередь только при HTTP 200."
+    },
+    "csharp": {
+      "platform": "Сервер · .NET 6+ / 8+ (HttpClient)",
+      "summary": "Отправка бизнес-событий из бэкенда на C#; `HttpClient` + `FormUrlEncodedContent`, та же спецификация протокола, что и в клиенте Unity.",
+      "note1": "Подводный камень: если в одном репозитории лежат и клиент Unity, и серверный пример, стандартный glob SDK-проекта включит исходники подкаталога в оба проекта (CS8802 / CS0579) — исключите их через `Directory.Build.targets` (`.props` перекрывается стандартным Include).",
+      "faq1Q": "Как обрабатывать `$` в строках?",
+      "faq1A": "В C# `$\"...\"` — интерполированная строка: при сборке JSON помещайте имена полей вроде `$SignUp` и `$track_signup_original_id` в обычные строки или явно экранируйте их как `\\$`, иначе они разберутся как переменные."
+    },
+    "ruby": {
+      "platform": "Сервер · Ruby 2.6+ (только стандартная библиотека)",
+      "summary": "Отправка бизнес-событий из бэкенда на Ruby; `net/http` + `json` + `base64`, без зависимостей от гемов.",
+      "note1": "Подводный камень: `Base64.encode64` вставляет перевод строки каждые 60 символов (нужен `strict_encode64`); `$SignUp` в строке с двойными кавычками интерполируется как глобальная переменная и становится пустой строкой — используйте одинарные кавычки.",
+      "faq1Q": "Почему имя события приходит пустым?",
+      "faq1A": "Ruby в двойных кавычках интерполирует глобальные переменные, начинающиеся с `$`, поэтому `\"$SignUp\"` даёт пустую строку. Имя события и `$track_signup_original_id` пишите в одинарных кавычках или экранируйте как `\\$`."
+    },
+    "c": {
+      "platform": "Сервер · C11 (libcurl)",
+      "summary": "Отправка бизнес-событий из сервисов на C / C++: JSON собирается вручную + собственная однострочная base64 + POST формой через libcurl.",
+      "note1": "Подводный камень: в libcurl нужно задать колбэк записи (если указать только `CURLOPT_WRITEDATA`, значение будет воспринято как FILE*); base64 реализуйте сами и следите за однострочностью, а `+` `/` `=` должны быть полностью процентно закодированы.",
+      "faq1Q": "При сборке не находится curl.h?",
+      "faq1A": "В macOS заголовки curl лежат в SDK: `-I$(xcrun --show-sdk-path)/usr/include -L…/usr/lib -lcurl`; в Linux достаточно установить `libcurl4-openssl-dev`."
+    },
+    "lua": {
+      "platform": "Сервер · Lua 5.4+ / 5.5 (luasocket + luasec)",
+      "summary": "Отправка бизнес-событий из скриптов Lua и в OpenResty; в OpenResty достаточно заменить слой передачи на resty.http, логика протокола не меняется.",
+      "note1": "Подводный камень: luasec по умолчанию не проверяет сертификаты — явно задайте `verify=\"peer\"` и укажите `cafile`; он принимает только имена протоколов с подчёркиванием (`tlsv1_2`), а `tlsv12` сразу выдаёт invalid protocol.",
+      "faq1Q": "В Lua нет os.setenv — как передать конфигурацию?",
+      "faq1A": "Считывайте конфигурацию в таблицу в памяти и берите значения оттуда, либо экспортируйте переменные окружения извне; в OpenResty передавайте конфигурацию через `ngx.var` или `lua_shared_dict`."
+    },
+    "flutter": {
+      "platform": "Клиент · Flutter 3.x / Dart 3.8+ (требуется пакет http)",
+      "summary": "Трекинг в приложениях Flutter: веб-сборка собрана и в реальном браузере пройдены три шага с проверкой записи в базу; iOS / Android не собирались (на этой машине нет соответствующих SDK).",
+      "note1": "Подводный камень: обе встроенные функции кодирования Dart не подходят напрямую — `Uri.encodeFull` оставляет `+` `/` `=` как зарезервированные символы, а `Uri.encodeQueryComponent` кодирует пробел в `+` (конфликт с `+` из base64); кодируйте сами по RFC3986 и перед отправкой проверяйте, что в поле `data` нет неэкранированных `+` / `=`.",
+      "faq1Q": "Как убедиться, что сборка Flutter Web — новая?",
+      "faq1A": "dart2js экранирует не-ASCII литералы в `\\uXXXX`, поэтому прямой поиск кириллицы всегда даёт 0 совпадений (легко принять сборку за старую); ищите экранированную форму или сравните размер и время сборки `main.dart.js`."
+    },
+    "batchImport": {
+      "platform": "Другое · инструмент командной строки (Python 3, только стандартная библиотека)",
+      "summary": "Массовое восстановление исторических логов / CSV в виде событий (дозагрузка уже накопленных заказов, платежей, регистраций): поддерживаются пробный запуск, ограничение скорости и продолжение с места прерывания; проверено на 120 строках — 120 строк записано в базу, при продолжении ничего не отправлено повторно и не потеряно.",
+      "step1Title": "1. Подготовка файла истории",
+      "step1Body": "Подготовьте CSV по приведённым ниже правилам для столбцов (или JSONL, по одному объекту события в строке). Чтобы восстановить исторический момент, `time` должен содержать исходную метку в миллисекундах; для событий с выполненным входом добавьте `user_key`, а для привязки анонимного ID — столбец `original_id`.",
+      "step1Code1Label": "Столбцы CSV и пример",
+      "step2Title": "2. Сначала пробный запуск (без сети)",
+      "step2Body": "`--dry-run` выполняет только чтение, нормализацию, кодирование и проверку объёма: данные не отправляются и файл прогресса не пишется. С его помощью убедитесь, что сопоставление столбцов верно, а также какие строки пропущены и почему.",
+      "step2Code1Label": "Команда пробного запуска",
+      "step3Title": "3. Небольшой реальный запуск",
+      "step3Body": "Уберите `--dry-run` — и данные будут отправлены по-настоящему. Сначала небольшим пакетом с `--limit` проверьте всю цепочку, затем ограничьте скорость через `--rate`, чтобы защитить принимающую сторону; инструмент печатает идентификатор запуска (`backfill-<time>`) и записывает его в каждое событие в `properties.backfill_run_id`, что упрощает сверку по запуску.",
+      "step3Code1Label": "Команда восстановления и основные параметры",
+      "step4Title": "4. Продолжение с места прерывания",
+      "step4Body": "Прогресс сохраняется в `<входной файл>.backfill-progress.json`; после прерывания добавьте `--resume`, чтобы продолжить, — завершённые пакеты повторно не отправляются. Строки с ошибками записываются вместе с номерами строк в `<входной файл>.failed.jsonl`; после исправления их можно запустить отдельно.",
+      "note1": "Важно: инструмент **не выполняет дедупликацию** — если полностью восстановить одну и ту же историческую запись дважды, она дважды попадёт в базу. Всегда продолжайте с `--resume` или сначала проверяйте с `--dry-run` / `--limit`; если содержимое входного файла или время его изменения изменились, `--resume` откажется выполняться, пока явно не добавлен `--force-resume`.",
+      "step5Title": "5. Сверка записи в базу",
+      "step5Body": "Сгруппируйте записи по идентификатору запуска и посчитайте число строк в базе и распределение событий, затем сверьте с числом отправленных строк файла. Задержка конвейера данных — 1–3 минуты, при необходимости повторите запрос.",
+      "step5Code1Label": "SQL для сверки",
+      "faq1Q": "Будет ли изменено время восстановленных событий?",
+      "faq1A": "Нет: инструмент передаёт `time` из файла в событие как есть (в миллисекундах), а аналитика считает по времени события. **Не** заменяйте историческое время текущим, иначе вся историческая динамика сместится на день восстановления.",
+      "faq2Q": "Как запускать очень большой файл (сотни тысяч строк)?",
+      "faq2A": "Запускайте частями: `--limit` задаёт число записей за раз, `--rate` ограничивает скорость, а `--resume` продолжает с места прерывания; лимит в 50 событий / 1 МБ на запрос инструмент разбивает автоматически, вручную делить файл не нужно."
+    }
+  },
+  "planned": {
+    "android": {
+      "name": "Android",
+      "platform": "Клиент · Java / Kotlin",
+      "summary": "Трекинг в нативных приложениях Android (планируется обёртка на основе OkHttp)"
+    },
+    "ios": {
+      "name": "iOS",
+      "platform": "Клиент · Swift / Objective-C",
+      "summary": "Трекинг в нативных приложениях iOS (планируется обёртка на основе URLSession)"
+    },
+    "javascript": {
+      "name": "JavaScript / Web",
+      "platform": "Клиент · Браузер H5",
+      "summary": "Трекинг веб-страниц с автоматическим сбором просмотров и кликов"
+    },
+    "miniprogram": {
+      "name": "Мини-программа WeChat",
+      "platform": "Клиент · Мини-программа / мини-игра",
+      "summary": "Трекинг в мини-программах (планируется адаптация wx.request и локальной очереди)"
+    },
+    "flutter": {
+      "name": "Flutter",
+      "platform": "Клиент · Dart",
+      "summary": "Кроссплатформенный трекинг приложений (планируется обёртка на основе пакета http)"
+    },
+    "reactNative": {
+      "name": "React Native",
+      "platform": "Клиент · JS / TS",
+      "summary": "Трекинг в приложениях RN (планируется переиспользование ядра сбора на JS)"
+    },
+    "cocos2dX": {
+      "name": "Cocos2d-x",
+      "platform": "Клиент · C++ / Lua",
+      "summary": "Трекинг в играх Cocos (планируется обёртка на основе HttpClient)"
+    },
+    "unreal": {
+      "name": "Unreal Engine",
+      "platform": "Клиент · C++ / Blueprint",
+      "summary": "Трекинг в играх на UE (планируется обёртка на основе модуля Http)"
+    },
+    "java": {
+      "name": "Java",
+      "platform": "Сервер · JDK 8+",
+      "summary": "Отправка из бэкенда на Java (планируется обёртка на основе HttpClient)"
+    },
+    "python": {
+      "name": "Python",
+      "platform": "Сервер · Python 3.7+",
+      "summary": "Отправка из бэкенда на Python (планируется обёртка на основе requests)"
+    },
+    "nodejs": {
+      "name": "Node.js",
+      "platform": "Сервер · Node 16+",
+      "summary": "Отправка из бэкенда на Node (планируется обёртка на основе undici / fetch)"
+    },
+    "csharp": {
+      "name": "C#",
+      "platform": "Сервер · .NET 6+",
+      "summary": "Отправка из серверного C# (пока можно использовать клиентскую реализацию из документации Unity (C#) или протокол HTTP напрямую)"
+    },
+    "ruby": {
+      "name": "Ruby",
+      "platform": "Сервер · Ruby 2.6+",
+      "summary": "Отправка из бэкенда на Ruby (планируется обёртка на основе Net::HTTP)"
+    },
+    "c": {
+      "name": "C",
+      "platform": "Сервер · C / C++",
+      "summary": "Отправка из сервисов на C/C++ (планируется обёртка на основе libcurl)"
+    },
+    "lua": {
+      "name": "Lua",
+      "platform": "Сервер · Lua 5.3+ / OpenResty",
+      "summary": "Отправка в сценариях Lua и OpenResty"
+    },
+    "batchImport": {
+      "name": "Массовое восстановление (импорт файлов)",
+      "platform": "Другое · Импорт исторических данных",
+      "summary": "Массовое восстановление исторических логов и CSV в события (планируется инструмент командной строки)"
+    }
+  },
+  "guideCommon": {
+    "step1Title": "1. Предварительные требования",
+    "step1Body": "Убедитесь, что параметры подключения готовы (см. начало страницы): адрес отправки, имя проекта, токен проекта. Протокол всегда один и тот же — форма POST, поле `data` = base64(массив JSON), затем urlencode; при прямой отправке исходного JSON вернётся 200, но данные будут отброшены.",
+    "step2Title": "2. Подготовка окружения",
+    "step2Body": "Подготовьте окружение для этого языка командами ниже; реализации только на стандартной библиотеке могут пропустить установку зависимостей.",
+    "step2Code1Label": "Окружение",
+    "step3Title": "3. Инициализация и отправка событий",
+    "step3Body": "Минимальная рабочая реализация отправки на этом языке: JSON события → base64 + urlencode в форме → POST. Время события обязательно в миллисекундах; после входа `distinct_id` всегда остаётся анонимным ID, а ID входа передаётся в `identities.user_key`.",
+    "step3Code1Label": "Основной код отправки (проверенный вариант)",
+    "step4Title": "4. Привязка при входе и свойства пользователя",
+    "step4Body": "После успешного входа отправьте событие `track_signup` (`properties.$track_signup_original_id` = анонимный ID), чтобы связать идентичности; свойства пользователя записывайте через `user_set`. После этого все события несут `identities.user_key`, и аналитика объединит их в одного пользователя.",
+    "step5Title": "5. Проверка записи в базу",
+    "step5Body": "Сгенерируйте события и проверьте в `clklog.log_analysis` 5 строк: анонимный track / track_signup / user_set / два track после входа. Задержка конвейера данных — 1–3 минуты; HTTP 200 означает лишь успешный разбор формата, поэтому запись нужно подтверждать запросом к базе.",
+    "step5Code1Label": "Проверочный SQL (ClickHouse)",
+    "faq1Q": "Почему отправка возвращает HTTP 200, а в базе нет данных?",
+    "faq1A": "`data` должно быть полем формы со значением base64(массив JSON), затем urlencode. Прямая отправка исходного JSON, переводы строк внутри base64 или `+` без процентного кодирования возвращают 200, но данные молча отбрасываются.",
+    "faq2Q": "Время событий сбивается или пользователь до и после входа разбивается на двух?",
+    "faq2A": "Время должно быть меткой в миллисекундах (в секундах оно отнесётся к 1970 году); ID входа указывайте на верхнем уровне, в `identities.user_key` (а не login_id), связываемый анонимный ID — в `properties.$track_signup_original_id` (а не original_id), а `distinct_id` после входа не меняйте."
+  }
+}

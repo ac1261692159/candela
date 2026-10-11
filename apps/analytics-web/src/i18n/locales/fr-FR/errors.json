@@ -1,0 +1,45 @@
+{
+  "serviceUnavailable": "Le service d'analyse est momentanément injoignable. Réessayez plus tard ; contactez votre administrateur si le problème persiste.",
+  "dataUnavailable": "Le service de requêtes est temporairement indisponible. Réessayez plus tard ; contactez votre administrateur si le problème persiste.",
+  "requestTimeout": "La requête a expiré. Réduisez la plage temporelle ou réessayez plus tard.",
+  "genericUnavailable": "Le service est temporairement indisponible. Réessayez plus tard ; contactez votre administrateur si le problème persiste.",
+  "requestFailed": "Échec de la requête",
+  "status401": "Votre session a expiré, veuillez vous reconnecter",
+  "status403": "Vous n'avez pas l'autorisation d'effectuer cette action",
+  "status404": "La ressource demandée n'existe pas",
+  "status429": "Trop de requêtes, veuillez réessayer plus tard",
+  "unknown": "Erreur inconnue",
+  "queryFailed": "La requête a échoué",
+  "validation": {
+    "selectTimeRange": "Sélectionnez une plage temporelle",
+    "atLeastOneMetric": "Configurez au moins une métrique",
+    "tooManyMetrics": "Au maximum {{max}} métriques",
+    "atLeastOneEventMetric": "Configurez au moins une métrique d'événement",
+    "metricEventRequired": "Sélectionnez un événement pour chaque métrique",
+    "perCapitaNeedsNumber": "Les valeurs par utilisateur nécessitent une propriété numérique",
+    "minuteSpanTooLong": "Une requête à la minute ne peut pas couvrir plus d'un jour",
+    "funnelMinSteps": "Un entonnoir nécessite au moins {{min}} étapes",
+    "funnelMaxSteps": "Un entonnoir accepte au maximum {{max}} étapes",
+    "startEventRequired": "Sélectionnez l'événement de départ",
+    "returnEventRequired": "Sélectionnez l'événement de retour",
+    "retentionPeriodRequired": "Sélectionnez au moins une période de rétention"
+  },
+  "apiKey": {
+    "missing": "API Key manquante (fournissez-la via X-API-Key ou Authorization: Bearer)"
+  },
+  "rbac": {
+    "forbidden": "Vous n'avez pas accès à cette ressource"
+  },
+  "attribute": {
+    "datatableUserUnsupported": "Les propriétés utilisateur ne sont pas prises en charge sur les dimensions de table de données",
+    "datatableInVirtualExpression": "Les attributs de table de données ne peuvent pas être utilisés dans une expression de propriété virtuelle",
+    "datatableStale": "La table de données dont dépend la propriété {{prop}} n'est plus valide",
+    "datatableMultiple": "La propriété {{prop}} est liée à plusieurs tables de données"
+  },
+  "analysis": {
+    "timeRange": {
+      "timezoneInvalid": "Fuseau horaire invalide (nom IANA requis, par exemple Asia/Shanghai)"
+    }
+  },
+  "status413": "Contenu trop volumineux. Réduisez le nombre de lignes et réessayez"
+}

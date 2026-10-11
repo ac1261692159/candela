@@ -1,0 +1,255 @@
+{
+  "kind": {
+    "event": "事件指標",
+    "retention": "留存指標"
+  },
+  "list": {
+    "title": "指標",
+    "create": "新增指標",
+    "kindEvent": "事件",
+    "kindRetention": "留存",
+    "intro": "事件指標可直接「新增指標」，或從事件分析結果裡儲存（會帶上當前配置的完整口徑）；留存指標仍在留存分析結果裡建立。指標可自帶**查詢時間**與**取值選擇**，告警規則預設跟隨指標的時間範圍（也可在規則裡覆蓋，詳見運維 → 監控告警 → 新增指標告警）。點選顯示名檢視完整口徑；編輯、刪除（二次確認）都在詳情抽屜裡，指標名與類型不可改（識別碼不變，不影響已有引用與告警綁定）。",
+    "column": {
+      "displayName": "顯示名",
+      "name": "指標名",
+      "kind": "類型",
+      "definition": "口徑",
+      "remark": "備註"
+    }
+  },
+  "label": {
+    "subject": "分析主體",
+    "event": "事件",
+    "analysis": "計算方法",
+    "percentile": "分位數",
+    "prop": "屬性",
+    "transform": "數值變換",
+    "decimals": "保留小數位",
+    "valuePick": "取值選擇",
+    "timeRange": "查詢時間",
+    "conditionGroup": "條件組",
+    "filters": "篩選條件",
+    "displayName": "顯示名",
+    "metricName": "指標名",
+    "metricNameReadonly": "指標名（不可改）",
+    "kindReadonly": "類型（不可改）",
+    "type": "類型",
+    "format": "格式",
+    "definition": "口徑",
+    "definitionPick": "指標口徑",
+    "startEvent": "初始事件",
+    "retainEvent": "回訪事件",
+    "period": "週期",
+    "measure": "口徑",
+    "cohort": "佇列",
+    "cohortRange": "佇列範圍",
+    "granularity": "粒度",
+    "remarkOptional": "備註（選填）"
+  },
+  "format": {
+    "number": "數字",
+    "percent": "百分比"
+  },
+  "measure": {
+    "rate": "留存率",
+    "count": "留存人數"
+  },
+  "cohort": {
+    "all": "全部使用者",
+    "firstDay": "首次觸發使用者"
+  },
+  "granularity": {
+    "day": "按日",
+    "week": "按週",
+    "month": "按月"
+  },
+  "period": {
+    "day": "{{n}}日",
+    "week": "{{n}}週",
+    "month": "{{n}}月"
+  },
+  "value": {
+    "notNeeded": "（不需要）",
+    "none": "（無）"
+  },
+  "filters": {
+    "count": "{{total}} 條"
+  },
+  "valuePick": {
+    "sum": "累計",
+    "avg": "日均",
+    "max": "最大值",
+    "min": "最小值",
+    "lastDay": "最新一天",
+    "firstDay": "首日",
+    "uniqTotal": "整段去重合計",
+    "weighted": "加權平均",
+    "auto": "自動（按計算方法）",
+    "autoShort": "自動取值",
+    "extra": "不選 = 自動（按計算方法推薦），與現有告警口徑一致",
+    "label": {
+      "sum": "累計",
+      "avg": "日均",
+      "max": "最大值",
+      "min": "最小值",
+      "weighted": "加權平均",
+      "lastDay": "最新一天",
+      "firstDay": "首日",
+      "uniqTotal": "整段去重合計"
+    },
+    "hint": {
+      "sum": "視窗內各日值相加；沒有資料的日子按 0 計",
+      "avg": "各日值之和 ÷ 視窗天數；沒有資料的日子按 0 計",
+      "max": "視窗內有資料的日子的最大值",
+      "min": "視窗內有資料的日子的最小值",
+      "weighted": "按分母加權（人均類唯一正確）",
+      "lastDay": "視窗內最近一個有資料的日子的值（常用「今天到目前為止」）",
+      "firstDay": "視窗內最早一個有資料的日子的值",
+      "uniqTotal": "整段時間整體求值，不按日相加（去重數唯一正確）"
+    },
+    "note": {
+      "sum": "視窗內各日值相加；沒有資料的日子按 0 計",
+      "avg": "各日值之和 ÷ 視窗天數；沒有資料的日子按 0 計",
+      "max": "視窗內有資料的日子的最大值（完全無資料 → 本輪跳過）",
+      "min": "視窗內有資料的日子的最小值（完全無資料 → 本輪跳過）",
+      "weighted": "按分母加權（人均次數/人均值唯一正確的取值），用整段時間整體求值",
+      "lastDay": "視窗內最近一個有資料的日子的值（常用於「今天到目前為止」）",
+      "firstDay": "視窗內最早一個有資料的日子的值",
+      "uniqTotal": "用整段時間整體求值，不按日相加（去重數/觸發使用者數唯一正確的取值）"
+    },
+    "warning": {
+      "nonAdditivePickedAdditive": "當前計算方法不可按日相加，建議改選「整段去重合計」或「加權平均」，否則結果會偏高",
+      "additivePickedOverall": "當前計算方法可相加，用「累計/日均」更直觀；整段去重合計只對去重/人均類有意義"
+    }
+  },
+  "window": {
+    "fixed": "固定日期",
+    "today": "今天",
+    "yesterday": "昨天",
+    "recentN": "近 {{n}} 天（含今天）",
+    "pastN": "過去 {{n}} 天（不含今天）",
+    "thisWeek": "本週",
+    "lastWeek": "上週",
+    "thisMonth": "本月",
+    "lastMonth": "上月",
+    "customOffsets": "動態區間 D-{{from}} ~ D-{{to}}",
+    "fromDateToToday": "從指定日到今天",
+    "fromDateToYesterday": "從指定日到昨天",
+    "lastNDays": "近 {{n}} 天",
+    "cohortWindow": "佇列 {{window}}",
+    "followAlert": "跟隨告警視窗"
+  },
+  "summary": {
+    "event": "事件 {{event}} · 計算 {{analysis}}{{prop}}{{window}}{{pick}}",
+    "propSegment": " · {{prop}}",
+    "windowSegment": " · {{window}}",
+    "pickSegment": " · {{pick}}",
+    "retention": "留存 {{start}} → {{retain}} · {{period}} · {{measure}}",
+    "periodDays": "{{n}} 天",
+    "noEvent": "(未指定事件)",
+    "measureCount": "人數"
+  },
+  "timeRange": {
+    "extra": "指標自帶時間範圍後，告警規則預設跟隨；只支援相對範圍（每天可迴圈求值），最長 90 天",
+    "followAlert": "改為跟隨告警視窗"
+  },
+  "conditionGroup": {
+    "extra": "事件屬性 / 使用者屬性 / 分群 / 標籤；與事件分析的條件組同語義"
+  },
+  "prop": {
+    "groupEvent": "事件屬性",
+    "groupUser": "使用者屬性",
+    "eventPlaceholder": "選擇屬性",
+    "eventDisabledPlaceholder": "當前方法不需要屬性",
+    "tooltip": "計算方法需要屬性時必填；屬性類型決定可選的計算方法",
+    "eventWithType": "{{name}}（{{type}}）",
+    "userWithType": "{{name}}（使用者·{{type}}）",
+    "userOnly": "{{name}}（使用者）"
+  },
+  "event": {
+    "searchPlaceholder": "搜尋或選擇事件",
+    "optionWithName": "{{key}}（{{name}}）",
+    "staleOption": "{{event}}（未在事件清單中，保持原值）"
+  },
+  "transform": {
+    "tooltip": "先做四則運算，再保留小數位（與事件分析一致）",
+    "valuePlaceholder": "運算數（可選）"
+  },
+  "decimals": {
+    "placeholder": "可選 0-6"
+  },
+  "trial": {
+    "run": "試算",
+    "hint": "按當前口徑真實求值一次（與告警判斷同一實現），不會儲存",
+    "failed": "試算失敗",
+    "result": "當前值 {{value}}　·　{{window}}（{{start}} ~ {{end}}）·　{{pick}}{{auto}}",
+    "autoSuffix": "（自動）",
+    "note": "{{note}}；耗時 {{ms}}ms"
+  },
+  "validation": {
+    "eventRequired": "請選擇事件",
+    "analysisRequired": "請選擇計算方法",
+    "displayNameRequired": "請輸入顯示名",
+    "metricNameRequired": "請輸入指標名",
+    "metricNamePattern": "小寫字母開頭，僅小寫字母/數字/底線，最長 80",
+    "metricNamePatternShort": "格式不符合規則",
+    "metricRequired": "請選擇指標",
+    "periodRequired": "請選擇週期",
+    "periodFilled": "請填寫週期",
+    "startEventRequired": "請選擇初始事件",
+    "retainEventRequired": "請選擇回訪事件"
+  },
+  "create": {
+    "title": "新增事件指標",
+    "displayNamePlaceholder": "如：近 7 天日均下單金額",
+    "metricNamePlaceholder": "如：order_amount_daily_avg_7d",
+    "metricNameExtra": "資產唯一鍵，建立後不可修改；分析與告警按它引用",
+    "definitionHint": "口徑（與事件分析同深度；儲存前建議先「試算」）"
+  },
+  "modal": {
+    "title": "建立指標",
+    "metricNameExtra": "小寫字母開頭，可含小寫字母/數字/底線，不超過 80 字",
+    "metricFallback": "指標",
+    "summaryEvent": "{{event}} · {{metric}}",
+    "summaryEventEmpty": "請先配置一條事件指標並查詢",
+    "summaryRetention": "初始 {{start}} → 回訪 {{end}}",
+    "summaryRetentionEmpty": "請先完成留存查詢",
+    "summaryNote": "。時間範圍以查詢時為準，不寫入指標。"
+  },
+  "apply": {
+    "trigger": "從指標新增",
+    "ok": "套用",
+    "placeholder": "選擇已儲存的指標",
+    "empty": "還沒有該類型的指標"
+  },
+  "detail": {
+    "title": "指標詳情",
+    "titleNamed": "指標詳情 · {{name}}",
+    "meta": "建立人 {{owner}} · 建立 {{created}} · 更新 {{updated}}",
+    "readonlyNote": "指標名是資產唯一鍵、類型決定口徑模型，改動會打斷已有的分析與告警引用，因此只讀。",
+    "saving": "儲存中",
+    "createCard": "建立看板卡片",
+    "cardName": "{{name}}（指標卡）",
+    "alertTitle": "口徑說明",
+    "alertBody": "指標自帶查詢時間與取值選擇；未設定查詢時間時，告警按規則視窗求值（現有行為）。套用到分析時，分析頁以自己的時間範圍為準。指標被告警規則引用時，改口徑會同時改變告警判定條件（運維 → 監控告警 → 策略）。",
+    "retentionFiltersTitle": "留存指標的篩選條件",
+    "retentionFiltersBody": "初始/回訪事件自帶的篩選條件隨事件保留；佇列範圍與週期可直接在此調整。",
+    "cohortRangeTooltip": "留存的成熟佇列時間範圍；不設排程按週期自動推導（≥ 週期+1 天，最長 180 天）",
+    "deriveFromCycle": "改為按週期推導",
+    "derivedFromCycle": "按週期推導",
+    "cohortRangeDerived": "按週期推導（{{days}} 天）"
+  },
+  "message": {
+    "deleted": "已刪除",
+    "updated": "指標已更新",
+    "created": "已建立指標",
+    "cardCreated": "已建立卡片「{{name}}」，可在看板工作室裡新增到看板",
+    "noEventMetric": "沒有可儲存的事件指標",
+    "queryRetentionFirst": "請先查詢留存"
+  },
+  "confirm": {
+    "deleteTitle": "刪除指標「{{name}}」？",
+    "deleteEditing": "將刪除該指標，未儲存的修改會一併遺失。引用它的分析與告警會失效。",
+    "deleteContent": "引用它的分析與告警會失效，刪除後無法恢復。"
+  }
+}

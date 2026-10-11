@@ -1,0 +1,5 @@
+# 同步工具的运行产物：备份与状态文件不入库
+.sync-backup/
+.pull-staging/
+.sync-state.json
+.sync-lock

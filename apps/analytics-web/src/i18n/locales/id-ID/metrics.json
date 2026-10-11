@@ -1,0 +1,255 @@
+{
+  "kind": {
+    "event": "Metrik peristiwa",
+    "retention": "Metrik retensi"
+  },
+  "list": {
+    "title": "Metrik",
+    "create": "Buat metrik",
+    "kindEvent": "Peristiwa",
+    "kindRetention": "Retensi",
+    "intro": "Metrik peristiwa dapat langsung dibuat lewat “Buat metrik”, atau disimpan dari hasil analisis peristiwa (beserta definisi lengkap konfigurasi saat itu); metrik retensi tetap dibuat dari hasil analisis retensi. Metrik dapat membawa **waktu kueri** dan **pilihan nilai** sendiri; aturan peringatan secara bawaan mengikuti rentang waktu metrik (dapat ditimpa di dalam aturan; lihat Operasional → Peringatan pemantauan → Buat peringatan metrik). Klik nama tampilan untuk melihat definisi lengkap; edit dan hapus (dengan konfirmasi kedua) tersedia di panel detail, sedangkan nama dan jenis metrik tidak dapat diubah (pengenalnya tetap sehingga rujukan analisis dan pengikatan peringatan yang ada tidak terpengaruh).",
+    "column": {
+      "displayName": "Nama tampilan",
+      "name": "Nama metrik",
+      "kind": "Jenis",
+      "definition": "Definisi",
+      "remark": "Catatan"
+    }
+  },
+  "label": {
+    "subject": "Subjek analisis",
+    "event": "Peristiwa",
+    "analysis": "Metode penghitungan",
+    "percentile": "Persentil",
+    "prop": "Properti",
+    "transform": "Transformasi nilai",
+    "decimals": "Simpan desimal",
+    "valuePick": "Pilihan nilai",
+    "timeRange": "Waktu kueri",
+    "conditionGroup": "Grup kondisi",
+    "filters": "Kondisi filter",
+    "displayName": "Nama tampilan",
+    "metricName": "Nama metrik",
+    "metricNameReadonly": "Nama metrik (tidak dapat diubah)",
+    "kindReadonly": "Jenis (tidak dapat diubah)",
+    "type": "Jenis",
+    "format": "Format",
+    "definition": "Definisi",
+    "definitionPick": "Definisi metrik",
+    "startEvent": "Peristiwa awal",
+    "retainEvent": "Peristiwa kunjungan ulang",
+    "period": "Periode",
+    "measure": "Ukuran",
+    "cohort": "Kohort",
+    "cohortRange": "Rentang kohort",
+    "granularity": "Granularitas",
+    "remarkOptional": "Catatan (opsional)"
+  },
+  "format": {
+    "number": "Angka",
+    "percent": "Persentase"
+  },
+  "measure": {
+    "rate": "Tingkat retensi",
+    "count": "Jumlah pengguna bertahan"
+  },
+  "cohort": {
+    "all": "Semua pengguna",
+    "firstDay": "Pengguna yang pertama kali terpicu"
+  },
+  "granularity": {
+    "day": "Per hari",
+    "week": "Per minggu",
+    "month": "Per bulan"
+  },
+  "period": {
+    "day": "{{n}} hari",
+    "week": "{{n}} minggu",
+    "month": "{{n}} bulan"
+  },
+  "value": {
+    "notNeeded": "(tidak diperlukan)",
+    "none": "(tidak ada)"
+  },
+  "filters": {
+    "count": "{{total}} data"
+  },
+  "valuePick": {
+    "sum": "Akumulatif",
+    "avg": "Rata-rata harian",
+    "max": "Nilai maksimum",
+    "min": "Nilai minimum",
+    "lastDay": "Hari terbaru",
+    "firstDay": "Hari pertama",
+    "uniqTotal": "Total unik seluruh rentang",
+    "weighted": "Rata-rata berbobot",
+    "auto": "Otomatis (menurut metode penghitungan)",
+    "autoShort": "Nilai otomatis",
+    "extra": "Tidak dipilih = otomatis (direkomendasikan menurut metode penghitungan), selaras dengan definisi peringatan yang ada",
+    "label": {
+      "sum": "Akumulatif",
+      "avg": "Rata-rata harian",
+      "max": "Nilai maksimum",
+      "min": "Nilai minimum",
+      "weighted": "Rata-rata berbobot",
+      "lastDay": "Hari terbaru",
+      "firstDay": "Hari pertama",
+      "uniqTotal": "Total unik seluruh rentang"
+    },
+    "hint": {
+      "sum": "Nilai setiap hari dalam jendela dijumlahkan; hari tanpa data dihitung 0",
+      "avg": "Jumlah nilai harian ÷ jumlah hari dalam jendela; hari tanpa data dihitung 0",
+      "max": "Nilai terbesar di antara hari yang memiliki data dalam jendela",
+      "min": "Nilai terkecil di antara hari yang memiliki data dalam jendela",
+      "weighted": "Dibobot berdasarkan penyebut (satu-satunya yang tepat untuk metrik per pengguna)",
+      "lastDay": "Nilai hari terbaru yang memiliki data dalam jendela (umum dipakai untuk “hari ini sampai sekarang”)",
+      "firstDay": "Nilai hari paling awal yang memiliki data dalam jendela",
+      "uniqTotal": "Dievaluasi untuk seluruh rentang sekaligus, bukan dijumlahkan per hari (satu-satunya yang tepat untuk jumlah unik)"
+    },
+    "note": {
+      "sum": "Nilai setiap hari dalam jendela dijumlahkan; hari tanpa data dihitung 0",
+      "avg": "Jumlah nilai harian ÷ jumlah hari dalam jendela; hari tanpa data dihitung 0",
+      "max": "Nilai terbesar di antara hari yang memiliki data dalam jendela (jika tidak ada data sama sekali → dilewati pada siklus ini)",
+      "min": "Nilai terkecil di antara hari yang memiliki data dalam jendela (jika tidak ada data sama sekali → dilewati pada siklus ini)",
+      "weighted": "Dibobot berdasarkan penyebut (satu-satunya nilai yang tepat untuk kejadian per pengguna/nilai per pengguna), dievaluasi untuk seluruh rentang sekaligus",
+      "lastDay": "Nilai hari terbaru yang memiliki data dalam jendela (sering dipakai untuk “hari ini sampai sekarang”)",
+      "firstDay": "Nilai hari paling awal yang memiliki data dalam jendela",
+      "uniqTotal": "Dievaluasi untuk seluruh rentang sekaligus, bukan dijumlahkan per hari (satu-satunya nilai yang tepat untuk jumlah unik/pengguna terpicu)"
+    },
+    "warning": {
+      "nonAdditivePickedAdditive": "Metode penghitungan saat ini tidak dapat dijumlahkan per hari; sebaiknya pilih “Total unik seluruh rentang” atau “Rata-rata berbobot”, jika tidak hasilnya akan terlalu tinggi",
+      "additivePickedOverall": "Metode penghitungan saat ini dapat dijumlahkan sehingga “Akumulatif/Rata-rata harian” lebih mudah dibaca; total unik seluruh rentang hanya bermakna untuk metrik unik/per pengguna"
+    }
+  },
+  "window": {
+    "fixed": "Tanggal tetap",
+    "today": "Hari ini",
+    "yesterday": "Kemarin",
+    "recentN": "{{n}} hari terakhir (termasuk hari ini)",
+    "pastN": "{{n}} hari sebelumnya (tanpa hari ini)",
+    "thisWeek": "Minggu ini",
+    "lastWeek": "Minggu lalu",
+    "thisMonth": "Bulan ini",
+    "lastMonth": "Bulan lalu",
+    "customOffsets": "Rentang dinamis D-{{from}} ~ D-{{to}}",
+    "fromDateToToday": "Dari tanggal tertentu hingga hari ini",
+    "fromDateToYesterday": "Dari tanggal tertentu hingga kemarin",
+    "lastNDays": "{{n}} hari terakhir",
+    "cohortWindow": "Kohort {{window}}",
+    "followAlert": "Ikuti jendela peringatan"
+  },
+  "summary": {
+    "event": "Peristiwa {{event}} · Hitung {{analysis}}{{prop}}{{window}}{{pick}}",
+    "propSegment": " · {{prop}}",
+    "windowSegment": " · {{window}}",
+    "pickSegment": " · {{pick}}",
+    "retention": "Retensi {{start}} → {{retain}} · {{period}} · {{measure}}",
+    "periodDays": "{{n}} hari",
+    "noEvent": "(peristiwa belum ditentukan)",
+    "measureCount": "Jumlah pengguna"
+  },
+  "timeRange": {
+    "extra": "Setelah metrik memiliki rentang waktu sendiri, aturan peringatan mengikutinya secara bawaan; hanya rentang relatif yang didukung (dapat dievaluasi berulang setiap hari), maksimal 90 hari",
+    "followAlert": "Ubah menjadi mengikuti jendela peringatan"
+  },
+  "conditionGroup": {
+    "extra": "Atribut peristiwa / properti pengguna / kohort / tag; semantiknya sama dengan grup kondisi pada analisis peristiwa"
+  },
+  "prop": {
+    "groupEvent": "Atribut peristiwa",
+    "groupUser": "Properti pengguna",
+    "eventPlaceholder": "Pilih properti",
+    "eventDisabledPlaceholder": "Metode saat ini tidak memerlukan properti",
+    "tooltip": "Wajib diisi saat metode penghitungan memerlukan properti; jenis properti menentukan metode penghitungan yang tersedia",
+    "eventWithType": "{{name}} ({{type}})",
+    "userWithType": "{{name}} (pengguna · {{type}})",
+    "userOnly": "{{name}} (pengguna)"
+  },
+  "event": {
+    "searchPlaceholder": "Cari atau pilih peristiwa",
+    "optionWithName": "{{key}} ({{name}})",
+    "staleOption": "{{event}} (tidak ada di daftar peristiwa; nilai asli dipertahankan)"
+  },
+  "transform": {
+    "tooltip": "Hitung aritmetika dulu, lalu simpan desimal (sama dengan analisis peristiwa)",
+    "valuePlaceholder": "Operan (opsional)"
+  },
+  "decimals": {
+    "placeholder": "Opsional 0-6"
+  },
+  "trial": {
+    "run": "Uji hitung",
+    "hint": "Evaluasi sekali secara nyata dengan definisi saat ini (implementasi yang sama dengan penilaian peringatan); tidak akan disimpan",
+    "failed": "Uji hitung gagal",
+    "result": "Nilai saat ini {{value}} · {{window}} ({{start}} ~ {{end}}) · {{pick}}{{auto}}",
+    "autoSuffix": " (otomatis)",
+    "note": "{{note}}; waktu {{ms}}ms"
+  },
+  "validation": {
+    "eventRequired": "Pilih peristiwa",
+    "analysisRequired": "Pilih metode penghitungan",
+    "displayNameRequired": "Masukkan nama tampilan",
+    "metricNameRequired": "Masukkan nama metrik",
+    "metricNamePattern": "Diawali huruf kecil, hanya huruf kecil/angka/garis bawah, maksimal 80",
+    "metricNamePatternShort": "Format tidak sesuai aturan",
+    "metricRequired": "Pilih metrik",
+    "periodRequired": "Pilih periode",
+    "periodFilled": "Isi periode",
+    "startEventRequired": "Pilih peristiwa awal",
+    "retainEventRequired": "Pilih peristiwa kunjungan ulang"
+  },
+  "create": {
+    "title": "Buat metrik peristiwa",
+    "displayNamePlaceholder": "Misalnya: rata-rata harian nilai pesanan 7 hari terakhir",
+    "metricNamePlaceholder": "Misalnya: order_amount_daily_avg_7d",
+    "metricNameExtra": "Kunci unik aset, tidak dapat diubah setelah dibuat; analisis dan peringatan merujuknya",
+    "definitionHint": "Definisi (sedetail analisis peristiwa; sebaiknya “Uji hitung” dulu sebelum menyimpan)"
+  },
+  "modal": {
+    "title": "Buat metrik",
+    "metricNameExtra": "Diawali huruf kecil, boleh berisi huruf kecil/angka/garis bawah, maksimal 80 karakter",
+    "metricFallback": "Metrik",
+    "summaryEvent": "{{event}} · {{metric}}",
+    "summaryEventEmpty": "Konfigurasikan dan kueri satu metrik peristiwa terlebih dahulu",
+    "summaryRetention": "Awal {{start}} → Kunjungan ulang {{end}}",
+    "summaryRetentionEmpty": "Jalankan kueri retensi terlebih dahulu",
+    "summaryNote": ". Rentang waktu mengikuti saat kueri dan tidak disimpan ke metrik."
+  },
+  "apply": {
+    "trigger": "Tambah dari metrik",
+    "ok": "Terapkan",
+    "placeholder": "Pilih metrik tersimpan",
+    "empty": "Belum ada metrik berjenis ini"
+  },
+  "detail": {
+    "title": "Detail metrik",
+    "titleNamed": "Detail metrik · {{name}}",
+    "meta": "Dibuat oleh {{owner}} · dibuat {{created}} · diperbarui {{updated}}",
+    "readonlyNote": "Nama metrik adalah kunci unik aset dan jenisnya menentukan model definisi; perubahannya akan memutus rujukan analisis dan peringatan yang ada, sehingga bersifat hanya baca.",
+    "saving": "Menyimpan",
+    "createCard": "Buat kartu dasbor",
+    "cardName": "{{name}} (kartu metrik)",
+    "alertTitle": "Penjelasan definisi",
+    "alertBody": "Metrik dapat membawa waktu kueri dan pilihan nilai sendiri; jika waktu kueri tidak diatur, peringatan dievaluasi menurut jendela aturan (perilaku saat ini). Saat diterapkan ke analisis, halaman analisis memakai rentang waktunya sendiri. Jika metrik dirujuk oleh aturan peringatan, perubahan definisi juga mengubah kondisi penilaian peringatan (Operasional → Peringatan pemantauan → Strategi).",
+    "retentionFiltersTitle": "Kondisi filter metrik retensi",
+    "retentionFiltersBody": "Kondisi filter bawaan pada peristiwa awal/kunjungan ulang tetap tersimpan bersama peristiwanya; rentang kohort dan periode dapat diubah langsung di sini.",
+    "cohortRangeTooltip": "Rentang waktu kohort matang untuk retensi; jika tidak diatur, diturunkan otomatis dari periode (≥ periode + 1 hari, maksimal 180 hari)",
+    "deriveFromCycle": "Ubah ke turunan periode",
+    "derivedFromCycle": "Turunan periode",
+    "cohortRangeDerived": "Turunan periode ({{days}} hari)"
+  },
+  "message": {
+    "deleted": "Sudah dihapus",
+    "updated": "Metrik telah diperbarui",
+    "created": "Metrik telah dibuat",
+    "cardCreated": "Kartu “{{name}}” telah dibuat dan dapat ditambahkan ke dasbor di studio dasbor",
+    "noEventMetric": "Tidak ada metrik peristiwa yang dapat disimpan",
+    "queryRetentionFirst": "Jalankan kueri retensi terlebih dahulu"
+  },
+  "confirm": {
+    "deleteTitle": "Hapus metrik “{{name}}”?",
+    "deleteEditing": "Metrik ini akan dihapus dan perubahan yang belum disimpan ikut hilang. Analisis serta peringatan yang merujuknya akan berhenti berlaku.",
+    "deleteContent": "Analisis dan peringatan yang merujuknya akan berhenti berlaku; data yang dihapus tidak dapat dipulihkan."
+  }
+}

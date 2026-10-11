@@ -1,0 +1,421 @@
+{
+  "page": {
+    "paramsTitle": "Integration parameters",
+    "projectName": "Project name",
+    "reportEndpoint": "Report endpoint",
+    "projectToken": "Project token",
+    "tokenHint": "Ask your project admin (it is not shown here for security); inject it through an environment variable or server-side configuration",
+    "prereqTitle": "Before you start",
+    "prereqLead": "Reports are always sent as POST +",
+    "prereqTail": ", and the three form fields are listed below. The full specification lives in the repository's data reporting spec document.",
+    "descColumn": "Description",
+    "pitfall": "The most common pitfall: the receiver only accepts Base64 + URL-encoded data. Posting a raw JSON body is parsed as an empty data field — HTTP still returns 200, but the data is silently dropped.",
+    "curlLabel": "Minimal request (curl)",
+    "curlTokenPlaceholder": "<project token>",
+    "curlDataPlaceholder": "<base64(JSON array)>",
+    "plannedTitle": "{{name}}: not available yet",
+    "gotIt": "Got it",
+    "plannedBody": "This SDK does not support the ClkLog reporting protocol yet, so no integration guide or sample is available.",
+    "plannedHint": "For now, integrate over the protocol yourself using “Other integration options → HTTP / RESTful API” (this works in any language), or tell the platform team which SDK you need and we will schedule it.",
+    "copied": "{{label}} copied"
+  },
+  "drawer": {
+    "title": "{{name}} integration guide",
+    "titleFallback": "Integration guide",
+    "faqTitle": "FAQ ({{count}})",
+    "downloadDemo": "Download demo project (zip)",
+    "downloadDemoHint": "Includes {{contents}} and a README. No credentials inside."
+  },
+  "code": {
+    "copied": "Code copied",
+    "copyFailed": "Copy failed. Select the text and copy it manually."
+  },
+  "group": {
+    "client": "Client SDK",
+    "server": "Server SDK",
+    "other": "Other integration options"
+  },
+  "groupHint": {
+    "client": "Event tracking inside apps, web pages, mini programs and game engines",
+    "server": "Report business events (orders, payments, sign-ups) from your backend service",
+    "other": "Language-agnostic: integrate straight over HTTP, or backfill historical data in batches"
+  },
+  "status": {
+    "ready": "Verified",
+    "planned": "Not available yet",
+    "partial": "Verified at language level"
+  },
+  "protocol": {
+    "project": "Project name (= “Project name” below, not the project display name)",
+    "token": "Project token — ask your project admin; never put it in frontend code or the repository",
+    "data": "Event array: JSON array → Base64 → URL-encoded (wrap a single event in an array too)"
+  },
+  "encodingSample": "Raw event array (wrap a single event in an array too)\n[{\"type\":\"track\",\"event\":\"PageView\",\"distinct_id\":\"u_1001\",\"time\":1785228036000,\"properties\":{\"channel\":\"app_store\"}}]\n   ↓ JSON.stringify + Base64\nW3sidHlwZSI6InRyYWNrIiwiZXZlbnQiOiJQYWdlVmlldyIsImRpc3RpbmN0X2lkIjoidV8xMDAxIiwidGltZSI6MTc4NTIyODAzNjAwMCwicHJvcGVydGllcyI6eyJjaGFubmVsIjoiYXBwX3N0b3JlIn19XQ==\n   ↓ URL-encode, then put it in the form field data\ndata=W3sidHlwZSI6InRyYWNrIiwiZXZlbnQiOiJQYWdlVmlldyIsImRpc3RpbmN0X2lkIjoidV8xMDAxIiwidGltZSI6MTc4NTIyODAzNjAwMCwicHJvcGVydGllcyI6eyJjaGFubmVsIjoiYXBwX3N0b3JlIn19XQ%3D%3D",
+  "guide": {
+    "http": {
+      "name": "HTTP / RESTful API",
+      "platform": "Universal protocol · works with any language",
+      "summary": "Every SDK ultimately speaks this protocol; languages without an SDK can integrate with it directly",
+      "step1Title": "1. Request method and endpoint",
+      "step1Body": "POST to the report endpoint with Content-Type application/x-www-form-urlencoded; the three form fields are the three protocol elements. GET works too, but the event payload would end up in the URL, so it is not recommended.",
+      "step1Code1Label": "Minimal request (curl)",
+      "step1Code1": "curl -X POST '<endpoint>' \\\n  -H 'Content-Type: application/x-www-form-urlencoded' \\\n  --data-urlencode 'project=<project name>' \\\n  --data-urlencode 'token=<project token>' \\\n  --data-urlencode 'data=<base64(JSON array)>'",
+      "step1Note1": "HTTP 200 only means the payload parsed; business validation and storage are asynchronous. Do not rely on the response body to tell whether the event was accepted.",
+      "step1Note2": "The endpoint must keep the /receiver prefix (the gateway forwards on that prefix to the receiver).",
+      "step2Title": "2. Event payload structure",
+      "step2Body": "Each element of data is one event object. Field meanings: type (track for behaviour events / user_set for user properties / track_signup for login), event (event name, required for track), distinct_id (visitor ID, stable throughout), time (millisecond timestamp), identities (identity extension), properties (custom properties; a $ prefix marks a built-in property).",
+      "step2Code1Label": "A behaviour event",
+      "step3Title": "3. Encoding requirements (the most common pitfall)",
+      "step3Body": "Serialize the event array to a JSON string, Base64-encode it, then URL-encode the whole thing into the data field. Posting a raw JSON body is parsed as an empty data field: HTTP still returns 200, but the data is silently dropped.",
+      "step3Code1Label": "Encoding chain",
+      "step3Note1": "A single event must be wrapped in an array as well ([{...}]).",
+      "step3Note2": "The + / = characters in the Base64 result must be URL-encoded, otherwise form parsing breaks them.",
+      "step4Title": "4. User identity and login",
+      "step4Body": "Before login, use a device or guest ID as distinct_id; after the user signs in, send one track_signup event with the login ID in identities.user_key and the previous anonymous ID in properties.$track_signup_original_id. Every later event then carries identities.user_key automatically, so the platform can merge the behaviour of one person before and after login.",
+      "step4Code1Label": "Login event",
+      "step5Title": "5. Batching and retries",
+      "step5Body": "Put several events into one array and send them in a single request (10–50 per batch is a good size); one bad event does not affect the others. Retry a failed batch 3 times with a 500 ms × attempt backoff; when it keeps failing, queue the data locally and resend later so no event is lost.",
+      "step6Title": "6. Verify the report",
+      "step6Body": "After reporting, open “Data management → Debug” and search by event name to see the latest reports (with property details and receive time); you can also pick the event in event analysis and check whether data appears. Latency of a few seconds is normal, and Flink-aggregated metrics lag by minutes.",
+      "faq1Q": "The API returns 200, but nothing shows up in the platform?",
+      "faq1A": "First confirm that data is the “Base64 + URL-encoded” content (a raw JSON body returns 200 with an empty data field), then check that project and token match and that the event name has no spaces or case mistakes.",
+      "faq2Q": "Is time in seconds or milliseconds?",
+      "faq2A": "Milliseconds (13 digits). Seconds (10 digits) are parsed as 1970; when omitted, the server receive time is used.",
+      "faq3Q": "Can I post a single event as a JSON object?",
+      "faq3A": "No. After decoding, data must be an array — write a single event as [{...}].",
+      "faq4Q": "Is it safe to put the token in frontend code?",
+      "faq4A": "Not recommended. A report token can write data; proxy reports through your own backend, or use a restricted report-only token."
+    },
+    "php": {
+      "name": "PHP",
+      "platform": "Server · PHP 7.4+ (curl extension required)",
+      "summary": "Report orders, payments, sign-ups and other events from your business code",
+      "step1Title": "1. Prerequisites",
+      "step1Body": "PHP 7.4 or later with the curl extension enabled (php -m | grep curl). No third-party dependencies.",
+      "step1Code1Label": "Check the environment",
+      "step2Title": "2. Initialise the client",
+      "step2Body": "Three parameters: report endpoint, project name, project token. Read the token from an environment variable, never hard-code it.",
+      "step2Code1Label": "Constructor and configuration",
+      "step2Code1": "final class ClkLogClient\n{\n    private array $queue = [];\n    private ?string $loginId = null; // attached to identities.user_key after login\n\n    public function __construct(\n        private readonly string $endpoint,\n        private readonly string $project,\n        private readonly string $token,\n        private readonly int $batchSize = 10,\n    ) {}\n\n    public static function fromEnv(): self\n    {\n        return new self(\n            getenv('CLKLOG_ENDPOINT') ?: '<endpoint>',\n            getenv('CLKLOG_PROJECT') ?: '<project name>',\n            getenv('CLKLOG_TOKEN') ?: throw new RuntimeException('missing CLKLOG_TOKEN'),\n            10,\n        );\n    }\n}",
+      "step3Title": "3. Report behaviour events",
+      "step3Body": "track() puts an event on the queue and sends it once the batch size is reached; time uses a millisecond timestamp.",
+      "step3Code1Label": "track and enqueue",
+      "step3Code1": "public function track(string $distinctId, string $event, array $properties = []): void\n{\n    $this->enqueue($this->withIdentity([\n        'type'        => 'track',\n        'event'       => $event,\n        'distinct_id' => $distinctId,\n        'time'        => (int) (microtime(true) * 1000), // milliseconds\n        'properties'  => (object) $properties,\n    ]));\n}\n\n$cli = ClkLogClient::fromEnv();\n$cli->track('u_1001', 'Purchase', ['order_id' => 'O20260915001', 'amount' => 99.5]);",
+      "step4Title": "4. User properties and login",
+      "step4Body": "profileSet() writes user properties (overwrite); login() reports track_signup, merging the anonymous ID with the login ID so every later event carries identities.user_key.",
+      "step4Code1Label": "profileSet / login",
+      "step4Code1": "public function profileSet(string $distinctId, array $properties): void\n{\n    $this->enqueue($this->withIdentity([\n        'type'        => 'user_set',\n        'distinct_id' => $distinctId,\n        'time'        => (int) (microtime(true) * 1000),\n        'properties'  => (object) $properties,\n    ]));\n}\n\npublic function login(string $loginId, string $anonymousId): void\n{\n    $this->loginId = $loginId;\n    $this->enqueue([\n        'type'        => 'track_signup',\n        'event'       => '$SignUp',\n        'distinct_id' => $loginId,\n        'identities'  => ['user_key' => $loginId],\n        'properties'  => ['$track_signup_original_id' => $anonymousId],\n        'time'        => (int) (microtime(true) * 1000),\n    ]);\n}\n\n$cli->profileSet('u_1001', ['vip_level' => 3, 'register_channel' => 'app_store']);\n$cli->login('user_9527', 'u_1001');",
+      "step5Title": "5. Batch sending and retries",
+      "step5Body": "flush() serialises the queue to JSON, Base64-encodes it and submits it as a URL-encoded form; a failure is retried 3 times with a backoff. Call flush once before the process exits as a safety net.",
+      "step5Code1Label": "flush",
+      "step5Code1": "public function flush(): void\n{\n    if ($this->queue === []) {\n        return;\n    }\n    $payload = base64_encode(json_encode($this->queue, JSON_UNESCAPED_UNICODE));\n\n    for ($attempt = 1; $attempt <= 3; $attempt++) {\n        $ch = curl_init($this->endpoint);\n        curl_setopt_array($ch, [\n            CURLOPT_POST           => true,\n            CURLOPT_POSTFIELDS     => http_build_query([\n                'project' => $this->project,\n                'token'   => $this->token,\n                'data'    => $payload,\n            ]),\n            CURLOPT_HTTPHEADER     => ['Content-Type: application/x-www-form-urlencoded'],\n            CURLOPT_RETURNTRANSFER => true,\n            CURLOPT_TIMEOUT        => 10,\n        ]);\n        $body = curl_exec($ch);\n        $code = curl_getinfo($ch, CURLINFO_RESPONSE_CODE);\n        if ($code === 200) {\n            $this->queue = [];\n            return;\n        }\n        usleep($attempt * 500_000); // backoff\n    }\n    throw new RuntimeException('upstream flush failed after 3 attempts');\n}",
+      "step5Note1": "http_build_query already URL-encodes the payload — do not urlencode it manually a second time.",
+      "step5Note2": "For long-running processes (queue consumers, scheduled jobs) call flush explicitly at the end of each round so events do not sit in memory.",
+      "step6Title": "6. Verify",
+      "step6Body": "After one report, search by event name under “Data management → Debug” — you should see the event and its properties, usually within seconds.",
+      "faq1Q": "200 returned but no data?",
+      "faq1A": "Check that data is the Base64 value produced before http_build_query encoded it; make sure token and project belong to the same project.",
+      "faq2Q": "What unit does time use?",
+      "faq2A": "Milliseconds. In PHP use (int)(microtime(true) * 1000).",
+      "faq3Q": "Chinese characters turn into garbled text?",
+      "faq3A": "Add JSON_UNESCAPED_UNICODE to json_encode and make sure the string is UTF-8.",
+      "faq4Q": "Can I report synchronously inside a web request?",
+      "faq4A": "Yes, but prefer a local queue (Redis or a database table) drained by a background job, so the request is not slowed down."
+    },
+    "go": {
+      "name": "Go",
+      "platform": "Server · Go 1.18+ (standard library only)",
+      "summary": "Report business events from high-concurrency backends with no third-party dependency",
+      "step1Title": "1. Prerequisites",
+      "step1Body": "Go 1.18 or later, standard library only (net/http, encoding/json, encoding/base64, net/url). There is no SDK module to import.",
+      "step1Code1Label": "Initialise the module",
+      "step2Title": "2. Define the event and the client",
+      "step2Body": "The Event struct maps to the protocol fields; Identities carries the user_key identity extension.",
+      "step2Code1Label": "Structs and constructor",
+      "step2Code1": "type Event struct {\n    Type       string         `json:\"type\"`                 // track / track_signup / user_set\n    Event      string         `json:\"event,omitempty\"`      // event name (required for track)\n    DistinctID string         `json:\"distinct_id\"`          // visitor ID\n    Time       int64          `json:\"time\"`                 // millisecond timestamp\n    Identities map[string]any `json:\"identities,omitempty\"` // {\"user_key\": login ID}\n    Properties map[string]any `json:\"properties,omitempty\"`\n}\n\ntype ClkLogClient struct {\n    Endpoint, Project, Token string\n    BatchSize                int\n    loginID                  string\n    queue                    []Event\n    http                     *http.Client\n}\n\nfunc NewClkLogClient(endpoint, project, token string) *ClkLogClient {\n    return &ClkLogClient{\n        Endpoint: endpoint, Project: project, Token: token, BatchSize: 10,\n        http: &http.Client{Timeout: 10 * time.Second},\n    }\n}",
+      "step3Title": "3. Report behaviour events",
+      "step3Body": "Track enqueues the event and flushes automatically once the batch size is reached; after login every event carries identities.user_key.",
+      "step3Code1Label": "Track",
+      "step3Code1": "func (c *ClkLogClient) Track(distinctID, event string, props map[string]any) error {\n    e := Event{\n        Type: \"track\", Event: event, DistinctID: distinctID,\n        Time: time.Now().UnixMilli(), Properties: props,\n    }\n    if c.loginID != \"\" {\n        e.Identities = map[string]any{\"user_key\": c.loginID}\n    }\n    c.queue = append(c.queue, e)\n    if len(c.queue) >= c.BatchSize {\n        return c.Flush()\n    }\n    return nil\n}\n\n// usage\ncli.Track(\"u_1001\", \"Purchase\", map[string]any{\"order_id\": \"O20260915001\", \"amount\": 99.5})",
+      "step4Title": "4. Login and user properties",
+      "step4Body": "Login reports track_signup to merge identities; ProfileSet overwrites user properties.",
+      "step4Code1Label": "Login / ProfileSet",
+      "step4Code1": "func (c *ClkLogClient) Login(loginID, anonymousID string) error {\n    c.loginID = loginID\n    c.queue = append(c.queue, Event{\n        Type: \"track_signup\", Event: \"$SignUp\", DistinctID: loginID,\n        Identities: map[string]any{\"user_key\": loginID},\n        Properties: map[string]any{\"$track_signup_original_id\": anonymousID},\n        Time:       time.Now().UnixMilli(),\n    })\n    if len(c.queue) >= c.BatchSize {\n        return c.Flush()\n    }\n    return nil\n}\n\nfunc (c *ClkLogClient) ProfileSet(distinctID string, props map[string]any) error {\n    e := Event{Type: \"user_set\", DistinctID: distinctID, Time: time.Now().UnixMilli(), Properties: props}\n    if c.loginID != \"\" {\n        e.Identities = map[string]any{\"user_key\": c.loginID}\n    }\n    c.queue = append(c.queue, e)\n    return nil\n}",
+      "step5Title": "5. Batch sending and retries",
+      "step5Body": "Flush serialises the queue to JSON → Base64 → form encoding and sends it; a failure is retried 3 times with a 500 ms × attempt backoff.",
+      "step5Code1Label": "Flush",
+      "step5Code1": "func (c *ClkLogClient) Flush() error {\n    if len(c.queue) == 0 {\n        return nil\n    }\n    payload, err := json.Marshal(c.queue)\n    if err != nil {\n        return fmt.Errorf(\"marshal: %w\", err)\n    }\n    form := url.Values{}\n    form.Set(\"project\", c.Project)\n    form.Set(\"token\", c.Token)\n    form.Set(\"data\", base64.StdEncoding.EncodeToString(payload))\n\n    var lastErr error\n    for attempt := 1; attempt <= 3; attempt++ {\n        req, _ := http.NewRequest(http.MethodPost, c.Endpoint, bytes.NewBufferString(form.Encode()))\n        req.Header.Set(\"Content-Type\", \"application/x-www-form-urlencoded\")\n        resp, err := c.http.Do(req)\n        if err == nil && resp.StatusCode == http.StatusOK {\n            io.Copy(io.Discard, resp.Body)\n            resp.Body.Close()\n            c.queue = c.queue[:0]\n            return nil\n        }\n        if err == nil {\n            body, _ := io.ReadAll(resp.Body)\n            resp.Body.Close()\n            lastErr = fmt.Errorf(\"http %d: %s\", resp.StatusCode, string(body))\n        } else {\n            lastErr = err\n        }\n        time.Sleep(time.Duration(attempt) * 500 * time.Millisecond) // backoff\n    }\n    return fmt.Errorf(\"flush failed after 3 attempts: %w\", lastErr)\n}",
+      "step5Note1": "When reporting concurrently, guard the queue with a sync.Mutex or give each goroutine its own client instance.",
+      "step5Note2": "On graceful shutdown (signal → shutdown) call Flush once so the last batch is not lost.",
+      "step6Title": "6. Verify",
+      "step6Body": "After one report, search by event name under “Data management → Debug”; you can also check in event analysis whether the event count grows.",
+      "faq1Q": "200 returned but no data?",
+      "faq1A": "Check that data in the form is the Base64 string (Go's url.Values encodes it once more, which is correct) and that project/token match.",
+      "faq2Q": "What unit does time use?",
+      "faq2A": "Milliseconds — time.Now().UnixMilli() in Go.",
+      "faq3Q": "Does one invalid event in a batch affect the others?",
+      "faq3A": "No. A batch is processed event by event; invalid events are skipped.",
+      "faq4Q": "Do I need to handle the response body?",
+      "faq4A": "No. HTTP 200 means the batch was accepted; only a non-200 response needs a retry."
+    },
+    "unity": {
+      "name": "Unity (C#)",
+      "platform": "Client · Unity 2021+ / .NET Standard 2.1 (the same code also runs in a .NET console app)",
+      "summary": "Event tracking for games and C# clients: login, user properties, batched reports",
+      "step1Title": "1. Prerequisites",
+      "step1Body": "Unity 2021 or later (.NET Standard 2.1, includes HttpClient). JSON serialization: Unity 6 ships System.Text.Json; earlier versions can use Newtonsoft.Json or install System.Text.Json through NuGetForUnity.",
+      "step1Code1Label": "Dependency note (pick one by Unity version)",
+      "step1Code1": "// Unity 6 built-in: just using System.Text.Json;\n// Older versions: install com.unity.nuget.newtonsoft-json from the Package Manager and switch to JsonConvert.SerializeObject",
+      "step2Title": "2. Initialise the client",
+      "step2Body": "Three parameters: report endpoint, project name, project token. For client-side code let your own backend hand the token out (or proxy the reports through it) instead of hard-coding it into the build.",
+      "step2Code1Label": "Constructor",
+      "step2Code1": "public sealed class ClkLogClient\n{\n    private readonly HttpClient _http;\n    private readonly string _endpoint, _project, _token;\n    private readonly int _batchSize;\n    private readonly List<Dictionary<string, object?>> _queue = new();\n    private string? _loginId;\n\n    public ClkLogClient(string endpoint, string project, string token, int batchSize = 10)\n    {\n        _endpoint = endpoint;\n        _project = project;\n        _token = token;\n        _batchSize = batchSize > 0 ? batchSize : 10;\n        _http = new HttpClient { Timeout = TimeSpan.FromSeconds(10) };\n    }\n}",
+      "step3Title": "3. Report behaviour events",
+      "step3Body": "Track enqueues the event and sends it automatically once the batch size is reached; time uses a millisecond timestamp. After login events carry identities.user_key automatically.",
+      "step3Code1Label": "Track",
+      "step3Code1": "public void Track(string distinctId, string eventName, Dictionary<string, object?>? properties = null)\n{\n    var e = new Dictionary<string, object?>\n    {\n        [\"type\"] = \"track\",\n        [\"event\"] = eventName,\n        [\"distinct_id\"] = distinctId,\n        [\"time\"] = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds(), // milliseconds\n        [\"properties\"] = properties ?? new Dictionary<string, object?>(),\n    };\n    Enqueue(WithIdentity(e));\n}\n\n// usage\nclient.Track(\"u_1001\", \"Purchase\", new() { [\"order_id\"] = \"O20260915001\", [\"amount\"] = 99.5 });",
+      "step4Title": "4. Login and user properties",
+      "step4Body": "Login reports track_signup to link the login ID with the anonymous ID; every later event carries user_key. ProfileSet overwrites user properties.",
+      "step4Code1Label": "Login / ProfileSet",
+      "step4Code1": "public void Login(string loginId, string anonymousId)\n{\n    _loginId = loginId;\n    Enqueue(new Dictionary<string, object?>\n    {\n        [\"type\"] = \"track_signup\",\n        [\"event\"] = \"$SignUp\",\n        [\"distinct_id\"] = loginId,\n        [\"identities\"] = new Dictionary<string, object?> { [\"user_key\"] = loginId },\n        [\"properties\"] = new Dictionary<string, object?> { [\"$track_signup_original_id\"] = anonymousId },\n        [\"time\"] = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds(),\n    });\n}\n\nprivate Dictionary<string, object?> WithIdentity(Dictionary<string, object?> e)\n{\n    if (_loginId is not null)\n    {\n        e[\"identities\"] = new Dictionary<string, object?> { [\"user_key\"] = _loginId };\n    }\n    return e;\n}\n\npublic void ProfileSet(string distinctId, Dictionary<string, object?> properties)\n{\n    Enqueue(WithIdentity(new Dictionary<string, object?>\n    {\n        [\"type\"] = \"user_set\",\n        [\"distinct_id\"] = distinctId,\n        [\"time\"] = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds(),\n        [\"properties\"] = properties,\n    }));\n}",
+      "step5Title": "5. Batch sending and retries",
+      "step5Body": "FlushAsync serialises the queue → Base64 → form encoding and POSTs it; a failure is retried 3 times with a backoff. In a game call it once when the scene changes, at settlement and before quitting.",
+      "step5Code1Label": "FlushAsync",
+      "step5Code1": "public async Task FlushAsync()\n{\n    if (_queue.Count == 0) return;\n    var json = JsonSerializer.Serialize(_queue);\n    var payload = Convert.ToBase64String(Encoding.UTF8.GetBytes(json));\n\n    for (var attempt = 1; attempt <= 3; attempt++)\n    {\n        try\n        {\n            using var content = new FormUrlEncodedContent(new Dictionary<string, string>\n            {\n                [\"project\"] = _project,\n                [\"token\"] = _token,\n                [\"data\"] = payload,\n            });\n            var res = await _http.PostAsync(_endpoint, content);\n            if (res.IsSuccessStatusCode)\n            {\n                _queue.Clear();\n                return;\n            }\n        }\n        catch (Exception) when (attempt < 3)\n        {\n            // retry network errors with backoff\n        }\n        await Task.Delay(attempt * 500);\n    }\n    // all three attempts failed: keep the queue and try again on the next trigger (optionally persist it to a local file)\n}",
+      "step5Note1": "Never block the Unity main thread on the network: use async/await or start a Task from a coroutine so frames are not dropped.",
+      "step5Note2": "For reliability on flaky networks, persist the queue to a file under Application.persistentDataPath and resend it on the next launch.",
+      "step6Title": "6. Verify",
+      "step6Body": "Run one report in the editor or on a device, then search by event name under “Data management → Debug” to see the latest reports (with properties and receive time); confirm that events from the same player after login carry user_key.",
+      "faq1Q": "200 returned but no data in the platform?",
+      "faq1A": "The most common causes are a missing Base64 step (raw JSON was sent) or a token/project mismatch; check the data field first, then look at the network.",
+      "faq2Q": "What unit does time use?",
+      "faq2A": "Milliseconds — DateTimeOffset.UtcNow.ToUnixTimeMilliseconds() in C#.",
+      "faq3Q": "Unity reports that System.Text.Json is missing?",
+      "faq3A": "It ships with Unity 6; on earlier versions install com.unity.nuget.newtonsoft-json and switch serialization to JsonConvert.SerializeObject.",
+      "faq4Q": "Is it safe to ship the token in the client?",
+      "faq4A": "Not recommended. Proxy reports through your own backend, or use a restricted report-only token and rotate it regularly."
+    },
+    "javascript": {
+      "platform": "Client · Browser H5 (modern browsers, zero dependencies)",
+      "summary": "Web tracking: page-view and click collection plus a queue flush before unload; the 5-step event chain was verified end to end in a real browser.",
+      "note1": "Pitfall: flushing on page unload requires `navigator.sendBeacon` or `fetch(..., {keepalive:true})`, and you must pass a `URLSearchParams` — a plain string is sent as text/plain, so the receiver cannot parse `data`.",
+      "faq1Q": "Why are events lost when the page closes?",
+      "faq1A": "Flush before unload with `navigator.sendBeacon(new URLSearchParams(form))`; handing a plain string to sendBeacon sends it as text/plain, so HTTP returns 200 but nothing is stored."
+    },
+    "miniprogram": {
+      "platform": "Client · WeChat Mini Program (base library 2.x, zero dependencies)",
+      "summary": "Tracking inside a mini program: `wx.request` reporting with a local cache queue and a `wx.onAppHide` flush; the language-level implementation is verified (on a real device you need to import it in the developer tool).",
+      "note1": "Pitfall: `wx.getStorageSync` returns an empty string rather than null when the key is missing, so the storage adapter must normalise it — otherwise the anonymous ID becomes an empty string and the user cannot be merged.",
+      "faq1Q": "Should request data be an object or a string in a mini program?",
+      "faq1A": "Always pass a pre-encoded urlencoded string and set `header[\"content-type\"]` explicitly: different base libraries serialise objects inconsistently, and a string is the safest choice."
+    },
+    "reactNative": {
+      "platform": "Client · React Native (JS/TS, Hermes)",
+      "summary": "React Native app tracking: global `fetch` reporting plus injected storage (AsyncStorage) and a flush when the app goes to the background; the transport and queue core is verified.",
+      "note1": "Pitfall: Hermes has no `btoa` / `Buffer` / `TextEncoder`, and `URLSearchParams.toString()` is unavailable in React Native too — implement base64 and urlencode in plain JS yourself.",
+      "faq1Q": "How do I do base64 and urlencode in React Native?",
+      "faq1A": "Do not rely on `btoa` or `Buffer` (Hermes has neither): implement base64 yourself and percent-encode segment by segment with `encodeURIComponent`, making sure `+` `/` `=` are all encoded."
+    },
+    "android": {
+      "platform": "Client · Native Android (Java / Kotlin, HTTP transport)",
+      "summary": "The Android tracking client core: device ID persistence, sessions, batching, backoff retries and a flush when the app goes to the background; the 5-step event chain was verified on the JVM (Java 8), but the APK has not been packaged and verified.",
+      "note1": "Pitfall: `Base64.getMimeEncoder()` wraps lines at 76 characters, so you must use `getEncoder()`; `java.util.Base64` requires API 26+, and older versions must switch to `android.util.Base64`.",
+      "faq1Q": "What transport should I use in production on Android?",
+      "faq1A": "Just replace the form submission with OkHttp (`RequestBody.create(form, MediaType.parse(\"application/x-www-form-urlencoded\"))`); the encoding and identity-field logic is completely unchanged, and the Kotlin call looks the same."
+    },
+    "ios": {
+      "platform": "Client · Native iOS (Swift / Objective-C, URLSession)",
+      "summary": "The iOS tracking client core: anonymous ID in UserDefaults, batching, backoff retries and a flush when the app enters the background; the 5-step event chain was verified with the same Foundation URLSession iOS uses, but the app has not been packaged and verified.",
+      "note1": "Pitfall: `addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)` does not encode `+` `&` `=`, so a `+` in the base64 is decoded as a space on the server and corrupts the data — encode the UTF-8 bytes yourself per RFC3986.",
+      "faq1Q": "How do I integrate this into an iOS app?",
+      "faq1A": "Add the client class to your project and call flush from `applicationDidEnterBackground` to resend; note that `URLSessionConfiguration` is copied when the session is created, so changing the timeout means rebuilding the session."
+    },
+    "cocos2dX": {
+      "platform": "Client · C++ (Cocos2d-x; the engine side has not been packaged and verified)",
+      "summary": "The C++ reporting core (JSON / single-line base64 / form POST / queue) has been verified inside the engine; to integrate, just swap the transport layer for the engine's built-in HttpRequest.",
+      "note1": "Pitfall: swapping libcurl for `cocos2d::network::HttpRequest` (async + callbacks) is all it takes, but you must still keep base64 single-line and make urlencode encode every character yourself.",
+      "faq1Q": "Why not use libcurl directly in the engine?",
+      "faq1A": "You can, but it is not recommended: the engine's built-in HttpRequest reuses the platform network stack and handles callbacks on the main thread; the protocol, encoding, batching and identity fields are exactly the same as in the snippets on this page."
+    },
+    "java": {
+      "platform": "Server · Java (JDK 8+, standard library only)",
+      "summary": "Report orders, payments, sign-ups and other events from your business service; JDK 8 uses HttpURLConnection, and JDK 11+ can switch to java.net.http.",
+      "note1": "Pitfall: `Base64.getMimeEncoder()` inserts line breaks, so you must use `getEncoder()`; base64 placed in a form still has to be urlencoded, otherwise the `+` is decoded as a space.",
+      "faq1Q": "Can I switch to HttpClient on JDK 11+?",
+      "faq1A": "Yes: replace the submission with `HttpClient.newHttpClient().send(...)`, use `BodyPublishers.ofString(form)` for the body and set Content-Type explicitly; the encoding and identity logic stay the same."
+    },
+    "python": {
+      "platform": "Server · Python 3.7+ (standard library only)",
+      "summary": "Report business events from a backend service or script; `urllib` + `json` + `base64` is all you need, with no third-party dependency.",
+      "note1": "Pitfall: `data` must be `urlencode`d and then sent as the body (you cannot hand the dict straight to urlopen); rebuild the Request object when retrying.",
+      "faq1Q": "Will Chinese characters in property values be garbled?",
+      "faq1A": "Use `json.dumps(..., ensure_ascii=False).encode(\"utf-8\")` and then base64; Chinese characters pass through unchanged, so do not transcode them again."
+    },
+    "nodejs": {
+      "platform": "Server · Node.js 18+ (built-in fetch, zero dependencies)",
+      "summary": "Report business events from a Node backend; use the built-in `fetch` + `URLSearchParams`, with no need for dependencies such as axios / undici.",
+      "note1": "Pitfall: give fetch a `URLSearchParams` instance as the body (it sets the urlencoded Content-Type automatically); a plain object is serialised to JSON.",
+      "faq1Q": "How do I control the timeout?",
+      "faq1A": "`fetch(url, { signal: AbortSignal.timeout(10000) })`; retry failures with a 0.5s / 1s / 2s backoff, and clear the local queue only on HTTP 200."
+    },
+    "csharp": {
+      "platform": "Server · .NET 6+ / 8+ (HttpClient)",
+      "summary": "Report business events from a C# backend; `HttpClient` + `FormUrlEncodedContent`, sharing the same protocol definition as the Unity client.",
+      "note1": "Pitfall: when a repository holds both the Unity client and a server-side sample, an SDK-style project's default glob compiles the subdirectory sources into both projects (CS8802 / CS0579); exclude them with `Directory.Build.targets` (a `.props` file is overridden by the default Include).",
+      "faq1Q": "How do I handle `$` inside strings?",
+      "faq1A": "C#'s `$\"...\"` is an interpolated string: when building JSON, put field names such as `$SignUp` and `$track_signup_original_id` in ordinary strings, or escape them explicitly as `\\$`, otherwise they are parsed as variables."
+    },
+    "ruby": {
+      "platform": "Server · Ruby 2.6+ (standard library only)",
+      "summary": "Report business events from a Ruby backend; `net/http` + `json` + `base64`, with no gem dependencies.",
+      "note1": "Pitfall: `Base64.encode64` inserts a line break every 60 characters (use `strict_encode64` instead); `$SignUp` inside a double-quoted string is interpolated as a global variable and becomes an empty string, so use single quotes.",
+      "faq1Q": "Why does the event name arrive empty?",
+      "faq1A": "Ruby double quotes interpolate global variables starting with `$`, so `\"$SignUp\"` yields an empty string. Write the event name and `$track_signup_original_id` in single quotes or escape them as `\\$`."
+    },
+    "c": {
+      "platform": "Server · C11 (libcurl)",
+      "summary": "Report business events from a C / C++ service: hand-built JSON + your own single-line base64 + a libcurl form POST.",
+      "note1": "Pitfall: libcurl requires a write callback (setting only `CURLOPT_WRITEDATA` makes it treat the value as a FILE*); implement base64 yourself and keep it single-line, percent-encoding `+` `/` `=` in full.",
+      "faq1Q": "curl.h is not found at compile time?",
+      "faq1A": "On macOS the curl headers live in the SDK: `-I$(xcrun --show-sdk-path)/usr/include -L…/usr/lib -lcurl`; on Linux just install `libcurl4-openssl-dev`."
+    },
+    "lua": {
+      "platform": "Server · Lua 5.4+ / 5.5 (luasocket + luasec)",
+      "summary": "Report business events from Lua scripts and OpenResty; with OpenResty you only need to swap the transport layer for resty.http, and the protocol logic stays the same.",
+      "note1": "Pitfall: luasec does not verify certificates by default — set `verify=\"peer\"` explicitly and provide a `cafile`; it only accepts protocol names with underscores (`tlsv1_2`), and writing `tlsv12` fails immediately with invalid protocol.",
+      "faq1Q": "Lua has no os.setenv, so how do I supply configuration?",
+      "faq1A": "Read the configuration into an in-memory table and read values from there, or have the outer layer export environment variables; in OpenResty pass configuration through `ngx.var` or `lua_shared_dict`."
+    },
+    "flutter": {
+      "platform": "Client · Flutter 3.x / Dart 3.8+ (http package)",
+      "summary": "Flutter app tracking: the web build was compiled and clicked through in a real browser with events verified in ClickHouse; iOS / Android were not packaged (no SDK available here).",
+      "note1": "Pitfall: neither built-in Dart encoder works — `Uri.encodeFull` keeps `+` `/` `=` as-is, and `Uri.encodeQueryComponent` encodes space as `+` (collides with base64 `+`). Encode per RFC3986 yourself and assert the `data` field has no raw `+` / `=` before sending.",
+      "faq1Q": "How do I know the Flutter web build is the new one?",
+      "faq1A": "dart2js escapes non-ASCII literals as `\\uXXXX`, so grepping for Chinese always returns 0 hits (easy to misread as a stale build). Search the escaped form instead, or compare `main.dart.js` size and build time."
+    },
+    "batchImport": {
+      "platform": "Other · command-line tool (Python 3, stdlib only)",
+      "summary": "Backfill historical logs / CSV into events (orders, payments, sign-ups already stored elsewhere): dry run, rate limit and resumable progress. Verified with 120 rows — 120 rows landed, resume re-sent nothing and lost nothing.",
+      "step1Title": "1. Prepare the history file",
+      "step1Body": "Shape a CSV by the column rules below (or a JSONL file with one event object per line). Keep `time` in the original millisecond timestamp so the historical moment is preserved; add `user_key` for logged-in events and `original_id` to bind the anonymous id.",
+      "step1Code1Label": "CSV columns and sample",
+      "step2Title": "2. Dry run first (no network)",
+      "step2Body": "`--dry-run` only reads, normalises, encodes and checks sizes — it sends nothing and writes no progress file. Use it to confirm the column mapping and see which rows are skipped and why.",
+      "step2Code1Label": "Dry-run command",
+      "step3Title": "3. Send a small batch for real",
+      "step3Body": "Drop `--dry-run` to actually report. Start with `--limit` to confirm the pipeline, then use `--rate` to protect the receiver. The tool prints a run id (`backfill-<time>`) and writes it into every event as `properties.backfill_run_id` so you can verify by run.",
+      "step3Code1Label": "Backfill command and common flags",
+      "step4Title": "4. Resume after an interruption",
+      "step4Body": "Progress lives in `<input>.backfill-progress.json`; add `--resume` to continue after an interruption — completed batches are not re-sent. Failed rows are written with their line numbers to `<input>.failed.jsonl` so you can fix and re-run just those.",
+      "note1": "Important: the tool does **not** de-duplicate — replaying the same history file in full lands the same events twice. Always continue with `--resume`, or validate with `--dry-run` / `--limit` first. If the input file changed (content or mtime), `--resume` refuses unless you pass `--force-resume`.",
+      "step5Title": "5. Verify what landed",
+      "step5Body": "Group the landed rows by run id (row count and event distribution) and reconcile with how many rows the file sent. The pipeline has a 1–3 minute delay, so re-run the query if needed.",
+      "step5Code1Label": "Verification SQL",
+      "faq1Q": "Do backfilled events keep their original time?",
+      "faq1A": "Yes: the tool passes `time` through unchanged (milliseconds) and the analytics side aggregates by event time. Do **not** replace historical times with the current time, or the whole history collapses onto the backfill day.",
+      "faq2Q": "What about a very large file (hundreds of thousands of rows)?",
+      "faq2A": "Run it in chunks: `--limit` for the batch size, `--rate` to throttle, and `--resume` to continue. The 50-events / 1 MB per-request limit is split automatically, so you never hand-split the file."
+    }
+  },
+  "planned": {
+    "android": {
+      "name": "Android",
+      "platform": "Client · Java / Kotlin",
+      "summary": "Event tracking for native Android apps (planned as an OkHttp wrapper)"
+    },
+    "ios": {
+      "name": "iOS",
+      "platform": "Client · Swift / Objective-C",
+      "summary": "Event tracking for native iOS apps (planned as a URLSession wrapper)"
+    },
+    "javascript": {
+      "name": "JavaScript / Web",
+      "platform": "Client · Browser H5",
+      "summary": "Web tracking with automatic page-view and click collection"
+    },
+    "miniprogram": {
+      "name": "WeChat Mini Program",
+      "platform": "Client · Mini program / mini game",
+      "summary": "Tracking inside mini programs (planned wrapper around wx.request with a local queue)"
+    },
+    "flutter": {
+      "name": "Flutter",
+      "platform": "Client · Dart",
+      "summary": "Cross-platform app tracking (planned as an http package wrapper)"
+    },
+    "reactNative": {
+      "name": "React Native",
+      "platform": "Client · JS / TS",
+      "summary": "React Native app tracking (planned on top of the JS collection core)"
+    },
+    "cocos2dX": {
+      "name": "Cocos2d-x",
+      "platform": "Client · C++ / Lua",
+      "summary": "Cocos game tracking (planned as an HttpClient wrapper)"
+    },
+    "unreal": {
+      "name": "Unreal Engine",
+      "platform": "Client · C++ / Blueprint",
+      "summary": "Unreal Engine game tracking (planned as an Http module wrapper)"
+    },
+    "java": {
+      "name": "Java",
+      "platform": "Server · JDK 8+",
+      "summary": "Java backend reporting (planned as an HttpClient wrapper)"
+    },
+    "python": {
+      "name": "Python",
+      "platform": "Server · Python 3.7+",
+      "summary": "Python backend reporting (planned as a requests wrapper)"
+    },
+    "nodejs": {
+      "name": "Node.js",
+      "platform": "Server · Node 16+",
+      "summary": "Node backend reporting (planned as an undici / fetch wrapper)"
+    },
+    "csharp": {
+      "name": "C#",
+      "platform": "Server · .NET 6+",
+      "summary": "Server-side C# reporting (for now see the client implementation in the Unity (C#) guide, or use the HTTP protocol directly)"
+    },
+    "ruby": {
+      "name": "Ruby",
+      "platform": "Server · Ruby 2.6+",
+      "summary": "Ruby backend reporting (planned as a Net::HTTP wrapper)"
+    },
+    "c": {
+      "name": "C",
+      "platform": "Server · C / C++",
+      "summary": "C/C++ service reporting (planned as a libcurl wrapper)"
+    },
+    "lua": {
+      "name": "Lua",
+      "platform": "Server · Lua 5.3+ / OpenResty",
+      "summary": "Reporting for Lua and OpenResty"
+    },
+    "batchImport": {
+      "name": "Batch backfill (file import)",
+      "platform": "Other · Historical data import",
+      "summary": "Backfill historical logs/CSV as events in batches (a CLI tool is planned)"
+    }
+  },
+  "guideCommon": {
+    "step1Title": "1. Prerequisites",
+    "step1Body": "Make sure the integration parameters are ready (see the top of this page): report endpoint, project name, project token. The protocol is always a form POST, and the `data` field = base64(JSON array) then urlencode — posting raw JSON returns 200 but the data is dropped.",
+    "step2Title": "2. Prepare the runtime environment",
+    "step2Body": "Use the command below to set up the runtime environment for this language; implementations that use only the standard library can skip installing dependencies.",
+    "step2Code1Label": "Runtime environment",
+    "step3Title": "3. Initialise and report events",
+    "step3Body": "A minimal working reporting implementation for this language: event JSON → base64 + urlencode form → POST. The event time must be a millisecond timestamp; after login `distinct_id` always stays the anonymous ID, and the login ID goes in `identities.user_key`.",
+    "step3Code1Label": "Core reporting code (verified implementation)",
+    "step4Title": "4. Login and user properties",
+    "step4Body": "After a successful login, send one `track_signup` event (`properties.$track_signup_original_id` = the anonymous ID) to bind the identity, and use `user_set` for user properties; every later event then carries `identities.user_key`, so the analytics side merges them into the same user.",
+    "step5Title": "5. Verify that the data is stored",
+    "step5Body": "After firing the events, query `clklog.log_analysis` and check the 5 rows: anonymous track / track_signup / user_set / two tracks after login. The data pipeline has a 1–3 minute delay; HTTP 200 only means the payload parsed, so you must check the database to confirm.",
+    "step5Code1Label": "Verification SQL (ClickHouse)",
+    "faq1Q": "Why does reporting return HTTP 200 but the database has no data?",
+    "faq1A": "`data` must be a form field holding base64(JSON array) and then urlencoded. Posting raw JSON, a base64 value that contains line breaks, or a `+` that was not percent-encoded all return 200 while the data is silently dropped.",
+    "faq2Q": "Event times are wrong, or one user is split into two before and after login?",
+    "faq2A": "The time must be a millisecond timestamp (seconds are read as 1970); put the login ID in the top-level `identities.user_key` (not login_id), the anonymous ID to bind in `properties.$track_signup_original_id` (not original_id), and keep `distinct_id` unchanged after login."
+  }
+}

@@ -1,0 +1,58 @@
+{
+  "document": {
+    "title": "Nền tảng phân tích Candela"
+  },
+  "menu": {
+    "report": "Báo cáo",
+    "dashboards": "Bảng điều khiển",
+    "cards": "Thẻ phân tích",
+    "analysis": "Phân tích",
+    "event": "Phân tích sự kiện",
+    "funnel": "Phân tích phễu",
+    "retention": "Phân tích giữ chân",
+    "sql": "SQL tùy chỉnh",
+    "user": "Người dùng",
+    "cohorts": "Nhóm người dùng",
+    "tags": "Thẻ người dùng",
+    "subjects": "Chủ thể phân tích",
+    "meta": "Tracking",
+    "events": "Sự kiện",
+    "virtualProperties": "Thuộc tính ảo",
+    "eventAttributes": "Thuộc tính sự kiện",
+    "userProperties": "Thuộc tính người dùng",
+    "virtualEvents": "Sự kiện ảo",
+    "data": "Quản lý dữ liệu",
+    "onboarding": "Hướng dẫn tích hợp",
+    "metrics": "Chỉ số",
+    "debug": "Debug",
+    "quality": "Chất lượng dữ liệu",
+    "datatables": "Bảng dữ liệu",
+    "iam": "Quyền dự án",
+    "members": "Quản lý thành viên",
+    "groups": "Nhóm thành viên",
+    "roles": "Quản lý vai trò",
+    "dataPolicies": "Quyền dữ liệu",
+    "ops": "Vận hành",
+    "slowQueries": "SQL chậm",
+    "serverStatus": "Trạng thái máy chủ",
+    "alerts": "Cảnh báo giám sát",
+    "dataManagement": "Vận hành dữ liệu",
+    "settings": "Cài đặt",
+    "profile": "Cài đặt cá nhân",
+    "projectOwners": "Cài đặt dự án",
+    "apiKeys": "Quản lý API Key",
+    "aiWorkspace": "AI Workspace",
+    "logout": "Đăng xuất",
+    "users": "Quản lý người dùng",
+    "userTimeline": "Dòng thời gian"
+  },
+  "header": {
+    "collapseMenu": "Thu gọn menu",
+    "expandMenu": "Mở rộng menu",
+    "openMenu": "Mở menu",
+    "menu": "Menu"
+  },
+  "drawer": {
+    "title": "Phân tích Candela"
+  }
+}

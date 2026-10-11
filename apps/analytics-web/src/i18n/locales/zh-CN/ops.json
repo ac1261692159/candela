@@ -1,0 +1,492 @@
+{
+  "range": {
+    "last1Hour": "近 1 小时",
+    "last6Hours": "近 6 小时",
+    "last24Hours": "近 24 小时",
+    "last3Days": "近 3 天",
+    "last90Days": "近 90 天",
+    "last180Days": "近 180 天"
+  },
+  "message": {
+    "executeFailed": "执行失败",
+    "updateFailed": "更新失败",
+    "setFailed": "设置失败"
+  },
+  "slowQuery": {
+    "title": "慢 SQL",
+    "minDuration": "最小耗时",
+    "status": "执行状态",
+    "generatedAt": "数据生成于 {{time}}",
+    "fromCache": "（缓存秒开，已在后台刷新最新数据）",
+    "empty": "当前时间范围内没有超过 {{ms}} ms 的查询",
+    "expandSql": "展开 SQL",
+    "collapseSql": "收起 SQL",
+    "column": {
+      "time": "时间",
+      "duration": "耗时",
+      "readRows": "读取行数",
+      "readBytes": "读取字节",
+      "memory": "内存",
+      "user": "账号"
+    },
+    "retentionNote": "数据来自 ClickHouse 查询日志（system.query_log），仅保留最近约 {{days}} 天"
+  },
+  "serverStatus": {
+    "title": "服务器状态",
+    "appVersion": "应用版本",
+    "uptime": "已运行 {{value}}",
+    "uptimeDays": "{{days}} 天 {{hours}} 小时",
+    "uptimeHours": "{{hours}} 小时 {{minutes}} 分",
+    "uptimeMinutes": "{{minutes}} 分钟",
+    "hostMemory": "主机内存",
+    "cpuLoad1m": "CPU 负载（1 分钟）",
+    "loadDetail": "5 分钟 {{load5}} · 15 分钟 {{load15}} · {{cores}} 核",
+    "diskPath": "磁盘 {{path}}",
+    "diskUsed": "已用 {{used}} / {{total}}",
+    "unavailable": "不可用",
+    "readFailed": "读取失败",
+    "dependencies": "依赖与数据链路",
+    "connected": "连通 · v{{version}}",
+    "unreachable": "不可达",
+    "unreachableError": "不可达：{{error}}",
+    "eventRowsLabel": "事件量（sa_events）",
+    "eventRowsCount": "{{rows}} 行 · {{size}}",
+    "lastWrite": "数据链路最近写入",
+    "maybeStalled": "（可能停滞）",
+    "justNow": "刚刚",
+    "minutesAgo": "{{minutes}} 分钟前",
+    "processMemory": "进程内存（堆 / RSS）",
+    "diskDetail": "磁盘明细"
+  },
+  "diskTrend": {
+    "title": "磁盘使用量预估",
+    "pathWholeDisk": "整盘 /data",
+    "pathReceiver": "receiver 日志目录",
+    "noSamples": "暂无采样",
+    "accumulating": "正在积累采样数据：当前 {{count}}/3 个采样点，满 3 点后可预测（每小时采样一次）",
+    "flat": "当前无明显增长趋势，暂不预测",
+    "forecast": "按近期增速，预计 {{date}} 磁盘用尽，剩余 {{days}} 天",
+    "seriesUsed": "已用空间",
+    "seriesPredicted": "预测（虚线）",
+    "seriesTotal": "磁盘总量",
+    "totalMark": "总量",
+    "tooltipValue": "{{size}}（{{gb}} GB）",
+    "hint": "样本不足时不会给出预测线（避免误导）。口径：仅在用量上升时线性外推，最多 30 天；Y 轴从 0 到磁盘总量。"
+  },
+  "logCleanup": {
+    "title": "日志目录治理",
+    "hint": "每小时自动清理过期 .log 文件（原始报文为 ClickHouse 数据的文本镜像，可安全删除）",
+    "column": {
+      "path": "目录",
+      "current": "当前占用",
+      "lastRun": "上次自动清理",
+      "retainDays": "保留天数",
+      "autoClean": "自动清理"
+    },
+    "currentUsage": "{{count}} 个文件 · {{size}}",
+    "notRunYet": "尚未运行",
+    "lastRun": "{{time}}（删 {{count}} 个 / {{size}}）",
+    "cleanNow": "立即清理",
+    "confirmTitle": "确认清理日志文件",
+    "confirmOk": "执行清理",
+    "confirmMessage": "将删除 {{path}} 下超过保留期的 .log 文件：约 {{count}} 个 / {{size}}",
+    "confirmDescription": "这些文件是已入库数据的文本镜像，删除不影响任何功能；当前活跃日志（今天）不会被删除。",
+    "auditHint": "该操作会写入清理审计记录。保留天数可在上方表格中调整。",
+    "deletedFiles": "已删除 {{count}} 个文件，释放 {{size}}",
+    "retentionUpdated": "保留期已更新为 {{days}} 天"
+  },
+  "dataMgmt": {
+    "readonlyNotice": "本页已含：概览 / 趋势 / 数据健康 / 清理预演与执行 / TTL 与保留策略。清理与 TTL 属动作类：需二次确认、清理前置对拍通过，并写审计与「已清理区间」登记；未来时间戳脏数据（时钟错乱设备）当前仅检测提示，不自动删除。",
+    "loadingOverview": "加载存储概览...",
+    "statTables": "盘点表数",
+    "statRows": "总行数",
+    "statCompressed": "压缩后总量",
+    "rowsTenThousand": "{{value}} 万",
+    "rowsHundredMillion": "{{value}} 亿",
+    "overview": "存储概览",
+    "column": {
+      "table": "表",
+      "rows": "行数",
+      "compressed": "压缩后",
+      "raw": "原始",
+      "partitions": "分区",
+      "lastWrite": "最近写入",
+      "time": "时间",
+      "action": "动作",
+      "targetTable": "目标表",
+      "detail": "明细",
+      "operator": "操作人"
+    },
+    "trend": "表存储趋势（小时采样）",
+    "ttlDays": "{{days}} 天",
+    "trendAccumulating": "正在积累采样数据：{{count}} 个点（每小时采样一次，约 1 小时后出趋势线）",
+    "compressedBytes": "{{name}} 压缩字节",
+    "health": "数据健康（对拍快照）",
+    "gotoQuality": "前往数据质量页手动对拍",
+    "lastReconcile": "上次对拍",
+    "reconcileRange": "对拍范围",
+    "reconcileStatus": "对拍状态",
+    "hasAlert": "有告警",
+    "normal": "正常",
+    "alertDays": "告警天数",
+    "dupCrcRows": "CRC 重复行（近似）",
+    "noSnapshot": "尚无对拍快照：到数据质量页运行一次对拍后自动生成",
+    "preview": "清理预演（DROP PARTITION 候选盘点）",
+    "selectTable": "选择表",
+    "previewPrefix": "清理",
+    "previewSuffix": "天前的数据（按月分区）",
+    "previewRun": "预演",
+    "previewImpact": "将影响 {{count}} 个月分区：{{rows}} 行 / 释放约 {{size}}（截止 {{cutoff}}）",
+    "previewNone": "无满足条件的分区（截止 {{cutoff}}）",
+    "previewWarning": "DROP PARTITION 不可恢复；执行前请再次确认预演清单。",
+    "previewFailed": "预演失败：{{error}}",
+    "executeCleanup": "执行清理（删除以上 {{count}} 个分区）",
+    "deletedPartitions": "已删除 {{count}} 个分区",
+    "ttl": "TTL 设置（自动生命周期）",
+    "ttlHint": "TTL 只改表定义，点击即生效（不重写历史数据）；过期数据由 ClickHouse 后台 merge 逐步清理，磁盘空间不会立即释放。 当前盘点结果见上方存储概览的 TTL 列。",
+    "ttlSet": "设置 TTL",
+    "ttlTitle": "设置 TTL（后台渐进清理过期数据）",
+    "ttlTarget": "目标表：",
+    "ttlRetain": "，保留",
+    "ttlRetainSuffix": "天（超期数据由 CH 后台 merge 时逐步删除）",
+    "ttlNoteBefore": "只修改表定义、不重写历史数据（已显式关闭 materialize_ttl_after_modify）：过期数据在后续 merge 时逐步清理，",
+    "ttlNoteBold": "不会立即释放磁盘",
+    "ttlNoteAfter": "。需立即释放空间请用「清理预演 → 删除分区」。",
+    "ttlSetDone": "TTL 已设置为 {{days}} 天（后台渐进生效）",
+    "confirmTypeHint": "请输入目标表名以确认：",
+    "audit": "清理动作审计（最近 10 条）",
+    "noActions": "暂无清理动作",
+    "actionDropPartition": "删除分区",
+    "actionSetTtl": "设置 TTL",
+    "statusDone": "完成",
+    "statusPartial": "部分完成",
+    "confirmDropTitle": "⚠️ 确认删除分区（不可恢复）",
+    "confirmDropOk": "执行删除",
+    "dropWarning": "将从 {{table}} 物理删除 {{count}} 个月分区（约 {{rows}} 行），不可恢复",
+    "executeDone": "完成 {{count}} 个",
+    "executeDonePartial": "完成 {{count}} 个，失败 {{failed}} 个（失败即停，可重新预演后重试）",
+    "snapshotStaleWarn": "已 {{hours}} 小时未更新",
+    "snapshotStaleError": "已 {{hours}} 小时未更新（需排查）",
+    "preflight": {
+      "blocked": "清理前置对拍未通过（{{reason}}）：先跑一次覆盖该日期的对拍再执行",
+      "ok": "前置对拍已通过（覆盖 {{date}}）",
+      "hint": "要求：存在通过且 {{max}} 小时内、覆盖 {{date}} 的对拍快照；到数据质量页跑一次即可",
+      "reason": {
+        "noSnapshot": "尚无对拍快照",
+        "notCovered": "快照未覆盖该日期",
+        "snapshotFailed": "最近快照存在告警",
+        "snapshotStale": "快照已过期"
+      }
+    }
+  },
+  "error": {
+    "admin": {
+      "forbidden": "仅平台超管可访问运维面板"
+    },
+    "trend": {
+      "hoursInvalid": "hours 须为数字"
+    },
+    "cleanup": {
+      "previewParamsRequired": "table 与 older_than_days 必填",
+      "executeParamsRequired": "table / partitions / confirmed_table 必填",
+      "tooManyPartitions": "单次最多 {{max}} 个分区（分批执行，降低 IO 峰值）"
+    },
+    "ttl": {
+      "paramsRequired": "table / days / confirmed_table 必填"
+    },
+    "mutation": {
+      "tableRequired": "table 必填"
+    },
+    "dataMgmt": {
+      "tableNotInventoried": "表不在盘点范围（允许：{{allowed}}）",
+      "tableNameInvalid": "表名格式须为 db.table",
+      "tableConfirmMismatch": "确认表名不匹配：输入 \"{{confirmed}}\" ≠ 目标 \"{{table}}\"",
+      "noExecutablePartition": "无可执行分区（全部被拒：{{rejected}}）",
+      "ttlTimeColumnMissing": "表未登记 TTL 时间列（允许：{{allowed}}）",
+      "ttlDaysInvalid": "TTL 天数须为 1-3650 的整数",
+      "ttlSetFailed": "TTL 设置失败：{{message}}",
+      "preflight": "清理前需先通过对拍（覆盖 {{required_to}}）；当前快照状态：{{reason}}"
+    },
+    "logCleanup": {
+      "retainDaysInvalid": "保留天数须为 1-365 的整数",
+      "pathNotAllowed": "目录不在治理白名单：{{path}}",
+      "pathRequired": "path 必填"
+    },
+    "reconcile": {
+      "forbidden": "仅平台超管可修改对拍配置",
+      "runAtInvalid": "执行时刻格式应为 HH:mm（平台时区）",
+      "thresholdInvalid": "偏差阈值须为 0~100 的百分比",
+      "staleOrderInvalid": "过期（红）阈值必须大于偏旧（黄）阈值",
+      "staleHoursInvalid": "过期阈值须为 1~720 的整数小时"
+    },
+    "retention": {
+      "tableNotInventoried": "表不在保留策略范围（允许：{{allowed}}）",
+      "keepDaysInvalid": "保留天数须为 1-3650 的整数",
+      "keepDaysRequired": "keep_days 必填"
+    },
+    "dataDelete": {
+      "paramsRequired": "kind / table / project 必填",
+      "executeParamsRequired": "kind / table / project / confirm_table / confirm_token 必填",
+      "tableConfirmMismatch": "确认表名不匹配：输入 \"{{confirmed}}\" ≠ 目标 \"{{table}}\"",
+      "cleanupAccountMissing": "清洗账号未配置（CLICKHOUSE_CLEANUP_PASSWORD 未注入），已拒绝执行",
+      "rowsExceeded": "预计影响 {{rows}} 行，超过单次上限 {{max}}；请按事件或缩小时间范围分批执行",
+      "tokenInvalid": "确认令牌无效或已过期（条件或行数已变化，请重新预演）",
+      "preflight": "删除前需先通过对拍（覆盖 {{required_to}}）；当前快照状态：{{reason}}",
+      "nothingToDelete": "条件未命中任何行，无需执行",
+      "backupFailed": "删除前备份失败，已中止（未删除任何数据）：{{message}}",
+      "executeFailed": "删除执行失败：{{message}}（备份表可回滚）",
+      "tableNotAllowed": "表不在定点删除白名单：{{table}}",
+      "communityRefused": "社区版表不允许删除（红线 1）：{{table}}",
+      "kindNotAllowed": "该表不支持此删除条件：{{kind}}",
+      "projectInvalid": "项目名格式非法：{{project}}",
+      "eventInvalid": "事件名格式非法：{{event}}",
+      "beforeRequired": "before 必填（删除 stat_date 早于该日期的数据）",
+      "beforeInFuture": "before 不得晚于今天（要删未来数据请用「未来时间戳」条件）",
+      "toInFuture": "to 不得晚于今天（要删未来数据请用「未来时间戳」条件）",
+      "rangeInvalid": "from 不得晚于 to",
+      "dateInvalid": "{{field}} 须为 YYYY-MM-DD",
+      "mutationRunning": "{{table}} 上有未完成的 mutation，请等待完成后再发起删除（IO 保护）"
+    },
+    "metaReconcile": {
+      "windowTooWide": "窗口 {{days}} 天超出 ClickHouse 估算上限：请缩小 window_days（默认 7 天），更早的历史事件用 scripts/reconcile.sh"
+    },
+    "projectRetire": {
+      "projectRequired": "project 必填",
+      "notRegistered": "项目未登记：{{project}}（请检查拼写）",
+      "stillWriting": "最近 24h 仍有 {{rows}} 行写入：请先停该项目的上报",
+      "executeParamsRequired": "project / step / confirm_token 必填"
+    }
+  },
+  "retention": {
+    "title": "保留策略（预期 × 实际 × 对拍可信区间）",
+    "hint": "预期保留由人工登记（未登记用建议值：sa_events 540 天，社区版 180 天）；实际保留取自表上的 TTL。",
+    "trusted": "对拍可信区间：{{from}} ~ {{to}}（两侧保留期的较小者 = {{days}} 天）",
+    "trustedUnbounded": "对拍可信区间：两侧都未设置保留期，按数据实际范围比对",
+    "trustedBoundBy": "由 {{table}} 的 {{days}} 天保留期决定（任一表被清理都会让那段时间的对照失真）",
+    "suspicious": "发现 {{count}} 个可疑日期分区（未来分区 / 早于可信区间的历史脏数据）；默认只提示，不自动清理",
+    "suspiciousKind": {
+      "future": "未来分区",
+      "ancient": "历史脏数据"
+    },
+    "column": {
+      "table": "表",
+      "expected": "预期保留",
+      "actual": "实际保留（TTL）",
+      "status": "状态"
+    },
+    "suggested": "（建议值）",
+    "actualUnset": "未设置（风险）",
+    "status": {
+      "ok": "符合策略",
+      "unset": "未设置（风险）",
+      "deviates": "偏离策略",
+      "disabled": "策略已停用"
+    },
+    "register": "登记",
+    "dialogTitle": "登记预期保留：{{table}}",
+    "save": "保存",
+    "fieldKeepDays": "保留天数",
+    "fieldKeepDaysHint": "登记的是「目标」；实际生效要看表上的 TTL（可用下方 TTL 设置应用）",
+    "fieldEnabled": "启用该策略",
+    "fieldRemark": "备注"
+  },
+  "quality": {
+    "title": "数据质量 / 一致性对拍",
+    "runningHint": "对拍中：单日全量计数约 20-40 秒，请勿关闭页面…",
+    "idleHint": "比对 sa_events 与 log_analysis（默认对拍昨天，最大 3 天，约 30 秒）",
+    "start": "开始对拍",
+    "cachedTag": "缓存结果 · 上次对拍 {{time}}",
+    "justFinishedTag": "刚完成对拍 {{time}}",
+    "cachedHint": "下面显示的是**最近一次快照**（含按日总量、事件级差异与已清理区间）；元数据发现记录单独直读最新 50 条。要看当前时刻的结果请点「开始对拍」。",
+    "emptyHint": "尚无对拍结果：点击右上角「开始对拍」运行首次对拍（约 30 秒），之后页面将秒开缓存结果。",
+    "reportEmpty": "暂无对拍数据，请选择时间范围后点击「开始对拍」",
+    "normal": "正常",
+    "abnormal": "异常",
+    "pass": "通过",
+    "column": {
+      "date": "日期",
+      "saRows": "sa_events 行数",
+      "crcUniq": "CRC 唯一数",
+      "rawRows": "log_analysis 行数",
+      "deviation": "偏差 %",
+      "source": "来源",
+      "rows": "行数",
+      "changeType": "变化类型",
+      "prop": "属性",
+      "change": "变化内容",
+      "discoveredAt": "发现时间",
+      "diff": "差（sa - raw）",
+      "skippedRange": "清理区间",
+      "skippedWhy": "原因",
+      "skippedSource": "动作与时间"
+    },
+    "change": {
+      "eventCreated": "新建事件",
+      "propertyCreated": "新属性 ({{value}})",
+      "userPropertyCreated": "新用户属性 ({{value}})",
+      "userPropertyHidden": "用户属性已隐藏",
+      "userPropertyActive": "用户属性已启用"
+    },
+    "alert": {
+      "title": "发现数据一致性异常",
+      "desc": "在 {{days}}/{{total}} 天中发现偏差超过阈值（{{threshold}}%），或有 {{dup}} 行重复 CRC，请排查 ingestor 是否丢数据或口径差异。"
+    },
+    "ok": {
+      "title": "数据一致性正常",
+      "desc": "{{from}} ~ {{to}} 对拍偏差均在阈值 {{threshold}}% 内，CRC 无重复。"
+    },
+    "stat": {
+      "days": "对拍天数",
+      "daysSuffix": "天 / 异常 {{count}} 天",
+      "dupCrc": "重复 CRC",
+      "rowsSuffix": "行",
+      "crcUnique": "CRC 唯一性",
+      "skippedDays": "已清理天数",
+      "outOfRetention": "超保留期天数"
+    },
+    "scope": {
+      "range": "对拍范围",
+      "threshold": "偏差阈值",
+      "total": "总量",
+      "trigger": "触发方式",
+      "ignored": "忽略事件数"
+    },
+    "table": {
+      "daily": "每日总量对拍",
+      "events": "事件级计数对照（sa_events vs log_analysis）",
+      "discovery": "近期元数据变化",
+      "discoveryHint": "（自动发现的新增事件/属性/属性类型变更，共 {{count}} 条）",
+      "diffs": "事件级差异 Top（sa - raw）",
+      "diffsHint": "（共 {{count}} 个事件计数不一致，按差值绝对值取前 20）",
+      "onlyInOne": "仅一侧存在（对侧计数为 0）",
+      "skipped": "已清理区间（不参与告警）"
+    },
+    "skipped": "已跳过",
+    "skippedReason": {
+      "cleaned": "已清理"
+    },
+    "ignored": {
+      "title": "已按忽略清单排除 {{count}} 个事件"
+    },
+    "trigger": {
+      "auto": "定时自动",
+      "manual": "页面手动",
+      "cli": "运维脚本"
+    },
+    "stale": {
+      "warnTitle": "对拍快照偏旧",
+      "errorTitle": "对拍快照已过期",
+      "desc": "最近一次对拍在 {{time}}（{{hours}} 小时前，已超过 {{warn}} 小时）：结论可能不再代表现状，请重新对拍或检查定时任务。"
+    },
+    "config": {
+      "button": "对拍设置",
+      "title": "对拍设置（低峰定时 + 阈值）",
+      "save": "保存",
+      "enabled": "启用定时对拍",
+      "enabledOn": "已启用",
+      "enabledOff": "已停用",
+      "runAt": "执行时刻",
+      "runAtHint": "平台时区 HH:mm；到点后的下一个检查周期（≤5 分钟）执行",
+      "runAtInvalid": "格式应为 HH:mm",
+      "threshold": "偏差阈值（%）",
+      "thresholdHint": "单日 |偏差| 超过该百分比即告警；口径收敛前建议先从 3~5% 起步",
+      "ignoreEvents": "忽略事件清单",
+      "ignoreEventsHint": "每行一个事件名；已知口径差异的事件先隔离，避免天天告警",
+      "skipEmpty": "空 event 两侧对称过滤",
+      "skipEmptyHint": "sa 侧与社区版侧口径一致：都不统计 event 为空的行",
+      "staleWarn": "偏旧（黄）小时",
+      "staleError": "过期（红）小时",
+      "updatedAt": "配置更新"
+    },
+    "changeType": {
+      "eventCreated": "新增事件",
+      "propertyCreated": "新增属性",
+      "propertyTypeChanged": "属性类型变更",
+      "userPropertyCreated": "新增用户属性",
+      "userPropertyTypeChanged": "用户属性类型变更",
+      "userPropertyHidden": "隐藏用户属性",
+      "userPropertyActive": "启用用户属性"
+    },
+    "outOfRetention": "超保留期不比对",
+    "outOfRetentionShort": "超保留期",
+    "guide": {
+      "title": "这个页面在做什么？",
+      "whatTitle": "作用",
+      "whatBody": "这是一条旁路校验线：把我方 ingestor 写入的 sa_events 与社区版 Flink 写入的 log_analysis 按天对账，用来发现消费停滞、静默丢数、重复写入。全程只读，不改任何业务数据；默认每天低峰（03:30 平台时区）自动核对昨天一天，结果落成「快照」。",
+      "termsTitle": "关键术语",
+      "terms": {
+        "range": "对拍范围：默认昨天一天；手动最多 3 天（单机内存护栏，历史 OOM 事故后定的上限）。",
+        "threshold": "偏差阈值：单日 |偏差| 超过它才判异常；当前值见上方配置行（单位是百分比）。",
+        "crc": "CRC 唯一性：在我方数据内做近似去重，重复行超过 0.5% 才判异常（近似算法本身有误差）。",
+        "trusted": "可信区间：两侧保留期的较小者以内才可比；超出的日期标「超保留期不比对」，不计入异常。",
+        "skipped": "已清理区间：被 DROP PARTITION / TTL 主动删掉的那段时间标「已清理」，不参与告警。",
+        "stale": "快照新鲜度：快照偏旧（黄）/过期（红）时，页面结论不代表现状——先重新对拍或检查定时任务。",
+        "events": "事件级差异 Top：两侧都存在但计数不同的事件，按差值绝对值排前 20；另有「仅一侧存在」列出对侧为 0 的事件。"
+      },
+      "howTitle": "结果怎么读",
+      "how": {
+        "step1": "日偏差长期在 +1%~+2%：属已知结构性口径差（社区版对错误/重试类 Android 事件少计，见口径白皮书），不是丢数。",
+        "step2": "需要立刻排查的信号：偏差转负（我方少于社区版）、某事件计数归零、或事件级差异里突然出现新事件类型。",
+        "step3": "标「超保留期」「已清理」的日期不计入异常天数；CRC 若判异常，说明我方可能存在重复写入。",
+        "step4": "手动对拍单次上限 3 天是刻意的内存护栏；要看更长跨度，用低峰期大范围专项（服务器上 scripts/reconcile.sh --type=range）。"
+      },
+      "whoTitle": "谁该做什么",
+      "who": {
+        "admin": "平台超管：在右上「对拍设置」改阈值/忽略清单/过期阈值，并处理失败与过期通知。",
+        "oncall": "值班：先看「事件级差异 Top」判断是「新出现的事件类型」还是「某事件整体消失」，再看两侧日总量趋势。",
+        "analyst": "分析师：本页不面向业务分析；链路是否健康看「运维 → 数据运维 → 数据健康」。"
+      },
+      "footnote": "归因结论与实测数据见仓库文档 docs/product/research-clklog-reconcile-caliber-v1.md。"
+    }
+  },
+  "dataCleanup": {
+    "unregisteredTitle": "数据 ↔ 元数据对账",
+    "refresh": "刷新",
+    "unregisteredHint": "自 {{from}} 起：数据 {{data}} 个事件 / 元数据 {{meta}} 个；下面列出数据里有、元数据没登记的",
+    "colEvent": "事件",
+    "colRows": "行数",
+    "colRange": "日期范围",
+    "colFuture": "未来日期",
+    "futureYes": "含未来",
+    "useEvent": "按此事件清理",
+    "useFuture": "清理未来日期",
+    "ghostTitle": "另有 {{count}} 个幽灵登记（元数据有、数据没有）",
+    "deleteTitle": "定点删除（ALTER DELETE）",
+    "deleteHint": "先预演看影响面，再输入表名确认执行；执行前自动备份，并写审计与已清理登记。社区版表不允许删除。",
+    "kind.event": "按事件",
+    "kind.project": "按项目",
+    "kind.before": "早于某日",
+    "kind.future": "未来时间戳",
+    "eventPlaceholder": "事件名（如 $SignUp）",
+    "beforePlaceholder": "早于该日期 YYYY-MM-DD",
+    "preview": "预演",
+    "previewResult": "预计影响 {{rows}} 行（{{from}} ~ {{to}}）",
+    "backupHint": "前置对拍已通过；执行前会自动备份到 {{backup}}",
+    "preflightBlocked": "前置对拍未通过（{{reason}}）：先到数据质量页跑一次对拍",
+    "cleanupMissing": "清洗账号未配置，定点删除暂不可用",
+    "rowsExceeded": "影响行数超过单次上限 {{max}}，请分批",
+    "confirmPlaceholder": "输入表名确认：{{table}}",
+    "execute": "执行删除（{{rows}} 行）",
+    "done": "已提交删除（约 {{rows}} 行）",
+    "doneDetail": "备份表 {{backup}}｜mutation {{mutation}}；后台删除中，对拍已登记为「已清理」",
+    "colAction": "操作",
+    "unregisteredFailed": "未登记事件查询失败：{{message}}",
+    "window": "对账窗口",
+    "windowDays": "{{days}} 天"
+  },
+  "projectRetire": {
+    "title": "项目退役预演",
+    "communityNote": "社区版 clklog.*（log_analysis 与 18 张聚合表）没有 project 概念，无法按项目清理；如需减少其占用请用「保留策略 / TTL」按时间收敛",
+    "step": {
+      "stopWrites": "先停该项目的上报（禁用 API Key / 停 SDK），确认「最近 24h 写入」归零",
+      "execution": "执行退役：sa 侧按表删除（成员表走 DROP PARTITION，其余 ALTER DELETE）+ MySQL 逐表删除",
+      "backupAudit": "执行前会导出待删行到备份文件，并写审计（action=project_retire）"
+    },
+    "result": {
+      "saDone": "sa 侧已完成（{{tables}} 张表）",
+      "saPartial": "sa 侧部分完成：有大表超出单次预算，请重复执行继续",
+      "mysqlDone": "MySQL 侧已删除 {{rows}} 行"
+    },
+    "getToken": "取确认令牌"
+  }
+}

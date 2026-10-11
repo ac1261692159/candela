@@ -1,0 +1,115 @@
+{
+  "alert": {
+    "level": {
+      "critical": "Kritisch",
+      "warning": "Warnung",
+      "info": "Hinweis"
+    },
+    "status": {
+      "fire": "Ausgelöst",
+      "repeat": "Anhaltend",
+      "resolve": "Wiederhergestellt"
+    },
+    "kind": {
+      "retention": "Retention-Metrik",
+      "event": "Ereignismetrik",
+      "builtin": "Integrierte Metrik"
+    },
+    "window": {
+      "today": "Heute",
+      "lastDays": "Letzte {{days}} Tage",
+      "minutes": "{{minutes}}-Minuten-Fenster",
+      "cohort": "Kohorte {{label}}"
+    },
+    "varSample": {
+      "ruleName": "Zu geringe Übermittlungsmenge heute",
+      "ruleCode": "metric_ab12cd34",
+      "level": "critical",
+      "levelFmt": "Kritisch",
+      "status": "Ausgelöst",
+      "statusCode": "fire",
+      "value": "1.204 Mal",
+      "valueRaw": "1204",
+      "unit": "Mal",
+      "comparator": "gt",
+      "comparatorFmt": "größer als",
+      "threshold": "1.000 Mal",
+      "metricName": "Übermittlungen heute",
+      "metricKind": "Ereignismetrik",
+      "windowDays": "1",
+      "windowFmt": "Heute",
+      "project": "clklogapp",
+      "time": "2026-09-15 21:03:11",
+      "detectInterval": "60s",
+      "contactName": "Betriebsgruppe"
+    },
+    "channelName": {
+      "feishu_webhook": "Feishu",
+      "dingtalk": "DingTalk",
+      "wecom": "WeCom",
+      "telegram": "Telegram",
+      "webhook": "Generischer Webhook",
+      "email": "E-Mail",
+      "sms": "SMS",
+      "whatsapp": "WhatsApp"
+    },
+    "channelTest": {
+      "text": "[Test] Candela Konnektivitätstest des Alarmkanals\nKanal: {{channel}}\nZeit: {{time}}",
+      "subject": "Candela Alarmkanaltest ({{channel}})",
+      "ruleName": "Konnektivitätstest des Kanals",
+      "detailTargetInvalid": "Zielvalidierung fehlgeschlagen",
+      "detailSendFailed": "Zustellung fehlgeschlagen (der Fehler ist die Rohantwort des Anbieters)",
+      "detailSent": "Testnachricht gesendet"
+    }
+  },
+  "units": {
+    "times": "Mal",
+    "items": "Einträge",
+    "users": "Nutzer",
+    "sec": "Sek.",
+    "ms": "ms",
+    "min": "Min.",
+    "h": "Std.",
+    "days": "Tage",
+    "percent": "%"
+  },
+  "mail": {
+    "reset": {
+      "subject": "[Candela] Passwort zurücksetzen",
+      "body": "Hallo,\n\nsetzen Sie Ihr Passwort über diesen Link zurück ({{minutes}} Minuten gültig, einmal verwendbar):\n{{link}}\n\nFalls Sie diese Anfrage nicht gestellt haben, ignorieren Sie diese E-Mail.\n\nCandela Analytics"
+    },
+    "setup": {
+      "subject": "[Candela] Richten Sie Ihr Kontopasswort ein",
+      "body": "Hallo,\n\nein Administrator hat ein Candela-Analytics-Konto für Sie erstellt. Setzen Sie Ihr Passwort über diesen Link ({{hours}} Stunden gültig, einmal verwendbar):\n{{link}}\n\nDanach können Sie sich sofort anmelden.\n\nCandela Analytics"
+    },
+    "invite": {
+      "subject": "[Candela] Einladung zum Projekt {{project}}",
+      "body": "Hallo,\n\n{{inviter}} hat Sie zum Candela-Analytics-Projekt {{project}} mit der Rolle {{role}} eingeladen.\n\nFolgen Sie diesem Link zur Registrierung ({{days}} Tage gültig):\n{{link}}\n\nFalls Sie diese Einladung nicht erwarten, ignorieren Sie diese E-Mail.\n\nCandela Analytics"
+    },
+    "inviteNotify": {
+      "subject": "[Candela] Sie wurden zum Projekt {{project}} hinzugefügt",
+      "body": "Hallo,\n\n{{inviter}} hat Sie dem Candela-Analytics-Projekt {{project}} mit der Rolle {{role}} hinzugefügt.\n\nMelden Sie sich mit Ihrem bestehenden Konto an.\n\nCandela Analytics"
+    },
+    "roles": {
+      "analyst": "Analyst",
+      "member": "Mitglied",
+      "external": "Extern"
+    },
+    "test": {
+      "subject": "[Candela] E-Mail-Kanal-Test",
+      "body": "Dies ist eine Test-E-Mail von Candela Analytics.\n\nIhr Empfang bestätigt, dass die SMTP-Einstellungen aktiv sind: Passwort-Reset-, Einrichtungs- und Einladungs-E-Mails sind einsatzbereit.\n\nCandela Analytics"
+    }
+  },
+  "reconcile": {
+    "notify": {
+      "dayAlertSubject": "[Candela] Abgleich {{date}}: Abweichung über Schwellenwert (Schwelle {{threshold}} %)",
+      "failedSubject": "[Candela] Abgleich {{date}} fehlgeschlagen",
+      "lineProject": "Projekt: {{project}}",
+      "lineRange": "Bereich: {{from}} ~ {{to}}",
+      "lineThreshold": "Schwelle: {{threshold}} %; Tage mit Abweichung: {{days}}",
+      "lineDay": "{{date}}: sa {{sa}} / raw {{raw}} ({{deviation}} %)",
+      "lineReport": "Bericht: {{path}}",
+      "lineReason": "Ursache: {{reason}}"
+    }
+  }
+}

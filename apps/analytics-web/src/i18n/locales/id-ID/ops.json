@@ -1,0 +1,492 @@
+{
+  "range": {
+    "last1Hour": "1 jam terakhir",
+    "last6Hours": "6 jam terakhir",
+    "last24Hours": "24 jam terakhir",
+    "last3Days": "3 hari terakhir",
+    "last90Days": "90 hari terakhir",
+    "last180Days": "180 hari terakhir"
+  },
+  "message": {
+    "executeFailed": "Gagal menjalankan",
+    "updateFailed": "Gagal memperbarui",
+    "setFailed": "Gagal mengatur"
+  },
+  "slowQuery": {
+    "title": "SQL lambat",
+    "minDuration": "Durasi minimum",
+    "status": "Status eksekusi",
+    "generatedAt": "Data dibuat pada {{time}}",
+    "fromCache": "(cache tampil seketika; data terbaru disegarkan di latar belakang)",
+    "empty": "Tidak ada kueri yang melebihi {{ms}} ms dalam rentang waktu saat ini",
+    "expandSql": "Perluas SQL",
+    "collapseSql": "Ciutkan SQL",
+    "column": {
+      "time": "Waktu",
+      "duration": "Durasi",
+      "readRows": "Baris terbaca",
+      "readBytes": "Bita terbaca",
+      "memory": "Memori",
+      "user": "Akun"
+    },
+    "retentionNote": "Data berasal dari log kueri ClickHouse (system.query_log) dan hanya menyimpan sekitar {{days}} hari terakhir"
+  },
+  "serverStatus": {
+    "title": "Status server",
+    "appVersion": "Versi aplikasi",
+    "uptime": "Berjalan {{value}}",
+    "uptimeDays": "{{days}} hari {{hours}} jam",
+    "uptimeHours": "{{hours}} jam {{minutes}} menit",
+    "uptimeMinutes": "{{minutes}} menit",
+    "hostMemory": "Memori host",
+    "cpuLoad1m": "Beban CPU (1 menit)",
+    "loadDetail": "5 menit {{load5}} · 15 menit {{load15}} · {{cores}} inti",
+    "diskPath": "Disk {{path}}",
+    "diskUsed": "Terpakai {{used}} / {{total}}",
+    "unavailable": "Tidak tersedia",
+    "readFailed": "Gagal membaca",
+    "dependencies": "Dependensi dan jalur data",
+    "connected": "Terhubung · v{{version}}",
+    "unreachable": "Tidak terjangkau",
+    "unreachableError": "Tidak terjangkau: {{error}}",
+    "eventRowsLabel": "Volume peristiwa (sa_events)",
+    "eventRowsCount": "{{rows}} baris · {{size}}",
+    "lastWrite": "Penulisan terakhir pada jalur data",
+    "maybeStalled": "(mungkin terhenti)",
+    "justNow": "baru saja",
+    "minutesAgo": "{{minutes}} menit lalu",
+    "processMemory": "Memori proses (heap / RSS)",
+    "diskDetail": "Detail disk"
+  },
+  "diskTrend": {
+    "title": "Perkiraan penggunaan disk",
+    "pathWholeDisk": "Disk penuh /data",
+    "pathReceiver": "Direktori log receiver",
+    "noSamples": "Belum ada sampel",
+    "accumulating": "Sedang mengumpulkan data sampel: saat ini {{count}}/3 titik sampel; prediksi tersedia setelah 3 titik (sampling setiap jam)",
+    "flat": "Belum ada tren pertumbuhan yang jelas saat ini, prediksi ditunda",
+    "forecast": "Dengan laju terkini, disk diperkirakan penuh pada {{date}}, tersisa {{days}} hari",
+    "seriesUsed": "Ruang terpakai",
+    "seriesPredicted": "Prediksi (garis putus-putus)",
+    "seriesTotal": "Total kapasitas disk",
+    "totalMark": "Total",
+    "tooltipValue": "{{size}} ({{gb}} GB)",
+    "hint": "Garis prediksi tidak ditampilkan saat sampel kurang (agar tidak menyesatkan). Definisi: ekstrapolasi linear hanya saat penggunaan naik, maksimal 30 hari; sumbu Y dari 0 hingga total kapasitas disk."
+  },
+  "logCleanup": {
+    "title": "Pengelolaan direktori log",
+    "hint": "Membersihkan berkas .log yang kedaluwarsa secara otomatis setiap jam (pesan mentah adalah cerminan teks data ClickHouse dan aman dihapus)",
+    "column": {
+      "path": "Direktori",
+      "current": "Penggunaan saat ini",
+      "lastRun": "Pembersihan otomatis terakhir",
+      "retainDays": "Hari penyimpanan",
+      "autoClean": "Pembersihan otomatis"
+    },
+    "currentUsage": "{{count}} berkas · {{size}}",
+    "notRunYet": "Belum pernah berjalan",
+    "lastRun": "{{time}} (menghapus {{count}} / {{size}})",
+    "cleanNow": "Bersihkan sekarang",
+    "confirmTitle": "Konfirmasi pembersihan berkas log",
+    "confirmOk": "Jalankan pembersihan",
+    "confirmMessage": "Akan menghapus berkas .log di {{path}} yang melewati masa simpan: sekitar {{count}} / {{size}}",
+    "confirmDescription": "Berkas-berkas ini adalah cerminan teks data yang sudah masuk penyimpanan sehingga penghapusannya tidak memengaruhi fungsi apa pun; log aktif saat ini (hari ini) tidak akan dihapus.",
+    "auditHint": "Tindakan ini akan dicatat dalam audit pembersihan. Jumlah hari penyimpanan dapat diubah di tabel di atas.",
+    "deletedFiles": "{{count}} berkas telah dihapus dan {{size}} dibebaskan",
+    "retentionUpdated": "Masa simpan telah diperbarui menjadi {{days}} hari"
+  },
+  "dataMgmt": {
+    "readonlyNotice": "Halaman ini mencakup: ringkasan / tren / kesehatan data / pratinjau dan eksekusi pembersihan / TTL dan kebijakan retensi. Pembersihan dan TTL adalah aksi: perlu konfirmasi ganda dan rekonsiliasi prapembersihan yang lulus, serta menulis audit dan pendaftaran \"rentang dibersihkan\". Data bertimestamp masa depan (perangkat jamnya bergeser) hanya dideteksi, tidak dihapus otomatis.",
+    "loadingOverview": "Memuat ringkasan penyimpanan...",
+    "statTables": "Jumlah tabel terinventarisasi",
+    "statRows": "Total baris",
+    "statCompressed": "Total setelah kompresi",
+    "rowsTenThousand": "{{value}} × 10 ribu",
+    "rowsHundredMillion": "{{value}} × 100 juta",
+    "overview": "Ringkasan penyimpanan",
+    "column": {
+      "table": "Tabel",
+      "rows": "Jumlah baris",
+      "compressed": "Setelah kompresi",
+      "raw": "Mentah",
+      "partitions": "Partisi",
+      "lastWrite": "Penulisan terakhir",
+      "time": "Waktu",
+      "action": "Tindakan",
+      "targetTable": "Tabel tujuan",
+      "detail": "Rincian",
+      "operator": "Pelaksana"
+    },
+    "trend": "Tren penyimpanan tabel (sampling per jam)",
+    "ttlDays": "{{days}} hari",
+    "trendAccumulating": "Sedang mengumpulkan data sampel: {{count}} titik (sampling setiap jam; garis tren muncul setelah sekitar 1 jam)",
+    "compressedBytes": "Bita terkompresi {{name}}",
+    "health": "Kesehatan data (snapshot rekonsiliasi)",
+    "gotoQuality": "Buka halaman kualitas data untuk rekonsiliasi manual",
+    "lastReconcile": "Rekonsiliasi terakhir",
+    "reconcileRange": "Rentang rekonsiliasi",
+    "reconcileStatus": "Status rekonsiliasi",
+    "hasAlert": "Ada peringatan",
+    "normal": "Normal",
+    "alertDays": "Hari dengan peringatan",
+    "dupCrcRows": "Baris CRC duplikat (perkiraan)",
+    "noSnapshot": "Belum ada snapshot rekonsiliasi: jalankan rekonsiliasi sekali di halaman kualitas data untuk membuatnya otomatis",
+    "preview": "Uji coba pembersihan (inventarisasi kandidat DROP PARTITION)",
+    "selectTable": "Pilih tabel",
+    "previewPrefix": "Bersihkan data",
+    "previewSuffix": "hari lalu (partisi bulanan)",
+    "previewRun": "Uji coba",
+    "previewImpact": "Akan memengaruhi {{count}} partisi bulanan: {{rows}} baris / membebaskan sekitar {{size}} (hingga {{cutoff}})",
+    "previewNone": "Tidak ada partisi yang memenuhi syarat (hingga {{cutoff}})",
+    "previewWarning": "DROP PARTITION tidak dapat dipulihkan; periksa kembali daftar uji coba sebelum menjalankan.",
+    "previewFailed": "Uji coba gagal: {{error}}",
+    "executeCleanup": "Jalankan pembersihan (hapus {{count}} partisi di atas)",
+    "deletedPartitions": "{{count}} partisi telah dihapus",
+    "ttl": "Pengaturan TTL (siklus hidup otomatis)",
+    "ttlHint": "TTL hanya mengubah definisi tabel dan berlaku segera setelah diklik (tidak menulis ulang data historis); data kedaluwarsa dibersihkan bertahap oleh merge latar belakang ClickHouse sehingga ruang disk tidak langsung dibebaskan. Hasil inventarisasi saat ini lihat kolom TTL pada ringkasan penyimpanan di atas.",
+    "ttlSet": "Atur TTL",
+    "ttlTitle": "Atur TTL (pembersihan bertahap data kedaluwarsa di latar belakang)",
+    "ttlTarget": "Tabel tujuan: ",
+    "ttlRetain": ", simpan",
+    "ttlRetainSuffix": "hari (data kedaluwarsa dihapus bertahap saat merge latar belakang CH)",
+    "ttlNoteBefore": "Hanya mengubah definisi tabel tanpa menulis ulang data historis (materialize_ttl_after_modify sudah dimatikan secara eksplisit): data kedaluwarsa dibersihkan bertahap pada merge berikutnya,",
+    "ttlNoteBold": "disk tidak langsung dibebaskan",
+    "ttlNoteAfter": ". Untuk membebaskan ruang segera, gunakan “Uji coba pembersihan → Hapus partisi”.",
+    "ttlSetDone": "TTL telah diatur menjadi {{days}} hari (berlaku bertahap di latar belakang)",
+    "confirmTypeHint": "Masukkan nama tabel tujuan untuk konfirmasi: ",
+    "audit": "Audit tindakan pembersihan (10 terakhir)",
+    "noActions": "Belum ada tindakan pembersihan",
+    "actionDropPartition": "Hapus partisi",
+    "actionSetTtl": "Atur TTL",
+    "statusDone": "Selesai",
+    "statusPartial": "Selesai sebagian",
+    "confirmDropTitle": "⚠️ Konfirmasi penghapusan partisi (tidak dapat dipulihkan)",
+    "confirmDropOk": "Jalankan penghapusan",
+    "dropWarning": "Akan menghapus {{count}} partisi bulanan (sekitar {{rows}} baris) dari {{table}} secara fisik dan tidak dapat dipulihkan",
+    "executeDone": "Selesai {{count}}",
+    "executeDonePartial": "Selesai {{count}}, gagal {{failed}} (berhenti saat gagal; jalankan uji coba ulang lalu coba lagi)",
+    "snapshotStaleWarn": "Belum diperbarui {{hours}} jam",
+    "snapshotStaleError": "Belum diperbarui {{hours}} jam (perlu ditinjau)",
+    "preflight": {
+      "blocked": "Rekonsiliasi prasyarat belum terpenuhi ({{reason}}): jalankan rekonsiliasi yang mencakup tanggal itu dulu",
+      "ok": "Rekonsiliasi prasyarat terpenuhi (mencakup {{date}})",
+      "hint": "Syarat: snapshot lulus yang tidak lebih tua dari {{max}} jam dan mencakup {{date}}; jalankan di halaman kualitas data",
+      "reason": {
+        "noSnapshot": "belum ada snapshot",
+        "notCovered": "snapshot tidak mencakup tanggal itu",
+        "snapshotFailed": "snapshot terakhir memiliki peringatan",
+        "snapshotStale": "snapshot kedaluwarsa"
+      }
+    }
+  },
+  "error": {
+    "admin": {
+      "forbidden": "Hanya super admin platform yang dapat mengakses panel operasional"
+    },
+    "trend": {
+      "hoursInvalid": "hours harus berupa angka"
+    },
+    "cleanup": {
+      "previewParamsRequired": "table dan older_than_days wajib diisi",
+      "executeParamsRequired": "table / partitions / confirmed_table wajib diisi",
+      "tooManyPartitions": "Satu kali maksimal {{max}} partisi (dijalankan bertahap untuk menekan puncak IO)"
+    },
+    "ttl": {
+      "paramsRequired": "table / days / confirmed_table wajib diisi"
+    },
+    "mutation": {
+      "tableRequired": "table wajib diisi"
+    },
+    "dataMgmt": {
+      "tableNotInventoried": "Tabel tidak termasuk cakupan inventarisasi (diizinkan: {{allowed}})",
+      "tableNameInvalid": "Format nama tabel harus db.table",
+      "tableConfirmMismatch": "Nama tabel konfirmasi tidak cocok: masukan \"{{confirmed}}\" ≠ tujuan \"{{table}}\"",
+      "noExecutablePartition": "Tidak ada partisi yang dapat dijalankan (semua ditolak: {{rejected}})",
+      "ttlTimeColumnMissing": "Tabel tidak mendaftarkan kolom waktu TTL (diizinkan: {{allowed}})",
+      "ttlDaysInvalid": "Jumlah hari TTL harus bilangan bulat 1-3650",
+      "ttlSetFailed": "Pengaturan TTL gagal: {{message}}",
+      "preflight": "Perlu rekonsiliasi lulus yang mencakup {{required_to}} sebelum pembersihan; status snapshot: {{reason}}"
+    },
+    "logCleanup": {
+      "retainDaysInvalid": "Jumlah hari penyimpanan harus bilangan bulat 1-365",
+      "pathNotAllowed": "Direktori tidak ada di daftar putih pengelolaan: {{path}}",
+      "pathRequired": "path wajib diisi"
+    },
+    "reconcile": {
+      "forbidden": "Hanya super admin platform yang dapat mengubah pengaturan rekonsiliasi",
+      "runAtInvalid": "Waktu jalan harus dalam format HH:mm (zona waktu platform)",
+      "thresholdInvalid": "Ambang deviasi harus berupa persentase 0–100",
+      "staleOrderInvalid": "Ambang merah harus lebih besar dari ambang kuning",
+      "staleHoursInvalid": "Ambang harus bilangan jam bulat 1–720"
+    },
+    "retention": {
+      "tableNotInventoried": "Tabel di luar cakupan kebijakan retensi (diizinkan: {{allowed}})",
+      "keepDaysInvalid": "Hari retensi harus bilangan bulat 1–3650",
+      "keepDaysRequired": "keep_days wajib diisi"
+    },
+    "dataDelete": {
+      "paramsRequired": "kind / table / project wajib diisi",
+      "executeParamsRequired": "kind / table / project / confirm_table / confirm_token wajib diisi",
+      "tableConfirmMismatch": "Konfirmasi nama tabel tidak cocok: dimasukkan \"{{confirmed}}\" ≠ target \"{{table}}\"",
+      "cleanupAccountMissing": "Akun pembersihan belum dikonfigurasi (CLICKHOUSE_CLEANUP_PASSWORD tidak diisi); eksekusi ditolak",
+      "rowsExceeded": "Sekitar {{rows}} baris akan terpengaruh, melebihi batas {{max}} per eksekusi; bagi per peristiwa atau persempit rentang",
+      "tokenInvalid": "Token konfirmasi tidak valid atau kedaluwarsa (kondisi atau jumlah baris berubah); jalankan pratinjau lagi",
+      "preflight": "Perlu rekonsiliasi lulus yang mencakup {{required_to}} sebelum penghapusan; status snapshot: {{reason}}",
+      "nothingToDelete": "Kondisi tidak cocok dengan baris mana pun",
+      "backupFailed": "Backup sebelum penghapusan gagal; dibatalkan (tidak ada data terhapus): {{message}}",
+      "executeFailed": "Penghapusan gagal: {{message}} (tabel backup dapat dipulihkan)",
+      "tableNotAllowed": "Tabel tidak ada di daftar izin penghapusan bertarget: {{table}}",
+      "communityRefused": "Tabel versi komunitas tidak boleh dihapus (garis merah 1): {{table}}",
+      "kindNotAllowed": "Tabel ini tidak mendukung kondisi penghapusan itu: {{kind}}",
+      "projectInvalid": "Nama proyek tidak valid: {{project}}",
+      "eventInvalid": "Nama peristiwa tidak valid: {{event}}",
+      "beforeRequired": "before wajib diisi (hapus data dengan stat_date sebelum tanggal itu)",
+      "beforeInFuture": "before tidak boleh melewati hari ini (data masa depan gunakan kondisi \"timestamp masa depan\")",
+      "toInFuture": "to tidak boleh melewati hari ini (data masa depan gunakan \"timestamp masa depan\")",
+      "rangeInvalid": "from tidak boleh melewati to",
+      "dateInvalid": "{{field}} harus YYYY-MM-DD",
+      "mutationRunning": "{{table}} memiliki mutation yang belum selesai; tunggu hingga selesai (proteksi IO)"
+    },
+    "metaReconcile": {
+      "windowTooWide": "Jendela {{days}} hari melebihi batas estimasi ClickHouse: kecilkan window_days (default 7) atau gunakan scripts/reconcile.sh"
+    },
+    "projectRetire": {
+      "projectRequired": "project wajib diisi",
+      "notRegistered": "Proyek belum terdaftar: {{project}} (periksa ejaan)",
+      "stillWriting": "Ada {{rows}} baris tertulis dalam 24 jam terakhir: hentikan dulu pelaporan proyek ini",
+      "executeParamsRequired": "project / step / confirm_token wajib diisi"
+    }
+  },
+  "retention": {
+    "title": "Kebijakan retensi (perkiraan × aktual × rentang andal rekonsiliasi)",
+    "hint": "Retensi perkiraan didaftarkan manual (default: sa_events 540 hari, tabel komunitas 180 hari); retensi aktual diambil dari TTL tabel.",
+    "trusted": "Rentang andal rekonsiliasi: {{from}} ~ {{to}} (yang lebih pendek dari dua sisi = {{days}} hari)",
+    "trustedUnbounded": "Rentang andal rekonsiliasi: kedua sisi belum menetapkan retensi, memakai rentang data aktual",
+    "trustedBoundBy": "Dibatasi retensi {{days}} hari pada {{table}} (membersihkan tabel mana pun mendistorsi perbandingan periode itu)",
+    "suspicious": "Ditemukan {{count}} partisi tanggal mencurigakan (partisi masa depan / data lama sebelum rentang andal); hanya dilaporkan, tidak dibersihkan otomatis",
+    "suspiciousKind": {
+      "future": "partisi masa depan",
+      "ancient": "data lama"
+    },
+    "column": {
+      "table": "Tabel",
+      "expected": "Retensi perkiraan",
+      "actual": "Retensi aktual (TTL)",
+      "status": "Status"
+    },
+    "suggested": "(disarankan)",
+    "actualUnset": "Belum diatur (risiko)",
+    "status": {
+      "ok": "Sesuai kebijakan",
+      "unset": "Belum diatur (risiko)",
+      "deviates": "Menyimpang dari kebijakan",
+      "disabled": "Kebijakan nonaktif"
+    },
+    "register": "Daftarkan",
+    "dialogTitle": "Daftarkan retensi perkiraan: {{table}}",
+    "save": "Simpan",
+    "fieldKeepDays": "Hari retensi",
+    "fieldKeepDaysHint": "Nilai ini adalah target; yang berlaku sebenarnya adalah TTL tabel (pakai pengaturan TTL di bawah)",
+    "fieldEnabled": "Kebijakan aktif",
+    "fieldRemark": "Catatan"
+  },
+  "quality": {
+    "title": "Kualitas data / Rekonsiliasi konsistensi",
+    "runningHint": "Rekonsiliasi berjalan: penghitungan penuh satu hari memerlukan sekitar 20–40 detik; jangan tutup halaman…",
+    "idleHint": "Membandingkan sa_events dengan log_analysis (bawaan: kemarin, maksimal 3 hari, sekitar 30 detik)",
+    "start": "Mulai rekonsiliasi",
+    "cachedTag": "Hasil cache · rekonsiliasi terakhir {{time}}",
+    "justFinishedTag": "Rekonsiliasi baru selesai {{time}}",
+    "cachedHint": "Di bawah ini adalah **snapshot terakhir** (total harian, selisih per peristiwa, rentang yang sudah dibersihkan). Catatan penemuan metadata dibaca terpisah (50 terbaru). Klik \"Mulai rekonsiliasi\" untuk hasil terkini.",
+    "emptyHint": "Belum ada hasil rekonsiliasi: klik “Mulai rekonsiliasi” di kanan atas untuk menjalankan rekonsiliasi pertama (sekitar 30 detik); setelah itu halaman akan membuka hasil cache dengan cepat.",
+    "reportEmpty": "Belum ada data rekonsiliasi; pilih rentang waktu lalu klik “Mulai rekonsiliasi”",
+    "normal": "Normal",
+    "abnormal": "Anomali",
+    "pass": "Lulus",
+    "column": {
+      "date": "Tanggal",
+      "saRows": "Baris sa_events",
+      "crcUniq": "Jumlah unik CRC",
+      "rawRows": "Baris log_analysis",
+      "deviation": "Deviasi %",
+      "source": "Sumber",
+      "rows": "Jumlah baris",
+      "changeType": "Jenis perubahan",
+      "prop": "Properti",
+      "change": "Detail perubahan",
+      "discoveredAt": "Waktu ditemukan",
+      "diff": "Selisih (sa - raw)",
+      "skippedRange": "Rentang dibersihkan",
+      "skippedWhy": "Alasan",
+      "skippedSource": "Tindakan dan waktu"
+    },
+    "change": {
+      "eventCreated": "Peristiwa baru",
+      "propertyCreated": "Properti baru ({{value}})",
+      "userPropertyCreated": "Properti pengguna baru ({{value}})",
+      "userPropertyHidden": "Properti pengguna disembunyikan",
+      "userPropertyActive": "Properti pengguna diaktifkan"
+    },
+    "alert": {
+      "title": "Anomali konsistensi data terdeteksi",
+      "desc": "Ditemukan deviasi melebihi ambang ({{threshold}}%) pada {{days}}/{{total}} hari, atau {{dup}} baris CRC duplikat. Periksa apakah ingestor kehilangan data atau ada perbedaan definisi."
+    },
+    "ok": {
+      "title": "Konsistensi data normal",
+      "desc": "Deviasi rekonsiliasi {{from}} ~ {{to}} semuanya dalam ambang {{threshold}}%, tanpa CRC duplikat."
+    },
+    "stat": {
+      "days": "Hari direkonsiliasi",
+      "daysSuffix": "hari / anomali {{count}} hari",
+      "dupCrc": "CRC duplikat",
+      "rowsSuffix": "baris",
+      "crcUnique": "Keunikan CRC",
+      "skippedDays": "Hari dibersihkan",
+      "outOfRetention": "Hari di luar retensi"
+    },
+    "scope": {
+      "range": "Rentang rekonsiliasi",
+      "threshold": "Ambang deviasi",
+      "total": "Total",
+      "trigger": "Pemicu",
+      "ignored": "Peristiwa diabaikan"
+    },
+    "table": {
+      "daily": "Rekonsiliasi total harian",
+      "events": "Perbandingan hitungan tingkat peristiwa (sa_events vs log_analysis)",
+      "discovery": "Perubahan metadata terkini",
+      "discoveryHint": "(peristiwa/properti baru serta perubahan jenis properti yang ditemukan otomatis, total {{count}} data)",
+      "diffs": "Perbedaan tingkat peristiwa Top (sa - raw)",
+      "diffsHint": "({{count}} peristiwa berbeda; 20 teratas menurut selisih absolut)",
+      "onlyInOne": "Hanya ada di satu sisi (sisi lain 0)",
+      "skipped": "Rentang dibersihkan (di luar peringatan)"
+    },
+    "skipped": "Dilewati",
+    "skippedReason": {
+      "cleaned": "Dibersihkan"
+    },
+    "ignored": {
+      "title": "{{count}} peristiwa dikecualikan oleh daftar abaikan"
+    },
+    "trigger": {
+      "auto": "Terjadwal",
+      "manual": "Manual",
+      "cli": "Skrip operasional"
+    },
+    "stale": {
+      "warnTitle": "Snapshot rekonsiliasi mulai lama",
+      "errorTitle": "Snapshot rekonsiliasi kedaluwarsa",
+      "desc": "Rekonsiliasi terakhir berjalan pada {{time}} ({{hours}} jam lalu, melewati ambang {{warn}} jam): kesimpulan mungkin tidak lagi mencerminkan kondisi saat ini — jalankan ulang atau periksa penjadwalan."
+    },
+    "config": {
+      "button": "Pengaturan rekonsiliasi",
+      "title": "Pengaturan rekonsiliasi (jadwal jam sepi dan ambang)",
+      "save": "Simpan",
+      "enabled": "Aktifkan rekonsiliasi terjadwal",
+      "enabledOn": "Aktif",
+      "enabledOff": "Nonaktif",
+      "runAt": "Waktu jalan",
+      "runAtHint": "Zona waktu platform, HH:mm; berjalan pada siklus pemeriksaan berikutnya (≤ 5 menit) setelah waktu itu",
+      "runAtInvalid": "Format harus HH:mm",
+      "threshold": "Ambang deviasi (%)",
+      "thresholdHint": "Suatu hari ditandai bila |deviasi| melebihi persentase ini; mulai dari 3–5% sampai kalibernya seragam",
+      "ignoreEvents": "Daftar peristiwa diabaikan",
+      "ignoreEventsHint": "Satu nama peristiwa per baris; pisahkan perbedaan kaliber yang sudah diketahui agar tidak ada peringatan harian",
+      "skipEmpty": "Filter event kosong di kedua sisi",
+      "skipEmptyHint": "Kaliber sama di sisi sa dan versi komunitas: baris dengan event kosong tidak dihitung",
+      "staleWarn": "Ambang kuning (jam)",
+      "staleError": "Ambang merah (jam)",
+      "updatedAt": "Pengaturan diperbarui"
+    },
+    "changeType": {
+      "eventCreated": "Peristiwa baru",
+      "propertyCreated": "Properti baru",
+      "propertyTypeChanged": "Jenis properti berubah",
+      "userPropertyCreated": "Properti pengguna baru",
+      "userPropertyTypeChanged": "Jenis properti pengguna berubah",
+      "userPropertyHidden": "Properti pengguna disembunyikan",
+      "userPropertyActive": "Properti pengguna diaktifkan"
+    },
+    "outOfRetention": "Di luar retensi (tidak dibandingkan)",
+    "outOfRetentionShort": "Di luar retensi",
+    "guide": {
+      "title": "Untuk apa halaman ini?",
+      "whatTitle": "Tujuan",
+      "whatBody": "Ini adalah jalur pemeriksaan samping: mencocokkan sa_events (ditulis oleh ingestor kami) dengan log_analysis (ditulis Flink versi komunitas) per hari, untuk menemukan konsumsi berhenti, kehilangan data senyap, dan penulisan ganda. Hanya baca, tidak mengubah data bisnis; secara default memeriksa hari kemarin sekali sehari pada jam sepi (03:30 zona waktu platform) dan menyimpan hasilnya sebagai snapshot.",
+      "termsTitle": "Istilah kunci",
+      "terms": {
+        "range": "Rentang: default kemarin; manual maksimal 3 hari (pengaman memori satu node setelah insiden OOM sebelumnya).",
+        "threshold": "Ambang: suatu hari ditandai hanya bila |deviasi| melewatinya; nilai saat ini ada di baris konfigurasi di atas (dalam %).",
+        "crc": "Keunikan CRC: dedup perkiraan hanya di sisi kami; ditandai bila baris duplikat melebihi 0,5% (algoritma perkiraan punya galat bawaan).",
+        "trusted": "Rentang andal: hanya dapat dibandingkan di dalam retensi yang lebih pendek dari kedua sisi; tanggal di luarnya ditandai \"di luar retensi\" dan tidak dihitung sebagai anomali.",
+        "skipped": "Rentang dibersihkan: periode yang dihapus sengaja via DROP PARTITION / TTL ditandai \"dibersihkan\" dan tidak memicu peringatan.",
+        "stale": "Kesegaran snapshot: bila lama (kuning)/kedaluwarsa (merah), kesimpulan tidak lagi mencerminkan kondisi saat ini — jalankan ulang rekonsiliasi atau periksa penjadwalan.",
+        "events": "Perbedaan tingkat peristiwa Top: peristiwa yang ada di kedua sisi dengan jumlah berbeda, 20 teratas menurut selisih absolut; \"hanya satu sisi\" menampilkan yang bernilai 0 di sisi lain."
+      },
+      "howTitle": "Cara membaca hasil",
+      "how": {
+        "step1": "Deviasi harian +1% hingga +2% yang bertahan adalah perbedaan kaliber struktural yang sudah diketahui (versi komunitas kurang menghitung peristiwa error/retry Android — lihat whitepaper), bukan kehilangan data.",
+        "step2": "Segera periksa bila: deviasi menjadi negatif (kami lebih sedikit), jumlah suatu peristiwa menjadi nol, atau muncul jenis peristiwa baru di selisih.",
+        "step3": "Tanggal bertanda \"di luar retensi\" atau \"dibersihkan\" tidak dihitung sebagai anomali; CRC gagal menandakan kemungkinan penulisan ganda di sisi kami.",
+        "step4": "Batas 3 hari pada jalankan manual adalah pengaman memori yang disengaja; untuk rentang lebih panjang gunakan tugas rentang luas jam sepi (scripts/reconcile.sh --type=range di server)."
+      },
+      "whoTitle": "Siapa melakukan apa",
+      "who": {
+        "admin": "Super admin platform: ubah ambang/daftar abaikan/ambang kedaluwarsa di \"Pengaturan rekonsiliasi\" (kanan atas) dan tangani notifikasi gagal atau kedaluwarsa.",
+        "oncall": "Petugas jaga: lihat \"Perbedaan tingkat peristiwa Top\" dulu untuk membedakan jenis peristiwa baru atau peristiwa yang hilang, lalu lihat tren total harian kedua sisi.",
+        "analyst": "Analis: halaman ini bukan untuk analisis bisnis; kesehatan pipeline ada di Operasional → Manajemen data → Kesehatan data."
+      },
+      "footnote": "Kesimpulan atribusi dan pengukuran: docs/product/research-clklog-reconcile-caliber-v1.md (repositori)."
+    }
+  },
+  "dataCleanup": {
+    "unregisteredTitle": "Data ↔ metadata",
+    "refresh": "Segarkan",
+    "unregisteredHint": "Sejak {{from}}: {{data}} di data / {{meta}} terdaftar; yang belum terdaftar di bawah",
+    "colEvent": "Peristiwa",
+    "colRows": "Baris",
+    "colRange": "Rentang",
+    "colFuture": "Tanggal masa depan",
+    "futureYes": "ada masa depan",
+    "useEvent": "Bersihkan per peristiwa",
+    "useFuture": "Bersihkan masa depan",
+    "ghostTitle": "{{count}} pendaftaran hantu (hanya metadata)",
+    "deleteTitle": "Penghapusan bertarget (ALTER DELETE)",
+    "deleteHint": "Pratinjau dulu, lalu ketik nama tabel. Backup dan audit otomatis. Tabel versi komunitas tidak dapat dihapus.",
+    "kind.event": "Per peristiwa",
+    "kind.project": "Per proyek",
+    "kind.before": "Sebelum tanggal",
+    "kind.future": "Masa depan",
+    "eventPlaceholder": "Nama peristiwa (mis. $SignUp)",
+    "beforePlaceholder": "Sebelum tanggal YYYY-MM-DD",
+    "preview": "Pratinjau",
+    "previewResult": "Sekitar {{rows}} baris ({{from}} ~ {{to}})",
+    "backupHint": "Rekonsiliasi pra-pembersihan lulus; backup ke {{backup}}",
+    "preflightBlocked": "Rekonsiliasi pra-pembersihan belum terpenuhi ({{reason}}): jalankan di halaman kualitas data dulu",
+    "cleanupMissing": "Akun pembersihan belum dikonfigurasi: penghapusan bertarget tidak tersedia",
+    "rowsExceeded": "Baris melebihi batas {{max}} per eksekusi; bagi",
+    "confirmPlaceholder": "Ketik nama tabel untuk konfirmasi: {{table}}",
+    "execute": "Hapus {{rows}} baris",
+    "done": "Penghapusan dikirim (~{{rows}} baris)",
+    "doneDetail": "Backup {{backup}} | mutation {{mutation}}; penghapusan berjalan di latar dan rentang terdaftar dibersihkan",
+    "colAction": "Tindakan",
+    "unregisteredFailed": "Gagal memuat peristiwa belum terdaftar: {{message}}",
+    "window": "Jendela",
+    "windowDays": "{{days}} hari"
+  },
+  "projectRetire": {
+    "title": "Pratinjau pensiun proyek",
+    "communityNote": "Tabel komunitas (clklog.log_analysis dan 18 agregat) tidak memiliki dimensi proyek; gunakan retensi/TTL",
+    "step": {
+      "stopWrites": "Hentikan dulu pelaporan proyek ini (nonaktifkan API key / hentikan SDK) dan pastikan penulisan 24 jam terakhir nol",
+      "execution": "Jalankan pensiun: hapus per tabel di sisi sa (DROP PARTITION untuk tabel anggota, lainnya ALTER DELETE) plus penghapusan per tabel di MySQL",
+      "backupAudit": "Baris yang akan dihapus diekspor dulu ke file backup dan aksinya diaudit (action=project_retire)"
+    },
+    "result": {
+      "saDone": "Sisi sa selesai ({{tables}} tabel)",
+      "saPartial": "Sisi sa selesai sebagian: ada tabel besar melebihi anggaran per eksekusi; jalankan lagi",
+      "mysqlDone": "Sisi MySQL menghapus {{rows}} baris"
+    },
+    "getToken": "Ambil token konfirmasi"
+  }
+}

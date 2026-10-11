@@ -1,0 +1,58 @@
+{
+  "document": {
+    "title": "แพลตฟอร์มวิเคราะห์ Candela"
+  },
+  "menu": {
+    "report": "รายงาน",
+    "dashboards": "รายการแดชบอร์ด",
+    "cards": "การ์ดวิเคราะห์",
+    "analysis": "การวิเคราะห์",
+    "event": "วิเคราะห์เหตุการณ์",
+    "funnel": "วิเคราะห์กรวย",
+    "retention": "วิเคราะห์การคงอยู่",
+    "sql": "SQL กำหนดเอง",
+    "user": "ผู้ใช้",
+    "cohorts": "กลุ่มผู้ใช้",
+    "tags": "แท็กผู้ใช้",
+    "subjects": "เอนทิตีการวิเคราะห์",
+    "meta": "จัดการการติดตาม",
+    "events": "เหตุการณ์หลัก",
+    "virtualProperties": "คุณสมบัติเสมือน",
+    "eventAttributes": "คุณสมบัติเหตุการณ์",
+    "userProperties": "คุณสมบัติผู้ใช้",
+    "virtualEvents": "เหตุการณ์เสมือน",
+    "data": "จัดการข้อมูล",
+    "onboarding": "คู่มือเชื่อมต่อ",
+    "metrics": "ตัวชี้วัด",
+    "debug": "Debug",
+    "quality": "คุณภาพข้อมูล",
+    "datatables": "ตารางข้อมูล",
+    "iam": "สิทธิ์โปรเจกต์",
+    "members": "จัดการสมาชิก",
+    "groups": "กลุ่มสมาชิก",
+    "roles": "จัดการบทบาท",
+    "dataPolicies": "สิทธิ์ข้อมูล",
+    "ops": "ปฏิบัติการ",
+    "slowQueries": "SQL ช้า",
+    "serverStatus": "สถานะเซิร์ฟเวอร์",
+    "alerts": "การแจ้งเตือน",
+    "dataManagement": "ปฏิบัติการข้อมูล",
+    "settings": "การตั้งค่า",
+    "profile": "การตั้งค่าส่วนตัว",
+    "projectOwners": "ตั้งค่าโปรเจกต์",
+    "apiKeys": "จัดการ API Key",
+    "aiWorkspace": "AI Workspace",
+    "logout": "ออกจากระบบ",
+    "users": "จัดการผู้ใช้",
+    "userTimeline": "ไทม์ไลน์ผู้ใช้"
+  },
+  "header": {
+    "collapseMenu": "ย่อเมนู",
+    "expandMenu": "ขยายเมนู",
+    "openMenu": "เปิดเมนู",
+    "menu": "เมนู"
+  },
+  "drawer": {
+    "title": "Candela วิเคราะห์"
+  }
+}

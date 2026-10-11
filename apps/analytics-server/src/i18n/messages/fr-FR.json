@@ -1,0 +1,115 @@
+{
+  "alert": {
+    "level": {
+      "critical": "Critique",
+      "warning": "Avertissement",
+      "info": "Information"
+    },
+    "status": {
+      "fire": "Déclenchement",
+      "repeat": "En cours",
+      "resolve": "Rétablissement"
+    },
+    "kind": {
+      "retention": "Métrique de rétention",
+      "event": "Métrique d'événement",
+      "builtin": "Métrique intégrée"
+    },
+    "window": {
+      "today": "Aujourd'hui",
+      "lastDays": "{{days}} derniers jours",
+      "minutes": "Fenêtre de {{minutes}} minutes",
+      "cohort": "Cohorte {{label}}"
+    },
+    "varSample": {
+      "ruleName": "Volume d'envois trop faible aujourd'hui",
+      "ruleCode": "metric_ab12cd34",
+      "level": "critical",
+      "levelFmt": "Critique",
+      "status": "Déclenchement",
+      "statusCode": "fire",
+      "value": "1 204 fois",
+      "valueRaw": "1204",
+      "unit": "fois",
+      "comparator": "gt",
+      "comparatorFmt": "supérieur à",
+      "threshold": "1 000 fois",
+      "metricName": "Nombre d'envois aujourd'hui",
+      "metricKind": "Métrique d'événement",
+      "windowDays": "1",
+      "windowFmt": "Aujourd'hui",
+      "project": "clklogapp",
+      "time": "2026-09-15 21:03:11",
+      "detectInterval": "60s",
+      "contactName": "Équipe d'exploitation"
+    },
+    "channelName": {
+      "feishu_webhook": "Feishu",
+      "dingtalk": "DingTalk",
+      "wecom": "WeCom",
+      "telegram": "Telegram",
+      "webhook": "Webhook générique",
+      "email": "E-mail",
+      "sms": "SMS",
+      "whatsapp": "WhatsApp"
+    },
+    "channelTest": {
+      "text": "[Test] Test de connectivité du canal d'alerte Candela\nCanal : {{channel}}\nHeure : {{time}}",
+      "subject": "Test du canal d'alerte Candela ({{channel}})",
+      "ruleName": "Test de connectivité du canal",
+      "detailTargetInvalid": "Échec de la validation de la cible",
+      "detailSendFailed": "Échec de la remise (erreur brute renvoyée par le fournisseur)",
+      "detailSent": "Message de test envoyé"
+    }
+  },
+  "units": {
+    "times": "fois",
+    "items": "éléments",
+    "users": "utilisateurs",
+    "sec": "s",
+    "ms": "ms",
+    "min": "min",
+    "h": "h",
+    "days": "jours",
+    "percent": "%"
+  },
+  "mail": {
+    "reset": {
+      "subject": "[Candela] Réinitialisation du mot de passe",
+      "body": "Bonjour,\n\nUtilisez le lien ci-dessous pour réinitialiser votre mot de passe (valide {{minutes}} minutes, usage unique) :\n{{link}}\n\nSi vous n’êtes pas à l’origine de cette demande, ignorez cet e-mail.\n\nCandela Analytics"
+    },
+    "setup": {
+      "subject": "[Candela] Configurez votre mot de passe",
+      "body": "Bonjour,\n\nUn administrateur a créé un compte Candela Analytics pour vous. Définissez votre mot de passe via ce lien (valide {{hours}} heures, usage unique) :\n{{link}}\n\nVous pourrez vous connecter juste après.\n\nCandela Analytics"
+    },
+    "invite": {
+      "subject": "[Candela] Invitation au projet {{project}}",
+      "body": "Bonjour,\n\n{{inviter}} vous a invité au projet Candela Analytics {{project}} avec le rôle {{role}}.\n\nSuivez ce lien pour vous inscrire et rejoindre (valide {{days}} jours) :\n{{link}}\n\nSi vous n’attendiez pas cette invitation, ignorez cet e-mail.\n\nCandela Analytics"
+    },
+    "inviteNotify": {
+      "subject": "[Candela] Vous avez été ajouté au projet {{project}}",
+      "body": "Bonjour,\n\n{{inviter}} vous a ajouté au projet Candela Analytics {{project}} avec le rôle {{role}}.\n\nConnectez-vous avec votre compte existant pour y accéder.\n\nCandela Analytics"
+    },
+    "roles": {
+      "analyst": "analyste",
+      "member": "membre",
+      "external": "externe"
+    },
+    "test": {
+      "subject": "[Candela] Test du canal e-mail",
+      "body": "Ceci est un e-mail de test de Candela Analytics.\n\nSa réception confirme que les réglages SMTP du compte sont actifs : les e-mails de réinitialisation, de configuration et d’invitation sont opérationnels.\n\nCandela Analytics"
+    }
+  },
+  "reconcile": {
+    "notify": {
+      "dayAlertSubject": "[Candela] Rapprochement {{date}} : écart au-delà du seuil (seuil {{threshold}} %)",
+      "failedSubject": "[Candela] Échec du rapprochement {{date}}",
+      "lineProject": "Projet : {{project}}",
+      "lineRange": "Plage : {{from}} ~ {{to}}",
+      "lineThreshold": "Seuil : {{threshold}} % ; jours en anomalie : {{days}}",
+      "lineDay": "{{date}} : sa {{sa}} / raw {{raw}} ({{deviation}} %)",
+      "lineReport": "Rapport : {{path}}",
+      "lineReason": "Cause : {{reason}}"
+    }
+  }
+}

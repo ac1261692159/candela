@@ -1,0 +1,13 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <!-- 服务端控制台示例（与同目录 Unity 示例 ClkLogDemo.csproj 相互独立） -->
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <AssemblyName>ServerReport</AssemblyName>
+    <RootNamespace>ClkLogServerReport</RootNamespace>
+  </PropertyGroup>
+
+</Project>

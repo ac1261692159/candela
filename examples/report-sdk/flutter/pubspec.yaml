@@ -1,0 +1,23 @@
+name: clklog_flutter
+description: "ClkLog 上报协议 Flutter / Dart 示例：纯 Dart SDK 核心 + Flutter App（三按钮）+ Flutter Web 构建 + Dart CLI 验收。"
+# 示例工程不发布到 pub.dev
+publish_to: 'none'
+version: 1.0.0+1
+
+environment:
+  # http 1.6.0 要求 Dart ^3.4.0，flutter_lints 6.0.0 要求 ^3.8.0
+  sdk: ^3.8.0
+
+dependencies:
+  flutter:
+    sdk: flutter
+  # 上报用 HTTP 客户端：Web 走 BrowserClient(fetch)，VM/移动端走 dart:io
+  http: ^1.6.0
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^6.0.0
+
+flutter:
+  uses-material-design: true

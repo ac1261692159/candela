@@ -1,0 +1,115 @@
+{
+  "alert": {
+    "level": {
+      "critical": "Kritis",
+      "warning": "Peringatan",
+      "info": "Informasi"
+    },
+    "status": {
+      "fire": "Terpicu",
+      "repeat": "Berlanjut",
+      "resolve": "Pulih"
+    },
+    "kind": {
+      "retention": "Metrik retensi",
+      "event": "Metrik peristiwa",
+      "builtin": "Metrik bawaan"
+    },
+    "window": {
+      "today": "Hari ini",
+      "lastDays": "{{days}} hari terakhir",
+      "minutes": "Jendela {{minutes}} menit",
+      "cohort": "Kohort {{label}}"
+    },
+    "varSample": {
+      "ruleName": "Volume pelaporan hari ini terlalu rendah",
+      "ruleCode": "metric_ab12cd34",
+      "level": "critical",
+      "levelFmt": "Kritis",
+      "status": "Terpicu",
+      "statusCode": "fire",
+      "value": "1.204 kali",
+      "valueRaw": "1204",
+      "unit": "kali",
+      "comparator": "gt",
+      "comparatorFmt": "Lebih dari",
+      "threshold": "1.000 kali",
+      "metricName": "Jumlah pelaporan hari ini",
+      "metricKind": "Metrik peristiwa",
+      "windowDays": "1",
+      "windowFmt": "Hari ini",
+      "project": "clklogapp",
+      "time": "2026-09-15 21:03:11",
+      "detectInterval": "60s",
+      "contactName": "Grup operasional"
+    },
+    "channelName": {
+      "feishu_webhook": "Feishu",
+      "dingtalk": "DingTalk",
+      "wecom": "WeCom",
+      "telegram": "Telegram",
+      "webhook": "Webhook umum",
+      "email": "Email",
+      "sms": "SMS",
+      "whatsapp": "WhatsApp"
+    },
+    "channelTest": {
+      "text": "[Uji] Uji konektivitas saluran peringatan Candela\nSaluran: {{channel}}\nWaktu: {{time}}",
+      "subject": "Uji saluran peringatan Candela ({{channel}})",
+      "ruleName": "Uji konektivitas saluran",
+      "detailTargetInvalid": "Validasi target tidak lulus",
+      "detailSendFailed": "Pengiriman gagal (kesalahan berasal dari respons asli penyedia)",
+      "detailSent": "Pesan uji telah dikirim"
+    }
+  },
+  "units": {
+    "times": "kali",
+    "items": "data",
+    "users": "orang",
+    "sec": "detik",
+    "ms": "ms",
+    "min": "menit",
+    "h": "jam",
+    "days": "hari",
+    "percent": "%"
+  },
+  "mail": {
+    "reset": {
+      "subject": "[Candela] Atur ulang kata sandi",
+      "body": "Halo,\n\nGunakan tautan berikut untuk mengatur ulang kata sandi Anda (berlaku {{minutes}} menit, sekali pakai):\n{{link}}\n\nJika bukan Anda yang meminta, abaikan email ini.\n\nCandela Analytics"
+    },
+    "setup": {
+      "subject": "[Candela] Atur kata sandi akun Anda",
+      "body": "Halo,\n\nAdmin telah membuat akun Candela Analytics untuk Anda. Atur kata sandi melalui tautan ini (berlaku {{hours}} jam, sekali pakai):\n{{link}}\n\nSetelah itu Anda bisa langsung masuk.\n\nCandela Analytics"
+    },
+    "invite": {
+      "subject": "[Candela] Undangan ke proyek {{project}}",
+      "body": "Halo,\n\n{{inviter}} mengundang Anda ke proyek Candela Analytics {{project}} sebagai {{role}}.\n\nIkuti tautan ini untuk mendaftar dan bergabung (berlaku {{days}} hari):\n{{link}}\n\nJika Anda tidak mengharapkan undangan ini, abaikan email ini.\n\nCandela Analytics"
+    },
+    "inviteNotify": {
+      "subject": "[Candela] Anda ditambahkan ke proyek {{project}}",
+      "body": "Halo,\n\n{{inviter}} telah menambahkan Anda ke proyek Candela Analytics {{project}} sebagai {{role}}.\n\nMasuk dengan akun yang sudah ada untuk mengakses.\n\nCandela Analytics"
+    },
+    "roles": {
+      "analyst": "analis",
+      "member": "anggota biasa",
+      "external": "eksternal"
+    },
+    "test": {
+      "subject": "[Candela] Uji kanal email",
+      "body": "Ini adalah email uji dari Candela Analytics.\n\nMenerimanya berarti pengaturan SMTP sudah aktif: email reset kata sandi, pengaturan, dan undangan proyek siap digunakan.\n\nCandela Analytics"
+    }
+  },
+  "reconcile": {
+    "notify": {
+      "dayAlertSubject": "[Candela] Rekonsiliasi {{date}}: deviasi melebihi ambang (ambang {{threshold}}%)",
+      "failedSubject": "[Candela] Rekonsiliasi {{date}} gagal",
+      "lineProject": "Proyek: {{project}}",
+      "lineRange": "Rentang: {{from}} ~ {{to}}",
+      "lineThreshold": "Ambang: {{threshold}}%; hari anomali: {{days}}",
+      "lineDay": "{{date}}: sa {{sa}} / raw {{raw}} ({{deviation}}%)",
+      "lineReport": "Laporan: {{path}}",
+      "lineReason": "Alasan: {{reason}}"
+    }
+  }
+}

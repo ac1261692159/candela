@@ -1,0 +1,255 @@
+{
+  "kind": {
+    "event": "이벤트 지표",
+    "retention": "리텐션 지표"
+  },
+  "list": {
+    "title": "지표",
+    "create": "지표 새로 만들기",
+    "kindEvent": "이벤트",
+    "kindRetention": "리텐션",
+    "intro": "이벤트 지표는 '지표 새로 만들기'로 바로 만들거나 이벤트 분석 결과에서 저장할 수 있습니다(현재 설정된 전체 정의가 함께 저장됩니다). 리텐션 지표는 지금처럼 리텐션 분석 결과에서 만듭니다. 지표는 **조회 시간**과 **값 선택**을 가질 수 있으며 알림 규칙은 기본적으로 지표의 기간을 따릅니다(규칙에서 재정의할 수도 있습니다. 자세한 내용은 운영 → 모니터링 알림 → 지표 알림 새로 만들기 참고). 표시 이름을 클릭하면 전체 정의를 볼 수 있습니다. 편집과 삭제(2차 확인)는 모두 상세 드로어에서 하며 지표 이름과 유형은 변경할 수 없습니다(식별자가 그대로라 기존 참조와 알림 연결에 영향이 없습니다).",
+    "column": {
+      "displayName": "표시 이름",
+      "name": "지표 이름",
+      "kind": "유형",
+      "definition": "정의",
+      "remark": "비고"
+    }
+  },
+  "label": {
+    "subject": "분석 주체",
+    "event": "이벤트",
+    "analysis": "계산 방법",
+    "percentile": "백분위수",
+    "prop": "속성",
+    "transform": "값 변환",
+    "decimals": "소수 자릿수",
+    "valuePick": "값 선택",
+    "timeRange": "조회 시간",
+    "conditionGroup": "조건 그룹",
+    "filters": "필터 조건",
+    "displayName": "표시 이름",
+    "metricName": "지표 이름",
+    "metricNameReadonly": "지표 이름(변경 불가)",
+    "kindReadonly": "유형(변경 불가)",
+    "type": "유형",
+    "format": "형식",
+    "definition": "정의",
+    "definitionPick": "지표 정의",
+    "startEvent": "시작 이벤트",
+    "retainEvent": "재방문 이벤트",
+    "period": "주기",
+    "measure": "정의",
+    "cohort": "코호트",
+    "cohortRange": "코호트 범위",
+    "granularity": "세분성",
+    "remarkOptional": "비고(선택)"
+  },
+  "format": {
+    "number": "숫자",
+    "percent": "백분율"
+  },
+  "measure": {
+    "rate": "리텐션율",
+    "count": "리텐션 사용자 수"
+  },
+  "cohort": {
+    "all": "전체 사용자",
+    "firstDay": "최초 발생 사용자"
+  },
+  "granularity": {
+    "day": "일별",
+    "week": "주별",
+    "month": "월별"
+  },
+  "period": {
+    "day": "{{n}}일",
+    "week": "{{n}}주",
+    "month": "{{n}}개월"
+  },
+  "value": {
+    "notNeeded": "(필요 없음)",
+    "none": "(없음)"
+  },
+  "filters": {
+    "count": "{{total}}건"
+  },
+  "valuePick": {
+    "sum": "누적",
+    "avg": "일평균",
+    "max": "최댓값",
+    "min": "최솟값",
+    "lastDay": "최신 일자",
+    "firstDay": "첫날",
+    "uniqTotal": "전체 기간 중복 제거 합계",
+    "weighted": "가중 평균",
+    "auto": "자동(계산 방법 기준)",
+    "autoShort": "자동 값 선택",
+    "extra": "선택하지 않으면 자동(계산 방법 기준 추천)이며 기존 알림 정의와 같습니다",
+    "label": {
+      "sum": "누적",
+      "avg": "일평균",
+      "max": "최댓값",
+      "min": "최솟값",
+      "weighted": "가중 평균",
+      "lastDay": "최신 일자",
+      "firstDay": "첫날",
+      "uniqTotal": "전체 기간 중복 제거 합계"
+    },
+    "hint": {
+      "sum": "윈도우 내 각 일자 값을 더합니다. 데이터가 없는 날은 0으로 계산합니다",
+      "avg": "각 일자 값의 합 ÷ 윈도우 일수. 데이터가 없는 날은 0으로 계산합니다",
+      "max": "윈도우 내 데이터가 있는 날의 최댓값",
+      "min": "윈도우 내 데이터가 있는 날의 최솟값",
+      "weighted": "분모 기준으로 가중합니다(사용자당 지표에 유일하게 올바름)",
+      "lastDay": "윈도우 내 데이터가 있는 가장 최근 날의 값('오늘 현재까지'에 자주 사용)",
+      "firstDay": "윈도우 내 데이터가 있는 가장 이른 날의 값",
+      "uniqTotal": "전체 기간을 한 번에 계산하며 일자별로 더하지 않습니다(중복 제거 수에 유일하게 올바름)"
+    },
+    "note": {
+      "sum": "윈도우 내 각 일자 값을 더합니다. 데이터가 없는 날은 0으로 계산합니다",
+      "avg": "각 일자 값의 합 ÷ 윈도우 일수. 데이터가 없는 날은 0으로 계산합니다",
+      "max": "윈도우 내 데이터가 있는 날의 최댓값(데이터가 전혀 없으면 이번 회차는 건너뜀)",
+      "min": "윈도우 내 데이터가 있는 날의 최솟값(데이터가 전혀 없으면 이번 회차는 건너뜀)",
+      "weighted": "분모 기준으로 가중하며(사용자당 횟수/사용자당 값에 유일하게 올바른 값 선택) 전체 기간을 한 번에 계산합니다",
+      "lastDay": "윈도우 내 데이터가 있는 가장 최근 날의 값('오늘 현재까지'에 자주 사용)",
+      "firstDay": "윈도우 내 데이터가 있는 가장 이른 날의 값",
+      "uniqTotal": "전체 기간을 한 번에 계산하며 일자별로 더하지 않습니다(중복 제거 수/발생 사용자 수에 유일하게 올바른 값 선택)"
+    },
+    "warning": {
+      "nonAdditivePickedAdditive": "현재 계산 방법은 일자별로 더할 수 없습니다. '전체 기간 중복 제거 합계' 또는 '가중 평균'을 선택하는 것이 좋으며, 그렇지 않으면 결과가 높게 나옵니다",
+      "additivePickedOverall": "현재 계산 방법은 더할 수 있으므로 '누적/일평균'이 더 직관적입니다. 전체 기간 중복 제거 합계는 중복 제거/사용자당 지표에만 의미가 있습니다"
+    }
+  },
+  "window": {
+    "fixed": "고정 날짜",
+    "today": "오늘",
+    "yesterday": "어제",
+    "recentN": "최근 {{n}}일(오늘 포함)",
+    "pastN": "지난 {{n}}일(오늘 제외)",
+    "thisWeek": "이번 주",
+    "lastWeek": "지난주",
+    "thisMonth": "이번 달",
+    "lastMonth": "지난달",
+    "customOffsets": "동적 구간 D-{{from}} ~ D-{{to}}",
+    "fromDateToToday": "지정한 날부터 오늘까지",
+    "fromDateToYesterday": "지정한 날부터 어제까지",
+    "lastNDays": "최근 {{n}}일",
+    "cohortWindow": "코호트 {{window}}",
+    "followAlert": "알림 윈도우 따르기"
+  },
+  "summary": {
+    "event": "이벤트 {{event}} · 계산 {{analysis}}{{prop}}{{window}}{{pick}}",
+    "propSegment": " · {{prop}}",
+    "windowSegment": " · {{window}}",
+    "pickSegment": " · {{pick}}",
+    "retention": "리텐션 {{start}} → {{retain}} · {{period}} · {{measure}}",
+    "periodDays": "{{n}}일",
+    "noEvent": "(이벤트 미지정)",
+    "measureCount": "사용자 수"
+  },
+  "timeRange": {
+    "extra": "지표에 기간이 있으면 알림 규칙이 기본적으로 따릅니다. 상대 기간만 지원하며(매일 반복 계산 가능) 최대 90일입니다",
+    "followAlert": "알림 윈도우를 따르도록 변경"
+  },
+  "conditionGroup": {
+    "extra": "이벤트 속성 / 사용자 속성 / 코호트 / 태그. 이벤트 분석의 조건 그룹과 의미가 같습니다"
+  },
+  "prop": {
+    "groupEvent": "이벤트 속성",
+    "groupUser": "사용자 속성",
+    "eventPlaceholder": "속성 선택",
+    "eventDisabledPlaceholder": "현재 방법에는 속성이 필요하지 않습니다",
+    "tooltip": "계산 방법에 속성이 필요하면 필수입니다. 속성 유형이 선택 가능한 계산 방법을 결정합니다",
+    "eventWithType": "{{name}}({{type}})",
+    "userWithType": "{{name}}(사용자·{{type}})",
+    "userOnly": "{{name}}(사용자)"
+  },
+  "event": {
+    "searchPlaceholder": "이벤트 검색 또는 선택",
+    "optionWithName": "{{key}}({{name}})",
+    "staleOption": "{{event}}(이벤트 목록에 없음, 기존 값 유지)"
+  },
+  "transform": {
+    "tooltip": "먼저 사칙연산을 하고 소수 자릿수를 적용합니다(이벤트 분석과 동일)",
+    "valuePlaceholder": "연산 값(선택)"
+  },
+  "decimals": {
+    "placeholder": "0-6 선택 가능"
+  },
+  "trial": {
+    "run": "미리 계산",
+    "hint": "현재 정의로 한 번 실제 계산합니다(알림 판정과 동일한 구현). 저장하지 않습니다",
+    "failed": "계산 실패",
+    "result": "현재 값 {{value}} · {{window}}({{start}} ~ {{end}}) · {{pick}}{{auto}}",
+    "autoSuffix": "(자동)",
+    "note": "{{note}}. 소요 시간 {{ms}}ms"
+  },
+  "validation": {
+    "eventRequired": "이벤트를 선택해 주세요",
+    "analysisRequired": "계산 방법을 선택해 주세요",
+    "displayNameRequired": "표시 이름을 입력해 주세요",
+    "metricNameRequired": "지표 이름을 입력해 주세요",
+    "metricNamePattern": "소문자로 시작하고 소문자/숫자/밑줄만 사용하며 최대 80자",
+    "metricNamePatternShort": "형식이 규칙에 맞지 않습니다",
+    "metricRequired": "지표를 선택해 주세요",
+    "periodRequired": "주기를 선택해 주세요",
+    "periodFilled": "주기를 입력해 주세요",
+    "startEventRequired": "시작 이벤트를 선택해 주세요",
+    "retainEventRequired": "재방문 이벤트를 선택해 주세요"
+  },
+  "create": {
+    "title": "이벤트 지표 새로 만들기",
+    "displayNamePlaceholder": "예: 최근 7일 일평균 주문 금액",
+    "metricNamePlaceholder": "예: order_amount_daily_avg_7d",
+    "metricNameExtra": "자산의 고유 키이며 생성 후 수정할 수 없습니다. 분석과 알림에서 이 키로 참조합니다",
+    "definitionHint": "정의(이벤트 분석과 같은 수준). 저장하기 전에 '미리 계산'을 권장합니다"
+  },
+  "modal": {
+    "title": "지표 만들기",
+    "metricNameExtra": "소문자로 시작하고 소문자/숫자/밑줄을 포함할 수 있으며 80자를 넘지 않습니다",
+    "metricFallback": "지표",
+    "summaryEvent": "{{event}} · {{metric}}",
+    "summaryEventEmpty": "먼저 이벤트 지표를 하나 설정하고 조회하세요",
+    "summaryRetention": "시작 {{start}} → 재방문 {{end}}",
+    "summaryRetentionEmpty": "먼저 리텐션 조회를 완료하세요",
+    "summaryNote": ". 기간은 조회 시점을 기준으로 하며 지표에 저장되지 않습니다."
+  },
+  "apply": {
+    "trigger": "지표에서 추가",
+    "ok": "적용",
+    "placeholder": "저장된 지표 선택",
+    "empty": "해당 유형의 지표가 아직 없습니다"
+  },
+  "detail": {
+    "title": "지표 상세",
+    "titleNamed": "지표 상세 · {{name}}",
+    "meta": "생성자 {{owner}} · 생성 {{created}} · 업데이트 {{updated}}",
+    "readonlyNote": "지표 이름은 자산의 고유 키이고 유형은 정의 모델을 결정하므로 변경하면 기존 분석과 알림 참조가 끊어져 읽기 전용입니다.",
+    "saving": "저장 중",
+    "createCard": "대시보드 카드 만들기",
+    "cardName": "{{name}}(지표 카드)",
+    "alertTitle": "정의 설명",
+    "alertBody": "지표에는 조회 시간과 값 선택이 포함됩니다. 조회 시간을 설정하지 않으면 알림은 규칙 윈도우로 계산합니다(기존 동작). 분석에 적용할 때는 분석 페이지의 기간이 우선합니다. 지표를 알림 규칙에서 참조하면 정의를 바꿀 때 알림 판정 조건도 함께 바뀝니다(운영 → 모니터링 알림 → 정책).",
+    "retentionFiltersTitle": "리텐션 지표의 필터 조건",
+    "retentionFiltersBody": "시작/재방문 이벤트에 포함된 필터 조건은 이벤트와 함께 유지됩니다. 코호트 범위와 주기는 여기에서 바로 조정할 수 있습니다.",
+    "cohortRangeTooltip": "리텐션의 성숙 코호트 기간입니다. 설정하지 않으면 주기에 따라 자동 산출합니다(주기+1일 이상, 최대 180일)",
+    "deriveFromCycle": "주기 기준으로 산출",
+    "derivedFromCycle": "주기 기준 산출",
+    "cohortRangeDerived": "주기 기준 산출({{days}}일)"
+  },
+  "message": {
+    "deleted": "삭제되었습니다",
+    "updated": "지표가 업데이트되었습니다",
+    "created": "지표가 생성되었습니다",
+    "cardCreated": "'{{name}}' 카드를 만들었습니다. 대시보드 스튜디오에서 대시보드에 추가할 수 있습니다",
+    "noEventMetric": "저장할 수 있는 이벤트 지표가 없습니다",
+    "queryRetentionFirst": "먼저 리텐션을 조회하세요"
+  },
+  "confirm": {
+    "deleteTitle": "'{{name}}' 지표를 삭제하시겠습니까?",
+    "deleteEditing": "이 지표를 삭제하며 저장하지 않은 변경 사항도 함께 사라집니다. 이를 참조하는 분석과 알림이 무효화됩니다.",
+    "deleteContent": "이를 참조하는 분석과 알림이 무효화되며 삭제 후에는 복구할 수 없습니다."
+  }
+}
