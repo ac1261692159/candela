@@ -27,6 +27,15 @@ On top of ClkLog Community Edition (collection and basic reports), Candela adds 
 - [Fully AI-written](#fully-ai-written-vibe-coding)
   - [AGENTS.md](#agentsmd-the-layer-that-keeps-multi-model-work-controllable)
 - [Capabilities](#capabilities)
+  - [Tracking catalog](#tracking-catalog)
+  - [Analysis](#analysis)
+  - [Users](#users)
+  - [Dashboards, SQL, and metrics](#dashboards-sql-and-metrics)
+  - [Data management](#data-management)
+  - [Operations and alerts](#operations-and-alerts)
+  - [Access control](#access-control)
+  - [AI assistant](#ai-assistant)
+  - [Languages](#languages)
 - [Architecture](#architecture)
 - [Deploy](#deploy)
   - [Prerequisites](#prerequisites)
@@ -62,7 +71,11 @@ Candela does not ship a fixed catalog of page views and channels. You define the
 | Reference tables | Dimension tables you upload as CSV | A product catalog joined on `product_id` |
 | Saved work | Dashboards, analysis cards, alert rules | A weekly acquisition board |
 
-Event and property names are yours. `PageView`, `SubmitOrder`, and `PaySuccess` are examples, not a built-in schema.
+Event and property names are yours. `PageView`, `SubmitOrder`, and `PaySuccess` are examples, not a built-in schema. A reported event shows up as a row you can name, hide, or describe.
+
+<img src="docs/readme/00-events.png" alt="Event catalog: reported events with display names, status, and recent volume" width="880">
+
+*Tracking catalog. Each row is an event that has already been reported. Open it to set the display name, status, and description.*
 
 ### Questions you can ask
 
@@ -74,6 +87,38 @@ Event and property names are yours. `PageView`, `SubmitOrder`, and `PaySuccess` 
 | What this one person did, in order | User timeline |
 | A question the three models above do not cover | Custom SQL (read-only) and charts on a dashboard |
 | Tell me when a saved number crosses a line | Metrics and alerts (Feishu, email, SMS, and other channels) |
+
+<img src="docs/readme/01-event-analysis.png" alt="Event analysis: starts per user and average session length over 30 days" width="880">
+
+*Event analysis. Two metrics on one time range: starts per user, and average session length.*
+
+<img src="docs/readme/03-funnel-analysis.png" alt="Funnel from app start through login into onboarding, with a sharp drop at the guide step" width="880">
+
+*Funnel. Of everyone who started the app, most reached login. The guide step is where most people left.*
+
+<img src="docs/readme/04-retention-analysis.png" alt="Retention table: day-1 through day-30 return counts for each daily cohort" width="880">
+
+*Retention. Each row is a cohort. Each column is how many of those people came back on that day.*
+
+<img src="docs/readme/06-usertimeline01.png" alt="User timeline: look a person up by a business id and see which events they produced" width="880">
+
+*User timeline. Look a person up by a business id. The page resolves them and shows which events they produced.*
+
+<img src="docs/readme/06-usertimeline02.png" alt="Same person: user attributes on the left and the event list on the right" width="880">
+
+*Same person, further down. Attributes on the left, the event list on the right.*
+
+<img src="docs/readme/02-custom-analysis_and_harness.png" alt="Custom SQL for CDN download speed, with the AI assistant reading the current result" width="880">
+
+*Custom SQL, with the AI assistant beside it. The query stays read-only. The assistant can see the current result.*
+
+<img src="docs/readme/05-dashboard.png" alt="Dashboard of daily active users, revenue, play time, and retention cards" width="880">
+
+*Dashboard. The same results, saved as cards on one board: counts, a trend, and revenue.*
+
+<img src="docs/readme/09-alert02.png" alt="Alert channels: email, Telegram, WhatsApp, and SMS providers" width="880">
+
+*Alerts. When a saved number crosses a line, the message goes out through one of these channels.*
 
 A typical path: register the event, confirm it arrived in Debug, run the analysis, save the result as a dashboard card.
 
@@ -120,19 +165,88 @@ In one line: **CDD turns "a person reviews the model's output" into "the model p
 
 ## Capabilities
 
-The tables above are the data and the questions. This is the same surface as a feature list:
+The pictures above are worked examples. This is the rest of the product, area by area.
 
-| Area | What you get |
-|---|---|
-| Tracking catalog | Meta events and properties, virtual events, virtual properties, event notes, discovery log |
-| Analysis | Event analysis (multiple metrics, filters, breakdowns, formulas, approximate calculation), funnels (2–32 steps, window, conversion and drop-off), retention (cohort, day N, trend), user timelines |
-| Users | Cohorts (conditions / CSV / SQL / result snapshot), user tags, analysis subjects |
-| Dashboards and reports | Dashboard studio (grid drag and resize), card cache and background warm-up, custom SQL reports (data dictionary + builder), charts (line / bar / pie / donut / metric / funnel), metrics v1–v3 |
-| Data management | Dimension tables (CSV upload, versioned snapshots, cross-table joins), partition cleanup and TTL, log-directory governance, consistency reconciliation |
-| Operations and alerts | Ops console (slow SQL, host status, disk forecast), alert rules (Feishu / email / SMS, templates, health, delivery retry, mute) |
-| Access control | Three global roles plus five project roles, member groups, data-permission injection, dashboard folders, asset locks |
-| AI | AI analysis assistant (Harness runtime, multiple model providers, Workspace template sync) — **off by default**, see [Configuration and secrets](#configuration-and-secrets) |
-| Internationalization | 13 languages (zh-CN / zh-TW / en-US / ja / ko / ru / fr / de / es / pt / vi / th / id). CI checks key-set consistency and a hardcoded-text ratchet |
+### Tracking catalog
+
+Reported events show up on their own. You do not register a name before the first event can be stored. The catalog is where you decide what analysts are allowed to pick.
+
+- Each event has a display name, a description, an owner, and a status. Hiding an event removes it from the analysis pickers. The detail shows when it was first seen and how much volume it had recently.
+- Event properties and user properties are sampled as they arrive: key, type, and an example value. You can correct the display name and the type (string, number, boolean, datetime, list).
+- A virtual event is a saved event plus filters, such as "app checkout". After you name it, every analysis can pick it the way it picks a raw event.
+- A virtual property is a saved expression over properties you already have. Analysis can filter, break down, and aggregate on it the same way as on a stored property.
+- Notes sit on the event. Debug shows the latest raw events for a person or an event name, properties included, so you can confirm a new event landed before anyone builds a dashboard on it.
+
+### Analysis
+
+Four ways to ask a question, plus a chart for each answer. Any of them can be saved as a card, exported as CSV, or turned into a metric.
+
+**Event analysis.** Put several metrics on one time range: count, unique users, sum, average, max, min, distinct count, a percentile, or a per-user rate. Filter on event properties and user properties, combined with and/or. Break the result down by a property, or by hour, day, week, or month. A formula combines metrics you already added. Approximate calculation is there when the scan is large. The result is a time series and a table.
+
+**Funnel.** 2 to 32 steps. Each step is an event plus an optional filter. You set the window in which the steps must happen. The result is the overall conversion, the drop-off at each step, a funnel chart, and the step table.
+
+**Retention.** Pick a start event and a return event. They can be the same event or two different ones. Choose everyone who did the start event, or only people whose first day it was. The table is one row per cohort and one column per return day (day 1, day 7, day 30, or a day you add). A trend follows one of those columns across cohorts.
+
+**User timeline.** Look a person up by a business attribute, without knowing the internal id. The page resolves them, lists their attributes, and shows the events in order, with the share of each event and the neighboring events around a row.
+
+Every analysis has a subject, the unit you are counting. The preset subject is the user. A project can add others.
+
+### Users
+
+Cohorts and tags are saved sets of people. Once saved, analysis and dashboards can filter or break down by them.
+
+- A condition cohort is a sentence: did this event, did not, did these events in order, or matches these user properties, inside a time window. It can recalculate on a schedule or only when you refresh it.
+- An ID cohort is a CSV of user ids.
+- A SQL cohort is a query that returns the people.
+- A result cohort is the set of people behind a count in an event, funnel, or retention result, saved as a snapshot.
+- Tags are another way to mark the same people and reuse the mark.
+- Analysis subjects define who "a person" is for that project, when the preset user is the wrong unit.
+
+### Dashboards, SQL, and metrics
+
+A dashboard is a grid. Cards drag and resize. A card remembers the analysis that produced it (event, funnel, retention, or SQL) and refreshes from cache, with background warm-up so the board is not empty on open. A cohort filter on the board narrows the cards together.
+
+Charts on a card are line, bar, pie, donut, a single number, or a funnel.
+
+Custom SQL is for the question the three models do not cover. You can write SQL or use the builder. A dictionary beside the editor lists events, event properties, user properties, system fields, and cohorts. The query runs as a read-only account. The result can be a table or a chart, and it can be saved as a card.
+
+A metric is a saved definition, taken from an event-analysis result or a retention slice. You reuse it in a later query instead of rebuilding the filters, and you can alert on it.
+
+### Data management
+
+- Dimension tables are CSV or Excel files you upload: confirm the columns, preview the rows, then bind a column to an event property so a query can join them. Each upload keeps a versioned snapshot.
+- Data quality compares what you registered with what actually arrived: type mismatches, unknown properties, missing required values.
+- Consistency reconciliation checks the analytics store against the community event log.
+- Partition cleanup, TTL, and log-directory governance are how the stored events and logs stay bounded.
+- The integration guide is the page that explains how to send events in.
+
+### Operations and alerts
+
+The ops console is for the person running the machine: slow SQL, host status, and a disk forecast.
+
+Alerts cover both the product and the machine. A metric alert fires when a saved number crosses a threshold. Built-in rules watch slow queries, query failures, card-cache failures, ClickHouse availability, free disk, and a stale ingest path. A rule has a severity, a window, how long the condition must hold, and how often to repeat the message while it is still firing.
+
+Delivery goes through Feishu, DingTalk, WeCom, a generic webhook, email, SMS (Alibaba Cloud, Tencent Cloud, AWS, Twilio), Telegram, and WhatsApp. Message text comes from a template. You can mute a channel, retry a failed delivery, and send a test message. Each rule shows a health state, and changes are written to a log.
+
+### Access control
+
+A platform admin runs the installation: projects, the ops console, and who owns a project. Inside a project the roles are project owner, analysis admin, analyst, member, and external. People can also be placed in member groups, and a grant can target the group.
+
+A data policy limits which events, event properties, and user properties a member can see, and can add a row filter. The limit is applied when the query runs.
+
+Dashboards live in folders. A folder, dashboard, card, cohort, or tag can be locked so its definition stops changing, or shared with specific people for view or edit.
+
+### AI assistant
+
+An assistant sits beside the analysis you already have open. It can read the current page (the query, the time range, the result) and answer from that, or run a tool call. You configure model providers yourself; the workspace templates can be synced from the product.
+
+It is **off by default**. Turning it on needs the Harness runtime and a provider key. See [Configuration and secrets](#configuration-and-secrets).
+
+### Languages
+
+The interface, errors, exports, and notification text ship in 13 languages: simplified Chinese, traditional Chinese, English, Japanese, Korean, Russian, French, German, Spanish, Portuguese, Vietnamese, Thai, and Indonesian. The language follows the signed-in user. Names you created (events, dashboards, notes, SQL) stay as you wrote them.
+
+CI checks that every language has the same keys, and that new interface text is not hardcoded.
 
 ---
 

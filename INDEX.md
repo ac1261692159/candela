@@ -18,6 +18,7 @@
 |------|---------|
 | 项目现状与入口（英文，GitHub 默认） | `README.md` |
 | 项目现状与入口（中文） | `README.zh-CN.md` |
+| README 配图（埋点、事件分析、漏斗、留存、用户行为序列、自定义 SQL、看板、告警通道） | `docs/readme/` |
 | 开发方法论 CDD（英文） | `CDD-methodology.md` |
 | 开发方法论 CDD（中文） | `CDD-methodology.zh-CN.md` |
 | **接手/交接入口（仓库来源、目标机现状、待办与已知坑）** | `docs/project/handoff-candela-new-repo.md` |
