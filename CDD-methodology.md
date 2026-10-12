@@ -167,21 +167,7 @@ Gaps that stay explicit:
 
 These improvements are candidates. This document does not authorize implementing them.
 
-## 7. How to describe it in public, and the contribution boundary
-
-A fair public description:
-
-> Candela is an engineering practice in fully AI-written development, using Charter-Driven Development (CDD). `AGENTS.md` is the governance entry. Ongoing development is organized by separated duties, layers of authority, a design gate, an architecture ratchet, and production acceptance. Operating experience is written back into rules and check tools.
-
-> A Skill solves the experience problem of a named domain. CDD solves project governance: the first helps the AI do a task professionally, the second states duty, authority, boundary, and acceptance, so different domain capabilities serve the project's long-term evolution together.
-
-It is fair to emphasize the combination in practice, the concrete tools, and traceable cases. It is not fair to claim the charter was invented here, that drift is fully eliminated, that every rule is automatically enforced, or that the method has already been shown to beat other methods.
-
-The most convincing open-source material is a complete case: the original problem and its impact, the cause, the change to a rule and a tool, how later work was constrained, the verification result, and the risk still uncovered. Each case points at a commit or an acceptance record, with secrets and environment-sensitive details removed.
-
-CDD currently fits as a method and a practice case. Becoming a reusable framework means extracting general principles from Candela, providing init and status tools, and trying them on other projects.
-
-## 8. Where it can evolve
+## 7. Where it can evolve
 
 | Direction | Purpose |
 |---|---|
